@@ -20,14 +20,12 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -51,6 +49,12 @@ import com.pixelpioneer.moneymaster.util.UiState
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,7 +64,8 @@ fun TransactionsScreen(
 ) {
     val transactionsState = transactionViewModel.transactionsState.collectAsState().value
     var searchQuery by remember { mutableStateOf("") }
-    var isSearchActive by remember { mutableStateOf(false) }
+
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Scaffold(
         bottomBar = { MoneyMasterBottomNavigation(navController) },
@@ -85,23 +90,23 @@ fun TransactionsScreen(
                 modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
             )
 
-            // Search Bar
-            SearchBar(
-                query = searchQuery,
-                onQueryChange = { searchQuery = it },
-                onSearch = { isSearchActive = false },
-                active = isSearchActive,
-                onActiveChange = { isSearchActive = it },
-                placeholder = { Text("Search transactions") },
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search") },
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-            ) {
-                // Search suggestions can go here
-            }
+                    .padding(vertical = 8.dp),
+                placeholder = { Text("Search transactions") },
+                leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search") },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                keyboardActions = KeyboardActions(
+                    onSearch = {
+                        keyboardController?.hide()
+                    }
+                )
+            )
 
-            // Transactions List
             when (transactionsState) {
                 is UiState.Loading -> {
                     Box(
@@ -113,7 +118,6 @@ fun TransactionsScreen(
                 }
                 is UiState.Success -> {
                     val transactions = transactionsState.data
-                    // Filter transactions based on search query if needed
                     val filteredTransactions = if (searchQuery.isBlank()) {
                         transactions
                     } else {
@@ -133,7 +137,7 @@ fun TransactionsScreen(
                                 onClick = { onTransactionClick(transaction, navController) },
                                 onDeleteClick = { transactionViewModel.deleteTransaction(transaction) }
                             )
-                            Divider()
+                            HorizontalDivider()
                         }
                     }
                 }
