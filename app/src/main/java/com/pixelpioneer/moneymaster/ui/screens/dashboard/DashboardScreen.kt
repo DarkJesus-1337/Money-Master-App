@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDownward
@@ -37,7 +37,7 @@ import com.pixelpioneer.moneymaster.ui.components.EmptyBudgetsList
 import com.pixelpioneer.moneymaster.ui.components.EmptyFinancialSummary
 import com.pixelpioneer.moneymaster.ui.components.EmptyTransactionsList
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
-import com.pixelpioneer.moneymaster.ui.components.RecentTransactionsList
+import com.pixelpioneer.moneymaster.ui.components.RecentTransactionItem
 import com.pixelpioneer.moneymaster.ui.components.ViewAllTransactionsButton
 import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterBottomNavigation
 import com.pixelpioneer.moneymaster.ui.navigation.Screen
@@ -67,140 +67,165 @@ fun DashboardScreen(
             }
         }
     ) { paddingValues ->
-        Column(
+        // Use LazyColumn instead of Column with verticalScroll
+        // This will prevent nesting scrollable components
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp)
         ) {
-            Text(
-                text = "Dashboard",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold
-            )
-            
-            Spacer(modifier = Modifier.height(16.dp))
+            // Title Section
+            item {
+                Text(
+                    text = "Dashboard",
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(vertical = 16.dp)
+                )
+            }
 
             // Financial Summary Section
-            when (financialSummaryState) {
-                is UiState.Loading -> {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator()
+            item {
+                when (financialSummaryState) {
+                    is UiState.Loading -> {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(200.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator()
+                        }
                     }
-                }
-                is UiState.Success -> {
-                    FinancialSummaryCards(financialSummaryState.data)
-                }
-                is UiState.Error -> {
-                    ErrorMessage(
-                        message = financialSummaryState.message,
-                        onRetry = { /* Reload data */ }
-                    )
-                }
-                is UiState.Empty -> {
-                    // Show empty state or initial guidance
-                    EmptyFinancialSummary()
+                    is UiState.Success -> {
+                        FinancialSummaryCards(financialSummaryState.data)
+                    }
+                    is UiState.Error -> {
+                        ErrorMessage(
+                            message = financialSummaryState.message,
+                            onRetry = { /* Reload data */ }
+                        )
+                    }
+                    is UiState.Empty -> {
+                        EmptyFinancialSummary()
+                    }
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            // Spacing
+            item {
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // Recent Transactions Section Title
+                Text(
+                    text = "Recent Transactions",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+            }
 
             // Recent Transactions Section
-            Text(
-                text = "Recent Transactions",
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
-            )
-            
-            Spacer(modifier = Modifier.height(8.dp))
-
             when (transactionsState) {
                 is UiState.Loading -> {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator()
+                    item {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(200.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator()
+                        }
                     }
                 }
                 is UiState.Success -> {
                     // Show only the 5 most recent transactions
                     val recentTransactions = transactionsState.data.take(5)
-                    RecentTransactionsList(
-                        transactions = recentTransactions,
-                        onTransactionClick = { transaction ->
-                            navController.navigate(Screen.TransactionDetail.createRoute(transaction.id))
-                        }
-                    )
-                    
-                    // View All Transactions button
+
+                    // Display each transaction as a separate item
+                    items(recentTransactions) { transaction ->
+                        RecentTransactionItem(
+                            transaction = transaction,
+                            onClick = {
+                                navController.navigate(Screen.TransactionDetail.createRoute(transaction.id))
+                            }
+                        )
+                    }
+
+                    // View All Transactions button if needed
                     if (transactionsState.data.size > 5) {
-                        Spacer(modifier = Modifier.height(8.dp))
-                        ViewAllTransactionsButton(
-                            onClick = { navController.navigate(Screen.Transactions.route) }
+                        item {
+                            Spacer(modifier = Modifier.height(8.dp))
+                            ViewAllTransactionsButton(
+                                onClick = { navController.navigate(Screen.Transactions.route) }
+                            )
+                        }
+                    }
+                }
+                is UiState.Error -> {
+                    item {
+                        ErrorMessage(
+                            message = transactionsState.message,
+                            onRetry = { /* Reload data */ }
                         )
                     }
                 }
-                is UiState.Error -> {
-                    ErrorMessage(
-                        message = transactionsState.message,
-                        onRetry = { /* Reload data */ }
-                    )
-                }
                 is UiState.Empty -> {
-                    EmptyTransactionsList(
-                        onAddTransaction = { navController.navigate(Screen.AddTransaction.route) }
-                    )
+                    item {
+                        EmptyTransactionsList(
+                            onAddTransaction = { navController.navigate(Screen.AddTransaction.route) }
+                        )
+                    }
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
-
             // Budget Overview Section
-            Text(
-                text = "Budget Overview",
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
-            )
-            
-            Spacer(modifier = Modifier.height(8.dp))
+            item {
+                Spacer(modifier = Modifier.height(24.dp))
 
-            when (budgetsState) {
-                is UiState.Loading -> {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator()
+                Text(
+                    text = "Budget Overview",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                when (budgetsState) {
+                    is UiState.Loading -> {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(200.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator()
+                        }
+                    }
+                    is UiState.Success -> {
+                        BudgetOverview(
+                            budgets = budgetsState.data,
+                            onBudgetsClick = { navController.navigate(Screen.Budgets.route) }
+                        )
+                    }
+                    is UiState.Error -> {
+                        ErrorMessage(
+                            message = budgetsState.message,
+                            onRetry = { /* Reload data */ }
+                        )
+                    }
+                    is UiState.Empty -> {
+                        EmptyBudgetsList(
+                            onAddBudget = { navController.navigate(Screen.AddBudget.route) }
+                        )
                     }
                 }
-                is UiState.Success -> {
-                    BudgetOverview(
-                        budgets = budgetsState.data,
-                        onBudgetsClick = { navController.navigate(Screen.Budgets.route) }
-                    )
-                }
-                is UiState.Error -> {
-                    ErrorMessage(
-                        message = budgetsState.message,
-                        onRetry = { /* Reload data */ }
-                    )
-                }
-                is UiState.Empty -> {
-                    EmptyBudgetsList(
-                        onAddBudget = { navController.navigate(Screen.AddBudget.route) }
-                    )
-                }
+
+                // Add some spacing at the bottom
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }
@@ -240,7 +265,7 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
                         )
                     }
                 }
-                
+
                 Text(
                     text = FormatUtils.formatCurrency(summary.balance),
                     style = MaterialTheme.typography.headlineMedium,
@@ -250,7 +275,7 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
                 )
             }
         }
-        
+
         // Income and Expenses Cards in Row
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -281,7 +306,7 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
                             color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                     }
-                    
+
                     Text(
                         text = FormatUtils.formatCurrency(summary.totalIncome),
                         style = MaterialTheme.typography.titleLarge,
@@ -291,7 +316,7 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
                     )
                 }
             }
-            
+
             // Expenses Card
             Card(
                 modifier = Modifier
@@ -317,7 +342,7 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
                             color = MaterialTheme.colorScheme.onErrorContainer
                         )
                     }
-                    
+
                     Text(
                         text = FormatUtils.formatCurrency(summary.totalExpenses),
                         style = MaterialTheme.typography.titleLarge,
@@ -330,5 +355,3 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
         }
     }
 }
-
-// Empty State components will be implemented in separate files

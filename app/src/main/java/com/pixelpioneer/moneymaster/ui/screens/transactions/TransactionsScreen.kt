@@ -119,20 +119,23 @@ fun TransactionsScreen(
                     } else {
                         transactions.filter {
                             it.title.contains(searchQuery, ignoreCase = true) ||
-                            it.description.contains(searchQuery, ignoreCase = true) ||
-                            it.category.name.contains(searchQuery, ignoreCase = true)
+                                    it.description.contains(searchQuery, ignoreCase = true) ||
+                                    it.category.name.contains(searchQuery, ignoreCase = true)
                         }
                     }
 
-                    TransactionsList(
-                        transactions = filteredTransactions,
-                        onTransactionClick = { transaction ->
-                            navController.navigate(Screen.TransactionDetail.createRoute(transaction.id))
-                        },
-                        onDeleteClick = { transaction ->
-                            transactionViewModel.deleteTransaction(transaction)
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        items(filteredTransactions) { transaction ->
+                            TransactionItem(
+                                transaction = transaction,
+                                onClick = { onTransactionClick(transaction, navController) },
+                                onDeleteClick = { transactionViewModel.deleteTransaction(transaction) }
+                            )
+                            Divider()
                         }
-                    )
+                    }
                 }
                 is UiState.Error -> {
                     ErrorMessage(
@@ -150,22 +153,8 @@ fun TransactionsScreen(
     }
 }
 
-@Composable
-fun TransactionsList(
-    transactions: List<Transaction>,
-    onTransactionClick: (Transaction) -> Unit,
-    onDeleteClick: (Transaction) -> Unit
-) {
-    LazyColumn {
-        items(transactions) { transaction ->
-            TransactionItem(
-                transaction = transaction,
-                onClick = { onTransactionClick(transaction) },
-                onDeleteClick = { onDeleteClick(transaction) }
-            )
-            Divider()
-        }
-    }
+private fun onTransactionClick(transaction: Transaction, navController: NavController) {
+    navController.navigate(Screen.TransactionDetail.createRoute(transaction.id))
 }
 
 @Composable
@@ -177,10 +166,10 @@ fun TransactionItem(
     val dateFormat = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault())
     val date = Date(transaction.date)
     val formattedDate = dateFormat.format(date)
-    
+
     val amountColor = if (transaction.isExpense) Color.Red else Color.Green
     val amountPrefix = if (transaction.isExpense) "-" else "+"
-    
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -200,19 +189,19 @@ fun TransactionItem(
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
-                
+
                 Text(
                     text = transaction.category.name,
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color(transaction.category.color)
                 )
-                
+
                 Text(
                     text = formattedDate,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                
+
                 if (transaction.description.isNotBlank()) {
                     Text(
                         text = transaction.description,
@@ -222,7 +211,7 @@ fun TransactionItem(
                     )
                 }
             }
-            
+
             Column(
                 horizontalAlignment = Alignment.End
             ) {
@@ -232,9 +221,9 @@ fun TransactionItem(
                     color = amountColor,
                     fontWeight = FontWeight.Bold
                 )
-                
+
                 Spacer(modifier = Modifier.height(8.dp))
-                
+
                 IconButton(
                     onClick = onDeleteClick,
                     modifier = Modifier.size(24.dp)
@@ -264,15 +253,15 @@ fun EmptyTransactionsView(onAddButtonClick: () -> Unit) {
                 text = "No transactions yet",
                 style = MaterialTheme.typography.titleLarge
             )
-            
+
             Spacer(modifier = Modifier.height(8.dp))
-            
+
             Text(
                 text = "Track your expenses by adding your first transaction",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            
+
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(

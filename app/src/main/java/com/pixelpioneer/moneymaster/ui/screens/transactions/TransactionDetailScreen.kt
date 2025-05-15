@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -59,13 +61,13 @@ fun TransactionDetailScreen(
 ) {
     // Load transaction details
     transactionViewModel.loadTransactionById(transactionId)
-    
+
     // Observe transaction state
     val transactionState = transactionViewModel.selectedTransaction.collectAsState().value
-    
+
     // Delete confirmation dialog state
     var showDeleteDialog by remember { mutableStateOf(false) }
-    
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -90,7 +92,7 @@ fun TransactionDetailScreen(
                     onClick = {
                         // Initialize form with transaction data
                         transactionViewModel.initFormWithTransaction(transactionState.data)
-                        // TODO: Navigate to edit transaction screen when implemented
+                        // Navigate to edit transaction screen
                         navController.navigate(Screen.AddTransaction.route)
                     }
                 ) {
@@ -115,136 +117,140 @@ fun TransactionDetailScreen(
                 }
                 is UiState.Success -> {
                     val transaction = transactionState.data
-                    
-                    Column(
+
+                    // Use LazyColumn instead of Column with verticalScroll to avoid nesting issues
+                    LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(16.dp)
-                            .verticalScroll(rememberScrollState())
                     ) {
                         // Transaction amount card
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 8.dp)
-                        ) {
-                            Column(
+                        item {
+                            Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(16.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally
+                                    .padding(vertical = 8.dp)
                             ) {
-                                val amountColor = if (transaction.isExpense) {
-                                    MaterialTheme.colorScheme.error
-                                } else {
-                                    Color.Green
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    val amountColor = if (transaction.isExpense) {
+                                        MaterialTheme.colorScheme.error
+                                    } else {
+                                        Color.Green
+                                    }
+
+                                    val prefix = if (transaction.isExpense) "-" else "+"
+
+                                    Text(
+                                        text = "$prefix${FormatUtils.formatCurrency(transaction.amount)}",
+                                        style = MaterialTheme.typography.headlineLarge,
+                                        color = amountColor,
+                                        fontWeight = FontWeight.Bold
+                                    )
+
+                                    Spacer(modifier = Modifier.height(8.dp))
+
+                                    Text(
+                                        text = if (transaction.isExpense) "Expense" else "Income",
+                                        style = MaterialTheme.typography.titleMedium,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
                                 }
-                                
-                                val prefix = if (transaction.isExpense) "-" else "+"
-                                
-                                Text(
-                                    text = "$prefix${FormatUtils.formatCurrency(transaction.amount)}",
-                                    style = MaterialTheme.typography.headlineLarge,
-                                    color = amountColor,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                
-                                Spacer(modifier = Modifier.height(8.dp))
-                                
-                                Text(
-                                    text = if (transaction.isExpense) "Expense" else "Income",
-                                    style = MaterialTheme.typography.titleMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
                             }
                         }
-                        
-                        Spacer(modifier = Modifier.height(16.dp))
-                        
+
+                        item { Spacer(modifier = Modifier.height(16.dp)) }
+
                         // Transaction details card
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 8.dp)
-                        ) {
-                            Column(
+                        item {
+                            Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(16.dp)
+                                    .padding(vertical = 8.dp)
                             ) {
-                                // Title
-                                Text(
-                                    text = "Title",
-                                    style = MaterialTheme.typography.labelLarge,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                                
-                                Text(
-                                    text = transaction.title,
-                                    style = MaterialTheme.typography.titleLarge,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                
-                                Spacer(modifier = Modifier.height(16.dp))
-                                
-                                // Category
-                                Text(
-                                    text = "Category",
-                                    style = MaterialTheme.typography.labelLarge,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                                
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    modifier = Modifier.padding(top = 4.dp)
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp)
                                 ) {
-                                    Box(
-                                        modifier = Modifier
-                                            .size(24.dp)
-                                            .clip(CircleShape)
-                                            .background(Color(transaction.category.color))
-                                    )
-                                    
+                                    // Title
                                     Text(
-                                        text = transaction.category.name,
-                                        style = MaterialTheme.typography.titleMedium,
-                                        modifier = Modifier.padding(start = 8.dp)
-                                    )
-                                }
-                                
-                                Spacer(modifier = Modifier.height(16.dp))
-                                
-                                // Date
-                                Text(
-                                    text = "Date",
-                                    style = MaterialTheme.typography.labelLarge,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                                
-                                Text(
-                                    text = FormatUtils.formatDateTime(transaction.date),
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                                
-                                // Description if available
-                                if (transaction.description.isNotBlank()) {
-                                    Spacer(modifier = Modifier.height(16.dp))
-                                    
-                                    Text(
-                                        text = "Description",
+                                        text = "Title",
                                         style = MaterialTheme.typography.labelLarge,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
-                                    
+
                                     Text(
-                                        text = transaction.description,
-                                        style = MaterialTheme.typography.bodyLarge
+                                        text = transaction.title,
+                                        style = MaterialTheme.typography.titleLarge,
+                                        fontWeight = FontWeight.Bold
                                     )
+
+                                    Spacer(modifier = Modifier.height(16.dp))
+
+                                    // Category
+                                    Text(
+                                        text = "Category",
+                                        style = MaterialTheme.typography.labelLarge,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        modifier = Modifier.padding(top = 4.dp)
+                                    ) {
+                                        Box(
+                                            modifier = Modifier
+                                                .size(24.dp)
+                                                .clip(CircleShape)
+                                                .background(Color(transaction.category.color))
+                                        )
+
+                                        Text(
+                                            text = transaction.category.name,
+                                            style = MaterialTheme.typography.titleMedium,
+                                            modifier = Modifier.padding(start = 8.dp)
+                                        )
+                                    }
+
+                                    Spacer(modifier = Modifier.height(16.dp))
+
+                                    // Date
+                                    Text(
+                                        text = "Date",
+                                        style = MaterialTheme.typography.labelLarge,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+
+                                    Text(
+                                        text = FormatUtils.formatDateTime(transaction.date),
+                                        style = MaterialTheme.typography.titleMedium
+                                    )
+
+                                    // Description if available
+                                    if (transaction.description.isNotBlank()) {
+                                        Spacer(modifier = Modifier.height(16.dp))
+
+                                        Text(
+                                            text = "Description",
+                                            style = MaterialTheme.typography.labelLarge,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+
+                                        Text(
+                                            text = transaction.description,
+                                            style = MaterialTheme.typography.bodyLarge
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
-                    
+
                     // Delete confirmation dialog
                     if (showDeleteDialog) {
                         AlertDialog(

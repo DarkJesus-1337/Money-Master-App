@@ -66,16 +66,15 @@ fun BudgetsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(16.dp)
+                .padding(horizontal = 16.dp)
         ) {
             Text(
                 text = "Budgets",
                 style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(vertical = 16.dp)
             )
-            
-            Spacer(modifier = Modifier.height(16.dp))
-            
+
             when (budgetsState) {
                 is UiState.Loading -> {
                     Box(
@@ -86,12 +85,17 @@ fun BudgetsScreen(
                     }
                 }
                 is UiState.Success -> {
-                    BudgetsList(
-                        budgets = budgetsState.data,
-                        onBudgetClick = { budget ->
-                            // Navigate to budget detail when implemented
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        items(budgetsState.data) { budget ->
+                            BudgetItem(
+                                budget = budget,
+                                onClick = { /* Navigate to budget detail when implemented */ }
+                            )
                         }
-                    )
+                    }
                 }
                 is UiState.Error -> {
                     ErrorMessage(
@@ -105,23 +109,6 @@ fun BudgetsScreen(
                     )
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun BudgetsList(
-    budgets: List<Budget>,
-    onBudgetClick: (Budget) -> Unit
-) {
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(budgets) { budget ->
-            BudgetItem(
-                budget = budget,
-                onClick = { onBudgetClick(budget) }
-            )
         }
     }
 }
@@ -153,7 +140,7 @@ fun BudgetItem(
                         .clip(CircleShape)
                         .background(Color(budget.category.color))
                 )
-                
+
                 Column(
                     modifier = Modifier
                         .weight(1f)
@@ -164,14 +151,14 @@ fun BudgetItem(
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
-                    
+
                     Text(
                         text = getBudgetPeriodText(budget.period),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
-                
+
                 // Budget amount
                 Text(
                     text = FormatUtils.formatCurrency(budget.amount),
@@ -179,9 +166,9 @@ fun BudgetItem(
                     fontWeight = FontWeight.Bold
                 )
             }
-            
+
             Spacer(modifier = Modifier.height(16.dp))
-            
+
             // Progress information
             val progress = if (budget.amount > 0) {
                 min(budget.spent / budget.amount, 1.0)
@@ -194,7 +181,7 @@ fun BudgetItem(
                 progress >= 0.7 -> MaterialTheme.colorScheme.errorContainer
                 else -> MaterialTheme.colorScheme.primary
             }
-            
+
             // Show warning icon if over 90% used
             if (progress >= 0.9) {
                 Row(
@@ -207,7 +194,7 @@ fun BudgetItem(
                         tint = MaterialTheme.colorScheme.error,
                         modifier = Modifier.size(20.dp)
                     )
-                    
+
                     Text(
                         text = "Budget almost used up!",
                         style = MaterialTheme.typography.bodySmall,
@@ -216,16 +203,16 @@ fun BudgetItem(
                     )
                 }
             }
-            
+
             // Progress bar
             LinearProgressIndicator(
                 progress = progress.toFloat(),
                 modifier = Modifier.fillMaxWidth(),
                 color = progressColor
             )
-            
+
             Spacer(modifier = Modifier.height(8.dp))
-            
+
             // Spent amount info
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -235,15 +222,15 @@ fun BudgetItem(
                     text = "Spent: ${FormatUtils.formatCurrency(budget.spent)}",
                     style = MaterialTheme.typography.bodyMedium
                 )
-                
+
                 Text(
                     text = "Remaining: ${FormatUtils.formatCurrency(budget.amount - budget.spent)}",
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
-            
+
             Spacer(modifier = Modifier.height(8.dp))
-            
+
             // Percentage used
             Text(
                 text = "${(progress * 100).toInt()}% used",
@@ -269,15 +256,15 @@ fun EmptyBudgetsView(onAddButtonClick: () -> Unit) {
                 text = "No budgets yet",
                 style = MaterialTheme.typography.titleLarge
             )
-            
+
             Spacer(modifier = Modifier.height(8.dp))
-            
+
             Text(
                 text = "Create budgets to help manage your spending",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            
+
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
