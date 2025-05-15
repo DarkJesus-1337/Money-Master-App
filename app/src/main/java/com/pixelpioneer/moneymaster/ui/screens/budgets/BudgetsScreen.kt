@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.ui.screens
+package com.pixelpioneer.moneymaster.ui.screens.budgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
@@ -278,8 +279,8 @@ fun EmptyBudgetsView(onAddButtonClick: () -> Unit) {
             )
             
             Spacer(modifier = Modifier.height(16.dp))
-            
-            androidx.compose.material3.Button(
+
+            Button(
                 onClick = onAddButtonClick
             ) {
                 Icon(

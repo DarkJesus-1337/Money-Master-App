@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.ui.screens
+package com.pixelpioneer.moneymaster.ui.screens.dashboard
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,16 +32,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.pixelpioneer.moneymaster.ui.components.BudgetOverview
+import com.pixelpioneer.moneymaster.ui.components.EmptyBudgetsList
+import com.pixelpioneer.moneymaster.ui.components.EmptyFinancialSummary
+import com.pixelpioneer.moneymaster.ui.components.EmptyTransactionsList
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.components.RecentTransactionsList
+import com.pixelpioneer.moneymaster.ui.components.ViewAllTransactionsButton
 import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterBottomNavigation
 import com.pixelpioneer.moneymaster.ui.navigation.Screen
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
+import com.pixelpioneer.moneymaster.ui.viewmodel.FinancialSummary
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 import com.pixelpioneer.moneymaster.util.FormatUtils
 import com.pixelpioneer.moneymaster.util.UiState
-import java.text.NumberFormat
-import java.util.Locale
 
 @Composable
 fun DashboardScreen(
@@ -203,7 +207,7 @@ fun DashboardScreen(
 }
 
 @Composable
-fun FinancialSummaryCards(summary: com.pixelpioneer.moneymaster.ui.viewmodel.FinancialSummary) {
+fun FinancialSummaryCards(summary: FinancialSummary) {
     Column {
         // Balance Card
         Card(

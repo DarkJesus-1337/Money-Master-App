@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.ui.screens
+package com.pixelpioneer.moneymaster.ui.screens.transactions
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
@@ -47,7 +48,6 @@ import com.pixelpioneer.moneymaster.ui.navigation.Screen
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 import com.pixelpioneer.moneymaster.util.FormatUtils
 import com.pixelpioneer.moneymaster.util.UiState
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -274,8 +274,8 @@ fun EmptyTransactionsView(onAddButtonClick: () -> Unit) {
             )
             
             Spacer(modifier = Modifier.height(16.dp))
-            
-            androidx.compose.material3.Button(
+
+            Button(
                 onClick = onAddButtonClick
             ) {
                 Icon(

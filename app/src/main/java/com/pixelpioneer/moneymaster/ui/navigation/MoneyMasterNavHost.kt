@@ -1,8 +1,5 @@
 package com.pixelpioneer.moneymaster.ui.navigation
 
-
-
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -17,10 +14,16 @@ import com.pixelpioneer.moneymaster.ui.screens.statistics.StatisticsScreen
 import com.pixelpioneer.moneymaster.ui.screens.transactions.AddTransactionScreen
 import com.pixelpioneer.moneymaster.ui.screens.transactions.TransactionDetailScreen
 import com.pixelpioneer.moneymaster.ui.screens.transactions.TransactionsScreen
+import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
+import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryViewModel
+import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 
 @Composable
 fun MoneyMasterNavHost(
     navController: NavHostController,
+    transactionViewModel: TransactionViewModel,
+    categoryViewModel: CategoryViewModel,
+    budgetViewModel: BudgetViewModel,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -29,34 +32,62 @@ fun MoneyMasterNavHost(
         modifier = modifier
     ) {
         composable(Screen.Dashboard.route) {
-            DashboardScreen(navController)
+            DashboardScreen(
+                navController = navController,
+                transactionViewModel = transactionViewModel,
+                budgetViewModel = budgetViewModel
+            )
         }
+
         composable(Screen.Transactions.route) {
-            TransactionsScreen(navController)
+            TransactionsScreen(
+                navController = navController,
+                transactionViewModel = transactionViewModel
+            )
         }
+
         composable(Screen.AddTransaction.route) {
-            AddTransactionScreen(navController)
+            AddTransactionScreen(
+                navController = navController,
+                transactionViewModel = transactionViewModel
+            )
         }
+
         composable(
             Screen.TransactionDetail.route,
             arguments = listOf(navArgument("transactionId") { type = NavType.LongType })
         ) { backStackEntry ->
             val transactionId = backStackEntry.arguments?.getLong("transactionId") ?: 0
-            TransactionDetailScreen(navController, transactionId)
+            TransactionDetailScreen(
+                navController = navController,
+                transactionId = transactionId,
+                transactionViewModel = transactionViewModel
+            )
         }
+
         composable(Screen.Budgets.route) {
-            BudgetsScreen(navController)
+            BudgetsScreen(
+                navController = navController,
+                budgetViewModel = budgetViewModel
+            )
         }
+
         composable(Screen.AddBudget.route) {
-            // AddBudgetScreen(navController)
-            // Placeholder bis zur Implementierung
-            Text("Add Budget Screen")
+            // We'll implement this screen later
+            androidx.compose.material3.Text("Add Budget Screen - Coming Soon")
         }
+
         composable(Screen.Statistics.route) {
-            StatisticsScreen(navController)
+            StatisticsScreen(
+                navController = navController,
+                transactionViewModel = transactionViewModel
+            )
         }
+
         composable(Screen.Settings.route) {
-            SettingsScreen(navController)
+            SettingsScreen(
+                navController = navController
+            )
         }
     }
 }
