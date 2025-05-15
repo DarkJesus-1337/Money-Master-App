@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp")
+    id("kotlin-kapt")
 }
 
 android {
@@ -37,10 +39,13 @@ android {
     buildFeatures {
         compose = true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "2.0.0"
+    }
 }
 
 dependencies {
-
+    // Basis-Abhängigkeiten
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -49,6 +54,29 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    // Navigation für Compose
+    implementation(libs.androidx.navigation.compose)
+
+    // Room für Datenbank
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+    // ViewModel und LiveData
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+
+    // Material Icons Extended (für mehr Icons)
+    implementation(libs.androidx.material.icons.extended)
+
+    // Für Datums- und Zeitformatierung
+    implementation(libs.kotlinx.datetime)
+
+    // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
