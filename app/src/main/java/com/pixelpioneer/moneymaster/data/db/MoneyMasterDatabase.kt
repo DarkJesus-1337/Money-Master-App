@@ -34,7 +34,7 @@ abstract class MoneyMasterDatabase : RoomDatabase() {
                     MoneyMasterDatabase::class.java,
                     "money_master_database"
                 )
-                    .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration(false)
                     .build()
                 INSTANCE = instance
                 instance
