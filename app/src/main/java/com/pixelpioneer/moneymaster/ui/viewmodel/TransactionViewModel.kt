@@ -18,23 +18,18 @@ class TransactionViewModel(
     private val categoryRepository: CategoryRepository
 ) : ViewModel() {
 
-    // UI state for transactions list
     private val _transactionsState = MutableStateFlow<UiState<List<Transaction>>>(UiState.Loading)
     val transactionsState: StateFlow<UiState<List<Transaction>>> = _transactionsState
 
-    // UI state for categories (needed for transaction creation)
     private val _categoriesState = MutableStateFlow<UiState<List<TransactionCategory>>>(UiState.Loading)
     val categoriesState: StateFlow<UiState<List<TransactionCategory>>> = _categoriesState
 
-    // UI state for a single transaction (for detail view)
     private val _selectedTransaction = MutableStateFlow<UiState<Transaction>>(UiState.Loading)
     val selectedTransaction: StateFlow<UiState<Transaction>> = _selectedTransaction
 
-    // Form state for adding/editing a transaction
     private val _transactionFormState = MutableStateFlow(TransactionFormState())
     val transactionFormState: StateFlow<TransactionFormState> = _transactionFormState
 
-    // Financial summary for the dashboard
     private val _financialSummary = MutableStateFlow<UiState<FinancialSummary>>(UiState.Loading)
     val financialSummary: StateFlow<UiState<FinancialSummary>> = _financialSummary
 
@@ -44,7 +39,6 @@ class TransactionViewModel(
         loadFinancialSummary()
     }
 
-    // Load all transactions
     private fun loadTransactions() {
         viewModelScope.launch {
             try {
@@ -66,7 +60,6 @@ class TransactionViewModel(
         }
     }
 
-    // Load a specific transaction by ID
     fun loadTransactionById(id: Long) {
         viewModelScope.launch {
             try {
@@ -84,7 +77,6 @@ class TransactionViewModel(
         }
     }
 
-    // Load all categories (for transaction creation)
     private fun loadCategories() {
         viewModelScope.launch {
             try {
@@ -106,13 +98,11 @@ class TransactionViewModel(
         }
     }
 
-    // Load financial summary for the dashboard
     private fun loadFinancialSummary() {
         viewModelScope.launch {
             try {
                 _financialSummary.value = UiState.Loading
                 
-                // Get current month's expenses and income
                 transactionRepository.getTotalExpensesByMonth().collect { expenses ->
                     transactionRepository.getTotalIncomeByMonth().collect { income ->
                         val balance = income - expenses
@@ -132,18 +122,15 @@ class TransactionViewModel(
         }
     }
 
-    // Create a new transaction
     fun createTransaction() {
         viewModelScope.launch {
             val formState = _transactionFormState.value
             
-            // Validate form state
             if (!validateTransactionForm()) {
                 return@launch
             }
             
             try {
-                // Create a new Transaction object from form state
                 val category = _transactionFormState.value.selectedCategory
                     ?: throw IllegalStateException("Category cannot be null")
                 
@@ -156,13 +143,10 @@ class TransactionViewModel(
                     isExpense = formState.isExpense
                 )
                 
-                // Insert the transaction
                 transactionRepository.insertTransaction(transaction)
                 
-                // Reset form state
                 resetFormState()
                 
-                // Reload transactions and financial summary
                 loadTransactions()
                 loadFinancialSummary()
             } catch (e: Exception) {
@@ -171,18 +155,15 @@ class TransactionViewModel(
         }
     }
 
-    // Update an existing transaction
     fun updateTransaction(id: Long) {
         viewModelScope.launch {
             val formState = _transactionFormState.value
             
-            // Validate form state
             if (!validateTransactionForm()) {
                 return@launch
             }
             
             try {
-                // Create a Transaction object from form state with the existing ID
                 val category = _transactionFormState.value.selectedCategory
                     ?: throw IllegalStateException("Category cannot be null")
                 
@@ -196,17 +177,13 @@ class TransactionViewModel(
                     isExpense = formState.isExpense
                 )
                 
-                // Update the transaction
                 transactionRepository.updateTransaction(transaction)
                 
-                // Reset form state
                 resetFormState()
                 
-                // Reload transactions and financial summary
                 loadTransactions()
                 loadFinancialSummary()
                 
-                // Also reload the selected transaction if it's being viewed
                 loadTransactionById(id)
             } catch (e: Exception) {
                 // Handle error
@@ -214,7 +191,6 @@ class TransactionViewModel(
         }
     }
 
-    // Delete a transaction
     fun deleteTransaction(transaction: Transaction) {
         viewModelScope.launch {
             try {
@@ -227,7 +203,6 @@ class TransactionViewModel(
         }
     }
 
-    // Update form state when user changes form fields
     fun updateAmount(amount: Double) {
         _transactionFormState.value = _transactionFormState.value.copy(
             amount = amount,
@@ -261,12 +236,10 @@ class TransactionViewModel(
         _transactionFormState.value = _transactionFormState.value.copy(isExpense = isExpense)
     }
 
-    // Reset form state
-    fun resetFormState() {
+    private fun resetFormState() {
         _transactionFormState.value = TransactionFormState()
     }
 
-    // Initialize form state with an existing transaction (for editing)
     fun initFormWithTransaction(transaction: Transaction) {
         _transactionFormState.value = TransactionFormState(
             amount = transaction.amount,
@@ -278,15 +251,12 @@ class TransactionViewModel(
         )
     }
 
-    // Validate the transaction form
     private fun validateTransactionForm(): Boolean {
         val formState = _transactionFormState.value
         var isValid = true
         
-        // Copy the current form state to modify with validation errors
         var updatedFormState = formState
         
-        // Check amount
         if (formState.amount <= 0) {
             updatedFormState = updatedFormState.copy(
                 amountError = "Amount must be greater than zero"
@@ -294,7 +264,6 @@ class TransactionViewModel(
             isValid = false
         }
         
-        // Check title
         if (formState.title.isBlank()) {
             updatedFormState = updatedFormState.copy(
                 titleError = "Title cannot be empty"
@@ -302,7 +271,6 @@ class TransactionViewModel(
             isValid = false
         }
         
-        // Check category
         if (formState.selectedCategory == null) {
             updatedFormState = updatedFormState.copy(
                 categoryError = "Please select a category"
@@ -310,14 +278,12 @@ class TransactionViewModel(
             isValid = false
         }
         
-        // Update the form state with any validation errors
         _transactionFormState.value = updatedFormState
         
         return isValid
     }
 }
 
-// Form state for transaction creation/editing
 data class TransactionFormState(
     val amount: Double = 0.0,
     val title: String = "",
@@ -330,7 +296,6 @@ data class TransactionFormState(
     val categoryError: String? = null
 )
 
-// Financial summary for the dashboard
 data class FinancialSummary(
     val totalIncome: Double = 0.0,
     val totalExpenses: Double = 0.0,

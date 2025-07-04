@@ -6,6 +6,6 @@ data class Transaction(
     val title: String,
     val description: String = "",
     val category: TransactionCategory,
-    val date: Long, // Zeitstempel
+    val date: Long,
     val isExpense: Boolean = true
 )

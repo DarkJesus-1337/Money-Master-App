@@ -13,4 +13,3 @@ data class TransactionEntity(
     val date: Long,
     val isExpense: Boolean = true
 )
-// Beziehungen mit Room

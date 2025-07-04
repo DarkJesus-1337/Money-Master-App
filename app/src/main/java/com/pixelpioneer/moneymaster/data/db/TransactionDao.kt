@@ -42,6 +42,9 @@ interface TransactionDao {
     @Query("SELECT SUM(amount) FROM transactions WHERE categoryId = :categoryId AND isExpense = 1 AND date BETWEEN :startDate AND :endDate")
     fun getTotalExpensesByCategoryAndDateRange(categoryId: Long, startDate: Long, endDate: Long): Flow<Double?>
 
+    @Query("SELECT SUM(amount) FROM transactions WHERE categoryId = :categoryId AND isExpense = 1 AND date BETWEEN :startDate AND :endDate")
+    suspend fun getTotalExpensesByCategoryAndDateRangeSync(categoryId: Long, startDate: Long, endDate: Long): Double?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransaction(transaction: TransactionEntity): Long
 
@@ -51,5 +54,3 @@ interface TransactionDao {
     @Delete
     suspend fun deleteTransaction(transaction: TransactionEntity)
 }
-
-

@@ -14,15 +14,12 @@ class CategoryViewModel(
     private val categoryRepository: CategoryRepository
 ) : ViewModel() {
 
-    // UI state for categories list
     private val _categoriesState = MutableStateFlow<UiState<List<TransactionCategory>>>(UiState.Loading)
     val categoriesState: StateFlow<UiState<List<TransactionCategory>>> = _categoriesState
 
-    // UI state for a single category (for detail view)
     private val _selectedCategory = MutableStateFlow<UiState<TransactionCategory>>(UiState.Loading)
     val selectedCategory: StateFlow<UiState<TransactionCategory>> = _selectedCategory
 
-    // Form state for adding/editing a category
     private val _categoryFormState = MutableStateFlow(CategoryFormState())
     val categoryFormState: StateFlow<CategoryFormState> = _categoryFormState
 
@@ -30,7 +27,6 @@ class CategoryViewModel(
         loadCategories()
     }
 
-    // Load all categories
     private fun loadCategories() {
         viewModelScope.launch {
             try {
@@ -52,7 +48,6 @@ class CategoryViewModel(
         }
     }
 
-    // Load a specific category by ID
     fun loadCategoryById(id: Long) {
         viewModelScope.launch {
             try {
@@ -70,50 +65,40 @@ class CategoryViewModel(
         }
     }
 
-    // Create a new category
     fun createCategory() {
         viewModelScope.launch {
             val formState = _categoryFormState.value
             
-            // Validate form state
             if (!validateCategoryForm()) {
                 return@launch
             }
             
             try {
-                // Create a new Category object from form state
                 val category = TransactionCategory(
                     name = formState.name,
                     color = formState.color,
                     icon = formState.iconResId
                 )
                 
-                // Insert the category
                 categoryRepository.insertCategory(category)
                 
-                // Reset form state
                 resetFormState()
                 
-                // Reload categories
                 loadCategories()
             } catch (e: Exception) {
-                // Handle error
             }
         }
     }
 
-    // Update an existing category
     fun updateCategory(id: Long) {
         viewModelScope.launch {
             val formState = _categoryFormState.value
             
-            // Validate form state
             if (!validateCategoryForm()) {
                 return@launch
             }
             
             try {
-                // Create a Category object from form state with the existing ID
                 val category = TransactionCategory(
                     id = id,
                     name = formState.name,
@@ -121,16 +106,12 @@ class CategoryViewModel(
                     icon = formState.iconResId
                 )
                 
-                // Update the category
                 categoryRepository.updateCategory(category)
                 
-                // Reset form state
                 resetFormState()
                 
-                // Reload categories
                 loadCategories()
                 
-                // Also reload the selected category if it's being viewed
                 loadCategoryById(id)
             } catch (e: Exception) {
                 // Handle error
@@ -138,7 +119,6 @@ class CategoryViewModel(
         }
     }
 
-    // Delete a category
     fun deleteCategory(category: TransactionCategory) {
         viewModelScope.launch {
             try {
@@ -150,7 +130,6 @@ class CategoryViewModel(
         }
     }
 
-    // Create default categories if none exist
     fun createDefaultCategoriesIfNeeded() {
         viewModelScope.launch {
             try {
@@ -166,7 +145,6 @@ class CategoryViewModel(
         }
     }
 
-    // Update form state when user changes form fields
     fun updateName(name: String) {
         _categoryFormState.value = _categoryFormState.value.copy(
             name = name,
@@ -182,12 +160,10 @@ class CategoryViewModel(
         _categoryFormState.value = _categoryFormState.value.copy(iconResId = iconResId)
     }
 
-    // Reset form state
     fun resetFormState() {
         _categoryFormState.value = CategoryFormState()
     }
 
-    // Initialize form state with an existing category (for editing)
     fun initFormWithCategory(category: TransactionCategory) {
         _categoryFormState.value = CategoryFormState(
             name = category.name,
@@ -196,11 +172,9 @@ class CategoryViewModel(
         )
     }
 
-    // Validate the category form
     private fun validateCategoryForm(): Boolean {
         val formState = _categoryFormState.value
         
-        // Check name
         if (formState.name.isBlank()) {
             _categoryFormState.value = formState.copy(
                 nameError = "Name cannot be empty"
@@ -212,10 +186,9 @@ class CategoryViewModel(
     }
 }
 
-// Form state for category creation/editing
 data class CategoryFormState(
     val name: String = "",
-    val color: Int = 0xFF4CAF50.toInt(), // Default to green
-    val iconResId: Int = 0, // Default icon will be set in the UI
+    val color: Int = 0xFF4CAF50.toInt(),
+    val iconResId: Int = 0,
     val nameError: String? = null
 )

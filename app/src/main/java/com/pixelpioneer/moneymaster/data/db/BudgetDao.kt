@@ -38,4 +38,8 @@ interface BudgetDao {
 
     @Delete
     suspend fun deleteBudget(budget: BudgetEntity)
+
+    @Transaction
+    @Query("SELECT * FROM budgets")
+    suspend fun getBudgetsWithCategorySync(): List<BudgetWithCategory>
 }

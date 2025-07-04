@@ -38,8 +38,6 @@ class CategoryRepository(private val categoryDao: CategoryDao) {
     }
     
     private fun getDefaultCategories(): List<CategoryEntity> {
-        // Eine Liste mit vordefinierten Kategorien
-        // In einer realen App würden hier auch Icons definiert werden
         return listOf(
             CategoryEntity(name = "Lebensmittel", color = 0xFF4CAF50.toInt(), iconResId = 0),
             CategoryEntity(name = "Wohnen", color = 0xFF2196F3.toInt(), iconResId = 0),

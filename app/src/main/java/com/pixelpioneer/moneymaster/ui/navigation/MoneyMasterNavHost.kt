@@ -7,6 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.pixelpioneer.moneymaster.ui.screens.budgets.AddBudgetScreen
 import com.pixelpioneer.moneymaster.ui.screens.budgets.BudgetsScreen
 import com.pixelpioneer.moneymaster.ui.screens.dashboard.DashboardScreen
 import com.pixelpioneer.moneymaster.ui.screens.settings.SettingsScreen
@@ -73,8 +74,10 @@ fun MoneyMasterNavHost(
         }
 
         composable(Screen.AddBudget.route) {
-            // We'll implement this screen later
-            androidx.compose.material3.Text("Add Budget Screen - Coming Soon")
+            AddBudgetScreen(
+                navController = navController,
+                budgetViewModel = budgetViewModel
+            )
         }
 
         composable(Screen.Statistics.route) {

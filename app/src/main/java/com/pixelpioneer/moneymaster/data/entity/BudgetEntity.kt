@@ -20,5 +20,5 @@ data class BudgetEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val categoryId: Long,
     val amount: Double,
-    @ColumnInfo(name = "period") val periodName: String // BudgetPeriod als String gespeichert
+    @ColumnInfo(name = "period") val periodName: String
 )

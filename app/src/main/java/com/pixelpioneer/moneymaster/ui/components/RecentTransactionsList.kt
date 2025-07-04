@@ -15,11 +15,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Card
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,12 +26,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.util.FormatUtils
-import java.util.Date
 
 /**
  * A component for displaying a list of recent transactions
@@ -50,8 +50,8 @@ fun RecentTransactionsList(
                 transaction = transaction,
                 onClick = { onTransactionClick(transaction) }
             )
-            
-            Divider(
+
+            HorizontalDivider(
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
@@ -146,7 +146,7 @@ fun RecentTransactionItem(
             )
             
             Icon(
-                imageVector = Icons.Default.KeyboardArrowRight,
+                painter = painterResource(R.drawable.keyboard_arrow_right),
                 contentDescription = "View Details",
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -180,13 +180,13 @@ fun BudgetOverview(
                 BudgetOverviewItem(budget = budget)
                 
                 if (budget != topBudgets.last()) {
-                    Divider(modifier = Modifier.padding(vertical = 12.dp))
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
                 }
             }
             
             // If there are more budgets, show a "View All" text
             if (budgets.size > 2) {
-                Divider(modifier = Modifier.padding(vertical = 12.dp))
+                HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
                 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -200,7 +200,7 @@ fun BudgetOverview(
                     )
                     
                     Icon(
-                        imageVector = Icons.Default.KeyboardArrowRight,
+                        painter = painterResource(R.drawable.keyboard_arrow_right),
                         contentDescription = "View All",
                         tint = MaterialTheme.colorScheme.primary
                     )
@@ -267,10 +267,10 @@ fun BudgetOverviewItem(
         Spacer(modifier = Modifier.height(8.dp))
         
         // Progress bar
-        androidx.compose.material3.LinearProgressIndicator(
-            progress = progress.toFloat(),
+        LinearProgressIndicator(
+            progress = { progress.toFloat() },
             modifier = Modifier.fillMaxWidth(),
-            color = progressColor
+            color = progressColor,
         )
         
         Spacer(modifier = Modifier.height(4.dp))

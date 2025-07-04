@@ -67,15 +67,12 @@ fun DashboardScreen(
             }
         }
     ) { paddingValues ->
-        // Use LazyColumn instead of Column with verticalScroll
-        // This will prevent nesting scrollable components
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp)
         ) {
-            // Title Section
             item {
                 Text(
                     text = "Dashboard",
@@ -85,7 +82,6 @@ fun DashboardScreen(
                 )
             }
 
-            // Financial Summary Section
             item {
                 when (financialSummaryState) {
                     is UiState.Loading -> {
@@ -113,11 +109,9 @@ fun DashboardScreen(
                 }
             }
 
-            // Spacing
             item {
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Recent Transactions Section Title
                 Text(
                     text = "Recent Transactions",
                     style = MaterialTheme.typography.titleLarge,
@@ -127,7 +121,6 @@ fun DashboardScreen(
                 Spacer(modifier = Modifier.height(8.dp))
             }
 
-            // Recent Transactions Section
             when (transactionsState) {
                 is UiState.Loading -> {
                     item {
@@ -142,10 +135,8 @@ fun DashboardScreen(
                     }
                 }
                 is UiState.Success -> {
-                    // Show only the 5 most recent transactions
                     val recentTransactions = transactionsState.data.take(5)
 
-                    // Display each transaction as a separate item
                     items(recentTransactions) { transaction ->
                         RecentTransactionItem(
                             transaction = transaction,
@@ -155,7 +146,6 @@ fun DashboardScreen(
                         )
                     }
 
-                    // View All Transactions button if needed
                     if (transactionsState.data.size > 5) {
                         item {
                             Spacer(modifier = Modifier.height(8.dp))
@@ -182,7 +172,6 @@ fun DashboardScreen(
                 }
             }
 
-            // Budget Overview Section
             item {
                 Spacer(modifier = Modifier.height(24.dp))
 
@@ -214,7 +203,7 @@ fun DashboardScreen(
                     is UiState.Error -> {
                         ErrorMessage(
                             message = budgetsState.message,
-                            onRetry = { /* Reload data */ }
+                            onRetry = { budgetViewModel.refreshBudgets() }
                         )
                     }
                     is UiState.Empty -> {
@@ -224,7 +213,6 @@ fun DashboardScreen(
                     }
                 }
 
-                // Add some spacing at the bottom
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
@@ -234,7 +222,6 @@ fun DashboardScreen(
 @Composable
 fun FinancialSummaryCards(summary: FinancialSummary) {
     Column {
-        // Balance Card
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -276,12 +263,10 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
             }
         }
 
-        // Income and Expenses Cards in Row
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            // Income Card
             Card(
                 modifier = Modifier
                     .weight(1f)
@@ -317,7 +302,6 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
                 }
             }
 
-            // Expenses Card
             Card(
                 modifier = Modifier
                     .weight(1f)

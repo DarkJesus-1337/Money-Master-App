@@ -32,7 +32,7 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
         transactionDao.deleteTransaction(entity)
     }
     
-    fun getTransactionsByDateRange(startDate: Long, endDate: Long): Flow<List<Transaction>> {
+    private fun getTransactionsByDateRange(startDate: Long, endDate: Long): Flow<List<Transaction>> {
         return transactionDao.getTransactionsWithCategory()
             .map { list -> 
                 list.filter { it.transaction.date in startDate..endDate }
@@ -43,7 +43,6 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
     fun getCurrentMonthTransactions(): Flow<List<Transaction>> {
         val calendar = Calendar.getInstance()
         
-        // Setze Kalender auf den ersten Tag des aktuellen Monats
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         calendar.set(Calendar.HOUR_OF_DAY, 0)
         calendar.set(Calendar.MINUTE, 0)
@@ -51,7 +50,6 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
         calendar.set(Calendar.MILLISECOND, 0)
         val startDate = calendar.timeInMillis
         
-        // Setze Kalender auf den ersten Tag des nächsten Monats
         calendar.add(Calendar.MONTH, 1)
         val endDate = calendar.timeInMillis
         
@@ -61,7 +59,6 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
     fun getTotalExpensesByMonth(): Flow<Double> {
         val calendar = Calendar.getInstance()
         
-        // Setze Kalender auf den ersten Tag des aktuellen Monats
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         calendar.set(Calendar.HOUR_OF_DAY, 0)
         calendar.set(Calendar.MINUTE, 0)
@@ -69,18 +66,16 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
         calendar.set(Calendar.MILLISECOND, 0)
         val startDate = calendar.timeInMillis
         
-        // Setze Kalender auf den ersten Tag des nächsten Monats
         calendar.add(Calendar.MONTH, 1)
         val endDate = calendar.timeInMillis
         
         return transactionDao.getTotalExpensesByDateRange(startDate, endDate)
-            .map { it ?: 0.0 } // Null-Werte zu 0.0 konvertieren
+            .map { it ?: 0.0 }
     }
     
     fun getTotalIncomeByMonth(): Flow<Double> {
         val calendar = Calendar.getInstance()
         
-        // Setze Kalender auf den ersten Tag des aktuellen Monats
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         calendar.set(Calendar.HOUR_OF_DAY, 0)
         calendar.set(Calendar.MINUTE, 0)
@@ -88,18 +83,16 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
         calendar.set(Calendar.MILLISECOND, 0)
         val startDate = calendar.timeInMillis
         
-        // Setze Kalender auf den ersten Tag des nächsten Monats
         calendar.add(Calendar.MONTH, 1)
         val endDate = calendar.timeInMillis
         
         return transactionDao.getTotalIncomeByDateRange(startDate, endDate)
-            .map { it ?: 0.0 } // Null-Werte zu 0.0 konvertieren
+            .map { it ?: 0.0 }
     }
     
     fun getTotalExpensesByCategoryForCurrentMonth(categoryId: Long): Flow<Double> {
         val calendar = Calendar.getInstance()
         
-        // Setze Kalender auf den ersten Tag des aktuellen Monats
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         calendar.set(Calendar.HOUR_OF_DAY, 0)
         calendar.set(Calendar.MINUTE, 0)
@@ -107,11 +100,10 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
         calendar.set(Calendar.MILLISECOND, 0)
         val startDate = calendar.timeInMillis
         
-        // Setze Kalender auf den ersten Tag des nächsten Monats
         calendar.add(Calendar.MONTH, 1)
         val endDate = calendar.timeInMillis
         
         return transactionDao.getTotalExpensesByCategoryAndDateRange(categoryId, startDate, endDate)
-            .map { it ?: 0.0 } // Null-Werte zu 0.0 konvertieren
+            .map { it ?: 0.0 }
     }
 }

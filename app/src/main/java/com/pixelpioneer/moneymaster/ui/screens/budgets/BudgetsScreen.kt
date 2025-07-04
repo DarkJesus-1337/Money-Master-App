@@ -100,7 +100,7 @@ fun BudgetsScreen(
                 is UiState.Error -> {
                     ErrorMessage(
                         message = budgetsState.message,
-                        onRetry = { /* Reload data */ }
+                        onRetry = { budgetViewModel.refreshBudgets() }
                     )
                 }
                 is UiState.Empty -> {
@@ -128,12 +128,10 @@ fun BudgetItem(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            // Budget header with category and period
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                // Category color indicator
                 Box(
                     modifier = Modifier
                         .size(24.dp)
@@ -159,7 +157,6 @@ fun BudgetItem(
                     )
                 }
 
-                // Budget amount
                 Text(
                     text = FormatUtils.formatCurrency(budget.amount),
                     style = MaterialTheme.typography.titleMedium,
@@ -169,7 +166,6 @@ fun BudgetItem(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Progress information
             val progress = if (budget.amount > 0) {
                 min(budget.spent / budget.amount, 1.0)
             } else {
@@ -182,7 +178,6 @@ fun BudgetItem(
                 else -> MaterialTheme.colorScheme.primary
             }
 
-            // Show warning icon if over 90% used
             if (progress >= 0.9) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -204,16 +199,14 @@ fun BudgetItem(
                 }
             }
 
-            // Progress bar
             LinearProgressIndicator(
-                progress = progress.toFloat(),
+                progress = { progress.toFloat() },
                 modifier = Modifier.fillMaxWidth(),
-                color = progressColor
+                color = progressColor,
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Spent amount info
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -231,7 +224,6 @@ fun BudgetItem(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Percentage used
             Text(
                 text = "${(progress * 100).toInt()}% used",
                 style = MaterialTheme.typography.bodyMedium,
@@ -281,7 +273,6 @@ fun EmptyBudgetsView(onAddButtonClick: () -> Unit) {
     }
 }
 
-// Helper function to get readable budget period text
 @Composable
 fun getBudgetPeriodText(period: BudgetPeriod): String {
     return when (period) {

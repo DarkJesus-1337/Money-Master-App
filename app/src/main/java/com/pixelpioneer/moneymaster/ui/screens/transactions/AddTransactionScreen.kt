@@ -16,7 +16,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -37,6 +36,7 @@ import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -48,10 +48,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 import com.pixelpioneer.moneymaster.util.UiState
@@ -68,13 +70,11 @@ fun AddTransactionScreen(
     val categoriesState = transactionViewModel.categoriesState.collectAsState().value
     val formState = transactionViewModel.transactionFormState.collectAsState().value
 
-    // Date picker state
     var showDatePicker by remember { mutableStateOf(false) }
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = formState.date
     )
 
-    // Category dropdown state
     var expanded by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -83,7 +83,7 @@ fun AddTransactionScreen(
                 title = { Text("Add Transaction") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(painterResource(R.drawable.arrow_back), contentDescription = "Back")
                     }
                 }
             )
@@ -97,7 +97,6 @@ fun AddTransactionScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Transaction Type (Income/Expense)
             Text(
                 text = "Transaction Type",
                 style = MaterialTheme.typography.titleMedium,
@@ -123,7 +122,6 @@ fun AddTransactionScreen(
                 }
             }
 
-            // Amount
             Text(
                 text = "Amount",
                 style = MaterialTheme.typography.titleMedium,
@@ -147,7 +145,6 @@ fun AddTransactionScreen(
                 }
             )
 
-            // Title
             Text(
                 text = "Title",
                 style = MaterialTheme.typography.titleMedium,
@@ -167,7 +164,6 @@ fun AddTransactionScreen(
                 }
             )
 
-            // Description
             Text(
                 text = "Description (Optional)",
                 style = MaterialTheme.typography.titleMedium,
@@ -181,7 +177,6 @@ fun AddTransactionScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            // Category
             Text(
                 text = "Category",
                 style = MaterialTheme.typography.titleMedium,
@@ -211,7 +206,7 @@ fun AddTransactionScreen(
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .menuAnchor(),
+                                .menuAnchor(MenuAnchorType.PrimaryNotEditable, enabled = true),
                             isError = formState.categoryError != null,
                             supportingText = { 
                                 formState.categoryError?.let {
@@ -259,13 +254,12 @@ fun AddTransactionScreen(
                 }
                 is UiState.Empty -> {
                     Text(
-                        text = "No categories available. Please create categories first.",
+                        text = "No cate     gories available. Please create categories first.",
                         color = MaterialTheme.colorScheme.error
                     )
                 }
             }
 
-            // Date
             Text(
                 text = "Date",
                 style = MaterialTheme.typography.titleMedium,
@@ -315,7 +309,6 @@ fun AddTransactionScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Save Button
             Button(
                 onClick = {
                     transactionViewModel.createTransaction()

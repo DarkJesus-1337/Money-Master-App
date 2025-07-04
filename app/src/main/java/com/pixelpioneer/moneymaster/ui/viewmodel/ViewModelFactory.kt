@@ -18,24 +18,18 @@ class ViewModelFactory(
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            // Transaction ViewModel
             modelClass.isAssignableFrom(TransactionViewModel::class.java) -> {
                 TransactionViewModel(transactionRepository, categoryRepository) as T
             }
             
-            // Category ViewModel
             modelClass.isAssignableFrom(CategoryViewModel::class.java) -> {
                 CategoryViewModel(categoryRepository) as T
             }
             
-            // Budget ViewModel
             modelClass.isAssignableFrom(BudgetViewModel::class.java) -> {
                 BudgetViewModel(budgetRepository, categoryRepository) as T
             }
-            
-            // Add other ViewModels here if needed
-            
-            // Unknown ViewModel type
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }

@@ -7,5 +7,5 @@ data class Budget(
     val category: TransactionCategory,
     val amount: Double,
     val period: BudgetPeriod,
-    val spent: Double = 0.0 // Berechneter Wert
+    val spent: Double = 0.0
 )

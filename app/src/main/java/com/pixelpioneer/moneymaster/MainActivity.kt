@@ -18,7 +18,6 @@ import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 
 class MainActivity : ComponentActivity() {
 
-    // Get ViewModel instances
     private val transactionViewModel: TransactionViewModel by viewModels {
         (application as MoneyMasterApplication).viewModelFactory
     }
@@ -35,7 +34,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Create default categories if none exist
         categoryViewModel.createDefaultCategoriesIfNeeded()
 
         setContent {
@@ -46,7 +44,6 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
 
-                    // Set up the navigation host with the ViewModels
                     MoneyMasterNavHost(
                         navController = navController,
                         transactionViewModel = transactionViewModel,

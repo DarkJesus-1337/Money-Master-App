@@ -1,7 +1,6 @@
 package com.pixelpioneer.moneymaster.ui.screens.transactions
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,13 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
@@ -43,9 +38,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.navigation.Screen
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
@@ -59,13 +56,10 @@ fun TransactionDetailScreen(
     transactionId: Long,
     transactionViewModel: TransactionViewModel
 ) {
-    // Load transaction details
     transactionViewModel.loadTransactionById(transactionId)
 
-    // Observe transaction state
     val transactionState = transactionViewModel.selectedTransaction.collectAsState().value
 
-    // Delete confirmation dialog state
     var showDeleteDialog by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -74,11 +68,10 @@ fun TransactionDetailScreen(
                 title = { Text("Transaction Details") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(painterResource(R.drawable.arrow_back), contentDescription = "Back")
                     }
                 },
                 actions = {
-                    // Delete button
                     IconButton(onClick = { showDeleteDialog = true }) {
                         Icon(Icons.Default.Delete, contentDescription = "Delete")
                     }
@@ -86,13 +79,10 @@ fun TransactionDetailScreen(
             )
         },
         floatingActionButton = {
-            // Edit button
             if (transactionState is UiState.Success) {
                 FloatingActionButton(
                     onClick = {
-                        // Initialize form with transaction data
                         transactionViewModel.initFormWithTransaction(transactionState.data)
-                        // Navigate to edit transaction screen
                         navController.navigate(Screen.AddTransaction.route)
                     }
                 ) {
@@ -118,13 +108,11 @@ fun TransactionDetailScreen(
                 is UiState.Success -> {
                     val transaction = transactionState.data
 
-                    // Use LazyColumn instead of Column with verticalScroll to avoid nesting issues
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(16.dp)
                     ) {
-                        // Transaction amount card
                         item {
                             Card(
                                 modifier = Modifier
@@ -165,7 +153,6 @@ fun TransactionDetailScreen(
 
                         item { Spacer(modifier = Modifier.height(16.dp)) }
 
-                        // Transaction details card
                         item {
                             Card(
                                 modifier = Modifier
@@ -177,7 +164,6 @@ fun TransactionDetailScreen(
                                         .fillMaxWidth()
                                         .padding(16.dp)
                                 ) {
-                                    // Title
                                     Text(
                                         text = "Title",
                                         style = MaterialTheme.typography.labelLarge,
@@ -192,7 +178,6 @@ fun TransactionDetailScreen(
 
                                     Spacer(modifier = Modifier.height(16.dp))
 
-                                    // Category
                                     Text(
                                         text = "Category",
                                         style = MaterialTheme.typography.labelLarge,
@@ -219,7 +204,6 @@ fun TransactionDetailScreen(
 
                                     Spacer(modifier = Modifier.height(16.dp))
 
-                                    // Date
                                     Text(
                                         text = "Date",
                                         style = MaterialTheme.typography.labelLarge,
@@ -231,7 +215,6 @@ fun TransactionDetailScreen(
                                         style = MaterialTheme.typography.titleMedium
                                     )
 
-                                    // Description if available
                                     if (transaction.description.isNotBlank()) {
                                         Spacer(modifier = Modifier.height(16.dp))
 
@@ -251,7 +234,6 @@ fun TransactionDetailScreen(
                         }
                     }
 
-                    // Delete confirmation dialog
                     if (showDeleteDialog) {
                         AlertDialog(
                             onDismissRequest = { showDeleteDialog = false },
