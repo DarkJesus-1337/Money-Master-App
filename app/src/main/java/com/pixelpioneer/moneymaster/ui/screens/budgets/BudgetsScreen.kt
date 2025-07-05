@@ -1,6 +1,7 @@
 package com.pixelpioneer.moneymaster.ui.screens.budgets
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -92,7 +93,9 @@ fun BudgetsScreen(
                         items(budgetsState.data) { budget ->
                             BudgetItem(
                                 budget = budget,
-                                onClick = { /* Navigate to budget detail when implemented */ }
+                                onClick = {
+                                    navController.navigate(Screen.BudgetDetail.createRoute(budget.id))
+                                }
                             )
                         }
                     }
@@ -122,6 +125,7 @@ fun BudgetItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp)
+            .clickable { onClick() }
     ) {
         Column(
             modifier = Modifier

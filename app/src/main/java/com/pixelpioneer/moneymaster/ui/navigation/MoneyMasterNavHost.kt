@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.pixelpioneer.moneymaster.ui.screens.budgets.AddBudgetScreen
+import com.pixelpioneer.moneymaster.ui.screens.budgets.BudgetDetailScreen
 import com.pixelpioneer.moneymaster.ui.screens.budgets.BudgetsScreen
 import com.pixelpioneer.moneymaster.ui.screens.dashboard.DashboardScreen
 import com.pixelpioneer.moneymaster.ui.screens.settings.SettingsScreen
@@ -90,6 +91,19 @@ fun MoneyMasterNavHost(
         composable(Screen.Settings.route) {
             SettingsScreen(
                 navController = navController
+            )
+        }
+
+        composable(
+            Screen.BudgetDetail.route,
+            arguments = listOf(navArgument("budgetId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val budgetId = backStackEntry.arguments?.getLong("budgetId") ?: 0
+            BudgetDetailScreen(
+                navController = navController,
+                budgetId = budgetId,
+                budgetViewModel = budgetViewModel,
+                transactionViewModel = transactionViewModel
             )
         }
     }

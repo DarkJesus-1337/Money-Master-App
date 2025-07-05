@@ -16,6 +16,9 @@ sealed class Screen(val route: String, val title: String, val icon: ImageVector?
    data object TransactionDetail : Screen("transaction_detail/{transactionId}", "Details") {
         fun createRoute(transactionId: Long) = "transaction_detail/$transactionId"
     }
+    data object BudgetDetail : Screen("budget_detail/{budgetId}", "Budget Details") {
+        fun createRoute(budgetId: Long) = "budget_detail/$budgetId"
+    }
    data object Budgets : Screen("budgets", "Budgets", Icons.Filled.DateRange)
    data object AddBudget : Screen("add_budget", "Add Budget")
    data object Statistics : Screen("statistics", "Statistics", Icons.Filled.PieChart)

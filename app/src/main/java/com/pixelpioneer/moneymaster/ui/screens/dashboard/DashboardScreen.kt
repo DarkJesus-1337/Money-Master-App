@@ -159,7 +159,10 @@ fun DashboardScreen(
                     item {
                         ErrorMessage(
                             message = transactionsState.message,
-                            onRetry = { /* Reload data */ }
+                            onRetry = {
+                                transactionViewModel.refreshFinancialSummary()
+                                budgetViewModel.refreshBudgets()
+                            }
                         )
                     }
                 }

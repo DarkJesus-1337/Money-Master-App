@@ -53,7 +53,7 @@ class BudgetViewModel(
         }
     }
 
-    private fun loadBudgetById(id: Long) {
+    fun loadBudgetById(id: Long) {
         viewModelScope.launch {
             try {
                 _selectedBudget.value = UiState.Loading

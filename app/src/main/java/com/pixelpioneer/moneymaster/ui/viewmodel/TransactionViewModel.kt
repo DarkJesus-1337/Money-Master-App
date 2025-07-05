@@ -282,6 +282,18 @@ class TransactionViewModel(
         
         return isValid
     }
+
+    fun refreshFinancialSummary() {
+        viewModelScope.launch {
+            try {
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    fun refreshTransactions() {
+        loadTransactions()
+    }
 }
 
 data class TransactionFormState(
