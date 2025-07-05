@@ -14,6 +14,7 @@ import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterNavHost
 import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryViewModel
+import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 
 class MainActivity : ComponentActivity() {
@@ -27,6 +28,10 @@ class MainActivity : ComponentActivity() {
     }
 
     private val budgetViewModel: BudgetViewModel by viewModels {
+        (application as MoneyMasterApplication).viewModelFactory
+    }
+
+    private val statisticsViewModel: StatisticsViewModel by viewModels {
         (application as MoneyMasterApplication).viewModelFactory
     }
 
@@ -48,6 +53,7 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         transactionViewModel = transactionViewModel,
                         categoryViewModel = categoryViewModel,
+                        statisticsViewModel = statisticsViewModel,
                         budgetViewModel = budgetViewModel
                     )
                 }

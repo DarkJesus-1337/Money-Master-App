@@ -24,6 +24,10 @@ interface TransactionDao {
     @Query("SELECT * FROM transactions WHERE date BETWEEN :startDate AND :endDate ORDER BY date DESC")
     fun getTransactionsByDateRange(startDate: Long, endDate: Long): Flow<List<TransactionEntity>>
 
+    @Transaction
+    @Query("SELECT * FROM transactions WHERE date >= :startDate AND date < :endDate ORDER BY date DESC")
+    fun getTransactionsWithCategoryByDateRange(startDate: Long, endDate: Long): Flow<List<TransactionWithCategory>>
+
     @Query("SELECT * FROM transactions WHERE categoryId = :categoryId ORDER BY date DESC")
     fun getTransactionsByCategory(categoryId: Long): Flow<List<TransactionEntity>>
 
@@ -47,4 +51,13 @@ interface TransactionDao {
 
     @Delete
     suspend fun deleteTransaction(transaction: TransactionEntity)
+
+    @Query("SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE isExpense = 0")
+    suspend fun getTotalIncomeSync(): Double
+
+    @Query("SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE isExpense = 1")
+    suspend fun getTotalExpensesSync(): Double
+
+    @Query("SELECT COUNT(*) FROM transactions")
+    suspend fun getTransactionCountSync(): Int
 }

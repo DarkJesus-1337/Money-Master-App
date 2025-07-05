@@ -3,6 +3,7 @@ package com.pixelpioneer.moneymaster.data.repository
 import com.pixelpioneer.moneymaster.data.db.TransactionDao
 import com.pixelpioneer.moneymaster.data.mapper.TransactionMapper
 import com.pixelpioneer.moneymaster.data.model.Transaction
+import com.pixelpioneer.moneymaster.data.relation.TransactionWithCategory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.Calendar
@@ -105,5 +106,21 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
         
         return transactionDao.getTotalExpensesByCategoryAndDateRange(categoryId, startDate, endDate)
             .map { it ?: 0.0 }
+    }
+
+    suspend fun getTotalIncomeSync(): Double {
+        return transactionDao.getTotalIncomeSync()
+    }
+
+    suspend fun getTotalExpensesSync(): Double {
+        return transactionDao.getTotalExpensesSync()
+    }
+
+    suspend fun getTransactionCountSync(): Int {
+        return transactionDao.getTransactionCountSync()
+    }
+
+    fun getTransactionsWithCategoryByDateRange(startDate: Long, endDate: Long): Flow<List<TransactionWithCategory>> {
+        return transactionDao.getTransactionsWithCategoryByDateRange(startDate, endDate)
     }
 }
