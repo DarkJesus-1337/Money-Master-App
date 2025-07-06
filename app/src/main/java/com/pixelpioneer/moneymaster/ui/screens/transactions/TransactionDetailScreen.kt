@@ -105,6 +105,7 @@ fun TransactionDetailScreen(
                         CircularProgressIndicator()
                     }
                 }
+
                 is UiState.Success -> {
                     val transaction = transactionState.data
 
@@ -260,12 +261,14 @@ fun TransactionDetailScreen(
                         )
                     }
                 }
+
                 is UiState.Error -> {
                     ErrorMessage(
                         message = transactionState.message,
                         onRetry = { transactionViewModel.loadTransactionById(transactionId) }
                     )
                 }
+
                 is UiState.Empty -> {
                     Box(
                         modifier = Modifier.fillMaxSize(),

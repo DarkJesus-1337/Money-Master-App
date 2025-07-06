@@ -39,7 +39,10 @@ class CoinCapRepository(private val api: CoinCapApiService) {
                 end = endTime
             )
 
-            Log.d("CoinCapRepository", "Historie für $assetId: ${response.body()?.data?.size} Datenpunkte")
+            Log.d(
+                "CoinCapRepository",
+                "Historie für $assetId: ${response.body()?.data?.size} Datenpunkte"
+            )
             response.body()?.data ?: emptyList()
         } catch (e: Exception) {
             Log.e("CoinCapRepository", "Fehler beim Laden der Historie für $assetId", e)

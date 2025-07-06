@@ -24,7 +24,8 @@ class StatisticsViewModel(
     private val _statisticsState = MutableStateFlow<UiState<StatisticsOverview>>(UiState.Loading)
     val statisticsState: StateFlow<UiState<StatisticsOverview>> = _statisticsState
 
-    private val _categoryStatsState = MutableStateFlow<UiState<List<CategoryStats>>>(UiState.Loading)
+    private val _categoryStatsState =
+        MutableStateFlow<UiState<List<CategoryStats>>>(UiState.Loading)
     val categoryStatsState: StateFlow<UiState<List<CategoryStats>>> = _categoryStatsState
 
     private val _monthlyTrendsState = MutableStateFlow<UiState<List<MonthlyTrend>>>(UiState.Loading)
@@ -57,9 +58,13 @@ class StatisticsViewModel(
                     add(Calendar.MONTH, 1)
                 }.timeInMillis
 
-                transactionRepository.getTransactionsWithCategoryByDateRange(currentMonth, nextMonth)
+                transactionRepository.getTransactionsWithCategoryByDateRange(
+                    currentMonth,
+                    nextMonth
+                )
                     .catch { e ->
-                        _statisticsState.value = UiState.Error(e.message ?: "Fehler beim Laden der Statistiken")
+                        _statisticsState.value =
+                            UiState.Error(e.message ?: "Fehler beim Laden der Statistiken")
                     }
                     .collect { transactions ->
                         val totalIncome = transactionRepository.getTotalIncomeSync()
@@ -110,7 +115,8 @@ class StatisticsViewModel(
                     val expenseTransactions = transactions.filter { it.isExpense }
 
                     categories.mapNotNull { category ->
-                        val categoryTransactions = expenseTransactions.filter { it.category.id == category.id }
+                        val categoryTransactions =
+                            expenseTransactions.filter { it.category.id == category.id }
                         if (categoryTransactions.isNotEmpty()) {
                             CategoryStats(
                                 category = category,
@@ -121,7 +127,9 @@ class StatisticsViewModel(
                     }.sortedByDescending { it.amount }
                 }
                     .catch { e ->
-                        _categoryStatsState.value = UiState.Error(e.message ?: "Fehler beim Laden der Kategorien-Statistiken")
+                        _categoryStatsState.value = UiState.Error(
+                            e.message ?: "Fehler beim Laden der Kategorien-Statistiken"
+                        )
                     }
                     .collect { categoryStats ->
                         if (categoryStats.isEmpty()) {
@@ -143,7 +151,8 @@ class StatisticsViewModel(
 
                 transactionRepository.allTransactionsWithCategory
                     .catch { e ->
-                        _monthlyTrendsState.value = UiState.Error(e.message ?: "Fehler beim Laden der Trend-Daten")
+                        _monthlyTrendsState.value =
+                            UiState.Error(e.message ?: "Fehler beim Laden der Trend-Daten")
                     }
                     .collect { transactions ->
                         val monthlyTrends = transactions
@@ -176,7 +185,10 @@ class StatisticsViewModel(
                                 )
                             }
                             .sortedWith(compareByDescending<MonthlyTrend> { trend ->
-                                SimpleDateFormat("MMMM yyyy", Locale.GERMAN).parse(trend.monthYear)?.time ?: 0
+                                SimpleDateFormat(
+                                    "MMMM yyyy",
+                                    Locale.GERMAN
+                                ).parse(trend.monthYear)?.time ?: 0
                             })
                             .take(12)
 
@@ -199,7 +211,8 @@ class StatisticsViewModel(
                 val assets = transactionRepository.fetchCryptoAssets(limit)
                 _cryptoAssetsState.value = UiState.Success(assets)
             } catch (e: Exception) {
-                _cryptoAssetsState.value = UiState.Error(e.message ?: "Fehler beim Laden der Krypto-Daten")
+                _cryptoAssetsState.value =
+                    UiState.Error(e.message ?: "Fehler beim Laden der Krypto-Daten")
             }
         }
     }

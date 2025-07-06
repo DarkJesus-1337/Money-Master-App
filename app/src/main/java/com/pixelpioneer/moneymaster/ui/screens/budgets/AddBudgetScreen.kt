@@ -271,6 +271,7 @@ fun CategorySelectorDialog(
                             CircularProgressIndicator()
                         }
                     }
+
                     is UiState.Success -> {
                         LazyColumn(
                             verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -283,12 +284,14 @@ fun CategorySelectorDialog(
                             }
                         }
                     }
+
                     is UiState.Error -> {
                         ErrorMessage(
                             message = categoriesState.message,
                             onRetry = { /* Reload categories */ }
                         )
                     }
+
                     is UiState.Empty -> {
                         Text(
                             text = "No categories available",

@@ -1,6 +1,12 @@
 package com.pixelpioneer.moneymaster.data.db
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import com.pixelpioneer.moneymaster.data.entity.TransactionEntity
 import com.pixelpioneer.moneymaster.data.relation.TransactionWithCategory
 import kotlinx.coroutines.flow.Flow
@@ -26,7 +32,10 @@ interface TransactionDao {
 
     @Transaction
     @Query("SELECT * FROM transactions WHERE date >= :startDate AND date < :endDate ORDER BY date DESC")
-    fun getTransactionsWithCategoryByDateRange(startDate: Long, endDate: Long): Flow<List<TransactionWithCategory>>
+    fun getTransactionsWithCategoryByDateRange(
+        startDate: Long,
+        endDate: Long
+    ): Flow<List<TransactionWithCategory>>
 
     @Query("SELECT * FROM transactions WHERE categoryId = :categoryId ORDER BY date DESC")
     fun getTransactionsByCategory(categoryId: Long): Flow<List<TransactionEntity>>
@@ -38,10 +47,18 @@ interface TransactionDao {
     fun getTotalIncomeByDateRange(startDate: Long, endDate: Long): Flow<Double?>
 
     @Query("SELECT SUM(amount) FROM transactions WHERE categoryId = :categoryId AND isExpense = 1 AND date BETWEEN :startDate AND :endDate")
-    fun getTotalExpensesByCategoryAndDateRange(categoryId: Long, startDate: Long, endDate: Long): Flow<Double?>
+    fun getTotalExpensesByCategoryAndDateRange(
+        categoryId: Long,
+        startDate: Long,
+        endDate: Long
+    ): Flow<Double?>
 
     @Query("SELECT SUM(amount) FROM transactions WHERE categoryId = :categoryId AND isExpense = 1 AND date BETWEEN :startDate AND :endDate")
-    suspend fun getTotalExpensesByCategoryAndDateRangeSync(categoryId: Long, startDate: Long, endDate: Long): Double?
+    suspend fun getTotalExpensesByCategoryAndDateRangeSync(
+        categoryId: Long,
+        startDate: Long,
+        endDate: Long
+    ): Double?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransaction(transaction: TransactionEntity): Long

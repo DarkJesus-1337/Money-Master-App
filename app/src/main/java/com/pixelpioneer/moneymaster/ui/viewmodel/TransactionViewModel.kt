@@ -21,7 +21,8 @@ class TransactionViewModel(
     private val _transactionsState = MutableStateFlow<UiState<List<Transaction>>>(UiState.Loading)
     val transactionsState: StateFlow<UiState<List<Transaction>>> = _transactionsState
 
-    private val _categoriesState = MutableStateFlow<UiState<List<TransactionCategory>>>(UiState.Loading)
+    private val _categoriesState =
+        MutableStateFlow<UiState<List<TransactionCategory>>>(UiState.Loading)
     val categoriesState: StateFlow<UiState<List<TransactionCategory>>> = _categoriesState
 
     private val _selectedTransaction = MutableStateFlow<UiState<Transaction>>(UiState.Loading)
@@ -45,7 +46,8 @@ class TransactionViewModel(
                 _transactionsState.value = UiState.Loading
                 transactionRepository.allTransactionsWithCategory
                     .catch { e ->
-                        _transactionsState.value = UiState.Error(e.message ?: "Unknown error occurred")
+                        _transactionsState.value =
+                            UiState.Error(e.message ?: "Unknown error occurred")
                     }
                     .collect { transactions ->
                         if (transactions.isEmpty()) {
@@ -66,7 +68,8 @@ class TransactionViewModel(
                 _selectedTransaction.value = UiState.Loading
                 transactionRepository.getTransactionById(id)
                     .catch { e ->
-                        _selectedTransaction.value = UiState.Error(e.message ?: "Unknown error occurred")
+                        _selectedTransaction.value =
+                            UiState.Error(e.message ?: "Unknown error occurred")
                     }
                     .collect { transaction ->
                         _selectedTransaction.value = UiState.Success(transaction)
@@ -83,7 +86,8 @@ class TransactionViewModel(
                 _categoriesState.value = UiState.Loading
                 categoryRepository.allCategories
                     .catch { e ->
-                        _categoriesState.value = UiState.Error(e.message ?: "Unknown error occurred")
+                        _categoriesState.value =
+                            UiState.Error(e.message ?: "Unknown error occurred")
                     }
                     .collect { categories ->
                         if (categories.isEmpty()) {
@@ -102,11 +106,11 @@ class TransactionViewModel(
         viewModelScope.launch {
             try {
                 _financialSummary.value = UiState.Loading
-                
+
                 transactionRepository.getTotalExpensesByMonth().collect { expenses ->
                     transactionRepository.getTotalIncomeByMonth().collect { income ->
                         val balance = income - expenses
-                        
+
                         _financialSummary.value = UiState.Success(
                             FinancialSummary(
                                 totalIncome = income,
@@ -125,15 +129,15 @@ class TransactionViewModel(
     fun createTransaction() {
         viewModelScope.launch {
             val formState = _transactionFormState.value
-            
+
             if (!validateTransactionForm()) {
                 return@launch
             }
-            
+
             try {
                 val category = _transactionFormState.value.selectedCategory
                     ?: throw IllegalStateException("Category cannot be null")
-                
+
                 val transaction = Transaction(
                     amount = formState.amount,
                     title = formState.title,
@@ -142,11 +146,11 @@ class TransactionViewModel(
                     date = formState.date,
                     isExpense = formState.isExpense
                 )
-                
+
                 transactionRepository.insertTransaction(transaction)
-                
+
                 resetFormState()
-                
+
                 loadTransactions()
                 loadFinancialSummary()
             } catch (e: Exception) {
@@ -158,15 +162,15 @@ class TransactionViewModel(
     fun updateTransaction(id: Long) {
         viewModelScope.launch {
             val formState = _transactionFormState.value
-            
+
             if (!validateTransactionForm()) {
                 return@launch
             }
-            
+
             try {
                 val category = _transactionFormState.value.selectedCategory
                     ?: throw IllegalStateException("Category cannot be null")
-                
+
                 val transaction = Transaction(
                     id = id,
                     amount = formState.amount,
@@ -176,14 +180,14 @@ class TransactionViewModel(
                     date = formState.date,
                     isExpense = formState.isExpense
                 )
-                
+
                 transactionRepository.updateTransaction(transaction)
-                
+
                 resetFormState()
-                
+
                 loadTransactions()
                 loadFinancialSummary()
-                
+
                 loadTransactionById(id)
             } catch (e: Exception) {
                 // Handle error
@@ -254,32 +258,32 @@ class TransactionViewModel(
     private fun validateTransactionForm(): Boolean {
         val formState = _transactionFormState.value
         var isValid = true
-        
+
         var updatedFormState = formState
-        
+
         if (formState.amount <= 0) {
             updatedFormState = updatedFormState.copy(
                 amountError = "Amount must be greater than zero"
             )
             isValid = false
         }
-        
+
         if (formState.title.isBlank()) {
             updatedFormState = updatedFormState.copy(
                 titleError = "Title cannot be empty"
             )
             isValid = false
         }
-        
+
         if (formState.selectedCategory == null) {
             updatedFormState = updatedFormState.copy(
                 categoryError = "Please select a category"
             )
             isValid = false
         }
-        
+
         _transactionFormState.value = updatedFormState
-        
+
         return isValid
     }
 

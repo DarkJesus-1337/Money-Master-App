@@ -17,7 +17,8 @@ class CryptoViewModel(
     private val _cryptoAssetsState = MutableStateFlow<UiState<List<Asset>>>(UiState.Loading)
     val cryptoAssetsState: StateFlow<UiState<List<Asset>>> = _cryptoAssetsState
 
-    private val _cryptoHistoryState = MutableStateFlow<UiState<List<HistoryDataPoint>>>(UiState.Loading)
+    private val _cryptoHistoryState =
+        MutableStateFlow<UiState<List<HistoryDataPoint>>>(UiState.Loading)
     val cryptoHistoryState: StateFlow<UiState<List<HistoryDataPoint>>> = _cryptoHistoryState
 
     private val _selectedAsset = MutableStateFlow<Asset?>(null)
@@ -39,7 +40,8 @@ class CryptoViewModel(
                     }
                 }
             } catch (e: Exception) {
-                _cryptoAssetsState.value = UiState.Error(e.message ?: "Fehler beim Laden der Krypto-Daten")
+                _cryptoAssetsState.value =
+                    UiState.Error(e.message ?: "Fehler beim Laden der Krypto-Daten")
             }
         }
     }
@@ -65,7 +67,8 @@ class CryptoViewModel(
                     _cryptoHistoryState.value = UiState.Success(historyData)
                 }
             } catch (e: Exception) {
-                _cryptoHistoryState.value = UiState.Error(e.message ?: "Fehler beim Laden der Historie")
+                _cryptoHistoryState.value =
+                    UiState.Error(e.message ?: "Fehler beim Laden der Historie")
             }
         }
     }

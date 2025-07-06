@@ -14,7 +14,8 @@ class CategoryViewModel(
     private val categoryRepository: CategoryRepository
 ) : ViewModel() {
 
-    private val _categoriesState = MutableStateFlow<UiState<List<TransactionCategory>>>(UiState.Loading)
+    private val _categoriesState =
+        MutableStateFlow<UiState<List<TransactionCategory>>>(UiState.Loading)
     val categoriesState: StateFlow<UiState<List<TransactionCategory>>> = _categoriesState
 
     private val _selectedCategory = MutableStateFlow<UiState<TransactionCategory>>(UiState.Loading)
@@ -33,7 +34,8 @@ class CategoryViewModel(
                 _categoriesState.value = UiState.Loading
                 categoryRepository.allCategories
                     .catch { e ->
-                        _categoriesState.value = UiState.Error(e.message ?: "Unknown error occurred")
+                        _categoriesState.value =
+                            UiState.Error(e.message ?: "Unknown error occurred")
                     }
                     .collect { categories ->
                         if (categories.isEmpty()) {
@@ -54,7 +56,8 @@ class CategoryViewModel(
                 _selectedCategory.value = UiState.Loading
                 categoryRepository.getCategoryById(id)
                     .catch { e ->
-                        _selectedCategory.value = UiState.Error(e.message ?: "Unknown error occurred")
+                        _selectedCategory.value =
+                            UiState.Error(e.message ?: "Unknown error occurred")
                     }
                     .collect { category ->
                         _selectedCategory.value = UiState.Success(category)
@@ -68,22 +71,22 @@ class CategoryViewModel(
     fun createCategory() {
         viewModelScope.launch {
             val formState = _categoryFormState.value
-            
+
             if (!validateCategoryForm()) {
                 return@launch
             }
-            
+
             try {
                 val category = TransactionCategory(
                     name = formState.name,
                     color = formState.color,
                     icon = formState.iconResId
                 )
-                
+
                 categoryRepository.insertCategory(category)
-                
+
                 resetFormState()
-                
+
                 loadCategories()
             } catch (e: Exception) {
             }
@@ -93,11 +96,11 @@ class CategoryViewModel(
     fun updateCategory(id: Long) {
         viewModelScope.launch {
             val formState = _categoryFormState.value
-            
+
             if (!validateCategoryForm()) {
                 return@launch
             }
-            
+
             try {
                 val category = TransactionCategory(
                     id = id,
@@ -105,13 +108,13 @@ class CategoryViewModel(
                     color = formState.color,
                     icon = formState.iconResId
                 )
-                
+
                 categoryRepository.updateCategory(category)
-                
+
                 resetFormState()
-                
+
                 loadCategories()
-                
+
                 loadCategoryById(id)
             } catch (e: Exception) {
                 // Handle error
@@ -174,14 +177,14 @@ class CategoryViewModel(
 
     private fun validateCategoryForm(): Boolean {
         val formState = _categoryFormState.value
-        
+
         if (formState.name.isBlank()) {
             _categoryFormState.value = formState.copy(
                 nameError = "Name cannot be empty"
             )
             return false
         }
-        
+
         return true
     }
 }

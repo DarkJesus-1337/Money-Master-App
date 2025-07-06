@@ -94,15 +94,18 @@ fun DashboardScreen(
                             CircularProgressIndicator()
                         }
                     }
+
                     is UiState.Success -> {
                         FinancialSummaryCards(financialSummaryState.data)
                     }
+
                     is UiState.Error -> {
                         ErrorMessage(
                             message = financialSummaryState.message,
                             onRetry = { /* Reload data */ }
                         )
                     }
+
                     is UiState.Empty -> {
                         EmptyFinancialSummary()
                     }
@@ -134,6 +137,7 @@ fun DashboardScreen(
                         }
                     }
                 }
+
                 is UiState.Success -> {
                     val recentTransactions = transactionsState.data.take(5)
 
@@ -141,7 +145,11 @@ fun DashboardScreen(
                         RecentTransactionItem(
                             transaction = transaction,
                             onClick = {
-                                navController.navigate(Screen.TransactionDetail.createRoute(transaction.id))
+                                navController.navigate(
+                                    Screen.TransactionDetail.createRoute(
+                                        transaction.id
+                                    )
+                                )
                             }
                         )
                     }
@@ -155,6 +163,7 @@ fun DashboardScreen(
                         }
                     }
                 }
+
                 is UiState.Error -> {
                     item {
                         ErrorMessage(
@@ -166,6 +175,7 @@ fun DashboardScreen(
                         )
                     }
                 }
+
                 is UiState.Empty -> {
                     item {
                         EmptyTransactionsList(
@@ -197,18 +207,21 @@ fun DashboardScreen(
                             CircularProgressIndicator()
                         }
                     }
+
                     is UiState.Success -> {
                         BudgetOverview(
                             budgets = budgetsState.data,
                             onBudgetsClick = { navController.navigate(Screen.Budgets.route) }
                         )
                     }
+
                     is UiState.Error -> {
                         ErrorMessage(
                             message = budgetsState.message,
                             onRetry = { budgetViewModel.refreshBudgets() }
                         )
                     }
+
                     is UiState.Empty -> {
                         EmptyBudgetsList(
                             onAddBudget = { navController.navigate(Screen.AddBudget.route) }

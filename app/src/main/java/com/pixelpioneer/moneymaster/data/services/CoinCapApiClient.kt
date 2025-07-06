@@ -12,7 +12,7 @@ object CoinCapApiClient {
     private val authInterceptor = Interceptor { chain ->
         val original: Request = chain.request()
         val request = original.newBuilder()
-           .addHeader("Authorization", "Bearer $API_KEY")
+            .addHeader("Authorization", "Bearer $API_KEY")
             .build()
         chain.proceed(request)
     }

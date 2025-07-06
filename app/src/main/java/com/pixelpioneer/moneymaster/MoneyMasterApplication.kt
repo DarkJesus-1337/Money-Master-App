@@ -7,23 +7,22 @@ import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
 import com.pixelpioneer.moneymaster.data.repository.CoinCapRepository
 import com.pixelpioneer.moneymaster.data.repository.TransactionRepository
 import com.pixelpioneer.moneymaster.data.services.CoinCapApiClient
-import com.pixelpioneer.moneymaster.data.services.CoinCapApiService
 import com.pixelpioneer.moneymaster.ui.viewmodel.ViewModelFactory
 
 class MoneyMasterApplication : Application() {
-    
+
     private val database by lazy {
         MoneyMasterDatabase.getDatabase(this)
     }
-    
+
     private val transactionRepository by lazy {
         TransactionRepository(database.transactionDao())
     }
-    
+
     private val categoryRepository by lazy {
         CategoryRepository(database.categoryDao())
     }
-    
+
     private val budgetRepository by lazy {
         BudgetRepository(database.budgetDao(), database.transactionDao())
     }

@@ -1,8 +1,12 @@
 package com.pixelpioneer.moneymaster.data.db
 
 import android.content.Context
-import androidx.room.*
-import com.pixelpioneer.moneymaster.data.entity.*
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.pixelpioneer.moneymaster.data.entity.BudgetEntity
+import com.pixelpioneer.moneymaster.data.entity.CategoryEntity
+import com.pixelpioneer.moneymaster.data.entity.TransactionEntity
 
 @Database(
     entities = [

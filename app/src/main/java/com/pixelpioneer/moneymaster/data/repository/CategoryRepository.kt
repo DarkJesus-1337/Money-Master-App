@@ -8,35 +8,35 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class CategoryRepository(private val categoryDao: CategoryDao) {
-    
+
     val allCategories = categoryDao.getAllCategories()
         .map { list -> list.map { CategoryMapper.fromEntity(it) } }
-    
+
     fun getCategoryById(id: Long): Flow<TransactionCategory> {
         return categoryDao.getCategoryById(id)
             .map { CategoryMapper.fromEntity(it) }
     }
-    
+
     suspend fun insertCategory(category: TransactionCategory): Long {
         val entity = CategoryMapper.toEntity(category)
         return categoryDao.insertCategory(entity)
     }
-    
+
     suspend fun updateCategory(category: TransactionCategory) {
         val entity = CategoryMapper.toEntity(category)
         categoryDao.updateCategory(entity)
     }
-    
+
     suspend fun deleteCategory(category: TransactionCategory) {
         val entity = CategoryMapper.toEntity(category)
         categoryDao.deleteCategory(entity)
     }
-    
+
     suspend fun insertDefaultCategories() {
         val defaultCategories = getDefaultCategories()
         categoryDao.insertAll(defaultCategories)
     }
-    
+
     private fun getDefaultCategories(): List<CategoryEntity> {
         return listOf(
             CategoryEntity(name = "Lebensmittel", color = 0xFF4CAF50.toInt(), iconResId = 0),

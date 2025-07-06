@@ -18,8 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
-import androidx.compose.material.icons.filled.TrendingDown
-import androidx.compose.material.icons.filled.TrendingUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -44,17 +42,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterBottomNavigation
+import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryStats
+import com.pixelpioneer.moneymaster.ui.viewmodel.CryptoViewModel
+import com.pixelpioneer.moneymaster.ui.viewmodel.MonthlyTrend
+import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsOverview
 import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 import com.pixelpioneer.moneymaster.util.FormatUtils
 import com.pixelpioneer.moneymaster.util.UiState
-import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsOverview
-import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryStats
-import com.pixelpioneer.moneymaster.ui.viewmodel.CryptoViewModel
-import com.pixelpioneer.moneymaster.ui.viewmodel.MonthlyTrend
 
 @Composable
 fun StatisticsScreen(
@@ -130,6 +127,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                         CircularProgressIndicator()
                     }
                 }
+
                 is UiState.Success -> {
                     val stats = statisticsState.data
 
@@ -305,12 +303,14 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                         }
                     }
                 }
+
                 is UiState.Error -> {
                     ErrorMessage(
                         message = statisticsState.message,
                         onRetry = { /* Reload data */ }
                     )
                 }
+
                 is UiState.Empty -> {
                     Box(
                         modifier = Modifier
@@ -355,6 +355,7 @@ fun CategoriesTab(categoryStatsState: UiState<List<CategoryStats>>) {
                     }
                 }
             }
+
             is UiState.Success -> {
                 val totalAmount = categoryStatsState.data.sumOf { it.amount }
 
@@ -365,6 +366,7 @@ fun CategoriesTab(categoryStatsState: UiState<List<CategoryStats>>) {
                     )
                 }
             }
+
             is UiState.Error -> {
                 item {
                     ErrorMessage(
@@ -373,6 +375,7 @@ fun CategoriesTab(categoryStatsState: UiState<List<CategoryStats>>) {
                     )
                 }
             }
+
             is UiState.Empty -> {
                 item {
                     Box(
@@ -418,11 +421,13 @@ fun TrendsTab(monthlyTrendsState: UiState<List<MonthlyTrend>>) {
                     }
                 }
             }
+
             is UiState.Success -> {
                 items(monthlyTrendsState.data) { monthlyTrend ->
                     MonthlyTrendItem(monthlyTrend = monthlyTrend)
                 }
             }
+
             is UiState.Error -> {
                 item {
                     ErrorMessage(
@@ -431,6 +436,7 @@ fun TrendsTab(monthlyTrendsState: UiState<List<MonthlyTrend>>) {
                     )
                 }
             }
+
             is UiState.Empty -> {
                 item {
                     Box(
@@ -568,7 +574,7 @@ fun MonthlyTrendItem(monthlyTrend: MonthlyTrend) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        painter = painterResource( if (isPositive) R.drawable.trending_up else R.drawable.trending_down),
+                        painter = painterResource(if (isPositive) R.drawable.trending_up else R.drawable.trending_down),
                         contentDescription = if (isPositive) "Positive" else "Negative",
                         tint = if (isPositive) Color.Green else Color.Red,
                         modifier = Modifier.size(20.dp)

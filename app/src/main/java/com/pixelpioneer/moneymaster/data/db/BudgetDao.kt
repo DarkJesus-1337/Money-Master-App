@@ -1,6 +1,13 @@
 package com.pixelpioneer.moneymaster.data.db
 
-import androidx.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import com.pixelpioneer.moneymaster.data.entity.BudgetEntity
 import com.pixelpioneer.moneymaster.data.relation.BudgetWithCategory
 import kotlinx.coroutines.flow.Flow
@@ -8,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface BudgetDao {
     @Query("SELECT * FROM budgets")
-    fun getAllBudgets(): Flow<List<BudgetEntity>>
+    fun getAllBudgets(): LiveData<List<BudgetEntity>>
 
     @Query("SELECT * FROM budgets WHERE id = :id")
     fun getBudgetById(id: Long): Flow<BudgetEntity>

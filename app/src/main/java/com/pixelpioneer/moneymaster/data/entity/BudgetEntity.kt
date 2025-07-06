@@ -1,6 +1,10 @@
 package com.pixelpioneer.moneymaster.data.entity
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
+import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "budgets",
@@ -11,7 +15,8 @@ import androidx.room.*
             childColumns = ["categoryId"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    indices = [Index(value = ["categoryId"])]
 )
 data class BudgetEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,

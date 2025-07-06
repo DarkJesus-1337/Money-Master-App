@@ -6,7 +6,6 @@ import com.pixelpioneer.moneymaster.data.repository.BudgetRepository
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
 import com.pixelpioneer.moneymaster.data.repository.CoinCapRepository
 import com.pixelpioneer.moneymaster.data.repository.TransactionRepository
-import com.pixelpioneer.moneymaster.data.services.CoinCapApiService
 
 class ViewModelFactory(
     private val transactionRepository: TransactionRepository,

@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DeleteOutline
@@ -21,9 +23,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +39,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.data.model.Transaction
@@ -48,12 +54,6 @@ import com.pixelpioneer.moneymaster.util.UiState
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 
 @Composable
 fun TransactionsScreen(
@@ -114,6 +114,7 @@ fun TransactionsScreen(
                         CircularProgressIndicator()
                     }
                 }
+
                 is UiState.Success -> {
                     val transactions = transactionsState.data
                     val filteredTransactions = if (searchQuery.isBlank()) {
@@ -139,12 +140,14 @@ fun TransactionsScreen(
                         }
                     }
                 }
+
                 is UiState.Error -> {
                     ErrorMessage(
                         message = transactionsState.message,
                         onRetry = { /* Reload data */ }
                     )
                 }
+
                 is UiState.Empty -> {
                     EmptyTransactionsView(
                         onAddButtonClick = { navController.navigate(Screen.AddTransaction.route) }

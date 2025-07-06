@@ -85,6 +85,7 @@ fun BudgetsScreen(
                         CircularProgressIndicator()
                     }
                 }
+
                 is UiState.Success -> {
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
@@ -100,12 +101,14 @@ fun BudgetsScreen(
                         }
                     }
                 }
+
                 is UiState.Error -> {
                     ErrorMessage(
                         message = budgetsState.message,
                         onRetry = { budgetViewModel.refreshBudgets() }
                     )
                 }
+
                 is UiState.Empty -> {
                     EmptyBudgetsView(
                         onAddButtonClick = { navController.navigate(Screen.AddBudget.route) }

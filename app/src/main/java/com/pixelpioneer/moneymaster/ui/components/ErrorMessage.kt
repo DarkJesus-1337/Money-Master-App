@@ -45,17 +45,17 @@ fun ErrorMessage(
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.error
             )
-            
+
             Spacer(modifier = Modifier.height(8.dp))
-            
+
             Text(
                 text = message,
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center
             )
-            
+
             Spacer(modifier = Modifier.height(16.dp))
-            
+
             Button(
                 onClick = onRetry
             ) {
@@ -63,130 +63,11 @@ fun ErrorMessage(
                     imageVector = Icons.Default.Refresh,
                     contentDescription = "Retry"
                 )
-                
+
                 Spacer(modifier = Modifier.width(8.dp))
-                
+
                 Text(text = "Retry")
             }
-        }
-    }
-}
-
-/**
- * A button to view all transactions
- */
-@Composable
-fun ViewAllTransactionsButton(
-    onClick: () -> Unit
-) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Text(text = "View All Transactions")
-    }
-}
-
-/**
- * A component for displaying empty financial summary state
- */
-@Composable
-fun EmptyFinancialSummary() {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "No financial data yet",
-                style = MaterialTheme.typography.titleMedium
-            )
-            
-            Spacer(modifier = Modifier.height(8.dp))
-            
-            Text(
-                text = "Add income and expenses to see your financial summary",
-                style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.Center
-            )
-        }
-    }
-}
-
-/**
- * A component for displaying empty transactions list
- */
-@Composable
-fun EmptyTransactionsList(
-    onAddTransaction: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "No transactions yet",
-            style = MaterialTheme.typography.titleMedium
-        )
-        
-        Spacer(modifier = Modifier.height(8.dp))
-        
-        Text(
-            text = "Start tracking your finances by adding your first transaction",
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center
-        )
-        
-        Spacer(modifier = Modifier.height(16.dp))
-        
-        Button(
-            onClick = onAddTransaction
-        ) {
-            Text(text = "Add Transaction")
-        }
-    }
-}
-
-/**
- * A component for displaying empty budgets list
- */
-@Composable
-fun EmptyBudgetsList(
-    onAddBudget: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "No budgets yet",
-            style = MaterialTheme.typography.titleMedium
-        )
-        
-        Spacer(modifier = Modifier.height(8.dp))
-        
-        Text(
-            text = "Create budgets to help manage your spending",
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center
-        )
-        
-        Spacer(modifier = Modifier.height(16.dp))
-        
-        Button(
-            onClick = onAddBudget
-        ) {
-            Text(text = "Create Budget")
         }
     }
 }

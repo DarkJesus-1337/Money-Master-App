@@ -19,25 +19,25 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDatePickerState
-import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.MenuAnchorType
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -130,7 +130,7 @@ fun AddTransactionScreen(
 
             OutlinedTextField(
                 value = if (formState.amount == 0.0) "" else formState.amount.toString(),
-                onValueChange = { 
+                onValueChange = {
                     val amount = it.toDoubleOrNull() ?: 0.0
                     transactionViewModel.updateAmount(amount)
                 },
@@ -138,7 +138,7 @@ fun AddTransactionScreen(
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 isError = formState.amountError != null,
-                supportingText = { 
+                supportingText = {
                     formState.amountError?.let {
                         Text(it, color = MaterialTheme.colorScheme.error)
                     }
@@ -157,7 +157,7 @@ fun AddTransactionScreen(
                 label = { Text("Title") },
                 modifier = Modifier.fillMaxWidth(),
                 isError = formState.titleError != null,
-                supportingText = { 
+                supportingText = {
                     formState.titleError?.let {
                         Text(it, color = MaterialTheme.colorScheme.error)
                     }
@@ -194,6 +194,7 @@ fun AddTransactionScreen(
                         CircularProgressIndicator()
                     }
                 }
+
                 is UiState.Success -> {
                     ExposedDropdownMenuBox(
                         expanded = expanded,
@@ -208,7 +209,7 @@ fun AddTransactionScreen(
                                 .fillMaxWidth()
                                 .menuAnchor(MenuAnchorType.PrimaryNotEditable, enabled = true),
                             isError = formState.categoryError != null,
-                            supportingText = { 
+                            supportingText = {
                                 formState.categoryError?.let {
                                     Text(it, color = MaterialTheme.colorScheme.error)
                                 }
@@ -246,12 +247,14 @@ fun AddTransactionScreen(
                         }
                     }
                 }
+
                 is UiState.Error -> {
                     ErrorMessage(
                         message = categoriesState.message,
                         onRetry = {}
                     )
                 }
+
                 is UiState.Empty -> {
                     Text(
                         text = "No cate     gories available. Please create categories first.",

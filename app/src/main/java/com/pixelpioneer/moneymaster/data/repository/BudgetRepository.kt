@@ -7,17 +7,64 @@ import com.pixelpioneer.moneymaster.data.enums.BudgetPeriod
 import com.pixelpioneer.moneymaster.data.model.Budget
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import java.util.Calendar
 
 class BudgetRepository(
     private val budgetDao: BudgetDao,
     private val transactionDao: TransactionDao
 ) {
-    val allBudgetsWithSpending = budgetDao.getBudgetsWithCategory().map { budgets ->
-        budgets.map { budgetWithCategory ->
+    val allBudgetsWithSpending: Flow<List<Budget>> =
+        combine(
+            budgetDao.getBudgetsWithCategory(),
+            transactionDao.getTransactionsWithCategory()
+        ) { budgets, transactions ->
+            budgets.map { budgetWithCategory ->
+                val period = BudgetPeriod.valueOf(budgetWithCategory.budget.periodName)
+                val (startDate, endDate) = getDateRangeForBudgetPeriod(period)
+
+                // Berechne ausgaben basierend auf den Transaktionen
+                val spentAmount = transactions
+                    .filter { transaction ->
+                        transaction.category.id == budgetWithCategory.category.id &&
+                                transaction.transaction.isExpense &&
+                                transaction.transaction.date >= startDate &&
+                                transaction.transaction.date <= endDate
+                    }
+                    .sumOf { it.transaction.amount }
+
+                Budget(
+                    id = budgetWithCategory.budget.id,
+                    category = TransactionCategory(
+                        id = budgetWithCategory.category.id,
+                        name = budgetWithCategory.category.name,
+                        color = budgetWithCategory.category.color,
+                        icon = budgetWithCategory.category.iconResId
+                    ),
+                    amount = budgetWithCategory.budget.amount,
+                    period = period,
+                    spent = spentAmount
+                )
+            }
+        }
+
+    fun getBudgetById(id: Long): Flow<Budget> =
+        combine(
+            budgetDao.getBudgetWithCategoryById(id),
+            transactionDao.getTransactionsWithCategory()
+        ) { budgetWithCategory, transactions ->
             val period = BudgetPeriod.valueOf(budgetWithCategory.budget.periodName)
             val (startDate, endDate) = getDateRangeForBudgetPeriod(period)
+
+            // Berechne ausgaben basierend auf den Transaktionen
+            val spentAmount = transactions
+                .filter { transaction ->
+                    transaction.category.id == budgetWithCategory.category.id &&
+                            transaction.transaction.isExpense &&
+                            transaction.transaction.date >= startDate &&
+                            transaction.transaction.date <= endDate
+                }
+                .sumOf { it.transaction.amount }
 
             Budget(
                 id = budgetWithCategory.budget.id,
@@ -29,27 +76,9 @@ class BudgetRepository(
                 ),
                 amount = budgetWithCategory.budget.amount,
                 period = period,
-                spent = 0.0 // Wird später asynchron berechnet
+                spent = spentAmount
             )
         }
-    }
-
-    fun getBudgetById(id: Long): Flow<Budget> {
-        return budgetDao.getBudgetWithCategoryById(id).map { budgetWithCategory ->
-            Budget(
-                id = budgetWithCategory.budget.id,
-                category = TransactionCategory(
-                    id = budgetWithCategory.category.id,
-                    name = budgetWithCategory.category.name,
-                    color = budgetWithCategory.category.color,
-                    icon = budgetWithCategory.category.iconResId
-                ),
-                amount = budgetWithCategory.budget.amount,
-                period = BudgetPeriod.valueOf(budgetWithCategory.budget.periodName),
-                spent = 0.0
-            )
-        }
-    }
 
     suspend fun insertBudget(budget: Budget): Long {
         val entity = BudgetEntity(
@@ -81,24 +110,16 @@ class BudgetRepository(
         budgetDao.deleteBudget(entity)
     }
 
-    fun getSpentAmountForBudget(budget: Budget): Flow<Double> {
-        val (startDate, endDate) = getDateRangeForBudgetPeriod(budget.period)
-        
-        return transactionDao.getTotalExpensesByCategoryAndDateRange(
-            budget.category.id, 
-            startDate, 
-            endDate
-        ).map { it ?: 0.0 }
-    }
-
     suspend fun getBudgetsWithSpendingSync(): List<Budget> {
         val budgetsWithCategory = budgetDao.getBudgetsWithCategorySync()
-
         return budgetsWithCategory.map { budgetWithCategory ->
             val period = BudgetPeriod.valueOf(budgetWithCategory.budget.periodName)
             val (startDate, endDate) = getDateRangeForBudgetPeriod(period)
-
-            val spentAmount = calculateSpentAmount(budgetWithCategory.category.id, startDate, endDate)
+            val spentAmount = transactionDao.getTotalExpensesByCategoryAndDateRangeSync(
+                budgetWithCategory.category.id,
+                startDate,
+                endDate
+            ) ?: 0.0
 
             Budget(
                 id = budgetWithCategory.budget.id,
@@ -117,48 +138,57 @@ class BudgetRepository(
 
     private fun getDateRangeForBudgetPeriod(period: BudgetPeriod): Pair<Long, Long> {
         val calendar = Calendar.getInstance()
-        val endDate = calendar.timeInMillis
-        
+        val currentTime = calendar.timeInMillis
+
         when (period) {
             BudgetPeriod.DAILY -> {
                 calendar.set(Calendar.HOUR_OF_DAY, 0)
                 calendar.set(Calendar.MINUTE, 0)
                 calendar.set(Calendar.SECOND, 0)
                 calendar.set(Calendar.MILLISECOND, 0)
+                val startDate = calendar.timeInMillis
+
+                calendar.set(Calendar.HOUR_OF_DAY, 23)
+                calendar.set(Calendar.MINUTE, 59)
+                calendar.set(Calendar.SECOND, 59)
+                calendar.set(Calendar.MILLISECOND, 999)
+                val endDate = calendar.timeInMillis
+
+                return Pair(startDate, endDate)
             }
+
             BudgetPeriod.WEEKLY -> {
                 calendar.set(Calendar.DAY_OF_WEEK, calendar.firstDayOfWeek)
                 calendar.set(Calendar.HOUR_OF_DAY, 0)
                 calendar.set(Calendar.MINUTE, 0)
                 calendar.set(Calendar.SECOND, 0)
                 calendar.set(Calendar.MILLISECOND, 0)
+                val startDate = calendar.timeInMillis
+
+                return Pair(startDate, currentTime)
             }
+
             BudgetPeriod.MONTHLY -> {
                 calendar.set(Calendar.DAY_OF_MONTH, 1)
                 calendar.set(Calendar.HOUR_OF_DAY, 0)
                 calendar.set(Calendar.MINUTE, 0)
                 calendar.set(Calendar.SECOND, 0)
                 calendar.set(Calendar.MILLISECOND, 0)
+                val startDate = calendar.timeInMillis
+
+                return Pair(startDate, currentTime)
             }
+
             BudgetPeriod.YEARLY -> {
                 calendar.set(Calendar.DAY_OF_YEAR, 1)
                 calendar.set(Calendar.HOUR_OF_DAY, 0)
                 calendar.set(Calendar.MINUTE, 0)
                 calendar.set(Calendar.SECOND, 0)
                 calendar.set(Calendar.MILLISECOND, 0)
-            }
-        }
-        
-        val startDate = calendar.timeInMillis
-        return Pair(startDate, endDate)
-    }
+                val startDate = calendar.timeInMillis
 
-    private suspend fun calculateSpentAmount(categoryId: Long, startDate: Long, endDate: Long): Double {
-        return try {
-            // Verwende eine suspendierte Funktion, um die Ausgaben zu berechnen
-            transactionDao.getTotalExpensesByCategoryAndDateRangeSync(categoryId, startDate, endDate) ?: 0.0
-        } catch (e: Exception) {
-            0.0
+                return Pair(startDate, currentTime)
+            }
         }
     }
 }

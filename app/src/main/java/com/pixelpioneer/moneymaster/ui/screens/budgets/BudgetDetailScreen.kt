@@ -1,12 +1,32 @@
 package com.pixelpioneer.moneymaster.ui.screens.budgets
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,6 +68,7 @@ fun BudgetDetailScreen(
                 transactionsState.data.filter { it.category.id == b.category.id && it.isExpense }
             } ?: emptyList()
         }
+
         else -> emptyList()
     }
 
@@ -74,6 +95,7 @@ fun BudgetDetailScreen(
                     CircularProgressIndicator()
                 }
             }
+
             is UiState.Success -> {
                 budget?.let { b ->
                     LazyColumn(
@@ -108,6 +130,7 @@ fun BudgetDetailScreen(
                                     }
                                 }
                             }
+
                             is UiState.Success -> {
                                 if (categoryTransactions.isEmpty()) {
                                     item {
@@ -130,6 +153,7 @@ fun BudgetDetailScreen(
                                     }
                                 }
                             }
+
                             is UiState.Error -> {
                                 item {
                                     ErrorMessage(
@@ -138,6 +162,7 @@ fun BudgetDetailScreen(
                                     )
                                 }
                             }
+
                             is UiState.Empty -> {
                                 item {
                                     Text(
@@ -163,6 +188,7 @@ fun BudgetDetailScreen(
                     }
                 }
             }
+
             is UiState.Error -> {
                 Box(
                     modifier = Modifier
@@ -176,6 +202,7 @@ fun BudgetDetailScreen(
                     )
                 }
             }
+
             is UiState.Empty -> {
                 Box(
                     modifier = Modifier

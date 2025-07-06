@@ -38,16 +38,16 @@ fun SettingsScreen(
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold
                 )
-                
+
                 Spacer(modifier = Modifier.height(16.dp))
-                
+
                 Text(
                     text = "Coming Soon",
                     style = MaterialTheme.typography.titleLarge
                 )
-                
+
                 Spacer(modifier = Modifier.height(8.dp))
-                
+
                 Text(
                     text = "This feature is under development",
                     style = MaterialTheme.typography.bodyMedium,
