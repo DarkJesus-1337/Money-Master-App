@@ -14,6 +14,7 @@ import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterNavHost
 import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryViewModel
+import com.pixelpioneer.moneymaster.ui.viewmodel.CryptoViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 
@@ -35,6 +36,11 @@ class MainActivity : ComponentActivity() {
         (application as MoneyMasterApplication).viewModelFactory
     }
 
+    private val cryptoViewModel: CryptoViewModel by viewModels {
+        (application as MoneyMasterApplication).viewModelFactory
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -54,7 +60,8 @@ class MainActivity : ComponentActivity() {
                         transactionViewModel = transactionViewModel,
                         categoryViewModel = categoryViewModel,
                         statisticsViewModel = statisticsViewModel,
-                        budgetViewModel = budgetViewModel
+                        budgetViewModel = budgetViewModel,
+                        cryptoViewModel = cryptoViewModel,
                     )
                 }
             }

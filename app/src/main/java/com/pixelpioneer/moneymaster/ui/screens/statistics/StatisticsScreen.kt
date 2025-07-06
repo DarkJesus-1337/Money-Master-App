@@ -53,13 +53,15 @@ import com.pixelpioneer.moneymaster.util.FormatUtils
 import com.pixelpioneer.moneymaster.util.UiState
 import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsOverview
 import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryStats
+import com.pixelpioneer.moneymaster.ui.viewmodel.CryptoViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.MonthlyTrend
 
 @Composable
 fun StatisticsScreen(
     navController: NavController,
     transactionViewModel: TransactionViewModel,
-    statisticsViewModel: StatisticsViewModel
+    statisticsViewModel: StatisticsViewModel,
+    cryptoViewModel: CryptoViewModel
 ) {
     val statisticsState = statisticsViewModel.statisticsState.collectAsState().value
     val categoryStatsState = statisticsViewModel.categoryStatsState.collectAsState().value
@@ -100,7 +102,7 @@ fun StatisticsScreen(
                 0 -> OverviewTab(statisticsState)
                 1 -> CategoriesTab(categoryStatsState)
                 2 -> TrendsTab(monthlyTrendsState)
-                3 -> CryptoAssetsScreen(statisticsViewModel)
+                3 -> CryptoAssetsScreen(cryptoViewModel)
             }
         }
     }

@@ -18,6 +18,7 @@ import com.pixelpioneer.moneymaster.ui.screens.transactions.TransactionDetailScr
 import com.pixelpioneer.moneymaster.ui.screens.transactions.TransactionsScreen
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryViewModel
+import com.pixelpioneer.moneymaster.ui.viewmodel.CryptoViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 
@@ -28,6 +29,7 @@ fun MoneyMasterNavHost(
     categoryViewModel: CategoryViewModel,
     budgetViewModel: BudgetViewModel,
     statisticsViewModel: StatisticsViewModel,
+    cryptoViewModel: CryptoViewModel,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -87,7 +89,8 @@ fun MoneyMasterNavHost(
             StatisticsScreen(
                 navController = navController,
                 transactionViewModel = transactionViewModel,
-                statisticsViewModel = statisticsViewModel
+                statisticsViewModel = statisticsViewModel,
+                cryptoViewModel = cryptoViewModel
             )
         }
 

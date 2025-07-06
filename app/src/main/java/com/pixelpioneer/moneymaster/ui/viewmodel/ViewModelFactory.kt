@@ -4,12 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.pixelpioneer.moneymaster.data.repository.BudgetRepository
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
+import com.pixelpioneer.moneymaster.data.repository.CoinCapRepository
 import com.pixelpioneer.moneymaster.data.repository.TransactionRepository
+import com.pixelpioneer.moneymaster.data.services.CoinCapApiService
 
 class ViewModelFactory(
     private val transactionRepository: TransactionRepository,
     private val categoryRepository: CategoryRepository,
-    private val budgetRepository: BudgetRepository
+    private val budgetRepository: BudgetRepository,
+    private val coinCapRepository: CoinCapRepository,
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
@@ -29,6 +32,10 @@ class ViewModelFactory(
 
             modelClass.isAssignableFrom(StatisticsViewModel::class.java) -> {
                 StatisticsViewModel(transactionRepository, categoryRepository) as T
+            }
+
+            modelClass.isAssignableFrom(CryptoViewModel::class.java) -> {
+                CryptoViewModel(coinCapRepository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
