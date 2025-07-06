@@ -66,7 +66,7 @@ fun StatisticsScreen(
     val monthlyTrendsState = statisticsViewModel.monthlyTrendsState.collectAsState().value
 
     var selectedTabIndex by remember { mutableIntStateOf(0) }
-    val tabs = listOf("Übersicht", "Kategorien", "Trends")
+    val tabs = listOf("Übersicht", "Kategorien", "Trends", "Crypto")
 
     Scaffold(
         bottomBar = { MoneyMasterBottomNavigation(navController) }
@@ -100,6 +100,7 @@ fun StatisticsScreen(
                 0 -> OverviewTab(statisticsState)
                 1 -> CategoriesTab(categoryStatsState)
                 2 -> TrendsTab(monthlyTrendsState)
+                3 -> CryptoAssetsScreen(statisticsViewModel)
             }
         }
     }

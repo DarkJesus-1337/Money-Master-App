@@ -2,14 +2,15 @@ package com.pixelpioneer.moneymaster.data.repository
 
 import com.pixelpioneer.moneymaster.data.db.TransactionDao
 import com.pixelpioneer.moneymaster.data.mapper.TransactionMapper
+import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.relation.TransactionWithCategory
+import com.pixelpioneer.moneymaster.data.services.CoinCapApiClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.Calendar
 
 class TransactionRepository(private val transactionDao: TransactionDao) {
-    
     val allTransactionsWithCategory = transactionDao.getTransactionsWithCategory()
         .map { list -> list.map { TransactionMapper.fromEntity(it) } }
     
@@ -122,5 +123,14 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
 
     fun getTransactionsWithCategoryByDateRange(startDate: Long, endDate: Long): Flow<List<TransactionWithCategory>> {
         return transactionDao.getTransactionsWithCategoryByDateRange(startDate, endDate)
+    }
+
+    suspend fun fetchCryptoAssets(limit: Int = 10): List<Asset> {
+        val response = CoinCapApiClient.api.getAssets(limit)
+        if (response.isSuccessful) {
+            return response.body()?.data ?: emptyList()
+        } else {
+            throw Exception("Fehler beim Abrufen der Krypto-Assets: ${response.message()}")
+        }
     }
 }

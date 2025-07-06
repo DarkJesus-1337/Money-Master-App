@@ -2,6 +2,7 @@ package com.pixelpioneer.moneymaster.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
 import com.pixelpioneer.moneymaster.data.repository.TransactionRepository
@@ -28,6 +29,9 @@ class StatisticsViewModel(
 
     private val _monthlyTrendsState = MutableStateFlow<UiState<List<MonthlyTrend>>>(UiState.Loading)
     val monthlyTrendsState: StateFlow<UiState<List<MonthlyTrend>>> = _monthlyTrendsState
+
+    private val _cryptoAssetsState = MutableStateFlow<UiState<List<Asset>>>(UiState.Loading)
+    val cryptoAssetsState: StateFlow<UiState<List<Asset>>> = _cryptoAssetsState
 
     init {
         loadStatistics()
@@ -184,6 +188,18 @@ class StatisticsViewModel(
                     }
             } catch (e: Exception) {
                 _monthlyTrendsState.value = UiState.Error(e.message ?: "Unbekannter Fehler")
+            }
+        }
+    }
+
+    fun loadCryptoAssets(limit: Int = 10) {
+        viewModelScope.launch {
+            try {
+                _cryptoAssetsState.value = UiState.Loading
+                val assets = transactionRepository.fetchCryptoAssets(limit)
+                _cryptoAssetsState.value = UiState.Success(assets)
+            } catch (e: Exception) {
+                _cryptoAssetsState.value = UiState.Error(e.message ?: "Fehler beim Laden der Krypto-Daten")
             }
         }
     }

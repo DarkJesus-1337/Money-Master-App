@@ -17,6 +17,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        
     }
 
     buildTypes {
@@ -74,6 +76,10 @@ dependencies {
 
     // Für Datums- und Zeitformatierung
     implementation(libs.kotlinx.datetime)
+
+    // Retrofit für Netzwerkaufrufe
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     // Tests
     testImplementation(libs.junit)

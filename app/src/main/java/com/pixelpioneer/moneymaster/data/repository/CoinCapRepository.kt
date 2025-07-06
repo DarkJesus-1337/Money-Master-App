@@ -1,0 +1,19 @@
+package com.pixelpioneer.moneymaster.data.repository
+
+import android.util.Log
+import com.pixelpioneer.moneymaster.data.model.Asset
+import com.pixelpioneer.moneymaster.data.services.CoinCapApiService
+
+class CoinCapRepository(private val api: CoinCapApiService) {
+    suspend fun getAssets(limit: Int = 10): List<Asset> {
+        Log.d("CoinCapRepository", "API call gestartet")
+        return try {
+            val response = api.getAssets(limit)
+            Log.d("CoinCapRepository", "Antwort: $response")
+            response.body()?.data ?: emptyList()
+        } catch (e: Exception) {
+            Log.e("CoinCapRepository", "Fehler beim Laden der Daten", e)
+            emptyList()
+        }
+    }
+}
