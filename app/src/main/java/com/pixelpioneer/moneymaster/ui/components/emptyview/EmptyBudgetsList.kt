@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.ui.components
+package com.pixelpioneer.moneymaster.ui.components.emptyview
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,11 +15,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 /**
- * A component for displaying empty transactions list
+ * A component for displaying empty budgets list
  */
 @Composable
-fun EmptyTransactionsList(
-    onAddTransaction: () -> Unit
+fun EmptyBudgetsList(
+    onAddBudget: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -28,14 +28,14 @@ fun EmptyTransactionsList(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "No transactions yet",
+            text = "No budgets yet",
             style = MaterialTheme.typography.titleMedium
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "Start tracking your finances by adding your first transaction",
+            text = "Create budgets to help manage your spending",
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Center
         )
@@ -43,9 +43,9 @@ fun EmptyTransactionsList(
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = onAddTransaction
+            onClick = onAddBudget
         ) {
-            Text(text = "Add Transaction")
+            Text(text = "Create Budget")
         }
     }
 }

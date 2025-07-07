@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.ui.components
+package com.pixelpioneer.moneymaster.ui.components.emptyview
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

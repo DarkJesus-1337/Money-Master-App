@@ -1,7 +1,5 @@
 package com.pixelpioneer.moneymaster.ui.screens.statistics
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,11 +12,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,29 +23,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.ValueFormatter
-import com.pixelpioneer.moneymaster.data.model.Asset
-import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
+import com.pixelpioneer.moneymaster.ui.components.coincap.AssetChip
+import com.pixelpioneer.moneymaster.ui.components.coincap.InfoRow
+import com.pixelpioneer.moneymaster.ui.components.coincap.PriceChart
 import com.pixelpioneer.moneymaster.ui.viewmodel.CryptoViewModel
 import com.pixelpioneer.moneymaster.util.FormatUtils
 import com.pixelpioneer.moneymaster.util.UiState
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CryptoAssetsScreen(viewModel: CryptoViewModel) {
     LaunchedEffect(Unit) {
@@ -65,7 +48,6 @@ fun CryptoAssetsScreen(viewModel: CryptoViewModel) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Asset-Auswahlleiste
         when (val assetsState = cryptoAssetsState) {
             is UiState.Success -> {
                 LazyRow(
@@ -105,7 +87,6 @@ fun CryptoAssetsScreen(viewModel: CryptoViewModel) {
             }
         }
 
-        // Asset-Details und Grafik
         selectedAsset?.let { asset ->
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -116,7 +97,6 @@ fun CryptoAssetsScreen(viewModel: CryptoViewModel) {
                 Column(
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    // Asset-Info
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -163,7 +143,6 @@ fun CryptoAssetsScreen(viewModel: CryptoViewModel) {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Preis-Chart
                     when (val historyState = cryptoHistoryState) {
                         is UiState.Success -> {
                             PriceChart(
@@ -215,7 +194,6 @@ fun CryptoAssetsScreen(viewModel: CryptoViewModel) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Zusätzliche Asset-Informationen
             Card(
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -251,126 +229,3 @@ fun CryptoAssetsScreen(viewModel: CryptoViewModel) {
     }
 }
 
-@Composable
-fun AssetChip(
-    asset: Asset,
-    isSelected: Boolean,
-    onClick: () -> Unit
-) {
-    val backgroundColor = if (isSelected) {
-        MaterialTheme.colorScheme.primary
-    } else {
-        MaterialTheme.colorScheme.surfaceVariant
-    }
-
-    val textColor = if (isSelected) {
-        MaterialTheme.colorScheme.onPrimary
-    } else {
-        MaterialTheme.colorScheme.onSurfaceVariant
-    }
-
-    Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(16.dp))
-            .background(backgroundColor)
-            .clickable { onClick() }
-            .padding(horizontal = 12.dp, vertical = 6.dp)
-    ) {
-        Text(
-            text = asset.symbol,
-            color = textColor,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium
-        )
-    }
-}
-
-@Composable
-fun PriceChart(
-    historyData: List<HistoryDataPoint>,
-    modifier: Modifier = Modifier
-) {
-    val context = LocalContext.current
-
-    AndroidView(
-        factory = { context ->
-            LineChart(context).apply {
-                description.isEnabled = false
-                setTouchEnabled(true)
-                isDragEnabled = true
-                setScaleEnabled(true)
-                legend.isEnabled = false
-
-                xAxis.apply {
-                    position = XAxis.XAxisPosition.BOTTOM
-                    setDrawGridLines(false)
-                    valueFormatter = object : ValueFormatter() {
-                        private val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-                        override fun getFormattedValue(value: Float): String {
-                            return dateFormat.format(Date(value.toLong()))
-                        }
-                    }
-                }
-
-                axisLeft.apply {
-                    setDrawGridLines(true)
-                    valueFormatter = object : ValueFormatter() {
-                        override fun getFormattedValue(value: Float): String {
-                            return FormatUtils.formatCurrency(value.toDouble())
-                        }
-                    }
-                }
-
-                axisRight.isEnabled = false
-            }
-        },
-        modifier = modifier,
-        update = { chart ->
-            if (historyData.isNotEmpty()) {
-                val entries = historyData.mapIndexed { index, dataPoint ->
-                    Entry(
-                        dataPoint.time.toFloat(),
-                        dataPoint.priceUsd.toFloatOrNull() ?: 0f
-                    )
-                }
-
-                val dataSet = LineDataSet(entries, "Preis").apply {
-                    color = Color.Blue.toArgb()
-                    setCircleColor(Color.Blue.toArgb())
-                    lineWidth = 2f
-                    circleRadius = 3f
-                    setDrawCircleHole(false)
-                    valueTextSize = 0f
-                    setDrawValues(false)
-                    mode = LineDataSet.Mode.CUBIC_BEZIER
-                    setDrawFilled(true)
-                    fillColor = Color.Blue.copy(alpha = 0.3f).toArgb()
-                }
-
-                chart.data = LineData(dataSet)
-                chart.invalidate()
-            }
-        }
-    )
-}
-
-@Composable
-fun InfoRow(label: String, value: String) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 2.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium
-        )
-    }
-}

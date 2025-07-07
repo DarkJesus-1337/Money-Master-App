@@ -88,7 +88,6 @@ fun MoneyMasterNavHost(
         composable(Screen.Statistics.route) {
             StatisticsScreen(
                 navController = navController,
-                transactionViewModel = transactionViewModel,
                 statisticsViewModel = statisticsViewModel,
                 cryptoViewModel = cryptoViewModel
             )

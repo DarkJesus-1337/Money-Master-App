@@ -56,7 +56,6 @@ import com.pixelpioneer.moneymaster.util.UiState
 @Composable
 fun StatisticsScreen(
     navController: NavController,
-    transactionViewModel: TransactionViewModel,
     statisticsViewModel: StatisticsViewModel,
     cryptoViewModel: CryptoViewModel
 ) {
