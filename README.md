@@ -34,7 +34,7 @@ Eine moderne Android-Anwendung zur Verwaltung persönlicher Finanzen, entwickelt
 
 ### Lizenz
 Dieses Projekt ist unter der MIT-Lizenz lizenziert - 
-siehe LICENSE Datei für Details.
+siehe [LICENSE](LICENSE.md) Datei für Details.
 
 
 ## Mitwirkende
