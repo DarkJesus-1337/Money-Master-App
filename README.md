@@ -1,4 +1,4 @@
-# MoneyMaster 💰
+# ![ShakeItLogo](app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.webp)
 
 Eine moderne Android-Anwendung zur Verwaltung persönlicher Finanzen, entwickelt mit Kotlin und Jetpack Compose.
 
