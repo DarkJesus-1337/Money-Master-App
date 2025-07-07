@@ -41,6 +41,6 @@ siehe [LICENSE](LICENSE.md) Datei für Details.
 - **DarkJesus-1337** - Hauptentwickler
 
 ## Unterstützung
--Bei Fragen oder Problemen erstelle bitte ein Issue im GitHub-Repository.
+Bei Fragen oder Problemen erstelle bitte ein Issue im GitHub-Repository.
 
 **Entwickelt mit ❤️ für bessere Finanzverwaltung**
