@@ -19,7 +19,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        
+
     }
 
     buildTypes {
@@ -105,6 +105,8 @@ dependencies {
     // RecyclerView hinzufügen
     implementation(libs.androidx.recyclerview)
 
+    // HTTP Client für Multipart Uploads
+    implementation(libs.okhttp)
 
     // Tests
     testImplementation(libs.junit)
