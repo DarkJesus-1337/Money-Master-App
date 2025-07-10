@@ -11,17 +11,17 @@ import com.pixelpioneer.moneymaster.ui.screens.budgets.AddBudgetScreen
 import com.pixelpioneer.moneymaster.ui.screens.budgets.BudgetDetailScreen
 import com.pixelpioneer.moneymaster.ui.screens.budgets.BudgetsScreen
 import com.pixelpioneer.moneymaster.ui.screens.dashboard.DashboardScreen
+import com.pixelpioneer.moneymaster.ui.screens.receipts.ReceiptScanScreen
 import com.pixelpioneer.moneymaster.ui.screens.statistics.StatisticsScreen
 import com.pixelpioneer.moneymaster.ui.screens.transactions.AddTransactionScreen
 import com.pixelpioneer.moneymaster.ui.screens.transactions.TransactionDetailScreen
 import com.pixelpioneer.moneymaster.ui.screens.transactions.TransactionsScreen
-import com.pixelpioneer.moneymaster.ui.screens.receipts.ReceiptScanScreen
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.CryptoViewModel
+import com.pixelpioneer.moneymaster.ui.viewmodel.ReceiptScanViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
-import com.pixelpioneer.moneymaster.ui.viewmodel.ReceiptScanViewModel
 
 @Composable
 fun MoneyMasterNavHost(

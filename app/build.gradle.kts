@@ -19,8 +19,16 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "OCR_SPACE_API_KEY", "\"${project.properties["OCR_SPACE_API_KEY"]}\"")
-        buildConfigField("String", "COINCAP_API_KEY", "\"${project.properties["COINCAP_API_KEY"]}\"")
+        buildConfigField(
+            "String",
+            "OCR_SPACE_API_KEY",
+            "\"${project.properties["OCR_SPACE_API_KEY"]}\""
+        )
+        buildConfigField(
+            "String",
+            "COINCAP_API_KEY",
+            "\"${project.properties["COINCAP_API_KEY"]}\""
+        )
     }
 
     buildFeatures {
@@ -89,6 +97,9 @@ dependencies {
     // Coroutines für async/await
     implementation(libs.kotlinx.coroutines.play.services)
     implementation(libs.kotlinx.coroutines.android.v1102)
+
+    // Coil für Bild-Handling
+    implementation(libs.coil.compose)
 
     // Material Icons Extended (für mehr Icons)
     implementation(libs.androidx.material.icons.extended)

@@ -1,6 +1,5 @@
 package com.pixelpioneer.moneymaster.ui.viewmodel
 
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,7 +32,8 @@ class ReceiptScanViewModel(
                 val response = receiptScanRepository.scanReceipt(imageFile)
                 Log.d("ReceiptScanViewModel", "OCR Response: $response")
                 if (response == null) {
-                    _error.value = "Fehler beim OCR-Request. Prüfe API-Key, Internetverbindung und Dateiformat."
+                    _error.value =
+                        "Fehler beim OCR-Request. Prüfe API-Key, Internetverbindung und Dateiformat."
                     _scannedItems.value = emptyList()
                     return@launch
                 }
@@ -72,7 +72,10 @@ class ReceiptScanViewModel(
         else -> any.toString()
     }
 
-    private fun parseItemsFromText(text: String, defaultCategory: TransactionCategory): List<Transaction> {
+    private fun parseItemsFromText(
+        text: String,
+        defaultCategory: TransactionCategory
+    ): List<Transaction> {
         // Flexibleres Regex: Erlaubt auch Preise mit Leerzeichen, Komma oder Punkt, optional führende Null
         val regex = Regex("""(.+?)\s+(\d{1,3}[\.,]\d{2})""")
         val now = System.currentTimeMillis()

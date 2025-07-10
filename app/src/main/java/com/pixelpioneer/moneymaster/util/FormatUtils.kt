@@ -69,7 +69,11 @@ object FormatUtils {
      * @param decimalPlaces The number of decimal places to show (default is 0)
      * @return A formatted percentage string
      */
-    fun formatPercentage(value: Double, decimalPlaces: Int = 0, locale: Locale = Locale.getDefault()): String {
+    fun formatPercentage(
+        value: Double,
+        decimalPlaces: Int = 0,
+        locale: Locale = Locale.getDefault()
+    ): String {
         val format = if (decimalPlaces <= 0) {
             "%.0f%%"
         } else {
