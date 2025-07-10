@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MoneyMaster</string>
+    <string name="store_name_unknown">Unbekannt</string>
+    <string name="date_today">Heute</string>
+    <string name="total_amount_format">Gesamt: %.2f €</string>
+    <string name="item_price_format">%.2f €</string>
 </resources>

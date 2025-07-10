@@ -150,7 +150,8 @@ class EnhancedReceiptOCRService {
 
         val priceMatch = pricePattern.matcher(nextLine)
         if (priceMatch.find() && nextLine.trim().matches(Regex("""^\d+[.,]\d{2}\s*[€A]?$"""))) {
-            val price = parsePrice(priceMatch.group(1))
+            val priceStr = priceMatch.group(1) ?: return null
+            val price = parsePrice(priceStr)
             if (price > 0) {
                 return ReceiptItem(cleanItemName(currentLine), price)
             }
@@ -219,7 +220,7 @@ class EnhancedReceiptOCRService {
         return items
             .distinctBy { "${it.name}_${it.price}" }
             .filter { item ->
-                item.price >= 0.01 && item.price <= 999.99 &&
+                item.price in 0.01..999.99 &&
                         item.name.length >= 3 &&
                         !item.name.uppercase().contains("PREISVORTEIL") &&
                         !item.name.uppercase().contains("RABATT")

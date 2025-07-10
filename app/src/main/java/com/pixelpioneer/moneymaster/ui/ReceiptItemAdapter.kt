@@ -26,7 +26,7 @@ class ReceiptItemAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.itemName.text = item.name
-        holder.itemPrice.text = String.format("%.2f €", item.price)
+        holder.itemPrice.text = holder.itemView.context.getString(R.string.item_price_format, item.price)
     }
 
     override fun getItemCount() = items.size

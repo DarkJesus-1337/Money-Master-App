@@ -76,7 +76,8 @@ class CameraActivity : ComponentActivity() {
                     this, cameraSelector, preview, imageCapture
                 )
 
-                previewView.setOnTouchListener { _, _ ->
+                previewView.setOnTouchListener { view, _ ->
+                    view.performClick()
                     captureImage(imageCapture)
                     true
                 }
@@ -138,21 +139,5 @@ class CameraActivity : ComponentActivity() {
     override fun onDestroy() {
         super.onDestroy()
         cameraExecutor.shutdown()
-    }
-
-    private fun handleReceiptResult(receipt: Receipt) {
-        if (receipt.items.isNotEmpty()) {
-            val intent = Intent(this, ReceiptResultActivity::class.java)
-            intent.putExtra("receipt", receipt)
-            startActivity(intent)
-        } else {
-            showError("Keine Artikel erkannt. Bitte versuchen Sie es erneut.")
-        }
-    }
-
-    private fun showLoading(show: Boolean) {
-    }
-
-    private fun showError(message: String) {
     }
 }

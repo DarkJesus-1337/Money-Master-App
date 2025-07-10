@@ -22,8 +22,8 @@ object FormatUtils {
         return numberFormat.format(amount)
     }
 
-    fun formatCurrencyReceipe(amount: Double): String {
-        return String.format("%.2f €", amount)
+    fun formatCurrencyReceipe(amount: Double, locale: Locale = Locale.getDefault()): String {
+        return String.format(locale, "%.2f €", amount)
     }
 
     /**
@@ -69,12 +69,12 @@ object FormatUtils {
      * @param decimalPlaces The number of decimal places to show (default is 0)
      * @return A formatted percentage string
      */
-    fun formatPercentage(value: Double, decimalPlaces: Int = 0): String {
+    fun formatPercentage(value: Double, decimalPlaces: Int = 0, locale: Locale = Locale.getDefault()): String {
         val format = if (decimalPlaces <= 0) {
             "%.0f%%"
         } else {
             "%." + decimalPlaces + "f%%"
         }
-        return String.format(format, value * 100)
+        return String.format(locale, format, value * 100)
     }
 }

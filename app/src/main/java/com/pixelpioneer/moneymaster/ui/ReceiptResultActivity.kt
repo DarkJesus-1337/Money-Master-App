@@ -18,7 +18,12 @@ class ReceiptResultActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_receipt_result)
 
-        receipt = intent.getParcelableExtra("receipt") ?: return
+        receipt = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("receipt", Receipt::class.java) ?: return
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra("receipt") ?: return
+        }
 
         setupViews()
         setupRecyclerView()
@@ -26,10 +31,14 @@ class ReceiptResultActivity : ComponentActivity() {
     }
 
     private fun setupViews() {
-        findViewById<TextView>(R.id.store_name_text).text = receipt.storeName ?: "Unbekannt"
-        findViewById<TextView>(R.id.date_text).text = receipt.date ?: "Heute"
+        findViewById<TextView>(R.id.store_name_text).text =
+            receipt.storeName ?: getString(R.string.store_name_unknown)
+
+        findViewById<TextView>(R.id.date_text).text =
+            receipt.date ?: getString(R.string.date_today)
+
         findViewById<TextView>(R.id.total_amount_text).text =
-            "Gesamt: ${String.format("%.2f", receipt.totalAmount)} €"
+            getString(R.string.total_amount_format, receipt.totalAmount)
     }
 
     private fun setupRecyclerView() {
