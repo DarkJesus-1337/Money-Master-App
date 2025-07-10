@@ -46,7 +46,6 @@ class ReceiptResultActivity : ComponentActivity() {
         }
 
         findViewById<Button>(R.id.save_button).setOnClickListener {
-            // Hier Transaktionen speichern
             saveTransactions()
             finish()
         }

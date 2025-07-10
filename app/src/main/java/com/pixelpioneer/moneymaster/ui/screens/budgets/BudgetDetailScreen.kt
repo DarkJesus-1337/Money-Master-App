@@ -53,7 +53,6 @@ fun BudgetDetailScreen(
     budgetViewModel: BudgetViewModel,
     transactionViewModel: TransactionViewModel
 ) {
-    // State in lokalen Variablen speichern für Smart Cast
     val budgetsState = budgetViewModel.budgetsState.collectAsState().value
     val transactionsState = transactionViewModel.transactionsState.collectAsState().value
 

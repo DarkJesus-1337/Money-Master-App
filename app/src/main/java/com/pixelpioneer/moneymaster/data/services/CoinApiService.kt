@@ -16,7 +16,7 @@ interface CoinCapApiService {
     @GET("assets/{id}/history")
     suspend fun getAssetHistory(
         @Path("id") assetId: String,
-        @Query("interval") interval: String = "h1", // h1, h6, h12, d1
+        @Query("interval") interval: String = "h1",
         @Query("start") start: Long? = null,
         @Query("end") end: Long? = null
     ): Response<HistoryResponse>

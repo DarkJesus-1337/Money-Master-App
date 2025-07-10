@@ -49,7 +49,6 @@ import com.pixelpioneer.moneymaster.ui.viewmodel.CryptoViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.MonthlyTrend
 import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsOverview
 import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsViewModel
-import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 import com.pixelpioneer.moneymaster.util.FormatUtils
 import com.pixelpioneer.moneymaster.util.UiState
 
@@ -130,7 +129,6 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                 is UiState.Success -> {
                     val stats = statisticsState.data
 
-                    // Monatliche Zusammenfassung
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         colors = CardDefaults.cardColors(
@@ -206,7 +204,6 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                         }
                     }
 
-                    // Durchschnittliche Ausgaben
                     Card(
                         modifier = Modifier.fillMaxWidth()
                     ) {
@@ -254,7 +251,6 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                         }
                     }
 
-                    // Transaktionsanzahl
                     Card(
                         modifier = Modifier.fillMaxWidth()
                     ) {
@@ -520,7 +516,6 @@ fun CategoryStatsItem(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Fortschrittsbalken
             Box(
                 modifier = Modifier
                     .fillMaxWidth()

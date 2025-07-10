@@ -224,7 +224,6 @@ class StatisticsViewModel(
     }
 }
 
-// Datenklassen für die StatisticsScreen
 data class StatisticsOverview(
     val monthlyIncome: Double,
     val monthlyExpenses: Double,

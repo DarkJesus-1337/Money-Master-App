@@ -12,8 +12,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 
 class BudgetViewModel(
     private val budgetRepository: BudgetRepository,
@@ -107,7 +105,6 @@ class BudgetViewModel(
                 budgetRepository.insertBudget(budget)
                 resetFormState()
             } catch (e: Exception) {
-                // Handle error (could update a form error state here)
             }
         }
     }

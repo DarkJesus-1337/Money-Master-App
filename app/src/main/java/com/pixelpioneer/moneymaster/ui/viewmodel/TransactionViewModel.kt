@@ -2,6 +2,7 @@ package com.pixelpioneer.moneymaster.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pixelpioneer.moneymaster.data.model.Receipt
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
@@ -10,10 +11,9 @@ import com.pixelpioneer.moneymaster.util.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.Calendar
-import com.pixelpioneer.moneymaster.data.model.Receipt
-import kotlinx.coroutines.flow.first
 
 class TransactionViewModel(
     private val transactionRepository: TransactionRepository,
@@ -156,7 +156,6 @@ class TransactionViewModel(
                 loadTransactions()
                 loadFinancialSummary()
             } catch (e: Exception) {
-                // Handle error (could update a form error state here)
             }
         }
     }
@@ -192,7 +191,6 @@ class TransactionViewModel(
 
                 loadTransactionById(id)
             } catch (e: Exception) {
-                // Handle error
             }
         }
     }
@@ -204,7 +202,6 @@ class TransactionViewModel(
                 loadTransactions()
                 loadFinancialSummary()
             } catch (e: Exception) {
-                // Handle error
             }
         }
     }
@@ -307,12 +304,10 @@ class TransactionViewModel(
                     transactionRepository.insertTransaction(transaction)
                 }
 
-                // UI aktualisieren
                 loadTransactions()
                 loadFinancialSummary()
 
             } catch (e: Exception) {
-                // Fehlerbehandlung
             }
         }
     }

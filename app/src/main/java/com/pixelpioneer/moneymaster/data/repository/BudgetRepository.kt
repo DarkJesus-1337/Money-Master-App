@@ -23,7 +23,6 @@ class BudgetRepository(
                 val period = BudgetPeriod.valueOf(budgetWithCategory.budget.periodName)
                 val (startDate, endDate) = getDateRangeForBudgetPeriod(period)
 
-                // Berechne ausgaben basierend auf den Transaktionen
                 val spentAmount = transactions
                     .filter { transaction ->
                         transaction.category.id == budgetWithCategory.category.id &&
@@ -56,7 +55,6 @@ class BudgetRepository(
             val period = BudgetPeriod.valueOf(budgetWithCategory.budget.periodName)
             val (startDate, endDate) = getDateRangeForBudgetPeriod(period)
 
-            // Berechne ausgaben basierend auf den Transaktionen
             val spentAmount = transactions
                 .filter { transaction ->
                     transaction.category.id == budgetWithCategory.category.id &&

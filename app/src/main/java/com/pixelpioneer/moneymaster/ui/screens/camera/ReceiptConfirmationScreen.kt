@@ -1,26 +1,50 @@
-// app/src/main/java/com/pixelpioneer/moneymaster/ui/screens/camera/ReceiptConfirmationScreen.kt
 package com.pixelpioneer.moneymaster.ui.screens.camera
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Receipt
 import com.pixelpioneer.moneymaster.data.model.ReceiptItem
 import com.pixelpioneer.moneymaster.util.FormatUtils
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,7 +62,7 @@ fun ReceiptConfirmationScreen(
                 title = { Text("Kassenzettel bestätigen") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Zurück")
+                        Icon(painterResource(R.drawable.arrow_back), contentDescription = "Zurück")
                     }
                 }
             )
@@ -57,7 +81,6 @@ fun ReceiptConfirmationScreen(
                 .padding(paddingValues)
                 .padding(16.dp)
         ) {
-            // Geschäftsname und Datum
             ReceiptHeaderSection(
                 receipt = editedReceipt,
                 onReceiptChanged = { editedReceipt = it }
@@ -65,7 +88,6 @@ fun ReceiptConfirmationScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Artikel-Liste
             Text(
                 text = "Artikel",
                 style = MaterialTheme.typography.titleMedium,
@@ -83,8 +105,8 @@ fun ReceiptConfirmationScreen(
                         item = item,
                         onItemChanged = { newItem ->
                             editedReceipt = editedReceipt.copy(
-                                items = editedReceipt.items.map { 
-                                    if (it == item) newItem else it 
+                                items = editedReceipt.items.map {
+                                    if (it == item) newItem else it
                                 }
                             )
                         },
@@ -157,7 +179,6 @@ fun ReceiptHeaderSection(
     var editingDate by remember { mutableStateOf(false) }
 
     Column {
-        // Geschäftsname
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -166,7 +187,7 @@ fun ReceiptHeaderSection(
             if (editingStore) {
                 OutlinedTextField(
                     value = receipt.storeName ?: "",
-                    onValueChange = { 
+                    onValueChange = {
                         onReceiptChanged(receipt.copy(storeName = it))
                     },
                     label = { Text("Geschäft") },
@@ -195,7 +216,6 @@ fun ReceiptHeaderSection(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Datum
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -204,7 +224,7 @@ fun ReceiptHeaderSection(
             if (editingDate) {
                 OutlinedTextField(
                     value = receipt.date ?: "",
-                    onValueChange = { 
+                    onValueChange = {
                         onReceiptChanged(receipt.copy(date = it))
                     },
                     label = { Text("Datum") },
@@ -221,7 +241,10 @@ fun ReceiptHeaderSection(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        text = receipt.date ?: SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date()),
+                        text = receipt.date ?: SimpleDateFormat(
+                            "dd.MM.yyyy",
+                            Locale.getDefault()
+                        ).format(Date()),
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
@@ -259,7 +282,7 @@ fun ReceiptItemCard(
 
                 OutlinedTextField(
                     value = if (item.price == 0.0) "" else item.price.toString(),
-                    onValueChange = { 
+                    onValueChange = {
                         val price = it.toDoubleOrNull() ?: 0.0
                         onItemChanged(item.copy(price = price))
                     },

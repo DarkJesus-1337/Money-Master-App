@@ -9,12 +9,15 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.camera.core.*
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import com.pixelpioneer.moneymaster.data.model.Receipt
-import com.pixelpioneer.moneymaster.data.services.ReceiptOCRService
+import com.pixelpioneer.moneymaster.data.services.EnhancedReceiptOCRService
 import com.pixelpioneer.moneymaster.ui.ReceiptResultActivity
 import java.io.File
 import java.util.concurrent.ExecutorService
@@ -24,7 +27,7 @@ class CameraActivity : ComponentActivity() {
 
     private lateinit var previewView: PreviewView
     private lateinit var cameraExecutor: ExecutorService
-    private lateinit var ocrService: ReceiptOCRService
+    private lateinit var ocrService: EnhancedReceiptOCRService
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -39,16 +42,15 @@ class CameraActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        ocrService = ReceiptOCRService()
+        EnhancedReceiptOCRService().also { ocrService = it }
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        // Layout mit PreviewView erstellen
         previewView = PreviewView(this)
         setContentView(previewView)
 
-        // Kamera-Berechtigung prüfen
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-            == PackageManager.PERMISSION_GRANTED) {
+            == PackageManager.PERMISSION_GRANTED
+        ) {
             startCamera()
         } else {
             requestPermissionLauncher.launch(Manifest.permission.CAMERA)
@@ -74,7 +76,6 @@ class CameraActivity : ComponentActivity() {
                     this, cameraSelector, preview, imageCapture
                 )
 
-                // Touch-to-capture
                 previewView.setOnTouchListener { _, _ ->
                     captureImage(imageCapture)
                     true
@@ -100,7 +101,11 @@ class CameraActivity : ComponentActivity() {
                 }
 
                 override fun onError(exception: ImageCaptureException) {
-                    Toast.makeText(this@CameraActivity, "Foto-Fehler: ${exception.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@CameraActivity,
+                        "Foto-Fehler: ${exception.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         )
@@ -111,13 +116,13 @@ class CameraActivity : ComponentActivity() {
             bitmap,
             onSuccess = { receipt ->
                 runOnUiThread {
-                    // Receipt-Daten verarbeiten
                     showReceiptResult(receipt)
                 }
             },
             onError = { exception ->
                 runOnUiThread {
-                    Toast.makeText(this, "OCR-Fehler: ${exception.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "OCR-Fehler: ${exception.message}", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         )
@@ -127,7 +132,7 @@ class CameraActivity : ComponentActivity() {
         val intent = Intent(this, ReceiptResultActivity::class.java)
         intent.putExtra("receipt", receipt)
         startActivity(intent)
-        finish() // Schließe die CameraActivity
+        finish()
     }
 
     override fun onDestroy() {
@@ -146,10 +151,8 @@ class CameraActivity : ComponentActivity() {
     }
 
     private fun showLoading(show: Boolean) {
-        // Implementiere Loading UI
     }
 
     private fun showError(message: String) {
-        // Zeige Fehlermeldung
     }
 }

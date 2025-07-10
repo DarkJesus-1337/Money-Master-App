@@ -74,7 +74,6 @@ fun RecentTransactionItem(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        // Category color indicator
         Box(
             modifier = Modifier
                 .size(40.dp)
@@ -82,8 +81,6 @@ fun RecentTransactionItem(
                 .background(Color(transaction.category.color)),
             contentAlignment = Alignment.Center
         ) {
-            // If there's an icon for the category, display it here
-            // For now, just showing the first letter of the category name
             Text(
                 text = transaction.category.name.first().toString(),
                 style = MaterialTheme.typography.titleMedium,
@@ -93,7 +90,6 @@ fun RecentTransactionItem(
 
         Spacer(modifier = Modifier.width(16.dp))
 
-        // Transaction details
         Column(
             modifier = Modifier.weight(1f)
         ) {
@@ -126,7 +122,6 @@ fun RecentTransactionItem(
 
         Spacer(modifier = Modifier.width(16.dp))
 
-        // Amount
         Column(
             horizontalAlignment = Alignment.End
         ) {
@@ -173,7 +168,6 @@ fun BudgetOverview(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            // Display top 2 budgets by percentage used
             val topBudgets = budgets.sortedByDescending { it.spent / it.amount }.take(2)
 
             topBudgets.forEach { budget ->
@@ -184,7 +178,6 @@ fun BudgetOverview(
                 }
             }
 
-            // If there are more budgets, show a "View All" text
             if (budgets.size > 2) {
                 HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
 
@@ -237,7 +230,6 @@ fun BudgetOverviewItem(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Category indicator
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -256,7 +248,6 @@ fun BudgetOverviewItem(
                 )
             }
 
-            // Percentage
             Text(
                 text = FormatUtils.formatPercentage(progress),
                 style = MaterialTheme.typography.titleSmall,
@@ -266,7 +257,6 @@ fun BudgetOverviewItem(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Progress bar
         LinearProgressIndicator(
             progress = { progress.toFloat() },
             modifier = Modifier.fillMaxWidth(),
@@ -275,7 +265,6 @@ fun BudgetOverviewItem(
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        // Amount information
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween

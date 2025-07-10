@@ -33,12 +33,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.ui.components.BudgetOverview
-import com.pixelpioneer.moneymaster.ui.components.emptyview.EmptyBudgetsList
-import com.pixelpioneer.moneymaster.ui.components.emptyview.EmptyFinancialSummary
-import com.pixelpioneer.moneymaster.ui.components.emptyview.EmptyTransactionsList
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.components.RecentTransactionItem
 import com.pixelpioneer.moneymaster.ui.components.ViewAllTransactionsButton
+import com.pixelpioneer.moneymaster.ui.components.emptyview.EmptyBudgetsList
+import com.pixelpioneer.moneymaster.ui.components.emptyview.EmptyFinancialSummary
+import com.pixelpioneer.moneymaster.ui.components.emptyview.EmptyTransactionsList
 import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterBottomNavigation
 import com.pixelpioneer.moneymaster.ui.navigation.Screen
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel

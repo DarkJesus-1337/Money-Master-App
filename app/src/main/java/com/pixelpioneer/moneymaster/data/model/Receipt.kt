@@ -1,4 +1,3 @@
-// app/src/main/java/com/pixelpioneer/moneymaster/data/model/Receipt.kt
 package com.pixelpioneer.moneymaster.data.model
 
 import android.os.Parcelable

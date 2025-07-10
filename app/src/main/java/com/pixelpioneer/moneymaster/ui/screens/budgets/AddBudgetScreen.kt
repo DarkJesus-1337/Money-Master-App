@@ -89,7 +89,6 @@ fun AddBudgetScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Amount Field
             OutlinedTextField(
                 value = amountText,
                 onValueChange = { newValue ->
@@ -111,7 +110,6 @@ fun AddBudgetScreen(
                 }
             )
 
-            // Category Selection
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -157,7 +155,6 @@ fun AddBudgetScreen(
                 )
             }
 
-            // Period Selection
             Box {
                 Card(
                     modifier = Modifier
@@ -207,7 +204,6 @@ fun AddBudgetScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // Save Button
             Button(
                 onClick = {
                     budgetViewModel.createBudget()
@@ -221,7 +217,6 @@ fun AddBudgetScreen(
         }
     }
 
-    // Category Selector Dialog
     if (showCategorySelector) {
         CategorySelectorDialog(
             categoriesState = categoriesState,

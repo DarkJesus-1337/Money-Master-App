@@ -34,7 +34,6 @@ class CryptoViewModel(
                     _cryptoAssetsState.value = UiState.Empty
                 } else {
                     _cryptoAssetsState.value = UiState.Success(assets)
-                    // Automatically select the first asset if none is selected
                     if (_selectedAsset.value == null) {
                         selectAsset(assets.first())
                     }

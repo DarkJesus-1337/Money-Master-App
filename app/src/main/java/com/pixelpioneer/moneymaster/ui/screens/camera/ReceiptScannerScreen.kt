@@ -1,6 +1,10 @@
 package com.pixelpioneer.moneymaster.ui.screens.camera
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.data.model.Receipt
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
@@ -23,16 +27,15 @@ fun ReceiptScannerScreen(
                 }
             )
         }
-        
+
         ReceiptScannerState.CONFIRMATION -> {
             capturedReceipt?.let { receipt ->
                 ReceiptConfirmationScreen(
                     receipt = receipt,
-                    onNavigateBack = { 
-                        currentScreen = ReceiptScannerState.CAMERA 
+                    onNavigateBack = {
+                        currentScreen = ReceiptScannerState.CAMERA
                     },
                     onConfirm = { confirmedReceipt ->
-                        // Jedes Item als separate Transaktion hinzufügen
                         confirmedReceipt.items.forEach { item ->
                             transactionViewModel.updateTitle(item.name)
                             transactionViewModel.updateAmount(item.price)
