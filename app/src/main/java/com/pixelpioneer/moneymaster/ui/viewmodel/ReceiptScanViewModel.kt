@@ -31,27 +31,28 @@ class ReceiptScanViewModel(
             try {
                 val response = receiptScanRepository.scanReceipt(imageFile)
                 Log.d("ReceiptScanViewModel", "OCR Response: $response")
+
                 if (response == null) {
-                    _error.value =
-                        "Fehler beim OCR-Request. Prüfe API-Key, Internetverbindung und Dateiformat."
+                    _error.value = "Fehler beim OCR-Request. Prüfe API-Key, Internetverbindung und Dateiformat."
                     _scannedItems.value = emptyList()
                     return@launch
                 }
-                val parsedText = response.ParsedResults?.firstOrNull()?.ParsedText.orEmpty()
-                val errorMessage = response.ErrorMessage?.let { anyToString(it) }
-                val errorDetails = response.ErrorDetails?.let { anyToString(it) }
-                val exitCode = response.OCRExitCode
+
+                // Verwende direkte Property-Zugriffe statt Reflection
+                val parsedText = response.parsedResults?.firstOrNull()?.parsedText.orEmpty()
+
                 Log.d("ReceiptScanViewModel", "OCR ParsedText: $parsedText")
                 if (parsedText.isBlank()) {
                     _error.value = buildString {
                         append("Kein Text erkannt.\n")
-                        append("OCRExitCode: $exitCode\n")
-                        if (!errorMessage.isNullOrBlank()) append("ErrorMessage: $errorMessage\n")
-                        if (!errorDetails.isNullOrBlank()) append("ErrorDetails: $errorDetails\n")
+                        append("OCRExitCode: ${response.ocrExitCode}\n")
+                        response.errorMessage?.let { if (it.toString().isNotBlank()) append("ErrorMessage: $it\n") }
+                        response.errorDetails?.let { if (it.toString().isNotBlank()) append("ErrorDetails: $it\n") }
                     }
                     _scannedItems.value = emptyList()
                     return@launch
                 }
+
                 val items = parseItemsFromText(parsedText, defaultCategory)
                 if (items.isEmpty()) {
                     _error.value = "Kein Artikel erkannt. OCR-Text: $parsedText"
@@ -59,6 +60,7 @@ class ReceiptScanViewModel(
                 _scannedItems.value = items
             } catch (e: Exception) {
                 _error.value = e.message
+                Log.e("OCR_ERROR", "Error scanning receipt", e)
             } finally {
                 _isLoading.value = false
             }
@@ -76,7 +78,6 @@ class ReceiptScanViewModel(
         text: String,
         defaultCategory: TransactionCategory
     ): List<Transaction> {
-        // Flexibleres Regex: Erlaubt auch Preise mit Leerzeichen, Komma oder Punkt, optional führende Null
         val regex = Regex("""(.+?)\s+(\d{1,3}[\.,]\d{2})""")
         val now = System.currentTimeMillis()
         return text.lines().mapNotNull { line ->
