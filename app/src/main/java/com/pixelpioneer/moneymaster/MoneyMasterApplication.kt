@@ -40,7 +40,7 @@ class MoneyMasterApplication : Application() {
 
     private val receiptScanRepository by lazy {
         ReceiptScanRepository(
-            apiKey = apiKey
+            apiKey = "K88724362288957"
         )
     }
 
