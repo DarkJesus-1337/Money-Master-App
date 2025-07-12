@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -38,10 +40,23 @@ android {
         buildConfig = true
     }
 
-    // 16 KB Page Size Support hinzufügen
     packaging {
         jniLibs {
             useLegacyPackaging = false
+            pickFirsts += "**/libimage_processing_util_jni.so"
+            pickFirsts += "**/libc++_shared.so"
+        }
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+
+    splits {
+        abi {
+            isEnable = true
+            reset()
+            include("arm64-v8a", "armeabi-v7a")
+            isUniversalApk = false
         }
     }
 
@@ -60,9 +75,11 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+   kotlin {
+       compilerOptions {
+           jvmTarget.set(JvmTarget.JVM_11)
+       }
+   }
 
     composeOptions {
         kotlinCompilerExtensionVersion = "2.0.0"
@@ -87,6 +104,7 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     implementation(libs.ads.mobile.sdk)
+    implementation(libs.androidx.media3.effect)
     ksp(libs.androidx.room.compiler)
 
     // ViewModel und LiveData
@@ -98,7 +116,6 @@ dependencies {
 
     // Coroutines für async/await
     implementation(libs.kotlinx.coroutines.play.services)
-    implementation(libs.kotlinx.coroutines.android.v1102)
 
     // Coil für Bild-Handling
     implementation(libs.coil.compose)
