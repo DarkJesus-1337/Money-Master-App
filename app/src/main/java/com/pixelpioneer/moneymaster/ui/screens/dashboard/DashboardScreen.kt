@@ -19,7 +19,7 @@ import androidx.compose.material.icons.filled.Balance
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -47,7 +47,10 @@ import com.pixelpioneer.moneymaster.ui.viewmodel.FinancialSummary
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 import com.pixelpioneer.moneymaster.util.FormatUtils
 import com.pixelpioneer.moneymaster.util.UiState
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.IconButton
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreen(
     navController: NavController,
@@ -59,14 +62,17 @@ fun DashboardScreen(
     val budgetsState = budgetViewModel.budgetsState.collectAsState().value
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Dashboard") },
+                actions = {
+                    IconButton(onClick = { navController.navigate(Screen.AddTransaction.route) }) {
+                        Icon(Icons.Filled.Add, contentDescription = "Add Transaction")
+                    }
+                }
+            )
+        },
         bottomBar = { MoneyMasterBottomNavigation(navController) },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { navController.navigate(Screen.AddTransaction.route) }
-            ) {
-                Icon(Icons.Filled.Add, contentDescription = "Add Transaction")
-            }
-        }
     ) { paddingValues ->
         LazyColumn(
             modifier = Modifier
@@ -74,14 +80,6 @@ fun DashboardScreen(
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp)
         ) {
-            item {
-                Text(
-                    text = "Dashboard",
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(vertical = 16.dp)
-                )
-            }
 
             item {
                 when (financialSummaryState) {

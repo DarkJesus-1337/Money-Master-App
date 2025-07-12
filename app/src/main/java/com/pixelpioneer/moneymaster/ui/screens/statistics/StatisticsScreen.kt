@@ -507,7 +507,7 @@ fun CategoryStatsItem(
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "${FormatUtils.formatPercentage(percentage / 100, 1)}",
+                        text = FormatUtils.formatPercentage(percentage / 100, 1),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

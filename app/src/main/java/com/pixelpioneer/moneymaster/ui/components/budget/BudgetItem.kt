@@ -15,17 +15,26 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Budget
 import com.pixelpioneer.moneymaster.util.FormatUtils
 import kotlin.math.min
@@ -33,8 +42,12 @@ import kotlin.math.min
 @Composable
 fun BudgetItem(
     budget: Budget,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onEdit: () -> Unit = {},
+    onDelete: () -> Unit = {}
 ) {
+    var showContextMenu by remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -80,6 +93,35 @@ fun BudgetItem(
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
+
+                Box {
+                    IconButton(onClick = { showContextMenu = true }) {
+                        Icon(
+                            painterResource(R.drawable.more_vert),
+                            contentDescription = "More options"
+                        )
+                    }
+
+                    DropdownMenu(
+                        expanded = showContextMenu,
+                        onDismissRequest = { showContextMenu = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text("Edit") },
+                            onClick = {
+                                onEdit()
+                                showContextMenu = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Delete") },
+                            onClick = {
+                                onDelete()
+                                showContextMenu = false
+                            }
+                        )
+                    }
+                }
             }
 
             Spacer(modifier = Modifier.height(16.dp))

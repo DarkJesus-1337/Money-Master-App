@@ -34,6 +34,7 @@ import com.pixelpioneer.moneymaster.ui.components.receipt.ImageSelectionCard
 import com.pixelpioneer.moneymaster.ui.components.receipt.InfoCard
 import com.pixelpioneer.moneymaster.ui.components.receipt.ScanButton
 import com.pixelpioneer.moneymaster.ui.components.receipt.ScannedItemCard
+import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterBottomNavigation
 import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.ReceiptScanViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
@@ -75,6 +76,7 @@ fun ReceiptScanScreen(
     }
 
     Scaffold(
+        bottomBar = { MoneyMasterBottomNavigation(navController) },
         topBar = {
             TopAppBar(
                 title = { Text("Beleg scannen") }

@@ -10,6 +10,7 @@ import androidx.navigation.navArgument
 import com.pixelpioneer.moneymaster.ui.screens.budgets.AddBudgetScreen
 import com.pixelpioneer.moneymaster.ui.screens.budgets.BudgetDetailScreen
 import com.pixelpioneer.moneymaster.ui.screens.budgets.BudgetsScreen
+import com.pixelpioneer.moneymaster.ui.screens.budgets.EditBudgetScreen
 import com.pixelpioneer.moneymaster.ui.screens.dashboard.DashboardScreen
 import com.pixelpioneer.moneymaster.ui.screens.receipts.ReceiptScanScreen
 import com.pixelpioneer.moneymaster.ui.screens.statistics.StatisticsScreen
@@ -31,7 +32,7 @@ fun MoneyMasterNavHost(
     budgetViewModel: BudgetViewModel,
     statisticsViewModel: StatisticsViewModel,
     cryptoViewModel: CryptoViewModel,
-    receiptScanViewModel: ReceiptScanViewModel, // hinzugefügt
+    receiptScanViewModel: ReceiptScanViewModel,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -43,7 +44,7 @@ fun MoneyMasterNavHost(
             DashboardScreen(
                 navController = navController,
                 transactionViewModel = transactionViewModel,
-                budgetViewModel = budgetViewModel
+                budgetViewModel = budgetViewModel,
             )
         }
 
@@ -57,15 +58,15 @@ fun MoneyMasterNavHost(
         composable(Screen.AddTransaction.route) {
             AddTransactionScreen(
                 navController = navController,
-                transactionViewModel = transactionViewModel
+                transactionViewModel = transactionViewModel,
             )
         }
 
         composable(
-            Screen.TransactionDetail.route,
+            route = Screen.TransactionDetail.route,
             arguments = listOf(navArgument("transactionId") { type = NavType.LongType })
         ) { backStackEntry ->
-            val transactionId = backStackEntry.arguments?.getLong("transactionId") ?: 0
+            val transactionId = backStackEntry.arguments?.getLong("transactionId") ?: 0L
             TransactionDetailScreen(
                 navController = navController,
                 transactionId = transactionId,
@@ -87,19 +88,11 @@ fun MoneyMasterNavHost(
             )
         }
 
-        composable(Screen.Statistics.route) {
-            StatisticsScreen(
-                navController = navController,
-                statisticsViewModel = statisticsViewModel,
-                cryptoViewModel = cryptoViewModel
-            )
-        }
-
         composable(
-            Screen.BudgetDetail.route,
+            route = Screen.BudgetDetail.route,
             arguments = listOf(navArgument("budgetId") { type = NavType.LongType })
         ) { backStackEntry ->
-            val budgetId = backStackEntry.arguments?.getLong("budgetId") ?: 0
+            val budgetId = backStackEntry.arguments?.getLong("budgetId") ?: 0L
             BudgetDetailScreen(
                 navController = navController,
                 budgetId = budgetId,
@@ -108,12 +101,33 @@ fun MoneyMasterNavHost(
             )
         }
 
+        // Füge diese neue Route hinzu:
+        composable(
+            route = Screen.EditBudget.route,
+            arguments = listOf(navArgument("budgetId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val budgetId = backStackEntry.arguments?.getLong("budgetId") ?: 0L
+            EditBudgetScreen(
+                navController = navController,
+                budgetId = budgetId,
+                budgetViewModel = budgetViewModel
+            )
+        }
+
+        composable(Screen.Statistics.route) {
+            StatisticsScreen(
+                navController = navController,
+                statisticsViewModel = statisticsViewModel,
+                cryptoViewModel = cryptoViewModel
+            )
+        }
+
         composable(Screen.ReceiptScan.route) {
             ReceiptScanScreen(
                 navController = navController,
                 receiptScanViewModel = receiptScanViewModel,
                 transactionViewModel = transactionViewModel,
-                categoryViewModel = categoryViewModel
+                categoryViewModel = categoryViewModel,
             )
         }
     }

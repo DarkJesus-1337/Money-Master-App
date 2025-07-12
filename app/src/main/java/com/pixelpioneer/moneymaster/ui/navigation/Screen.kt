@@ -27,6 +27,10 @@ sealed class Screen(val route: String, val title: String, val icon: ImageVector?
     data object AddBudget : Screen("add_budget", "Add Budget")
     data object Statistics : Screen("statistics", "Statistics", Icons.Filled.PieChart)
     data object ReceiptScan : Screen("receipt_scan", "Scan", Icons.Filled.Camera)
+
+    object EditBudget : Screen("edit_budget/{budgetId}", "Edit Budget") {
+        fun createRoute(budgetId: Long) = "edit_budget/$budgetId"
+    }
 }
 
 val bottomNavItems = listOf(

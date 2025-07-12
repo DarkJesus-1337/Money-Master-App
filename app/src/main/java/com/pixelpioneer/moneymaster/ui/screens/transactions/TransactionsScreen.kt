@@ -13,13 +13,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -42,6 +44,7 @@ import com.pixelpioneer.moneymaster.ui.navigation.Screen
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 import com.pixelpioneer.moneymaster.util.UiState
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TransactionsScreen(
     navController: NavController,
@@ -53,14 +56,17 @@ fun TransactionsScreen(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Transactions") },
+                actions = {
+                    IconButton(onClick = { navController.navigate(Screen.AddTransaction.route) }) {
+                        Icon(Icons.Filled.Add, contentDescription = "Add Transaction")
+                    }
+                }
+            )
+        },
         bottomBar = { MoneyMasterBottomNavigation(navController) },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { navController.navigate(Screen.AddTransaction.route) }
-            ) {
-                Icon(Icons.Filled.Add, contentDescription = "Add Transaction")
-            }
-        }
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -68,13 +74,6 @@ fun TransactionsScreen(
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp)
         ) {
-            Text(
-                text = "Transactions",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
-            )
-
             OutlinedTextField(
                 value = searchQuery,
                 onValueChange = { searchQuery = it },

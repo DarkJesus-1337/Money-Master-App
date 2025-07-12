@@ -80,6 +80,18 @@ fun BudgetDetailScreen(
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(painterResource(R.drawable.arrow_back), contentDescription = "Back")
                     }
+                },
+                actions = {
+                    budget?.let { b ->
+                        IconButton(onClick = {
+                            navController.navigate(Screen.EditBudget.createRoute(b.id))
+                        }) {
+                            Icon(
+                                painterResource(R.drawable.edit), // Du musst dieses Icon hinzufügen
+                                contentDescription = "Edit Budget"
+                            )
+                        }
+                    }
                 }
             )
         }
