@@ -71,17 +71,4 @@ class CryptoViewModel(
             }
         }
     }
-
-    fun refreshData() {
-        loadCryptoAssets()
-        _selectedAsset.value?.let { asset ->
-            loadAssetHistory(asset.id)
-        }
-    }
-
-    fun changeTimeInterval(interval: String, daysBack: Int) {
-        _selectedAsset.value?.let { asset ->
-            loadAssetHistory(asset.id, interval, daysBack)
-        }
-    }
 }

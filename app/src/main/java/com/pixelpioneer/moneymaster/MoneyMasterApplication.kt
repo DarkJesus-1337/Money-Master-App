@@ -63,7 +63,6 @@ class MoneyMasterApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // Remote Config im Hintergrund laden
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val success = remoteConfigManager.fetchAndActivate()

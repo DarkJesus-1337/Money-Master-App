@@ -32,13 +32,6 @@ class ReceiptScanViewModel(
                 val response = receiptScanRepository.scanReceipt(imageFile)
                 Log.d("ReceiptScanViewModel", "OCR Response: $response")
 
-                if (response == null) {
-                    _error.value = "Fehler beim OCR-Request. Prüfe API-Key, Internetverbindung und Dateiformat."
-                    _scannedItems.value = emptyList()
-                    return@launch
-                }
-
-                // Verwende direkte Property-Zugriffe statt Reflection
                 val parsedText = response.parsedResults?.firstOrNull()?.parsedText.orEmpty()
 
                 Log.d("ReceiptScanViewModel", "OCR ParsedText: $parsedText")

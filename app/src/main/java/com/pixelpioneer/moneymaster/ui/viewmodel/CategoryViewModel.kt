@@ -16,15 +16,11 @@ class CategoryViewModel(
 
     private val _categoriesState =
         MutableStateFlow<UiState<List<TransactionCategory>>>(UiState.Loading)
-    val categoriesState: StateFlow<UiState<List<TransactionCategory>>> = _categoriesState
 
     private val _selectedCategory = MutableStateFlow<UiState<TransactionCategory>>(UiState.Loading)
-    val selectedCategory: StateFlow<UiState<TransactionCategory>> = _selectedCategory
 
     private val _categoryFormState = MutableStateFlow(CategoryFormState())
-    val categoryFormState: StateFlow<CategoryFormState> = _categoryFormState
 
-    // Direktes StateFlow für Kategorienliste für UI-Zugriff
     private val _categories = MutableStateFlow<List<TransactionCategory>>(emptyList())
     val categories: StateFlow<List<TransactionCategory>> = _categories
 

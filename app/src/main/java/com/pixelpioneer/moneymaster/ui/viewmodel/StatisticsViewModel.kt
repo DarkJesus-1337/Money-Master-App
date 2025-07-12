@@ -31,9 +31,6 @@ class StatisticsViewModel(
     private val _monthlyTrendsState = MutableStateFlow<UiState<List<MonthlyTrend>>>(UiState.Loading)
     val monthlyTrendsState: StateFlow<UiState<List<MonthlyTrend>>> = _monthlyTrendsState
 
-    private val _cryptoAssetsState = MutableStateFlow<UiState<List<Asset>>>(UiState.Loading)
-    val cryptoAssetsState: StateFlow<UiState<List<Asset>>> = _cryptoAssetsState
-
     init {
         loadStatistics()
         loadCategoryStats()
@@ -202,25 +199,6 @@ class StatisticsViewModel(
                 _monthlyTrendsState.value = UiState.Error(e.message ?: "Unbekannter Fehler")
             }
         }
-    }
-
-    fun loadCryptoAssets(limit: Int = 10) {
-        viewModelScope.launch {
-            try {
-                _cryptoAssetsState.value = UiState.Loading
-                val assets = transactionRepository.fetchCryptoAssets(limit)
-                _cryptoAssetsState.value = UiState.Success(assets)
-            } catch (e: Exception) {
-                _cryptoAssetsState.value =
-                    UiState.Error(e.message ?: "Fehler beim Laden der Krypto-Daten")
-            }
-        }
-    }
-
-    fun refreshStatistics() {
-        loadStatistics()
-        loadCategoryStats()
-        loadMonthlyTrends()
     }
 }
 

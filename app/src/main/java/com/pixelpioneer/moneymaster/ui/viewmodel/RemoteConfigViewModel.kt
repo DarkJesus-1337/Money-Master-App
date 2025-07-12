@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pixelpioneer.moneymaster.data.services.RemoteConfigManager
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 data class RemoteConfigState(
@@ -20,13 +18,12 @@ class RemoteConfigViewModel(
 ) : ViewModel() {
     
     private val _uiState = MutableStateFlow(RemoteConfigState())
-    val uiState: StateFlow<RemoteConfigState> = _uiState.asStateFlow()
-    
+
     init {
         loadRemoteConfig()
     }
     
-    fun loadRemoteConfig() {
+    private fun loadRemoteConfig() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, errorMessage = null)
             
@@ -45,25 +42,5 @@ class RemoteConfigViewModel(
                 )
             }
         }
-    }
-    
-    fun getOcrApiKey(): String {
-        return remoteConfigManager.getOcrSpaceApiKey()
-    }
-    
-    fun getCoinCapApiKey(): String {
-        return remoteConfigManager.getCoinCapApiKey()
-    }
-    
-    fun hasKey(key: String): Boolean {
-        return remoteConfigManager.hasKey(key)
-    }
-    
-    fun getAllKeys(): Set<String> {
-        return remoteConfigManager.getAllKeys()
-    }
-    
-    fun refreshConfig() {
-        loadRemoteConfig()
     }
 }

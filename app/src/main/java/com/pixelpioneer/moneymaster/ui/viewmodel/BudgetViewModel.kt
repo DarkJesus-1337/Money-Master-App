@@ -26,7 +26,6 @@ class BudgetViewModel(
     val categoriesState: StateFlow<UiState<List<TransactionCategory>>> = _categoriesState
 
     private val _selectedBudget = MutableStateFlow<UiState<Budget>>(UiState.Loading)
-    val selectedBudget: StateFlow<UiState<Budget>> = _selectedBudget
 
     private val _budgetFormState = MutableStateFlow(BudgetFormState())
     val budgetFormState: StateFlow<BudgetFormState> = _budgetFormState
@@ -53,7 +52,7 @@ class BudgetViewModel(
         }
     }
 
-    fun loadBudgetById(id: Long) {
+    private fun loadBudgetById(id: Long) {
         viewModelScope.launch {
             try {
                 _selectedBudget.value = UiState.Loading
@@ -133,7 +132,6 @@ class BudgetViewModel(
                 resetFormState()
                 loadBudgetById(id)
             } catch (e: Exception) {
-                // Handle error
             }
         }
     }
@@ -143,7 +141,6 @@ class BudgetViewModel(
             try {
                 budgetRepository.deleteBudget(budget)
             } catch (e: Exception) {
-                // Handle error
             }
         }
     }
