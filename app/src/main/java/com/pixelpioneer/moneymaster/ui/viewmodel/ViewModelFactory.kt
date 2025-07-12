@@ -9,6 +9,19 @@ import com.pixelpioneer.moneymaster.data.repository.ReceiptScanRepository
 import com.pixelpioneer.moneymaster.data.repository.TransactionRepository
 import com.pixelpioneer.moneymaster.data.services.RemoteConfigManager
 
+/**
+ * Factory for creating ViewModel instances with required dependencies.
+ *
+ * Provides ViewModels for transactions, categories, budgets, statistics,
+ * cryptocurrencies, receipt scanning, and remote config.
+ *
+ * @property transactionRepository Repository for transaction data.
+ * @property categoryRepository Repository for category data.
+ * @property budgetRepository Repository for budget data.
+ * @property coinCapRepository Repository for cryptocurrency data.
+ * @property receiptScanRepository Repository for receipt scanning.
+ * @property remoteConfigManager Manager for remote configuration.
+ */
 class ViewModelFactory(
     private val transactionRepository: TransactionRepository,
     private val categoryRepository: CategoryRepository,

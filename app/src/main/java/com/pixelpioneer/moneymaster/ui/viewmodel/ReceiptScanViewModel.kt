@@ -11,6 +11,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.File
 
+/**
+ * ViewModel for scanning receipts and extracting transaction items.
+ *
+ * Handles receipt image scanning, parsing OCR results into transactions,
+ * and manages loading and error states for the scanning process.
+ *
+ * @property receiptScanRepository Repository for receipt scanning operations.
+ */
 class ReceiptScanViewModel(
     private val receiptScanRepository: ReceiptScanRepository
 ) : ViewModel() {

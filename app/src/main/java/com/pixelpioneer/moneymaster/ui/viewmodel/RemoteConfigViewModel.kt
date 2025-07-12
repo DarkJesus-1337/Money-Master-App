@@ -13,6 +13,14 @@ data class RemoteConfigState(
     val debugInfo: Map<String, Any> = emptyMap()
 )
 
+/**
+ * ViewModel for managing remote configuration settings.
+ *
+ * Handles loading and updating remote config values,
+ * and provides UI state for loading, success, and error states.
+ *
+ * @property remoteConfigManager Manager for remote config operations.
+ */
 class RemoteConfigViewModel(
     private val remoteConfigManager: RemoteConfigManager
 ) : ViewModel() {

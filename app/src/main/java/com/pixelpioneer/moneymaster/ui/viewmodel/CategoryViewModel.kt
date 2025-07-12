@@ -10,6 +10,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for managing transaction categories.
+ *
+ * Handles loading, creating, updating, and deleting categories,
+ * as well as managing the category form state and providing UI state flows.
+ *
+ * @property categoryRepository Repository for category data access.
+ */
 class CategoryViewModel(
     private val categoryRepository: CategoryRepository
 ) : ViewModel() {

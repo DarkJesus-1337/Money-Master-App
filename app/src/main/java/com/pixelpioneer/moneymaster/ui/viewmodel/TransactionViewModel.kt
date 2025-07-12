@@ -15,6 +15,16 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
+/**
+ * ViewModel for managing transactions and related financial data.
+ *
+ * Handles loading, creating, updating, and deleting transactions,
+ * as well as managing categories, form state, and financial summaries.
+ * Provides UI state flows for transactions and summaries.
+ *
+ * @property transactionRepository Repository for transaction data access.
+ * @property categoryRepository Repository for category data access.
+ */
 class TransactionViewModel(
     private val transactionRepository: TransactionRepository,
     private val categoryRepository: CategoryRepository

@@ -6,6 +6,14 @@ import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Client for accessing the CoinCap API with authentication.
+ *
+ * Adds an authorization header using the API key from [RemoteConfigManager].
+ * Provides a lazily initialized [CoinCapApiService] instance.
+ *
+ * @property remoteConfigManager Manager for retrieving API keys from remote config.
+ */
 class CoinCapApiClient(private val remoteConfigManager: RemoteConfigManager) {
 
     private val authInterceptor = Interceptor { chain ->
@@ -21,6 +29,9 @@ class CoinCapApiClient(private val remoteConfigManager: RemoteConfigManager) {
         .addInterceptor(authInterceptor)
         .build()
 
+    /**
+     * Lazily initialized CoinCap API service.
+     */
     val api: CoinCapApiService by lazy {
         Retrofit.Builder()
             .baseUrl("https://rest.coincap.io/v3/")

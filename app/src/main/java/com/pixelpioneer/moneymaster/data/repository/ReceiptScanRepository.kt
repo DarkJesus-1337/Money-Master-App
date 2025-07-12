@@ -17,19 +17,42 @@ import androidx.exifinterface.media.ExifInterface
 import java.io.ByteArrayOutputStream
 import java.io.FileOutputStream
 
+/**
+ * Repository for scanning receipts and processing OCR results.
+ *
+ * Handles image compression, orientation correction, and communication with the OCR Space API.
+ * Provides methods to scan receipts and retrieve debug information.
+ *
+ * @property remoteConfigManager Manager for remote configuration and API key retrieval.
+ */
 class ReceiptScanRepository(
     private val remoteConfigManager: RemoteConfigManager
 ) {
     companion object {
         private const val TAG = "ReceiptScanRepository"
+        /** Maximum allowed image file size in bytes (1MB). */
         private const val MAX_IMAGE_SIZE = 1024 * 1024 // 1MB
+        /** Maximum image width in pixels for compression. */
         private const val MAX_WIDTH = 1024
+        /** Maximum image height in pixels for compression. */
         private const val MAX_HEIGHT = 1024
+        /** JPEG compression quality (0-100). */
         private const val JPEG_QUALITY = 85
     }
 
     private val apiService = OcrSpaceApiClient.apiService
 
+    /**
+     * Scans a receipt image using the OCR Space API.
+     *
+     * Automatically compresses the image if needed and corrects orientation
+     * before sending it to the OCR service.
+     *
+     * @param imageFile The image file to scan.
+     * @return An [OcrSpaceResponse] containing the parsed text and metadata.
+     * @throws IllegalStateException If the API key is not available.
+     * @throws IOException If there's a network error or OCR processing fails.
+     */
     suspend fun scanReceipt(imageFile: File): OcrSpaceResponse {
         val compressedFile = compressImageIfNeeded(imageFile)
 
@@ -97,15 +120,23 @@ class ReceiptScanRepository(
             Log.e(TAG, "Network error", e)
             throw IOException("Network error: ${e.message}", e)
         } finally {
-            // Temporary compressed file löschen falls erstellt
             if (compressedFile != imageFile && compressedFile.exists()) {
                 compressedFile.delete()
             }
         }
     }
 
+    /**
+     * Compresses an image file if it exceeds the maximum size limit.
+     *
+     * Includes orientation correction and dimension scaling to optimize
+     * the image for OCR processing.
+     *
+     * @param originalFile The original image file.
+     * @return A compressed image file, or the original file if compression wasn't needed.
+     * @throws IOException If image processing fails.
+     */
     private fun compressImageIfNeeded(originalFile: File): File {
-        // Prüfe ob Komprimierung nötig ist
         if (originalFile.length() <= MAX_IMAGE_SIZE) {
             Log.d(TAG, "Image size OK, no compression needed")
             return originalFile
@@ -116,29 +147,23 @@ class ReceiptScanRepository(
         val bitmap = BitmapFactory.decodeFile(originalFile.absolutePath)
             ?: throw IOException("Could not decode image file")
 
-        // Korrigiere Bildrotation basierend auf EXIF-Daten
         val rotatedBitmap = correctImageOrientation(bitmap, originalFile.absolutePath)
 
-        // Berechne neue Dimensionen
         val (newWidth, newHeight) = calculateNewDimensions(
             rotatedBitmap.width,
             rotatedBitmap.height
         )
 
-        // Skaliere Bitmap
         val scaledBitmap = Bitmap.createScaledBitmap(rotatedBitmap, newWidth, newHeight, true)
 
-        // Erstelle temporäre Datei
         val compressedFile = File.createTempFile("compressed_receipt", ".jpg", originalFile.parentFile)
 
-        // Komprimiere und speichere
         FileOutputStream(compressedFile).use { fos ->
             val byteArrayOutputStream = ByteArrayOutputStream()
             scaledBitmap.compress(Bitmap.CompressFormat.JPEG, JPEG_QUALITY, byteArrayOutputStream)
             fos.write(byteArrayOutputStream.toByteArray())
         }
 
-        // Cleanup
         if (rotatedBitmap != bitmap) {
             rotatedBitmap.recycle()
         }
@@ -149,6 +174,13 @@ class ReceiptScanRepository(
         return compressedFile
     }
 
+    /**
+     * Corrects the orientation of a bitmap based on EXIF data.
+     *
+     * @param bitmap The bitmap to correct.
+     * @param imagePath The path to the original image file for EXIF data.
+     * @return A bitmap with corrected orientation, or the original bitmap if no correction is needed.
+     */
     private fun correctImageOrientation(bitmap: Bitmap, imagePath: String): Bitmap {
         return try {
             val exif = ExifInterface(imagePath)
@@ -172,6 +204,13 @@ class ReceiptScanRepository(
         }
     }
 
+    /**
+     * Calculates new dimensions for image scaling while maintaining aspect ratio.
+     *
+     * @param originalWidth The original width of the image.
+     * @param originalHeight The original height of the image.
+     * @return A [Pair] containing the new width and height.
+     */
     private fun calculateNewDimensions(originalWidth: Int, originalHeight: Int): Pair<Int, Int> {
         if (originalWidth <= MAX_WIDTH && originalHeight <= MAX_HEIGHT) {
             return Pair(originalWidth, originalHeight)
@@ -190,13 +229,22 @@ class ReceiptScanRepository(
         }
     }
 
-    // Rest der Klasse bleibt unverändert...
+    /**
+     * Checks if the OCR Space API key is available.
+     *
+     * @return True if the API key is available and not empty, false otherwise.
+     */
     fun isApiKeyAvailable(): Boolean {
         val available = remoteConfigManager.getOcrSpaceApiKey().isNotEmpty()
         Log.d(TAG, "API key available: $available")
         return available
     }
 
+    /**
+     * Provides debug information about the OCR configuration.
+     *
+     * @return A map containing debug information such as API key length and availability.
+     */
     fun getDebugInfo(): Map<String, String> {
         val apiKey = remoteConfigManager.getOcrSpaceApiKey()
         return mapOf(

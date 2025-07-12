@@ -16,6 +16,15 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+/**
+ * ViewModel for managing and calculating statistics related to transactions and categories.
+ *
+ * Loads statistical overviews, category statistics, and monthly trends.
+ * Provides UI state flows for statistics and trends.
+ *
+ * @property transactionRepository Repository for transaction data access.
+ * @property categoryRepository Repository for category data access.
+ */
 class StatisticsViewModel(
     private val transactionRepository: TransactionRepository,
     private val categoryRepository: CategoryRepository

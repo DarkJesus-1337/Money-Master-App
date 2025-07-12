@@ -10,10 +10,25 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import java.util.Calendar
 
+/**
+ * Repository for managing budget data and related operations.
+ *
+ * Provides methods to retrieve budgets with spending information,
+ * insert, update, and delete budgets, and calculate spending for different budget periods.
+ *
+ * @property budgetDao Data access object for budget entities.
+ * @property transactionDao Data access object for transaction entities.
+ */
 class BudgetRepository(
     private val budgetDao: BudgetDao,
     private val transactionDao: TransactionDao
 ) {
+    /**
+     * Flow of all budgets with their current spending amounts.
+     *
+     * Combines budget data with transaction data to calculate spending
+     * for each budget based on its period and category.
+     */
     val allBudgetsWithSpending: Flow<List<Budget>> =
         combine(
             budgetDao.getBudgetsWithCategory(),
@@ -47,6 +62,12 @@ class BudgetRepository(
             }
         }
 
+    /**
+     * Retrieves a specific budget by ID with its current spending.
+     *
+     * @param id The unique identifier of the budget.
+     * @return A [Flow] containing the [Budget] with spending information.
+     */
     fun getBudgetById(id: Long): Flow<Budget> =
         combine(
             budgetDao.getBudgetWithCategoryById(id),
@@ -78,6 +99,12 @@ class BudgetRepository(
             )
         }
 
+    /**
+     * Inserts a new budget into the database.
+     *
+     * @param budget The budget to insert.
+     * @return The ID of the newly inserted budget.
+     */
     suspend fun insertBudget(budget: Budget): Long {
         val entity = BudgetEntity(
             id = budget.id,
@@ -88,6 +115,11 @@ class BudgetRepository(
         return budgetDao.insertBudget(entity)
     }
 
+    /**
+     * Updates an existing budget in the database.
+     *
+     * @param budget The budget with updated information.
+     */
     suspend fun updateBudget(budget: Budget) {
         val entity = BudgetEntity(
             id = budget.id,
@@ -98,6 +130,11 @@ class BudgetRepository(
         budgetDao.updateBudget(entity)
     }
 
+    /**
+     * Deletes a budget from the database.
+     *
+     * @param budget The budget to delete.
+     */
     suspend fun deleteBudget(budget: Budget) {
         val entity = BudgetEntity(
             id = budget.id,
@@ -108,6 +145,14 @@ class BudgetRepository(
         budgetDao.deleteBudget(entity)
     }
 
+    /**
+     * Retrieves all budgets with spending information synchronously.
+     *
+     * This method performs synchronous database operations and should
+     * only be used when necessary (e.g., in background tasks).
+     *
+     * @return A list of [Budget] objects with spending information.
+     */
     suspend fun getBudgetsWithSpendingSync(): List<Budget> {
         val budgetsWithCategory = budgetDao.getBudgetsWithCategorySync()
         return budgetsWithCategory.map { budgetWithCategory ->
@@ -134,6 +179,12 @@ class BudgetRepository(
         }
     }
 
+    /**
+     * Calculates the date range for a given budget period.
+     *
+     * @param period The budget period to calculate the range for.
+     * @return A [Pair] containing start and end timestamps in milliseconds.
+     */
     private fun getDateRangeForBudgetPeriod(period: BudgetPeriod): Pair<Long, Long> {
         val calendar = Calendar.getInstance()
         val currentTime = calendar.timeInMillis

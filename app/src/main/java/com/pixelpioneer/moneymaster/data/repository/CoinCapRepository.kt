@@ -6,8 +6,21 @@ import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
 import com.pixelpioneer.moneymaster.data.services.CoinCapApiService
 import java.util.Calendar
 
+/**
+ * Repository for accessing cryptocurrency asset data from the CoinCap API.
+ *
+ * Provides methods to fetch asset lists and historical price data.
+ *
+ * @property api Service for CoinCap API requests.
+ */
 class CoinCapRepository(private val api: CoinCapApiService) {
 
+    /**
+     * Retrieves a list of cryptocurrency assets from the CoinCap API.
+     *
+     * @param limit The maximum number of assets to retrieve. Default is 10.
+     * @return A list of [Asset] objects, or an empty list if the request fails.
+     */
     suspend fun getAssets(limit: Int = 10): List<Asset> {
         Log.d("CoinCapRepository", "API call gestartet")
         return try {
@@ -20,6 +33,14 @@ class CoinCapRepository(private val api: CoinCapApiService) {
         }
     }
 
+    /**
+     * Retrieves historical price data for a specific cryptocurrency asset.
+     *
+     * @param assetId The unique identifier of the asset.
+     * @param interval The interval for historical data (e.g., "h1" for hourly). Default is "h1".
+     * @param daysBack The number of days back from today to retrieve data for. Default is 7.
+     * @return A list of [HistoryDataPoint] objects, or an empty list if the request fails.
+     */
     suspend fun getAssetHistory(
         assetId: String,
         interval: String = "h1",

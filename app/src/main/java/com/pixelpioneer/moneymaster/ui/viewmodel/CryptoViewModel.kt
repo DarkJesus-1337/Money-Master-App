@@ -10,6 +10,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for managing cryptocurrency assets and their historical data.
+ *
+ * Handles loading crypto assets, selecting an asset, and loading its history.
+ * Provides UI state flows for assets and history.
+ *
+ * @property repository Repository for accessing CoinCap API data.
+ */
 class CryptoViewModel(
     private val repository: CoinCapRepository
 ) : ViewModel() {

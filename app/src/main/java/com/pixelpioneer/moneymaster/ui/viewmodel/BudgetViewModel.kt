@@ -13,6 +13,16 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for managing budget-related data and operations.
+ *
+ * Handles loading, creating, updating, and deleting budgets,
+ * as well as managing categories and form state for budget creation/editing.
+ * Provides UI state flows for budgets and categories.
+ *
+ * @property budgetRepository Repository for budget data access.
+ * @property categoryRepository Repository for category data access.
+ */
 class BudgetViewModel(
     private val budgetRepository: BudgetRepository,
     private val categoryRepository: CategoryRepository
