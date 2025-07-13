@@ -24,9 +24,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.toColorInt
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Transaction
+import com.pixelpioneer.moneymaster.data.model.TransactionCategory
+import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
 import com.pixelpioneer.moneymaster.util.FormatUtils
 
 /**
@@ -99,7 +103,7 @@ fun RecentTransactionItem(
             val amountColor = if (transaction.isExpense) {
                 MaterialTheme.colorScheme.error
             } else {
-                Color.Green
+                MaterialTheme.colorScheme.tertiary
             }
 
             val prefix = if (transaction.isExpense) "-" else "+"
@@ -119,3 +123,72 @@ fun RecentTransactionItem(
         }
     }
 }
+@Preview(showBackground = true)
+@Composable
+fun RecentTransactionItemPreview() {
+    MoneyMasterTheme {
+        Column {
+            RecentTransactionItem(
+                transaction = Transaction(
+                    id = 1,
+                    amount = 45.67,
+                    title = "Supermarkt Einkauf",
+                    description = "Wocheneinkauf bei Rewe",
+                    category = TransactionCategory(
+                        id = 1,
+                        name = "Lebensmittel",
+                        color = "#4CAF50".toColorInt(),
+                        icon = R.drawable.ic_food
+                    ),
+                    date = System.currentTimeMillis() - 86400000,
+                    isExpense = true
+                ),
+                onClick = { }
+            )
+
+            RecentTransactionItem(
+                transaction = Transaction(
+                    id = 2,
+                    amount = 2500.00,
+                    title = "Gehalt",
+                    description = "Monatliches Gehalt",
+                    category = TransactionCategory(
+                        id = 6,
+                        name = "Einkommen",
+                        color = "#2196F3".toColorInt(),
+                        icon = R.drawable.ic_finance_chip
+                    ),
+                    date = System.currentTimeMillis() - 172800000,
+                    isExpense = false
+                ),
+                onClick = { }
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun RecentTransactionItemDarkPreview() {
+    MoneyMasterTheme(darkTheme = true){
+            RecentTransactionItem(
+                transaction = Transaction(
+                    id = 3,
+                    amount = 89.99,
+                    title = "Netflix Premium",
+                    description = "Monatliches Streaming-Abo",
+                    category = TransactionCategory(
+                        id = 3,
+                        name = "Unterhaltung",
+                        color = "#FF9800".toColorInt(),
+                        icon = R.drawable.ic_entertainment
+                    ),
+                    date = System.currentTimeMillis() - 259200000,
+                    isExpense = true
+                ),
+                onClick = { }
+            )
+        }
+    }
+
+

@@ -4,6 +4,7 @@ import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.enums.BudgetPeriod
 import com.pixelpioneer.moneymaster.data.model.*
 import android.graphics.Color
+import androidx.core.graphics.toColorInt
 
 object SampleData {
     
@@ -12,13 +13,13 @@ object SampleData {
         TransactionCategory(
             id = 1,
             name = "Lebensmittel",
-            color = Color.parseColor("#4CAF50"),
+            color = "#4CAF50".toColorInt(),
             icon = R.drawable.ic_food
         ),
         TransactionCategory(
             id = 2,
             name = "Transport",
-            color = Color.parseColor("#2196F3"),
+            color = "#2196F3".toColorInt(),
             icon = R.drawable.ic_transport
         ),
         TransactionCategory(

@@ -13,9 +13,11 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -23,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.pixelpioneer.moneymaster.ui.components.dashboard.BudgetOverview
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.components.ViewAllTransactionsButton
 import com.pixelpioneer.moneymaster.ui.components.dashboard.FinancialSummaryCards
@@ -41,6 +42,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.pixelpioneer.moneymaster.data.sample.SampleData
+import com.pixelpioneer.moneymaster.ui.components.dashboard.BudgetOverview
 import com.pixelpioneer.moneymaster.ui.components.dashboard.RecentTransactionItem
 import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
 import com.pixelpioneer.moneymaster.ui.viewmodel.FinancialSummary
@@ -58,6 +60,7 @@ fun DashboardScreen(
     val budgetsState = budgetViewModel.budgetsState.collectAsState().value
 
     Scaffold(
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         topBar = {
             TopAppBar(
                 title = { Text("Dashboard") },

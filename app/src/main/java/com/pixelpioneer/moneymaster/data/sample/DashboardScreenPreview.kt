@@ -35,9 +35,14 @@ import com.pixelpioneer.moneymaster.ui.viewmodel.FinancialSummary
 @Composable
 @Preview(
     showBackground = true,
+
 )
 fun DashboardScreenPreview() {
-    MoneyMasterTheme {
+    MoneyMasterTheme(
+        darkTheme = true, // Set to true for dark theme preview
+        dynamicColor = false // Disable dynamic color for consistent preview
+    ) {
+
         val navController = rememberNavController()
 
         DashboardScreenMock(
