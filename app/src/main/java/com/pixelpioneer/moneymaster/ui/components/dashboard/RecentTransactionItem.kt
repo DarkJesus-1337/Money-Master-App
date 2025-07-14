@@ -39,7 +39,8 @@ import com.pixelpioneer.moneymaster.util.FormatUtils
 @Composable
 fun RecentTransactionItem(
     transaction: Transaction,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onEdit: (() -> Unit)? = null
 ) {
     Row(
         modifier = Modifier
@@ -115,14 +116,32 @@ fun RecentTransactionItem(
                 fontWeight = FontWeight.Bold
             )
 
-            Icon(
-                painter = painterResource(R.drawable.keyboard_arrow_right),
-                contentDescription = "View Details",
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (onEdit != null) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_edit),
+                        contentDescription = "Bearbeiten",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clickable { onEdit() }
+                    )
+
+                    Spacer(modifier = Modifier.width(8.dp))
+                }
+
+                Icon(
+                    painter = painterResource(R.drawable.keyboard_arrow_right),
+                    contentDescription = "Details anzeigen",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 fun RecentTransactionItemPreview() {

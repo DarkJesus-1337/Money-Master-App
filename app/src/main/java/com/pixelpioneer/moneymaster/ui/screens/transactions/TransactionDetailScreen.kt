@@ -72,8 +72,10 @@ fun TransactionDetailScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { showDeleteDialog = true }) {
-                        Icon(Icons.Default.Delete, contentDescription = "Delete")
+                    IconButton(onClick = {
+                        navController.navigate(Screen.EditTransaction.createRoute(transactionId.toString()))
+                    }) {
+                        Icon(painterResource(R.drawable.ic_edit), contentDescription = "Edit")
                     }
                 }
             )

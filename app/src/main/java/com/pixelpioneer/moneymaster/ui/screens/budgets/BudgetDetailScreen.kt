@@ -87,7 +87,7 @@ fun BudgetDetailScreen(
                             navController.navigate(Screen.EditBudget.createRoute(b.id))
                         }) {
                             Icon(
-                                painterResource(R.drawable.edit), // Du musst dieses Icon hinzufügen
+                                painterResource(R.drawable.ic_edit), // Du musst dieses Icon hinzufügen
                                 contentDescription = "Edit Budget"
                             )
                         }

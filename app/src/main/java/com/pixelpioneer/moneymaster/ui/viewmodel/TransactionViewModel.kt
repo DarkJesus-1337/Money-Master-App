@@ -249,10 +249,6 @@ class TransactionViewModel(
         _transactionFormState.value = _transactionFormState.value.copy(isExpense = isExpense)
     }
 
-    private fun resetFormState() {
-        _transactionFormState.value = TransactionFormState()
-    }
-
     fun initFormWithTransaction(transaction: Transaction) {
         _transactionFormState.value = TransactionFormState(
             amount = transaction.amount,
@@ -345,7 +341,9 @@ class TransactionViewModel(
     fun refreshFinancialSummary() {
         viewModelScope.launch {
             try {
+                loadFinancialSummary()
             } catch (e: Exception) {
+                // Handle error if needed
             }
         }
     }
@@ -364,7 +362,13 @@ class TransactionViewModel(
             }
         }
     }
+
+   fun resetFormState() {
+        _transactionFormState.value = TransactionFormState()
+    }
 }
+
+
 
 data class TransactionFormState(
     val amount: Double = 0.0,

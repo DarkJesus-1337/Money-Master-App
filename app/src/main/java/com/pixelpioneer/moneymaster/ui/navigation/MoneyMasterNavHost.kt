@@ -15,6 +15,7 @@ import com.pixelpioneer.moneymaster.ui.screens.dashboard.DashboardScreen
 import com.pixelpioneer.moneymaster.ui.screens.receipts.ReceiptScanScreen
 import com.pixelpioneer.moneymaster.ui.screens.statistics.StatisticsScreen
 import com.pixelpioneer.moneymaster.ui.screens.transactions.AddTransactionScreen
+import com.pixelpioneer.moneymaster.ui.screens.transactions.EditTransactionScreen
 import com.pixelpioneer.moneymaster.ui.screens.transactions.TransactionDetailScreen
 import com.pixelpioneer.moneymaster.ui.screens.transactions.TransactionsScreen
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
@@ -128,6 +129,19 @@ fun MoneyMasterNavHost(
                 receiptScanViewModel = receiptScanViewModel,
                 transactionViewModel = transactionViewModel,
                 categoryViewModel = categoryViewModel,
+            )
+        }
+
+        composable(
+            route = "edit_transaction/{transactionId}",
+            arguments = listOf(navArgument("transactionId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val transactionId = backStackEntry.arguments?.getString("transactionId") ?: "0"
+            EditTransactionScreen(
+                navController = navController,
+                transactionId = transactionId,
+                transactionViewModel = transactionViewModel,
+                categoryViewModel = categoryViewModel
             )
         }
     }

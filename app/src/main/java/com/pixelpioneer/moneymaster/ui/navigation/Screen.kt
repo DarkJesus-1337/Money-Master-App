@@ -28,8 +28,12 @@ sealed class Screen(val route: String, val title: String, val icon: ImageVector?
     data object Statistics : Screen("statistics", "Statistics", Icons.Filled.PieChart)
     data object ReceiptScan : Screen("receipt_scan", "Scan", Icons.Filled.Camera)
 
-    object EditBudget : Screen("edit_budget/{budgetId}", "Edit Budget") {
+    data object EditBudget : Screen("edit_budget/{budgetId}", "Edit Budget") {
         fun createRoute(budgetId: Long) = "edit_budget/$budgetId"
+    }
+
+    data object EditTransaction : Screen("edit_transaction/{transactionId}", "Edit Transaction") {
+        fun createRoute(transactionId: String) = "edit_transaction/$transactionId"
     }
 }
 

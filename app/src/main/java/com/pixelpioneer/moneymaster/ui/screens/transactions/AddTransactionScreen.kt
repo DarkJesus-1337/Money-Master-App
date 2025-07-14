@@ -39,6 +39,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -68,6 +69,11 @@ fun AddTransactionScreen(
     navController: NavController,
     transactionViewModel: TransactionViewModel
 ) {
+
+    LaunchedEffect(Unit) {
+        transactionViewModel.resetFormState()
+    }
+
     val categoriesState = transactionViewModel.categoriesState.collectAsState().value
     val formState = transactionViewModel.transactionFormState.collectAsState().value
 

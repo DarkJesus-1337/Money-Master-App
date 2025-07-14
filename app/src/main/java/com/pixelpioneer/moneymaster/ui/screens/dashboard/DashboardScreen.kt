@@ -148,6 +148,11 @@ fun DashboardScreen(
                                         transaction.id
                                     )
                                 )
+                            },
+                            onEdit = {
+                                navController.navigate(
+                                    Screen.EditTransaction.createRoute(transaction.id.toString())
+                                )
                             }
                         )
                     }
