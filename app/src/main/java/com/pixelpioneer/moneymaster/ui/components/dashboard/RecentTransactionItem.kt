@@ -189,25 +189,25 @@ fun RecentTransactionItemPreview() {
 @Preview(showBackground = true)
 @Composable
 fun RecentTransactionItemDarkPreview() {
-    MoneyMasterTheme(darkTheme = true){
-            RecentTransactionItem(
-                transaction = Transaction(
+    MoneyMasterTheme(darkTheme = true) {
+        RecentTransactionItem(
+            transaction = Transaction(
+                id = 3,
+                amount = 89.99,
+                title = "Netflix Premium",
+                description = "Monatliches Streaming-Abo",
+                category = TransactionCategory(
                     id = 3,
-                    amount = 89.99,
-                    title = "Netflix Premium",
-                    description = "Monatliches Streaming-Abo",
-                    category = TransactionCategory(
-                        id = 3,
-                        name = "Unterhaltung",
-                        color = "#FF9800".toColorInt(),
-                        icon = R.drawable.ic_entertainment
-                    ),
-                    date = System.currentTimeMillis() - 259200000,
-                    isExpense = true
+                    name = "Unterhaltung",
+                    color = "#FF9800".toColorInt(),
+                    icon = R.drawable.ic_entertainment
                 ),
-                onClick = { }
-            )
-        }
+                date = System.currentTimeMillis() - 259200000,
+                isExpense = true
+            ),
+            onClick = { }
+        )
     }
+}
 
 

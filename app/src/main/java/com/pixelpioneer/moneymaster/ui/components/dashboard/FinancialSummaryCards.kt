@@ -150,7 +150,7 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
 @Preview(showBackground = true)
 @Composable
 fun FinancialSummaryCardsDarkPreview() {
-    MoneyMasterTheme (darkTheme = false) {
+    MoneyMasterTheme(darkTheme = false) {
         FinancialSummaryCards(
             summary = FinancialSummary(
                 balance = -150.75,
@@ -160,10 +160,11 @@ fun FinancialSummaryCardsDarkPreview() {
         )
     }
 }
+
 @Preview()
 @Composable
 fun FinancialSummaryCardsDarkPreviewDark() {
-    MoneyMasterTheme (darkTheme = true) {
+    MoneyMasterTheme(darkTheme = true) {
         FinancialSummaryCards(
             summary = FinancialSummary(
                 balance = -150.75,

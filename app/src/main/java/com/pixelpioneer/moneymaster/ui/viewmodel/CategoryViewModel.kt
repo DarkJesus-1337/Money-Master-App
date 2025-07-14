@@ -52,7 +52,7 @@ class CategoryViewModel(
                         } else {
                             _categoriesState.value = UiState.Success(categories)
                         }
-                        _categories.value = categories // Setze Liste für UI
+                        _categories.value = categories
                     }
             } catch (e: Exception) {
                 _categoriesState.value = UiState.Error(e.message ?: "Unknown error occurred")

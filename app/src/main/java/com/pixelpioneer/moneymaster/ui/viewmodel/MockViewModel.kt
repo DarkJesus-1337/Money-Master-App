@@ -3,23 +3,34 @@ package com.pixelpioneer.moneymaster.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pixelpioneer.moneymaster.data.enums.BudgetPeriod
-import com.pixelpioneer.moneymaster.data.model.*
+import com.pixelpioneer.moneymaster.data.model.Asset
+import com.pixelpioneer.moneymaster.data.model.Budget
+import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
+import com.pixelpioneer.moneymaster.data.model.Receipt
+import com.pixelpioneer.moneymaster.data.model.Transaction
+import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.data.sample.MockRepository
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class MockViewModel : ViewModel() {
 
     private val repository = MockRepository()
 
-    // UI State
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
     private val _errorMessage = MutableSharedFlow<String>()
     val errorMessage: SharedFlow<String> = _errorMessage.asSharedFlow()
 
-    // Transactions
     val transactions = repository.getAllTransactions()
         .stateIn(
             scope = viewModelScope,
@@ -27,7 +38,6 @@ class MockViewModel : ViewModel() {
             initialValue = emptyList()
         )
 
-    // Categories
     val categories = repository.getAllCategories()
         .stateIn(
             scope = viewModelScope,
@@ -35,7 +45,6 @@ class MockViewModel : ViewModel() {
             initialValue = emptyList()
         )
 
-    // Budgets
     val budgets = repository.getAllBudgets()
         .stateIn(
             scope = viewModelScope,
@@ -43,11 +52,9 @@ class MockViewModel : ViewModel() {
             initialValue = emptyList()
         )
 
-    // Assets
     private val _assets = MutableStateFlow<List<Asset>>(emptyList())
     val assets: StateFlow<List<Asset>> = _assets.asStateFlow()
 
-    // Statistics
     val expensesByCategory = repository.getExpensesByCategory()
         .stateIn(
             scope = viewModelScope,
@@ -62,7 +69,6 @@ class MockViewModel : ViewModel() {
             initialValue = emptyMap()
         )
 
-    // Transaction Operations
     fun insertTransaction(transaction: Transaction) {
         viewModelScope.launch {
             try {

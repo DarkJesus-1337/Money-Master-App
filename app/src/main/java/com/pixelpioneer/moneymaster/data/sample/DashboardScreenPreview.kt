@@ -36,7 +36,7 @@ import com.pixelpioneer.moneymaster.ui.viewmodel.FinancialSummary
 @Preview(
     showBackground = true,
 
-)
+    )
 fun DashboardScreenPreview() {
     MoneyMasterTheme(
         darkTheme = true, // Set to true for dark theme preview

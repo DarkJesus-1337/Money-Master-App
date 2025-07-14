@@ -102,7 +102,6 @@ fun MoneyMasterNavHost(
             )
         }
 
-        // Füge diese neue Route hinzu:
         composable(
             route = Screen.EditBudget.route,
             arguments = listOf(navArgument("budgetId") { type = NavType.LongType })

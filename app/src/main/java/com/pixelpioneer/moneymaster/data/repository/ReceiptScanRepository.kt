@@ -32,7 +32,7 @@ class ReceiptScanRepository(
         private const val TAG = "ReceiptScanRepository"
 
         /** Maximum allowed image file size in bytes (1MB). */
-        private const val MAX_IMAGE_SIZE = 1024 * 1024 // 1MB
+        private const val MAX_IMAGE_SIZE = 1024 * 1024
 
         /** Maximum image width in pixels for compression. */
         private const val MAX_WIDTH = 1024

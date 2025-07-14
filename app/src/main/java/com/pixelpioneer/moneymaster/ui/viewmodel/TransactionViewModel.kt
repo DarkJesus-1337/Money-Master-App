@@ -363,11 +363,10 @@ class TransactionViewModel(
         }
     }
 
-   fun resetFormState() {
+    fun resetFormState() {
         _transactionFormState.value = TransactionFormState()
     }
 }
-
 
 
 data class TransactionFormState(

@@ -16,7 +16,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -56,8 +55,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.data.model.Transaction
-import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
@@ -75,16 +72,13 @@ fun EditTransactionScreen(
     categoryViewModel: CategoryViewModel
 ) {
     val transactionIdLong = transactionId.toLongOrNull() ?: 0L
-
-    LaunchedEffect(transactionIdLong) {
-        transactionViewModel.loadTransactionById(transactionIdLong)
-    }
+    var amountInput by remember { mutableStateOf("") }
+    var isFormInitialized by remember { mutableStateOf(false) }
 
     val transactionState = transactionViewModel.selectedTransaction.collectAsState().value
     val formState = transactionViewModel.transactionFormState.collectAsState().value
     val categoriesState = categoryViewModel.categories.collectAsState().value
 
-    var isFormInitialized by remember { mutableStateOf(false) }
     var showDatePicker by remember { mutableStateOf(false) }
     var expanded by remember { mutableStateOf(false) }
 
@@ -92,9 +86,16 @@ fun EditTransactionScreen(
         initialSelectedDateMillis = formState.date
     )
 
+    LaunchedEffect(transactionIdLong) {
+        transactionViewModel.loadTransactionById(transactionIdLong)
+    }
+
     LaunchedEffect(transactionState) {
         if (transactionState is UiState.Success && !isFormInitialized) {
             transactionViewModel.initFormWithTransaction(transactionState.data)
+            amountInput = if (transactionState.data.amount > 0.0) {
+                transactionState.data.amount.toString()
+            } else ""
             isFormInitialized = true
         }
     }
@@ -162,18 +163,31 @@ fun EditTransactionScreen(
                     )
 
                     OutlinedTextField(
-                        value = if (formState.amount == 0.0) "" else formState.amount.toString(),
-                        onValueChange = {
-                            val amount = it.toDoubleOrNull() ?: 0.0
-                            transactionViewModel.updateAmount(amount)
+                        value = amountInput,
+                        onValueChange = { input ->
+                            if (input.isEmpty() || input.matches(Regex("^\\d*[.,]?\\d*$"))) {
+                                amountInput = input
+                                val amount = when {
+                                    input.isEmpty() -> 0.0
+                                    input == "." || input == "," -> 0.0
+                                    input.endsWith(".") || input.endsWith(",") -> {
+                                        val numericPart = input.dropLast(1)
+                                        if (numericPart.isEmpty()) 0.0 else {
+                                            numericPart.replace(",", ".").toDoubleOrNull() ?: 0.0
+                                        }
+                                    }
+                                    else -> input.replace(",", ".").toDoubleOrNull() ?: 0.0
+                                }
+                                transactionViewModel.updateAmount(amount)
+                            }
                         },
                         label = { Text("Amount") },
                         modifier = Modifier.fillMaxWidth(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                        isError = formState.amountError != null,
+                        isError = formState.amountError != null && amountInput.isNotEmpty() && !amountInput.endsWith(".") && !amountInput.endsWith(","),
                         supportingText = {
-                            formState.amountError?.let {
-                                Text(it, color = MaterialTheme.colorScheme.error)
+                            if (formState.amountError != null && amountInput.isNotEmpty() && !amountInput.endsWith(".") && !amountInput.endsWith(",")) {
+                                Text(formState.amountError!!, color = MaterialTheme.colorScheme.error)
                             }
                         }
                     )

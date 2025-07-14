@@ -69,6 +69,7 @@ fun AddTransactionScreen(
     navController: NavController,
     transactionViewModel: TransactionViewModel
 ) {
+    var amountInput by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
         transactionViewModel.resetFormState()
@@ -136,18 +137,31 @@ fun AddTransactionScreen(
             )
 
             OutlinedTextField(
-                value = if (formState.amount == 0.0) "" else formState.amount.toString(),
-                onValueChange = {
-                    val amount = it.toDoubleOrNull() ?: 0.0
-                    transactionViewModel.updateAmount(amount)
+                value = amountInput,
+                onValueChange = { input ->
+                    if (input.isEmpty() || input.matches(Regex("^\\d*[.,]?\\d*$"))) {
+                        amountInput = input
+                        val amount = when {
+                            input.isEmpty() -> 0.0
+                            input == "." || input == "," -> 0.0
+                            input.endsWith(".") || input.endsWith(",") -> {
+                                val numericPart = input.dropLast(1)
+                                if (numericPart.isEmpty()) 0.0 else {
+                                    numericPart.replace(",", ".").toDoubleOrNull() ?: 0.0
+                                }
+                            }
+                            else -> input.replace(",", ".").toDoubleOrNull() ?: 0.0
+                        }
+                        transactionViewModel.updateAmount(amount)
+                    }
                 },
                 label = { Text("Amount") },
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                isError = formState.amountError != null,
+                isError = formState.amountError != null && amountInput.isNotEmpty() && !amountInput.endsWith(".") && !amountInput.endsWith(","),
                 supportingText = {
-                    formState.amountError?.let {
-                        Text(it, color = MaterialTheme.colorScheme.error)
+                    if (formState.amountError != null && amountInput.isNotEmpty() && !amountInput.endsWith(".") && !amountInput.endsWith(",")) {
+                        Text(formState.amountError!!, color = MaterialTheme.colorScheme.error)
                     }
                 }
             )
@@ -264,7 +278,7 @@ fun AddTransactionScreen(
 
                 is UiState.Empty -> {
                     Text(
-                        text = "No cate     gories available. Please create categories first.",
+                        text = "No categories available. Please create categories first.",
                         color = MaterialTheme.colorScheme.error
                     )
                 }

@@ -1,13 +1,21 @@
 package com.pixelpioneer.moneymaster.data.sample
 
-import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.data.enums.BudgetPeriod
-import com.pixelpioneer.moneymaster.data.model.*
 import android.graphics.Color
 import androidx.core.graphics.toColorInt
+import com.pixelpioneer.moneymaster.R
+import com.pixelpioneer.moneymaster.data.enums.BudgetPeriod
+import com.pixelpioneer.moneymaster.data.model.Asset
+import com.pixelpioneer.moneymaster.data.model.AssetsResponse
+import com.pixelpioneer.moneymaster.data.model.Budget
+import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
+import com.pixelpioneer.moneymaster.data.model.HistoryResponse
+import com.pixelpioneer.moneymaster.data.model.Receipt
+import com.pixelpioneer.moneymaster.data.model.ReceiptItem
+import com.pixelpioneer.moneymaster.data.model.Transaction
+import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 
 object SampleData {
-    
+
     // Sample Transaction Categories
     val sampleCategories = listOf(
         TransactionCategory(
@@ -41,7 +49,7 @@ object SampleData {
             icon = R.drawable.ic_school
         )
     )
-    
+
     // Sample Transactions
     val sampleTransactions = listOf(
         Transaction(
@@ -76,7 +84,12 @@ object SampleData {
             amount = 2500.00,
             title = "Gehalt",
             description = "Monatliches Gehalt",
-            category = TransactionCategory(6, "Einkommen", Color.parseColor("#4CAF50"), R.drawable.ic_finance_chip),
+            category = TransactionCategory(
+                6,
+                "Einkommen",
+                Color.parseColor("#4CAF50"),
+                R.drawable.ic_finance_chip
+            ),
             date = System.currentTimeMillis() - 604800000, // 1 week ago
             isExpense = false
         ),
@@ -90,7 +103,7 @@ object SampleData {
             isExpense = true
         )
     )
-    
+
     // Sample Budgets
     val sampleBudgets = listOf(
         Budget(
@@ -115,7 +128,7 @@ object SampleData {
             spent = 89.99
         )
     )
-    
+
     // Sample Assets (Crypto)
     val sampleAssets = listOf(
         Asset(
@@ -161,7 +174,7 @@ object SampleData {
             explorer = "https://www.omniexplorer.info/"
         )
     )
-    
+
     // Sample History Data Points
     val sampleHistoryDataPoints = listOf(
         HistoryDataPoint(
@@ -185,7 +198,7 @@ object SampleData {
             date = "2024-01-12"
         )
     )
-    
+
     // Sample Receipt Items
     val sampleReceiptItems = listOf(
         ReceiptItem(name = "Milch 1L", price = 1.29),
@@ -194,20 +207,20 @@ object SampleData {
         ReceiptItem(name = "Joghurt Natur", price = 0.89),
         ReceiptItem(name = "Käse Gouda", price = 3.99)
     )
-    
+
     // Sample Receipt
     val sampleReceipt = Receipt(
         storeName = "REWE Supermarkt",
         date = "2024-01-15",
         items = sampleReceiptItems
     )
-    
+
     // Sample Assets Response
     val sampleAssetsResponse = AssetsResponse(
         data = sampleAssets,
         timestamp = System.currentTimeMillis()
     )
-    
+
     // Sample History Response
     val sampleHistoryResponse = HistoryResponse(
         data = sampleHistoryDataPoints,
