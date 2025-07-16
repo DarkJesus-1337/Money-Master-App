@@ -15,7 +15,7 @@ im [Release-Bereich](https://github.com/DarkJesus-1337/Money-Master/releases) zu
 Ab sofort bietet die App **In-App-Updates** über **Firebase App Distribution** an.  
 👉 Um Updates automatisch zu erhalten, folge diesem Einladungslink:
 
-**[📩 Jetzt beitreten und Updates erhalten]([https://firebase.google.com/your-invitation-link-here](https://appdistribution.firebase.dev/i/161b5e868b5b026c))**
+**[📩 Jetzt beitreten und Updates erhalten](https://appdistribution.firebase.dev/i/161b5e868b5b026c)**
 
 > Nach dem Beitritt kannst du die App direkt über Firebase installieren  
 > und wirst über neue Versionen automatisch informiert.
