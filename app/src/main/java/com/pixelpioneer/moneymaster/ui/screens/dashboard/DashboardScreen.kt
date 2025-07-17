@@ -74,17 +74,6 @@ fun DashboardScreen(
                 .padding(horizontal = 16.dp)
         ) {
             item {
-                Button(
-                    onClick = { throw RuntimeException("Test-Crash für Firebase Crashlytics") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp)
-                ) {
-                    Text("Test-Crash auslösen")
-                }
-            }
-
-            item {
                 when (financialSummaryState) {
                     is UiState.Loading -> {
                         Box(
