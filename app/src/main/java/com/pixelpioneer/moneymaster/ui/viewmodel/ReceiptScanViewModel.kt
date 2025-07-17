@@ -1,8 +1,10 @@
 package com.pixelpioneer.moneymaster.ui.viewmodel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.data.repository.ReceiptScanRepository
@@ -20,7 +22,8 @@ import java.io.File
  * @property receiptScanRepository Repository for receipt scanning operations.
  */
 class ReceiptScanViewModel(
-    private val receiptScanRepository: ReceiptScanRepository
+    private val receiptScanRepository: ReceiptScanRepository,
+    private val context: Context
 ) : ViewModel() {
 
     private val _scannedItems = MutableStateFlow<List<Transaction>>(emptyList())
@@ -45,8 +48,8 @@ class ReceiptScanViewModel(
                 Log.d("ReceiptScanViewModel", "OCR ParsedText: $parsedText")
                 if (parsedText.isBlank()) {
                     _error.value = buildString {
-                        append("Kein Text erkannt.\n")
-                        append("OCRExitCode: ${response.ocrExitCode}\n")
+                        append(context.getString(R.string.error_no_text_recognized))
+                        append("\nOCRExitCode: ${response.ocrExitCode}\n")
                         response.errorMessage?.let {
                             if (it.toString().isNotBlank()) append("ErrorMessage: $it\n")
                         }
@@ -60,7 +63,7 @@ class ReceiptScanViewModel(
 
                 val items = parseItemsFromText(parsedText, defaultCategory)
                 if (items.isEmpty()) {
-                    _error.value = "Kein Artikel erkannt. OCR-Text: $parsedText"
+                    _error.value = context.getString(R.string.error_no_item_recognized, parsedText)
                 }
                 _scannedItems.value = items
             } catch (e: Exception) {

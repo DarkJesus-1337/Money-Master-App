@@ -22,7 +22,11 @@ class MoneyMasterApplication : Application() {
     }
 
     private val transactionRepository by lazy {
-        TransactionRepository(database.transactionDao(), coinCapApiClient.api)
+        TransactionRepository(
+            database.transactionDao(),
+            coinCapApiClient.api,
+            context = this
+        )
     }
 
     private val categoryRepository by lazy {
@@ -42,11 +46,17 @@ class MoneyMasterApplication : Application() {
     }
 
     private val coinCapRepository by lazy {
-        CoinCapRepository(coinCapApiClient.api)
+        CoinCapRepository(
+            coinCapApiClient.api,
+            context = this
+        )
     }
 
     private val receiptScanRepository by lazy {
-        ReceiptScanRepository(remoteConfigManager)
+        ReceiptScanRepository(
+            remoteConfigManager,
+            context = this
+        )
     }
 
     val viewModelFactory by lazy {
@@ -56,7 +66,8 @@ class MoneyMasterApplication : Application() {
             budgetRepository = budgetRepository,
             coinCapRepository = coinCapRepository,
             receiptScanRepository = receiptScanRepository,
-            remoteConfigManager = remoteConfigManager
+            remoteConfigManager = remoteConfigManager,
+            context = this
         )
     }
 

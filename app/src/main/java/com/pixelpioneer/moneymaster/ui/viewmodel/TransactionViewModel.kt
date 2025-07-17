@@ -1,7 +1,9 @@
 package com.pixelpioneer.moneymaster.ui.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Receipt
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
@@ -27,7 +29,8 @@ import java.util.Calendar
  */
 class TransactionViewModel(
     private val transactionRepository: TransactionRepository,
-    private val categoryRepository: CategoryRepository
+    private val categoryRepository: CategoryRepository,
+    private val context: Context
 ) : ViewModel() {
 
     private val _transactionsState = MutableStateFlow<UiState<List<Transaction>>>(UiState.Loading)
@@ -59,7 +62,7 @@ class TransactionViewModel(
                 transactionRepository.allTransactionsWithCategory
                     .catch { e ->
                         _transactionsState.value =
-                            UiState.Error(e.message ?: "Unknown error occurred")
+                            UiState.Error(e.message ?: context.getString(R.string.error_unknown))
                     }
                     .collect { transactions ->
                         if (transactions.isEmpty()) {
@@ -69,7 +72,7 @@ class TransactionViewModel(
                         }
                     }
             } catch (e: Exception) {
-                _transactionsState.value = UiState.Error(e.message ?: "Unknown error occurred")
+                _transactionsState.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -81,13 +84,13 @@ class TransactionViewModel(
                 transactionRepository.getTransactionById(id)
                     .catch { e ->
                         _selectedTransaction.value =
-                            UiState.Error(e.message ?: "Unknown error occurred")
+                            UiState.Error(e.message ?: context.getString(R.string.error_unknown))
                     }
                     .collect { transaction ->
                         _selectedTransaction.value = UiState.Success(transaction)
                     }
             } catch (e: Exception) {
-                _selectedTransaction.value = UiState.Error(e.message ?: "Unknown error occurred")
+                _selectedTransaction.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -99,7 +102,7 @@ class TransactionViewModel(
                 categoryRepository.allCategories
                     .catch { e ->
                         _categoriesState.value =
-                            UiState.Error(e.message ?: "Unknown error occurred")
+                            UiState.Error(e.message ?: context.getString(R.string.error_unknown))
                     }
                     .collect { categories ->
                         if (categories.isEmpty()) {
@@ -109,7 +112,7 @@ class TransactionViewModel(
                         }
                     }
             } catch (e: Exception) {
-                _categoriesState.value = UiState.Error(e.message ?: "Unknown error occurred")
+                _categoriesState.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -133,7 +136,7 @@ class TransactionViewModel(
                     }
                 }
             } catch (e: Exception) {
-                _financialSummary.value = UiState.Error(e.message ?: "Unknown error occurred")
+                _financialSummary.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -219,14 +222,14 @@ class TransactionViewModel(
     fun updateAmount(amount: Double) {
         _transactionFormState.value = _transactionFormState.value.copy(
             amount = amount,
-            amountError = if (amount <= 0) "Amount must be greater than zero" else null
+            amountError = if (amount <= 0) context.getString(R.string.error_amount_greater_zero) else null
         )
     }
 
     fun updateTitle(title: String) {
         _transactionFormState.value = _transactionFormState.value.copy(
             title = title,
-            titleError = if (title.isBlank()) "Title cannot be empty" else null
+            titleError = if (title.isBlank()) context.getString(R.string.error_title_empty) else null
         )
     }
 
@@ -268,21 +271,21 @@ class TransactionViewModel(
 
         if (formState.amount <= 0) {
             updatedFormState = updatedFormState.copy(
-                amountError = "Amount must be greater than zero"
+                amountError = context.getString(R.string.error_amount_greater_zero)
             )
             isValid = false
         }
 
         if (formState.title.isBlank()) {
             updatedFormState = updatedFormState.copy(
-                titleError = "Title cannot be empty"
+                titleError = context.getString(R.string.error_title_empty)
             )
             isValid = false
         }
 
         if (formState.selectedCategory == null) {
             updatedFormState = updatedFormState.copy(
-                categoryError = "Please select a category"
+                categoryError = context.getString(R.string.error_select_category)
             )
             isValid = false
         }
@@ -302,7 +305,7 @@ class TransactionViewModel(
                         id = 0,
                         amount = item.price,
                         title = item.name,
-                        description = "Vom Kassenzettel: ${receipt.storeName ?: "Unbekannt"}",
+                        description = context.getString(R.string.transaction_from_receipt, receipt.storeName ?: context.getString(R.string.store_name_unknown)),
                         category = defaultCategory,
                         date = System.currentTimeMillis(),
                         isExpense = true
@@ -324,14 +327,14 @@ class TransactionViewModel(
             categories.firstOrNull()
                 ?: TransactionCategory(
                     id = 1,
-                    name = "Einkauf",
+                    name = context.getString(R.string.category_default_shopping),
                     color = 0xFF4CAF50.toInt(),
                     icon = 0
                 )
         } catch (e: Exception) {
             TransactionCategory(
                 id = 1,
-                name = "Einkauf",
+                name = context.getString(R.string.category_default_shopping),
                 color = 0xFF4CAF50.toInt(),
                 icon = 0
             )

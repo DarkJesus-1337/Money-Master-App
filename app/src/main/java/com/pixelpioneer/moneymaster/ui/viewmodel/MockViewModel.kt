@@ -1,7 +1,9 @@
 package com.pixelpioneer.moneymaster.ui.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.enums.BudgetPeriod
 import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.Budget
@@ -21,7 +23,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class MockViewModel : ViewModel() {
+class MockViewModel(private val context: Context) : ViewModel() {
 
     private val repository = MockRepository()
 
@@ -77,7 +79,7 @@ class MockViewModel : ViewModel() {
                 _uiState.value = _uiState.value.copy(isLoading = false)
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(isLoading = false)
-                _errorMessage.emit("Transaktion konnte nicht hinzugefügt werden: ${e.message}")
+                _errorMessage.emit(context.getString(R.string.error_transaction_add, e.message))
             }
         }
     }
@@ -90,7 +92,7 @@ class MockViewModel : ViewModel() {
                 _uiState.value = _uiState.value.copy(isLoading = false)
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(isLoading = false)
-                _errorMessage.emit("Transaktion konnte nicht aktualisiert werden: ${e.message}")
+                _errorMessage.emit(context.getString(R.string.error_transaction_update, e.message))
             }
         }
     }
@@ -103,7 +105,7 @@ class MockViewModel : ViewModel() {
                 _uiState.value = _uiState.value.copy(isLoading = false)
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(isLoading = false)
-                _errorMessage.emit("Transaktion konnte nicht gelöscht werden: ${e.message}")
+                _errorMessage.emit(context.getString(R.string.error_transaction_delete, e.message))
             }
         }
     }
@@ -117,7 +119,7 @@ class MockViewModel : ViewModel() {
                 _uiState.value = _uiState.value.copy(isLoading = false)
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(isLoading = false)
-                _errorMessage.emit("Kategorie konnte nicht hinzugefügt werden: ${e.message}")
+                _errorMessage.emit(context.getString(R.string.error_category_add, e.message))
             }
         }
     }
@@ -130,7 +132,7 @@ class MockViewModel : ViewModel() {
                 _uiState.value = _uiState.value.copy(isLoading = false)
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(isLoading = false)
-                _errorMessage.emit("Kategorie konnte nicht aktualisiert werden: ${e.message}")
+                _errorMessage.emit(context.getString(R.string.error_category_update, e.message))
             }
         }
     }
@@ -143,7 +145,7 @@ class MockViewModel : ViewModel() {
                 _uiState.value = _uiState.value.copy(isLoading = false)
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(isLoading = false)
-                _errorMessage.emit("Kategorie konnte nicht gelöscht werden: ${e.message}")
+                _errorMessage.emit(context.getString(R.string.error_category_delete, e.message))
             }
         }
     }
@@ -157,7 +159,7 @@ class MockViewModel : ViewModel() {
                 _uiState.value = _uiState.value.copy(isLoading = false)
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(isLoading = false)
-                _errorMessage.emit("Budget konnte nicht hinzugefügt werden: ${e.message}")
+                _errorMessage.emit(context.getString(R.string.error_budget_add, e.message))
             }
         }
     }
@@ -170,7 +172,7 @@ class MockViewModel : ViewModel() {
                 _uiState.value = _uiState.value.copy(isLoading = false)
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(isLoading = false)
-                _errorMessage.emit("Budget konnte nicht aktualisiert werden: ${e.message}")
+                _errorMessage.emit(context.getString(R.string.error_budget_update, e.message))
             }
         }
     }
@@ -183,7 +185,7 @@ class MockViewModel : ViewModel() {
                 _uiState.value = _uiState.value.copy(isLoading = false)
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(isLoading = false)
-                _errorMessage.emit("Budget konnte nicht gelöscht werden: ${e.message}")
+                _errorMessage.emit(context.getString(R.string.error_budget_delete, e.message))
             }
         }
     }
@@ -201,12 +203,12 @@ class MockViewModel : ViewModel() {
                     },
                     onFailure = { exception ->
                         _uiState.value = _uiState.value.copy(isLoading = false)
-                        _errorMessage.emit("Assets konnten nicht geladen werden: ${exception.message}")
+                        _errorMessage.emit(context.getString(R.string.error_assets_load, exception.message))
                     }
                 )
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(isLoading = false)
-                _errorMessage.emit("Unerwarteter Fehler: ${e.message}")
+                _errorMessage.emit(context.getString(R.string.error_unexpected, e.message))
             }
         }
     }
@@ -225,12 +227,12 @@ class MockViewModel : ViewModel() {
                     },
                     onFailure = { exception ->
                         _uiState.value = _uiState.value.copy(isLoading = false)
-                        _errorMessage.emit("Historische Daten konnten nicht geladen werden: ${exception.message}")
+                        _errorMessage.emit(context.getString(R.string.error_history_load, exception.message))
                     }
                 )
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(isLoading = false)
-                _errorMessage.emit("Unerwarteter Fehler: ${e.message}")
+                _errorMessage.emit(context.getString(R.string.error_unexpected, e.message))
             }
         }
     }
@@ -250,12 +252,12 @@ class MockViewModel : ViewModel() {
                     },
                     onFailure = { exception ->
                         _uiState.value = _uiState.value.copy(isLoading = false)
-                        _errorMessage.emit("Beleg konnte nicht gescannt werden: ${exception.message}")
+                        _errorMessage.emit(context.getString(R.string.error_receipt_scan, exception.message))
                     }
                 )
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(isLoading = false)
-                _errorMessage.emit("Scanner-Fehler: ${e.message}")
+                _errorMessage.emit(context.getString(R.string.error_scanner, e.message))
             }
         }
     }

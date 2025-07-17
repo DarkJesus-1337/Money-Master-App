@@ -1,5 +1,6 @@
 package com.pixelpioneer.moneymaster.ui.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.pixelpioneer.moneymaster.data.repository.BudgetRepository
@@ -28,39 +29,39 @@ class ViewModelFactory(
     private val budgetRepository: BudgetRepository,
     private val coinCapRepository: CoinCapRepository,
     private val receiptScanRepository: ReceiptScanRepository,
-    private val remoteConfigManager: RemoteConfigManager
-
+    private val remoteConfigManager: RemoteConfigManager,
+    private val context: Context
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(TransactionViewModel::class.java) -> {
-                TransactionViewModel(transactionRepository, categoryRepository) as T
+                TransactionViewModel(transactionRepository, categoryRepository, context) as T
             }
 
             modelClass.isAssignableFrom(CategoryViewModel::class.java) -> {
-                CategoryViewModel(categoryRepository) as T
+                CategoryViewModel(categoryRepository, context) as T
             }
 
             modelClass.isAssignableFrom(BudgetViewModel::class.java) -> {
-                BudgetViewModel(budgetRepository, categoryRepository) as T
+                BudgetViewModel(budgetRepository, categoryRepository, context) as T
             }
 
             modelClass.isAssignableFrom(StatisticsViewModel::class.java) -> {
-                StatisticsViewModel(transactionRepository, categoryRepository) as T
+                StatisticsViewModel(transactionRepository, categoryRepository, context) as T
             }
 
             modelClass.isAssignableFrom(CryptoViewModel::class.java) -> {
-                CryptoViewModel(coinCapRepository) as T
+                CryptoViewModel(coinCapRepository, context) as T
             }
 
             modelClass.isAssignableFrom(ReceiptScanViewModel::class.java) -> {
-                ReceiptScanViewModel(receiptScanRepository) as T
+                ReceiptScanViewModel(receiptScanRepository, context) as T
             }
 
             modelClass.isAssignableFrom(RemoteConfigViewModel::class.java) -> {
-                RemoteConfigViewModel(remoteConfigManager) as T
+                RemoteConfigViewModel(remoteConfigManager, context) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

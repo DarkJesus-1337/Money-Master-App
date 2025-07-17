@@ -1,7 +1,9 @@
 package com.pixelpioneer.moneymaster.ui.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
 import com.pixelpioneer.moneymaster.util.UiState
@@ -19,7 +21,8 @@ import kotlinx.coroutines.launch
  * @property categoryRepository Repository for category data access.
  */
 class CategoryViewModel(
-    private val categoryRepository: CategoryRepository
+    private val categoryRepository: CategoryRepository,
+    private val context: Context
 ) : ViewModel() {
 
     private val _categoriesState =
@@ -43,7 +46,7 @@ class CategoryViewModel(
                 categoryRepository.allCategories
                     .catch { e ->
                         _categoriesState.value =
-                            UiState.Error(e.message ?: "Unknown error occurred")
+                            UiState.Error(e.message ?: context.getString(R.string.error_unknown))
                         _categories.value = emptyList()
                     }
                     .collect { categories ->
@@ -55,7 +58,7 @@ class CategoryViewModel(
                         _categories.value = categories
                     }
             } catch (e: Exception) {
-                _categoriesState.value = UiState.Error(e.message ?: "Unknown error occurred")
+                _categoriesState.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
                 _categories.value = emptyList()
             }
         }
@@ -68,13 +71,13 @@ class CategoryViewModel(
                 categoryRepository.getCategoryById(id)
                     .catch { e ->
                         _selectedCategory.value =
-                            UiState.Error(e.message ?: "Unknown error occurred")
+                            UiState.Error(e.message ?: context.getString(R.string.error_unknown))
                     }
                     .collect { category ->
                         _selectedCategory.value = UiState.Success(category)
                     }
             } catch (e: Exception) {
-                _selectedCategory.value = UiState.Error(e.message ?: "Unknown error occurred")
+                _selectedCategory.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -149,7 +152,9 @@ class CategoryViewModel(
             try {
                 categoryRepository.allCategories.collect { categories ->
                     if (categories.isEmpty()) {
-                        categoryRepository.insertDefaultCategories()
+                        categoryRepository.insertDefaultCategories(
+                            context = context
+                        )
                         loadCategories()
                     }
                 }
@@ -162,7 +167,7 @@ class CategoryViewModel(
     fun updateName(name: String) {
         _categoryFormState.value = _categoryFormState.value.copy(
             name = name,
-            nameError = if (name.isBlank()) "Name cannot be empty" else null
+            nameError = if (name.isBlank()) context.getString(R.string.error_name_empty) else null
         )
     }
 
@@ -191,7 +196,7 @@ class CategoryViewModel(
 
         if (formState.name.isBlank()) {
             _categoryFormState.value = formState.copy(
-                nameError = "Name cannot be empty"
+                nameError = context.getString(R.string.error_name_empty)
             )
             return false
         }

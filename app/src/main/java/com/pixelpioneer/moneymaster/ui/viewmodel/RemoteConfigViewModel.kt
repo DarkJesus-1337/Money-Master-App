@@ -1,7 +1,9 @@
 package com.pixelpioneer.moneymaster.ui.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.services.RemoteConfigManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -22,7 +24,8 @@ data class RemoteConfigState(
  * @property remoteConfigManager Manager for remote config operations.
  */
 class RemoteConfigViewModel(
-    private val remoteConfigManager: RemoteConfigManager
+    private val remoteConfigManager: RemoteConfigManager,
+    private val context: Context
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RemoteConfigState())
@@ -46,7 +49,7 @@ class RemoteConfigViewModel(
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
                     isSuccess = false,
-                    errorMessage = e.message
+                    errorMessage = e.message ?: context.getString(R.string.error_unknown)
                 )
             }
         }

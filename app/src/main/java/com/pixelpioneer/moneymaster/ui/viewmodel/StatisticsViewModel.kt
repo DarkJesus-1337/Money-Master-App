@@ -1,7 +1,9 @@
 package com.pixelpioneer.moneymaster.ui.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
 import com.pixelpioneer.moneymaster.data.repository.TransactionRepository
@@ -26,7 +28,8 @@ import java.util.Locale
  */
 class StatisticsViewModel(
     private val transactionRepository: TransactionRepository,
-    private val categoryRepository: CategoryRepository
+    private val categoryRepository: CategoryRepository,
+    private val context: Context
 ) : ViewModel() {
 
     private val _statisticsState = MutableStateFlow<UiState<StatisticsOverview>>(UiState.Loading)
@@ -69,7 +72,7 @@ class StatisticsViewModel(
                 )
                     .catch { e ->
                         _statisticsState.value =
-                            UiState.Error(e.message ?: "Fehler beim Laden der Statistiken")
+                            UiState.Error(e.message ?: context.getString(R.string.error_loading_statistics))
                     }
                     .collect { transactions ->
                         val totalIncome = transactionRepository.getTotalIncomeSync()
@@ -103,7 +106,7 @@ class StatisticsViewModel(
                         _statisticsState.value = UiState.Success(overview)
                     }
             } catch (e: Exception) {
-                _statisticsState.value = UiState.Error(e.message ?: "Unbekannter Fehler")
+                _statisticsState.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -133,7 +136,7 @@ class StatisticsViewModel(
                 }
                     .catch { e ->
                         _categoryStatsState.value = UiState.Error(
-                            e.message ?: "Fehler beim Laden der Kategorien-Statistiken"
+                            e.message ?: context.getString(R.string.error_loading_category_statistics)
                         )
                     }
                     .collect { categoryStats ->
@@ -144,7 +147,7 @@ class StatisticsViewModel(
                         }
                     }
             } catch (e: Exception) {
-                _categoryStatsState.value = UiState.Error(e.message ?: "Unbekannter Fehler")
+                _categoryStatsState.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -157,7 +160,7 @@ class StatisticsViewModel(
                 transactionRepository.allTransactionsWithCategory
                     .catch { e ->
                         _monthlyTrendsState.value =
-                            UiState.Error(e.message ?: "Fehler beim Laden der Trend-Daten")
+                            UiState.Error(e.message ?: context.getString(R.string.error_loading_trend_data))
                     }
                     .collect { transactions ->
                         val monthlyTrends = transactions
@@ -204,7 +207,7 @@ class StatisticsViewModel(
                         }
                     }
             } catch (e: Exception) {
-                _monthlyTrendsState.value = UiState.Error(e.message ?: "Unbekannter Fehler")
+                _monthlyTrendsState.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }

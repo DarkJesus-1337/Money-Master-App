@@ -1,5 +1,7 @@
 package com.pixelpioneer.moneymaster.data.repository
 
+import android.content.Context
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.db.TransactionDao
 import com.pixelpioneer.moneymaster.data.mapper.TransactionMapper
 import com.pixelpioneer.moneymaster.data.model.Asset
@@ -21,7 +23,8 @@ import java.util.Calendar
  */
 class TransactionRepository(
     private val transactionDao: TransactionDao,
-    private val coinCapApiService: CoinCapApiService? = null
+    private val coinCapApiService: CoinCapApiService? = null,
+    private val context: Context
 ) {
     /**
      * Flow of all transactions with their associated categories.
@@ -237,13 +240,13 @@ class TransactionRepository(
      */
     suspend fun fetchCryptoAssets(limit: Int = 10): List<Asset> {
         val apiService =
-            coinCapApiService ?: throw IllegalStateException("CoinCap API Service not initialized")
+            coinCapApiService ?: throw IllegalStateException(context.getString(R.string.error_coincap_api_not_initialized))
 
         val response = apiService.getAssets(limit)
         if (response.isSuccessful) {
             return response.body()?.data ?: emptyList()
         } else {
-            throw Exception("Fehler beim Abrufen der Krypto-Assets: ${response.message()}")
+            throw Exception(context.getString(R.string.error_fetching_crypto_assets, response.message()))
         }
     }
 }

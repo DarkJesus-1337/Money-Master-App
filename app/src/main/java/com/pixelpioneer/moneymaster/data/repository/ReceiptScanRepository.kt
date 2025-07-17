@@ -1,10 +1,12 @@
 package com.pixelpioneer.moneymaster.data.repository
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.util.Log
 import androidx.exifinterface.media.ExifInterface
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.services.OcrSpaceApiClient
 import com.pixelpioneer.moneymaster.data.services.OcrSpaceResponse
 import com.pixelpioneer.moneymaster.data.services.RemoteConfigManager
@@ -26,7 +28,8 @@ import java.io.IOException
  * @property remoteConfigManager Manager for remote configuration and API key retrieval.
  */
 class ReceiptScanRepository(
-    private val remoteConfigManager: RemoteConfigManager
+    private val remoteConfigManager: RemoteConfigManager,
+    private val context: Context
 ) {
     companion object {
         private const val TAG = "ReceiptScanRepository"
@@ -62,12 +65,12 @@ class ReceiptScanRepository(
 
         val apiKey = remoteConfigManager.getOcrSpaceApiKey()
 
-        Log.d(TAG, "Starting OCR scan with API key: ${apiKey.take(10)}...")
-        Log.d(TAG, "Original file size: ${imageFile.length()} bytes")
-        Log.d(TAG, "Compressed file size: ${compressedFile.length()} bytes")
+        Log.d(TAG, context.getString(R.string.log_ocr_scan_starting, apiKey.take(10)))
+        Log.d(TAG, context.getString(R.string.log_original_file_size, imageFile.length()))
+        Log.d(TAG, context.getString(R.string.log_compressed_file_size, compressedFile.length()))
 
         if (apiKey.isEmpty()) {
-            throw IllegalStateException("OCR Space API Key not available")
+            throw IllegalStateException(context.getString(R.string.error_ocr_api_key_missing))
         }
 
         val apiKeyBody = apiKey.toRequestBody("text/plain".toMediaType())
@@ -83,7 +86,7 @@ class ReceiptScanRepository(
             compressedFile.asRequestBody("image/*".toMediaType())
         )
 
-        Log.d(TAG, "Making OCR API request")
+        Log.d(TAG, context.getString(R.string.log_making_ocr_api_request))
 
         return try {
             val response = apiService.parseImage(
@@ -96,33 +99,33 @@ class ReceiptScanRepository(
                 image = imagePart
             )
 
-            Log.d(TAG, "Response code: ${response.code()}")
+            Log.d(TAG, context.getString(R.string.log_response_code, response.code()))
 
             if (response.isSuccessful) {
                 val ocrResponse = response.body()
                 if (ocrResponse != null) {
                     if (ocrResponse.isErroredOnProcessing) {
-                        Log.e(TAG, "OCR processing error: ${ocrResponse.errorMessage}")
-                        throw IOException("OCR processing failed: ${ocrResponse.errorMessage}")
+                        Log.e(TAG, context.getString(R.string.error_ocr_processing, ocrResponse.errorMessage))
+                        throw IOException(context.getString(R.string.error_ocr_processing, ocrResponse.errorMessage))
                     }
 
                     if (ocrResponse.ocrExitCode != 1) {
-                        Log.e(TAG, "OCR exit code: ${ocrResponse.ocrExitCode}")
-                        throw IOException("OCR failed with exit code: ${ocrResponse.ocrExitCode}")
+                        Log.e(TAG, context.getString(R.string.error_ocr_exit_code, ocrResponse.ocrExitCode))
+                        throw IOException(context.getString(R.string.error_ocr_exit_code, ocrResponse.ocrExitCode))
                     }
 
-                    Log.d(TAG, "OCR scan successful")
+                    Log.d(TAG, context.getString(R.string.log_ocr_scan_successful))
                     ocrResponse
                 } else {
-                    throw IOException("Empty response body")
+                    throw IOException(context.getString(R.string.error_empty_response_body))
                 }
             } else {
-                Log.e(TAG, "HTTP error: ${response.code()}")
-                throw IOException("HTTP error: ${response.code()}")
+                Log.e(TAG, context.getString(R.string.error_http_error, response.code()))
+                throw IOException(context.getString(R.string.error_http_error, response.code()))
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Network error", e)
-            throw IOException("Network error: ${e.message}", e)
+            Log.e(TAG, context.getString(R.string.error_network_error), e)
+            throw IOException(context.getString(R.string.error_network_error_with_message, e.message), e)
         } finally {
             if (compressedFile != imageFile && compressedFile.exists()) {
                 compressedFile.delete()
@@ -142,11 +145,11 @@ class ReceiptScanRepository(
      */
     private fun compressImageIfNeeded(originalFile: File): File {
         if (originalFile.length() <= MAX_IMAGE_SIZE) {
-            Log.d(TAG, "Image size OK, no compression needed")
+            Log.d(TAG, context.getString(R.string.log_image_size_ok))
             return originalFile
         }
 
-        Log.d(TAG, "Image too large, compressing...")
+        Log.d(TAG, context.getString(R.string.log_image_too_large))
 
         val bitmap = BitmapFactory.decodeFile(originalFile.absolutePath)
             ?: throw IOException("Could not decode image file")
@@ -175,7 +178,7 @@ class ReceiptScanRepository(
         bitmap.recycle()
         scaledBitmap.recycle()
 
-        Log.d(TAG, "Compression complete. New size: ${compressedFile.length()} bytes")
+        Log.d(TAG, context.getString(R.string.log_compression_complete, compressedFile.length()))
         return compressedFile
     }
 
@@ -204,7 +207,7 @@ class ReceiptScanRepository(
 
             Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
         } catch (e: Exception) {
-            Log.w(TAG, "Could not correct image orientation", e)
+            Log.w(TAG, context.getString(R.string.log_could_not_correct_orientation), e)
             bitmap
         }
     }
@@ -241,7 +244,7 @@ class ReceiptScanRepository(
      */
     fun isApiKeyAvailable(): Boolean {
         val available = remoteConfigManager.getOcrSpaceApiKey().isNotEmpty()
-        Log.d(TAG, "API key available: $available")
+        Log.d(TAG, context.getString(R.string.log_api_key_available, available))
         return available
     }
 

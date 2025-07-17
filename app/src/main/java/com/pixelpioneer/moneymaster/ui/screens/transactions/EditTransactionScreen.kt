@@ -154,7 +154,7 @@ fun EditTransactionScreen(
                             onClick = { transactionViewModel.updateIsExpense(true) },
                             shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2)
                         ) {
-                            Text(stringResource(R.string.transaction_income))
+                            Text(stringResource(R.string.transaction_expense))
                         }
                     }
 

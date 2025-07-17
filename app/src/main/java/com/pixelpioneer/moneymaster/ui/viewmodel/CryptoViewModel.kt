@@ -1,7 +1,9 @@
 package com.pixelpioneer.moneymaster.ui.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
 import com.pixelpioneer.moneymaster.data.repository.CoinCapRepository
@@ -19,7 +21,8 @@ import kotlinx.coroutines.launch
  * @property repository Repository for accessing CoinCap API data.
  */
 class CryptoViewModel(
-    private val repository: CoinCapRepository
+    private val repository: CoinCapRepository,
+    private val context: Context
 ) : ViewModel() {
 
     private val _cryptoAssetsState = MutableStateFlow<UiState<List<Asset>>>(UiState.Loading)
@@ -48,7 +51,7 @@ class CryptoViewModel(
                 }
             } catch (e: Exception) {
                 _cryptoAssetsState.value =
-                    UiState.Error(e.message ?: "Fehler beim Laden der Krypto-Daten")
+                    UiState.Error(e.message ?: context.getString(R.string.error_loading_crypto))
             }
         }
     }
@@ -75,7 +78,7 @@ class CryptoViewModel(
                 }
             } catch (e: Exception) {
                 _cryptoHistoryState.value =
-                    UiState.Error(e.message ?: "Fehler beim Laden der Historie")
+                    UiState.Error(e.message ?: context.getString(R.string.error_loading_history))
             }
         }
     }

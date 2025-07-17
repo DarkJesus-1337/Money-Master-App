@@ -1,7 +1,9 @@
 package com.pixelpioneer.moneymaster.ui.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.enums.BudgetPeriod
 import com.pixelpioneer.moneymaster.data.model.Budget
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
@@ -25,7 +27,8 @@ import kotlinx.coroutines.launch
  */
 class BudgetViewModel(
     private val budgetRepository: BudgetRepository,
-    private val categoryRepository: CategoryRepository
+    private val categoryRepository: CategoryRepository,
+    private val context: Context
 ) : ViewModel() {
 
     private val _budgetsState = MutableStateFlow<UiState<List<Budget>>>(UiState.Loading)
@@ -57,7 +60,7 @@ class BudgetViewModel(
                     }
                 }
             } catch (e: Exception) {
-                _budgetsState.value = UiState.Error(e.message ?: "Fehler beim Laden der Budgets")
+                _budgetsState.value = UiState.Error(e.message ?: context.getString(R.string.error_loading_budgets))
             }
         }
     }
@@ -70,7 +73,7 @@ class BudgetViewModel(
                     _selectedBudget.value = UiState.Success(budget)
                 }
             } catch (e: Exception) {
-                _selectedBudget.value = UiState.Error(e.message ?: "Unknown error occurred")
+                _selectedBudget.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -87,7 +90,7 @@ class BudgetViewModel(
                     }
                 }
             } catch (e: Exception) {
-                _categoriesState.value = UiState.Error(e.message ?: "Unknown error occurred")
+                _categoriesState.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -102,7 +105,7 @@ class BudgetViewModel(
 
             try {
                 val category = _budgetFormState.value.selectedCategory
-                    ?: throw IllegalStateException("Category cannot be null")
+                    ?: throw IllegalStateException(context.getString(R.string.error_category_null))
 
                 val budget = Budget(
                     category = category,
@@ -128,7 +131,7 @@ class BudgetViewModel(
 
             try {
                 val category = _budgetFormState.value.selectedCategory
-                    ?: throw IllegalStateException("Category cannot be null")
+                    ?: throw IllegalStateException(context.getString(R.string.error_category_null))
 
                 val budget = Budget(
                     id = id,
@@ -158,7 +161,7 @@ class BudgetViewModel(
     fun updateAmount(amount: Double) {
         _budgetFormState.value = _budgetFormState.value.copy(
             amount = amount,
-            amountError = if (amount <= 0) "Amount must be greater than zero" else null
+            amountError = if (amount <= 0) context.getString(R.string.error_amount_greater_zero) else null
         )
     }
 
@@ -190,14 +193,14 @@ class BudgetViewModel(
 
         if (formState.amount <= 0) {
             _budgetFormState.value = formState.copy(
-                amountError = "Amount must be greater than zero"
+                amountError = context.getString(R.string.error_amount_greater_zero)
             )
             return false
         }
 
         if (formState.selectedCategory == null) {
             _budgetFormState.value = formState.copy(
-                categoryError = "Please select a category"
+                categoryError = context.getString(R.string.error_select_category)
             )
             return false
         }
@@ -212,7 +215,7 @@ class BudgetViewModel(
                 val budgets = budgetRepository.getBudgetsWithSpendingSync()
                 _budgetsState.value = UiState.Success(budgets)
             } catch (e: Exception) {
-                _budgetsState.value = UiState.Error(e.message ?: "Fehler beim Laden der Budgets")
+                _budgetsState.value = UiState.Error(e.message ?: context.getString(R.string.error_loading_budgets))
             }
         }
     }

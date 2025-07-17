@@ -103,6 +103,36 @@
     <string name="error_loading_data">Failed to load data</string>
     <string name="error_card_message">Error: %1$s</string>
     <string name="retry">Retry</string>
+    <string name="error_loading_budgets">Error loading budgets</string>
+    <string name="error_unknown">Unknown error</string>
+    <string name="error_amount_greater_zero">Amount must be greater than zero</string>
+    <string name="error_select_category">Please select a category</string>
+    <string name="error_category_null">Category cannot be null</string>
+    <string name="error_name_empty">Name cannot be empty</string>
+    <string name="error_loading_crypto">Error loading crypto data</string>
+    <string name="error_loading_history">Error loading history</string>
+    <string name="error_transaction_add">Could not add transaction: %1$s</string>
+    <string name="error_transaction_update">Could not update transaction: %1$s</string>
+    <string name="error_transaction_delete">Could not delete transaction: %1$s</string>
+    <string name="error_category_add">Could not add category: %1$s</string>
+    <string name="error_category_update">Could not update category: %1$s</string>
+    <string name="error_category_delete">Could not delete category: %1$s</string>
+    <string name="error_budget_add">Could not add budget: %1$s</string>
+    <string name="error_budget_update">Could not update budget: %1$s</string>
+    <string name="error_budget_delete">Could not delete budget: %1$s</string>
+    <string name="error_assets_load">Could not load assets: %1$s</string>
+    <string name="error_unexpected">Unexpected error: %1$s</string>
+    <string name="error_history_load">Could not load historical data: %1$s</string>
+    <string name="error_receipt_scan">Could not scan receipt: %1$s</string>
+    <string name="error_scanner">Scanner error: %1$s</string>
+    <string name="error_no_text_recognized">No text recognized.</string>
+    <string name="error_no_item_recognized">No item recognized. OCR text: %1$s</string>
+    <string name="error_loading_statistics">Error loading statistics</string>
+    <string name="error_loading_category_statistics">Error loading category statistics</string>
+    <string name="error_loading_trend_data">Error loading trend data</string>
+    <string name="error_title_empty">Title cannot be empty</string>
+    <string name="transaction_from_receipt">From receipt: %1$s</string>
+    <string name="category_default_shopping">Shopping</string>
 
     <!-- Empty States -->
     <string name="empty_transactions">No transactions yet</string>
@@ -212,4 +242,46 @@
     <string name="update_no_update">No updates available</string>
     <string name="ok">OK</string>
 
+    <!-- Category names -->
+    <string name="category_groceries">Groceries</string>
+    <string name="category_housing">Housing</string>
+    <string name="category_transport">Transport</string>
+    <string name="category_entertainment">Entertainment</string>
+    <string name="category_health">Health</string>
+    <string name="category_shopping">Shopping</string>
+    <string name="category_education">Education</string>
+    <string name="category_salary">Salary</string>
+    <string name="category_gifts">Gifts</string>
+    <string name="category_other">Other</string>
+
+    <!-- CoinCapRepository logs -->
+    <string name="log_api_call_started">API call started</string>
+    <string name="log_api_response">Response: %1$s</string>
+    <string name="error_loading_assets_log">Error loading data</string>
+    <string name="log_history_for_asset">History for %1$s: %2$d data points</string>
+    <string name="error_loading_history_log">Error loading history for %1$s</string>
+
+    <!-- ReceiptScanRepository logs and errors -->
+    <string name="log_ocr_scan_starting">Starting OCR scan with API key: %1$s...</string>
+    <string name="log_original_file_size">Original file size: %1$d bytes</string>
+    <string name="log_compressed_file_size">Compressed file size: %1$d bytes</string>
+    <string name="error_ocr_api_key_missing">OCR Space API Key not available</string>
+    <string name="log_making_ocr_api_request">Making OCR API request</string>
+    <string name="log_response_code">Response code: %1$d</string>
+    <string name="error_ocr_processing">OCR processing failed: %1$s</string>
+    <string name="error_ocr_exit_code">OCR failed with exit code: %1$d</string>
+    <string name="log_ocr_scan_successful">OCR scan successful</string>
+    <string name="error_empty_response_body">Empty response body</string>
+    <string name="error_http_error">HTTP error: %1$d</string>
+    <string name="error_network_error">Network error</string>
+    <string name="error_network_error_with_message">Network error: %1$s</string>
+    <string name="log_image_size_ok">Image size OK, no compression needed</string>
+    <string name="log_image_too_large">Image too large, compressing...</string>
+    <string name="log_compression_complete">Compression complete. New size: %1$d bytes</string>
+    <string name="log_could_not_correct_orientation">Could not correct image orientation</string>
+    <string name="log_api_key_available">API key available: %1$s</string>
+
+    <!-- TransactionRepository errors -->
+    <string name="error_coincap_api_not_initialized">CoinCap API Service not initialized</string>
+    <string name="error_fetching_crypto_assets">Error fetching crypto assets: %1$s</string>
 </resources>
