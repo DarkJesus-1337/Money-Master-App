@@ -7,6 +7,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
+    alias(libs.plugins.google.firebase.crashlytics)
 }
 
 android {
@@ -18,7 +19,7 @@ android {
         minSdk = 24
         targetSdk = 35
         versionCode = 1
-        versionName = "1.31.1"
+        versionName = "1.4.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -55,7 +56,7 @@ android {
         abi {
             isEnable = true
             reset()
-            include("arm64-v8a", "armeabi-v7a")
+            include("arm64-v8a")
             isUniversalApk = false
         }
     }
@@ -106,6 +107,7 @@ dependencies {
     implementation(libs.ads.mobile.sdk)
     implementation(libs.androidx.media3.effect)
     implementation(libs.androidx.ui.text.google.fonts)
+    implementation(libs.firebase.crashlytics)
     ksp(libs.androidx.room.compiler)
 
     // ViewModel und LiveData
