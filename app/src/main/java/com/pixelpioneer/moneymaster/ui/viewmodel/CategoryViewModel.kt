@@ -58,7 +58,8 @@ class CategoryViewModel(
                         _categories.value = categories
                     }
             } catch (e: Exception) {
-                _categoriesState.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
+                _categoriesState.value =
+                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
                 _categories.value = emptyList()
             }
         }
@@ -77,7 +78,8 @@ class CategoryViewModel(
                         _selectedCategory.value = UiState.Success(category)
                     }
             } catch (e: Exception) {
-                _selectedCategory.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
+                _selectedCategory.value =
+                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }

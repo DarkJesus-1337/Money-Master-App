@@ -30,7 +30,10 @@ class CoinCapRepository(
         Log.d("CoinCapRepository", context.getString(R.string.log_api_call_started))
         return try {
             val response = api.getAssets(limit)
-            Log.d("CoinCapRepository", context.getString(R.string.log_api_response, response.toString()))
+            Log.d(
+                "CoinCapRepository",
+                context.getString(R.string.log_api_response, response.toString())
+            )
             response.body()?.data ?: emptyList()
         } catch (e: Exception) {
             Log.e("CoinCapRepository", context.getString(R.string.error_loading_assets_log), e)
@@ -67,11 +70,19 @@ class CoinCapRepository(
 
             Log.d(
                 "CoinCapRepository",
-                context.getString(R.string.log_history_for_asset, assetId, response.body()?.data?.size ?: 0)
+                context.getString(
+                    R.string.log_history_for_asset,
+                    assetId,
+                    response.body()?.data?.size ?: 0
+                )
             )
             response.body()?.data ?: emptyList()
         } catch (e: Exception) {
-            Log.e("CoinCapRepository", context.getString(R.string.error_loading_history_log, assetId), e)
+            Log.e(
+                "CoinCapRepository",
+                context.getString(R.string.error_loading_history_log, assetId),
+                e
+            )
             emptyList()
         }
     }

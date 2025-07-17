@@ -203,7 +203,12 @@ class MockViewModel(private val context: Context) : ViewModel() {
                     },
                     onFailure = { exception ->
                         _uiState.value = _uiState.value.copy(isLoading = false)
-                        _errorMessage.emit(context.getString(R.string.error_assets_load, exception.message))
+                        _errorMessage.emit(
+                            context.getString(
+                                R.string.error_assets_load,
+                                exception.message
+                            )
+                        )
                     }
                 )
             } catch (e: Exception) {
@@ -227,7 +232,12 @@ class MockViewModel(private val context: Context) : ViewModel() {
                     },
                     onFailure = { exception ->
                         _uiState.value = _uiState.value.copy(isLoading = false)
-                        _errorMessage.emit(context.getString(R.string.error_history_load, exception.message))
+                        _errorMessage.emit(
+                            context.getString(
+                                R.string.error_history_load,
+                                exception.message
+                            )
+                        )
                     }
                 )
             } catch (e: Exception) {
@@ -252,7 +262,12 @@ class MockViewModel(private val context: Context) : ViewModel() {
                     },
                     onFailure = { exception ->
                         _uiState.value = _uiState.value.copy(isLoading = false)
-                        _errorMessage.emit(context.getString(R.string.error_receipt_scan, exception.message))
+                        _errorMessage.emit(
+                            context.getString(
+                                R.string.error_receipt_scan,
+                                exception.message
+                            )
+                        )
                     }
                 )
             } catch (e: Exception) {

@@ -72,7 +72,9 @@ class StatisticsViewModel(
                 )
                     .catch { e ->
                         _statisticsState.value =
-                            UiState.Error(e.message ?: context.getString(R.string.error_loading_statistics))
+                            UiState.Error(
+                                e.message ?: context.getString(R.string.error_loading_statistics)
+                            )
                     }
                     .collect { transactions ->
                         val totalIncome = transactionRepository.getTotalIncomeSync()
@@ -106,7 +108,8 @@ class StatisticsViewModel(
                         _statisticsState.value = UiState.Success(overview)
                     }
             } catch (e: Exception) {
-                _statisticsState.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
+                _statisticsState.value =
+                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -136,7 +139,8 @@ class StatisticsViewModel(
                 }
                     .catch { e ->
                         _categoryStatsState.value = UiState.Error(
-                            e.message ?: context.getString(R.string.error_loading_category_statistics)
+                            e.message
+                                ?: context.getString(R.string.error_loading_category_statistics)
                         )
                     }
                     .collect { categoryStats ->
@@ -147,7 +151,8 @@ class StatisticsViewModel(
                         }
                     }
             } catch (e: Exception) {
-                _categoryStatsState.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
+                _categoryStatsState.value =
+                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -160,7 +165,9 @@ class StatisticsViewModel(
                 transactionRepository.allTransactionsWithCategory
                     .catch { e ->
                         _monthlyTrendsState.value =
-                            UiState.Error(e.message ?: context.getString(R.string.error_loading_trend_data))
+                            UiState.Error(
+                                e.message ?: context.getString(R.string.error_loading_trend_data)
+                            )
                     }
                     .collect { transactions ->
                         val monthlyTrends = transactions
@@ -207,7 +214,8 @@ class StatisticsViewModel(
                         }
                     }
             } catch (e: Exception) {
-                _monthlyTrendsState.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
+                _monthlyTrendsState.value =
+                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }

@@ -7,12 +7,14 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.pixelpioneer.moneymaster.data.services.AppUpdateManager
 import com.pixelpioneer.moneymaster.ui.screens.budgets.AddBudgetScreen
 import com.pixelpioneer.moneymaster.ui.screens.budgets.BudgetDetailScreen
 import com.pixelpioneer.moneymaster.ui.screens.budgets.BudgetsScreen
 import com.pixelpioneer.moneymaster.ui.screens.budgets.EditBudgetScreen
 import com.pixelpioneer.moneymaster.ui.screens.dashboard.DashboardScreen
 import com.pixelpioneer.moneymaster.ui.screens.receipts.ReceiptScanScreen
+import com.pixelpioneer.moneymaster.ui.screens.settings.SettingsScreen
 import com.pixelpioneer.moneymaster.ui.screens.statistics.StatisticsScreen
 import com.pixelpioneer.moneymaster.ui.screens.transactions.AddTransactionScreen
 import com.pixelpioneer.moneymaster.ui.screens.transactions.EditTransactionScreen
@@ -22,6 +24,7 @@ import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.CryptoViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.ReceiptScanViewModel
+import com.pixelpioneer.moneymaster.ui.viewmodel.SettingsViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 
@@ -34,6 +37,8 @@ fun MoneyMasterNavHost(
     statisticsViewModel: StatisticsViewModel,
     cryptoViewModel: CryptoViewModel,
     receiptScanViewModel: ReceiptScanViewModel,
+    settingsViewModel: SettingsViewModel,
+    appUpdateManager: AppUpdateManager,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -141,6 +146,13 @@ fun MoneyMasterNavHost(
                 transactionId = transactionId,
                 transactionViewModel = transactionViewModel,
                 categoryViewModel = categoryViewModel
+            )
+        }
+
+        composable(Screen.Settings.route) {
+            SettingsScreen(
+                settingsViewModel = settingsViewModel,
+                appUpdateManager = appUpdateManager
             )
         }
     }

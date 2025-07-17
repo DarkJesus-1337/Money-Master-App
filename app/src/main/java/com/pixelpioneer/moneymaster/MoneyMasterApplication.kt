@@ -7,6 +7,7 @@ import com.pixelpioneer.moneymaster.data.repository.BudgetRepository
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
 import com.pixelpioneer.moneymaster.data.repository.CoinCapRepository
 import com.pixelpioneer.moneymaster.data.repository.ReceiptScanRepository
+import com.pixelpioneer.moneymaster.data.repository.SettingsRepository
 import com.pixelpioneer.moneymaster.data.repository.TransactionRepository
 import com.pixelpioneer.moneymaster.data.services.CoinCapApiClient
 import com.pixelpioneer.moneymaster.data.services.RemoteConfigManager
@@ -59,6 +60,10 @@ class MoneyMasterApplication : Application() {
         )
     }
 
+    private val settingsRepository by lazy {
+        SettingsRepository(this)
+    }
+
     val viewModelFactory by lazy {
         ViewModelFactory(
             transactionRepository = transactionRepository,
@@ -67,7 +72,8 @@ class MoneyMasterApplication : Application() {
             coinCapRepository = coinCapRepository,
             receiptScanRepository = receiptScanRepository,
             remoteConfigManager = remoteConfigManager,
-            context = this
+            context = this,
+            settingsRepository = settingsRepository
         )
     }
 

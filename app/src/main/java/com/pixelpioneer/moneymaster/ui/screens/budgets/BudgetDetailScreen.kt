@@ -79,7 +79,10 @@ fun BudgetDetailScreen(
                 title = { Text(budget?.category?.name ?: stringResource(R.string.budget_details)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(painterResource(R.drawable.arrow_back), contentDescription = stringResource(R.string.back))
+                        Icon(
+                            painterResource(R.drawable.arrow_back),
+                            contentDescription = stringResource(R.string.back)
+                        )
                     }
                 },
                 actions = {

@@ -18,13 +18,12 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
 import com.pixelpioneer.moneymaster.util.FormatUtils
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import androidx.compose.ui.res.stringResource
-import com.pixelpioneer.moneymaster.R
 
 @Composable
 fun PriceChart(
@@ -103,7 +102,7 @@ fun PriceChart(
 
 @Preview(
     showBackground = true,
-    )
+)
 @Composable
 private fun PriceChartPreview() {
     val sampleHistoryData = listOf(

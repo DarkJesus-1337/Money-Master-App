@@ -72,7 +72,8 @@ class TransactionViewModel(
                         }
                     }
             } catch (e: Exception) {
-                _transactionsState.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
+                _transactionsState.value =
+                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -90,7 +91,8 @@ class TransactionViewModel(
                         _selectedTransaction.value = UiState.Success(transaction)
                     }
             } catch (e: Exception) {
-                _selectedTransaction.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
+                _selectedTransaction.value =
+                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -112,7 +114,8 @@ class TransactionViewModel(
                         }
                     }
             } catch (e: Exception) {
-                _categoriesState.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
+                _categoriesState.value =
+                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -136,7 +139,8 @@ class TransactionViewModel(
                     }
                 }
             } catch (e: Exception) {
-                _financialSummary.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
+                _financialSummary.value =
+                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -305,7 +309,10 @@ class TransactionViewModel(
                         id = 0,
                         amount = item.price,
                         title = item.name,
-                        description = context.getString(R.string.transaction_from_receipt, receipt.storeName ?: context.getString(R.string.store_name_unknown)),
+                        description = context.getString(
+                            R.string.transaction_from_receipt,
+                            receipt.storeName ?: context.getString(R.string.store_name_unknown)
+                        ),
                         category = defaultCategory,
                         date = System.currentTimeMillis(),
                         isExpense = true

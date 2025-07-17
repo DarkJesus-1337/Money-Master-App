@@ -90,7 +90,10 @@ fun EditBudgetScreen(
                 title = { Text(stringResource(R.string.screen_title_edit_budgets)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(painterResource(R.drawable.arrow_back), contentDescription = stringResource(R.string.back))
+                        Icon(
+                            painterResource(R.drawable.arrow_back),
+                            contentDescription = stringResource(R.string.back)
+                        )
                     }
                 },
                 actions = {

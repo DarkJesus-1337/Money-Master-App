@@ -50,7 +50,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -108,7 +107,10 @@ fun EditTransactionScreen(
                 title = { Text(stringResource(R.string.screen_title_edit_transaction)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(painterResource(R.drawable.arrow_back), contentDescription = stringResource(R.string.back))
+                        Icon(
+                            painterResource(R.drawable.arrow_back),
+                            contentDescription = stringResource(R.string.back)
+                        )
                     }
                 }
             )
@@ -178,6 +180,7 @@ fun EditTransactionScreen(
                                             numericPart.replace(",", ".").toDoubleOrNull() ?: 0.0
                                         }
                                     }
+
                                     else -> input.replace(",", ".").toDoubleOrNull() ?: 0.0
                                 }
                                 transactionViewModel.updateAmount(amount)
@@ -186,10 +189,18 @@ fun EditTransactionScreen(
                         label = { Text(stringResource(R.string.transaction_amount)) },
                         modifier = Modifier.fillMaxWidth(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                        isError = formState.amountError != null && amountInput.isNotEmpty() && !amountInput.endsWith(".") && !amountInput.endsWith(","),
+                        isError = formState.amountError != null && amountInput.isNotEmpty() && !amountInput.endsWith(
+                            "."
+                        ) && !amountInput.endsWith(","),
                         supportingText = {
-                            if (formState.amountError != null && amountInput.isNotEmpty() && !amountInput.endsWith(".") && !amountInput.endsWith(",")) {
-                                Text(formState.amountError!!, color = MaterialTheme.colorScheme.error)
+                            if (formState.amountError != null && amountInput.isNotEmpty() && !amountInput.endsWith(
+                                    "."
+                                ) && !amountInput.endsWith(",")
+                            ) {
+                                Text(
+                                    formState.amountError!!,
+                                    color = MaterialTheme.colorScheme.error
+                                )
                             }
                         }
                     )
@@ -299,7 +310,10 @@ fun EditTransactionScreen(
                         label = { Text(stringResource(R.string.transaction_date)) },
                         trailingIcon = {
                             IconButton(onClick = { showDatePicker = true }) {
-                                Icon(Icons.Default.DateRange, contentDescription = stringResource(R.string.select_date))
+                                Icon(
+                                    Icons.Default.DateRange,
+                                    contentDescription = stringResource(R.string.select_date)
+                                )
                             }
                         },
                         modifier = Modifier.fillMaxWidth()

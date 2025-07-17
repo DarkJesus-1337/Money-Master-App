@@ -1,6 +1,7 @@
 package com.pixelpioneer.moneymaster.ui.navigation
 
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
@@ -8,21 +9,29 @@ import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.PieChart
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.annotation.StringRes
 import com.pixelpioneer.moneymaster.R
 
-sealed class Screen(val route: String, @StringRes val titleRes: Int, val icon: ImageVector? = null) {
+sealed class Screen(
+    val route: String,
+    @StringRes val titleRes: Int,
+    val icon: ImageVector? = null
+) {
     data object Dashboard : Screen("dashboard", R.string.nav_dashboard, Icons.Filled.Home)
-    data object Transactions : Screen("transactions", R.string.nav_transactions, Icons.AutoMirrored.Filled.List)
+    data object Transactions :
+        Screen("transactions", R.string.nav_transactions, Icons.AutoMirrored.Filled.List)
+
     data object Budgets : Screen("budgets", R.string.nav_budgets, Icons.Filled.DateRange)
     data object Statistics : Screen("statistics", R.string.nav_statistics, Icons.Filled.PieChart)
     data object ReceiptScan : Screen("receipt_scan", R.string.nav_receipts, Icons.Filled.Camera)
+    data object Settings : Screen("settings", R.string.nav_settings, Icons.Filled.Settings)
 
     data object AddBudget : Screen("add_budget", R.string.action_add)
     data object AddTransaction : Screen("add_transaction", R.string.action_add, Icons.Filled.Add)
 
-    data object TransactionDetail : Screen("transaction_detail/{transactionId}", R.string.transaction_details) {
+    data object TransactionDetail :
+        Screen("transaction_detail/{transactionId}", R.string.transaction_details) {
         fun createRoute(transactionId: Long) = "transaction_detail/$transactionId"
     }
 

@@ -166,7 +166,10 @@ fun CryptoAssetsScreenContent(
                                 contentAlignment = Alignment.Center
                             ) {
                                 Text(
-                                    text = stringResource(R.string.error_loading_chart, historyState.message),
+                                    text = stringResource(
+                                        R.string.error_loading_chart,
+                                        historyState.message
+                                    ),
                                     color = MaterialTheme.colorScheme.error
                                 )
                             }

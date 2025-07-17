@@ -7,6 +7,7 @@ import com.pixelpioneer.moneymaster.data.repository.BudgetRepository
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
 import com.pixelpioneer.moneymaster.data.repository.CoinCapRepository
 import com.pixelpioneer.moneymaster.data.repository.ReceiptScanRepository
+import com.pixelpioneer.moneymaster.data.repository.SettingsRepository
 import com.pixelpioneer.moneymaster.data.repository.TransactionRepository
 import com.pixelpioneer.moneymaster.data.services.RemoteConfigManager
 
@@ -30,6 +31,7 @@ class ViewModelFactory(
     private val coinCapRepository: CoinCapRepository,
     private val receiptScanRepository: ReceiptScanRepository,
     private val remoteConfigManager: RemoteConfigManager,
+    private val settingsRepository: SettingsRepository,
     private val context: Context
 ) : ViewModelProvider.Factory {
 
@@ -62,6 +64,10 @@ class ViewModelFactory(
 
             modelClass.isAssignableFrom(RemoteConfigViewModel::class.java) -> {
                 RemoteConfigViewModel(remoteConfigManager, context) as T
+            }
+
+            modelClass.isAssignableFrom(SettingsViewModel::class.java) -> {
+                SettingsViewModel(settingsRepository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

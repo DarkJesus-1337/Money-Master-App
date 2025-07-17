@@ -271,14 +271,20 @@ fun TransactionDetailScreen(
                                         navController.popBackStack()
                                     }
                                 ) {
-                                    Text(stringResource(R.string.action_delete), style = MaterialTheme.typography.labelLarge)
+                                    Text(
+                                        stringResource(R.string.action_delete),
+                                        style = MaterialTheme.typography.labelLarge
+                                    )
                                 }
                             },
                             dismissButton = {
                                 TextButton(
                                     onClick = { showDeleteDialog = false }
                                 ) {
-                                    Text(stringResource(R.string.action_cancel), style = MaterialTheme.typography.labelLarge)
+                                    Text(
+                                        stringResource(R.string.action_cancel),
+                                        style = MaterialTheme.typography.labelLarge
+                                    )
                                 }
                             }
                         )

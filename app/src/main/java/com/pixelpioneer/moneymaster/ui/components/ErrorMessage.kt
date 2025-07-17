@@ -69,7 +69,10 @@ fun ErrorMessage(
 
                 Spacer(modifier = Modifier.width(8.dp))
 
-                Text(text = stringResource(R.string.retry), style = MaterialTheme.typography.labelLarge)
+                Text(
+                    text = stringResource(R.string.retry),
+                    style = MaterialTheme.typography.labelLarge
+                )
             }
         }
     }

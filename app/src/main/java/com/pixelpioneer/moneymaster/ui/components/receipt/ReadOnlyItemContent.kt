@@ -36,7 +36,10 @@ fun ReadOnlyItemContent(
         },
         supportingContent = {
             Text(
-                text = stringResource(R.string.readonly_item_amount, item.amount).format(item.amount),
+                text = stringResource(
+                    R.string.readonly_item_amount,
+                    item.amount
+                ).format(item.amount),
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold
             )

@@ -60,7 +60,8 @@ class BudgetViewModel(
                     }
                 }
             } catch (e: Exception) {
-                _budgetsState.value = UiState.Error(e.message ?: context.getString(R.string.error_loading_budgets))
+                _budgetsState.value =
+                    UiState.Error(e.message ?: context.getString(R.string.error_loading_budgets))
             }
         }
     }
@@ -73,7 +74,8 @@ class BudgetViewModel(
                     _selectedBudget.value = UiState.Success(budget)
                 }
             } catch (e: Exception) {
-                _selectedBudget.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
+                _selectedBudget.value =
+                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -90,7 +92,8 @@ class BudgetViewModel(
                     }
                 }
             } catch (e: Exception) {
-                _categoriesState.value = UiState.Error(e.message ?: context.getString(R.string.error_unknown))
+                _categoriesState.value =
+                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
             }
         }
     }
@@ -215,7 +218,8 @@ class BudgetViewModel(
                 val budgets = budgetRepository.getBudgetsWithSpendingSync()
                 _budgetsState.value = UiState.Success(budgets)
             } catch (e: Exception) {
-                _budgetsState.value = UiState.Error(e.message ?: context.getString(R.string.error_loading_budgets))
+                _budgetsState.value =
+                    UiState.Error(e.message ?: context.getString(R.string.error_loading_budgets))
             }
         }
     }

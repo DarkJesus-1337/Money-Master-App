@@ -47,7 +47,10 @@ fun MonthlyTrendItem(monthlyTrend: MonthlyTrend) {
                     )
 
                     Text(
-                        text = stringResource(R.string.statistics_category_transactions, monthlyTrend.transactionCount),
+                        text = stringResource(
+                            R.string.statistics_category_transactions,
+                            monthlyTrend.transactionCount
+                        ),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

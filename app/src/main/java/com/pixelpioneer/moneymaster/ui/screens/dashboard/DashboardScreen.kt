@@ -10,7 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -60,7 +60,16 @@ fun DashboardScreen(
                 title = { Text(stringResource(R.string.dashboard_title)) },
                 actions = {
                     IconButton(onClick = { navController.navigate(Screen.AddTransaction.route) }) {
-                        Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add_transaction))
+                        Icon(
+                            Icons.Filled.Add,
+                            contentDescription = stringResource(R.string.add_transaction)
+                        )
+                    }
+                    IconButton(onClick = { navController.navigate(Screen.Settings.route) }) {
+                        Icon(
+                            Icons.Filled.Settings,
+                            contentDescription = stringResource(R.string.action_settings)
+                        )
                     }
                 }
             )

@@ -66,7 +66,8 @@ fun CategoryStatsItem(
                         Text(
                             text = stringResource(
                                 R.string.statistics_category_transactions,
-                                categoryStats.transactionCount),
+                                categoryStats.transactionCount
+                            ),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

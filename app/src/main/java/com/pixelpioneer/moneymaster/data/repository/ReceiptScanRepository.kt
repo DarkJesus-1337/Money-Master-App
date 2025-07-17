@@ -105,13 +105,32 @@ class ReceiptScanRepository(
                 val ocrResponse = response.body()
                 if (ocrResponse != null) {
                     if (ocrResponse.isErroredOnProcessing) {
-                        Log.e(TAG, context.getString(R.string.error_ocr_processing, ocrResponse.errorMessage))
-                        throw IOException(context.getString(R.string.error_ocr_processing, ocrResponse.errorMessage))
+                        Log.e(
+                            TAG,
+                            context.getString(
+                                R.string.error_ocr_processing,
+                                ocrResponse.errorMessage
+                            )
+                        )
+                        throw IOException(
+                            context.getString(
+                                R.string.error_ocr_processing,
+                                ocrResponse.errorMessage
+                            )
+                        )
                     }
 
                     if (ocrResponse.ocrExitCode != 1) {
-                        Log.e(TAG, context.getString(R.string.error_ocr_exit_code, ocrResponse.ocrExitCode))
-                        throw IOException(context.getString(R.string.error_ocr_exit_code, ocrResponse.ocrExitCode))
+                        Log.e(
+                            TAG,
+                            context.getString(R.string.error_ocr_exit_code, ocrResponse.ocrExitCode)
+                        )
+                        throw IOException(
+                            context.getString(
+                                R.string.error_ocr_exit_code,
+                                ocrResponse.ocrExitCode
+                            )
+                        )
                     }
 
                     Log.d(TAG, context.getString(R.string.log_ocr_scan_successful))
@@ -125,7 +144,12 @@ class ReceiptScanRepository(
             }
         } catch (e: Exception) {
             Log.e(TAG, context.getString(R.string.error_network_error), e)
-            throw IOException(context.getString(R.string.error_network_error_with_message, e.message), e)
+            throw IOException(
+                context.getString(
+                    R.string.error_network_error_with_message,
+                    e.message
+                ), e
+            )
         } finally {
             if (compressedFile != imageFile && compressedFile.exists()) {
                 compressedFile.delete()

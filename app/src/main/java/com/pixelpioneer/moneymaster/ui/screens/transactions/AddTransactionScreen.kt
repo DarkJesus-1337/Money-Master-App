@@ -92,7 +92,10 @@ fun AddTransactionScreen(
                 title = { Text(stringResource(R.string.transaction_add)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(painterResource(R.drawable.arrow_back), contentDescription = stringResource(R.string.back))
+                        Icon(
+                            painterResource(R.drawable.arrow_back),
+                            contentDescription = stringResource(R.string.back)
+                        )
                     }
                 }
             )
@@ -151,6 +154,7 @@ fun AddTransactionScreen(
                                     numericPart.replace(",", ".").toDoubleOrNull() ?: 0.0
                                 }
                             }
+
                             else -> input.replace(",", ".").toDoubleOrNull() ?: 0.0
                         }
                         transactionViewModel.updateAmount(amount)
@@ -159,9 +163,14 @@ fun AddTransactionScreen(
                 label = { Text(stringResource(R.string.transaction_amount)) },
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                isError = formState.amountError != null && amountInput.isNotEmpty() && !amountInput.endsWith(".") && !amountInput.endsWith(","),
+                isError = formState.amountError != null && amountInput.isNotEmpty() && !amountInput.endsWith(
+                    "."
+                ) && !amountInput.endsWith(","),
                 supportingText = {
-                    if (formState.amountError != null && amountInput.isNotEmpty() && !amountInput.endsWith(".") && !amountInput.endsWith(",")) {
+                    if (formState.amountError != null && amountInput.isNotEmpty() && !amountInput.endsWith(
+                            "."
+                        ) && !amountInput.endsWith(",")
+                    ) {
                         Text(formState.amountError!!, color = MaterialTheme.colorScheme.error)
                     }
                 }
@@ -301,7 +310,10 @@ fun AddTransactionScreen(
                 label = { Text(stringResource(R.string.transaction_date)) },
                 trailingIcon = {
                     IconButton(onClick = { showDatePicker = true }) {
-                        Icon(Icons.Default.DateRange, contentDescription = stringResource(R.string.select_date))
+                        Icon(
+                            Icons.Default.DateRange,
+                            contentDescription = stringResource(R.string.select_date)
+                        )
                     }
                 },
                 modifier = Modifier.fillMaxWidth()

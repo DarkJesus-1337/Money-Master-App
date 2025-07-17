@@ -138,6 +138,7 @@ fun ReceiptScanScreen(
                             ) == PackageManager.PERMISSION_GRANTED -> {
                                 cameraLauncher.launch(tempImageUri)
                             }
+
                             else -> {
                                 cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
                             }

@@ -22,7 +22,14 @@ fun MoneyMasterBottomNavigation(navController: NavController) {
     NavigationBar {
         bottomNavItems.forEach { screen ->
             NavigationBarItem(
-                icon = { screen.icon?.let { Icon(it, contentDescription = screen.getTitle(context)) } },
+                icon = {
+                    screen.icon?.let {
+                        Icon(
+                            it,
+                            contentDescription = screen.getTitle(context)
+                        )
+                    }
+                },
                 label = { Text(screen.getTitle(context)) },
                 selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                 onClick = {

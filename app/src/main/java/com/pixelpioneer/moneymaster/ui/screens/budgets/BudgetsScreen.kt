@@ -51,7 +51,10 @@ fun BudgetsScreen(
                 title = { Text(stringResource(R.string.screen_title_budgets)) },
                 actions = {
                     IconButton(onClick = { navController.navigate(Screen.AddBudget.route) }) {
-                        Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.budget_add))
+                        Icon(
+                            Icons.Filled.Add,
+                            contentDescription = stringResource(R.string.budget_add)
+                        )
                     }
                 }
             )

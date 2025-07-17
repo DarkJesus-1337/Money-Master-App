@@ -240,13 +240,19 @@ class TransactionRepository(
      */
     suspend fun fetchCryptoAssets(limit: Int = 10): List<Asset> {
         val apiService =
-            coinCapApiService ?: throw IllegalStateException(context.getString(R.string.error_coincap_api_not_initialized))
+            coinCapApiService
+                ?: throw IllegalStateException(context.getString(R.string.error_coincap_api_not_initialized))
 
         val response = apiService.getAssets(limit)
         if (response.isSuccessful) {
             return response.body()?.data ?: emptyList()
         } else {
-            throw Exception(context.getString(R.string.error_fetching_crypto_assets, response.message()))
+            throw Exception(
+                context.getString(
+                    R.string.error_fetching_crypto_assets,
+                    response.message()
+                )
+            )
         }
     }
 }

@@ -173,12 +173,18 @@ fun BudgetItem(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = stringResource(R.string.budget_spent_format, FormatUtils.formatCurrency(budget.spent)),
+                    text = stringResource(
+                        R.string.budget_spent_format,
+                        FormatUtils.formatCurrency(budget.spent)
+                    ),
                     style = MaterialTheme.typography.bodyMedium
                 )
 
                 Text(
-                    text = stringResource(R.string.budget_remaining_format, FormatUtils.formatCurrency(budget.amount - budget.spent)),
+                    text = stringResource(
+                        R.string.budget_remaining_format,
+                        FormatUtils.formatCurrency(budget.amount - budget.spent)
+                    ),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

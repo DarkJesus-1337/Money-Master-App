@@ -1,8 +1,16 @@
 package com.pixelpioneer.moneymaster.ui.components
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -34,7 +42,7 @@ fun UpdateDialog(
                 }
             }
         }
-        
+
         is AppUpdateManager.UpdateState.Downloading -> {
             Dialog(onDismissRequest = { }) {
                 Card {
@@ -57,7 +65,7 @@ fun UpdateDialog(
                 }
             }
         }
-        
+
         is AppUpdateManager.UpdateState.Error -> {
             Dialog(onDismissRequest = onDismiss) {
                 Card {
@@ -73,7 +81,7 @@ fun UpdateDialog(
                 }
             }
         }
-        
+
         is AppUpdateManager.UpdateState.NoUpdate -> {
             Dialog(onDismissRequest = onDismiss) {
                 Card {
@@ -87,7 +95,8 @@ fun UpdateDialog(
                 }
             }
         }
-        
-        else -> { /* Idle oder Success - kein Dialog */ }
+
+        else -> { /* Idle oder Success - kein Dialog */
+        }
     }
 }

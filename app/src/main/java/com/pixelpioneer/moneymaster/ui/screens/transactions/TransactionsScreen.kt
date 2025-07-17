@@ -67,7 +67,10 @@ fun TransactionsScreen(
                 },
                 actions = {
                     IconButton(onClick = { navController.navigate(Screen.AddTransaction.route) }) {
-                        Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.transaction_add))
+                        Icon(
+                            Icons.Filled.Add,
+                            contentDescription = stringResource(R.string.transaction_add)
+                        )
                     }
                 }
             )
@@ -92,7 +95,12 @@ fun TransactionsScreen(
                         style = MaterialTheme.typography.bodyMedium
                     )
                 },
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = stringResource(R.string.action_search)) },
+                leadingIcon = {
+                    Icon(
+                        Icons.Default.Search,
+                        contentDescription = stringResource(R.string.action_search)
+                    )
+                },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(

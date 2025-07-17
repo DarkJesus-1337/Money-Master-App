@@ -126,7 +126,10 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                             Spacer(modifier = Modifier.height(8.dp))
 
                             Text(
-                                text = stringResource(R.string.statistics_balance, FormatUtils.formatCurrency(stats.monthlyBalance)),
+                                text = stringResource(
+                                    R.string.statistics_balance,
+                                    FormatUtils.formatCurrency(stats.monthlyBalance)
+                                ),
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold,
                                 color = if (stats.monthlyBalance >= 0) Color.Green else Color.Red

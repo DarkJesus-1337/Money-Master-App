@@ -101,7 +101,11 @@ fun BudgetOverviewItem(
             )
 
             Text(
-                text = "${stringResource(R.string.budget_remaining)}: ${FormatUtils.formatCurrency(budget.amount - budget.spent)}",
+                text = "${stringResource(R.string.budget_remaining)}: ${
+                    FormatUtils.formatCurrency(
+                        budget.amount - budget.spent
+                    )
+                }",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

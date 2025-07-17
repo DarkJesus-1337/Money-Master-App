@@ -16,7 +16,10 @@ class AppUpdateManager {
 
         FirebaseAppDistribution.getInstance().updateIfNewReleaseAvailable()
             .addOnProgressListener { updateProgress ->
-                _updateState.value = UpdateState.Downloading(updateProgress.apkBytesDownloaded, updateProgress.apkFileTotalBytes)
+                _updateState.value = UpdateState.Downloading(
+                    updateProgress.apkBytesDownloaded,
+                    updateProgress.apkFileTotalBytes
+                )
             }
             .addOnSuccessListener {
                 _updateState.value = UpdateState.Success
@@ -30,15 +33,19 @@ class AppUpdateManager {
                                 Log.d("AppUpdate", "Keine Updates verfügbar")
                                 _updateState.value = UpdateState.NoUpdate
                             }
+
                             else -> {
                                 Log.e("AppUpdate", "Update fehlgeschlagen: ${exception.message}")
-                                _updateState.value = UpdateState.Error(exception.message ?: "Unbekannter Fehler")
+                                _updateState.value =
+                                    UpdateState.Error(exception.message ?: "Unbekannter Fehler")
                             }
                         }
                     }
+
                     else -> {
                         Log.e("AppUpdate", "Update fehlgeschlagen: ${exception.message}")
-                        _updateState.value = UpdateState.Error(exception.message ?: "Unbekannter Fehler")
+                        _updateState.value =
+                            UpdateState.Error(exception.message ?: "Unbekannter Fehler")
                     }
                 }
             }
