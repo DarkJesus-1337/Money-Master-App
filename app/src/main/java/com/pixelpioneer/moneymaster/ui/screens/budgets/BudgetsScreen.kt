@@ -24,8 +24,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.components.budget.BudgetItem
 import com.pixelpioneer.moneymaster.ui.components.budget.DeleteBudgetDialog
@@ -46,10 +48,10 @@ fun BudgetsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Budgets") },
+                title = { Text(stringResource(R.string.screen_title_budgets)) },
                 actions = {
                     IconButton(onClick = { navController.navigate(Screen.AddBudget.route) }) {
-                        Icon(Icons.Filled.Add, contentDescription = "Add Budget")
+                        Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.budget_add))
                     }
                 }
             )

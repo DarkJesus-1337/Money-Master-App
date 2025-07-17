@@ -44,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -86,17 +87,17 @@ fun EditBudgetScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Edit Budget") },
+                title = { Text(stringResource(R.string.screen_title_edit_budgets)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(painterResource(R.drawable.arrow_back), contentDescription = "Back")
+                        Icon(painterResource(R.drawable.arrow_back), contentDescription = stringResource(R.string.back))
                     }
                 },
                 actions = {
                     IconButton(onClick = { showDeleteDialog = true }) {
                         Icon(
                             Icons.Default.Delete,
-                            contentDescription = "Delete Budget",
+                            contentDescription = stringResource(R.string.budget_delete),
                             tint = MaterialTheme.colorScheme.error
                         )
                     }
@@ -118,7 +119,7 @@ fun EditBudgetScreen(
                     val amount = newValue.toDoubleOrNull() ?: 0.0
                     budgetViewModel.updateAmount(amount)
                 },
-                label = { Text("Budget Amount") },
+                label = { Text(stringResource(R.string.budget_amount)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.fillMaxWidth(),
                 isError = formState.amountError != null,
@@ -157,14 +158,14 @@ fun EditBudgetScreen(
                         )
                     } else {
                         Text(
-                            text = "Select Category",
+                            text = stringResource(R.string.select_category),
                             modifier = Modifier.weight(1f),
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                     Icon(
                         Icons.Default.ArrowDropDown,
-                        contentDescription = "Select Category"
+                        contentDescription = stringResource(R.string.select_category)
                     )
                 }
             }
@@ -195,7 +196,7 @@ fun EditBudgetScreen(
                         )
                         Icon(
                             Icons.Default.ArrowDropDown,
-                            contentDescription = "Select Period"
+                            contentDescription = stringResource(R.string.select_period)
                         )
                     }
                 }
@@ -215,7 +216,7 @@ fun EditBudgetScreen(
                                 if (formState.period == period) {
                                     Icon(
                                         Icons.Default.Check,
-                                        contentDescription = "Selected"
+                                        contentDescription = stringResource(R.string.select_selected)
                                     )
                                 }
                             }
@@ -237,7 +238,7 @@ fun EditBudgetScreen(
                         contentColor = MaterialTheme.colorScheme.error
                     )
                 ) {
-                    Text("Delete")
+                    Text(stringResource(R.string.action_delete))
                 }
 
                 Button(
@@ -248,7 +249,7 @@ fun EditBudgetScreen(
                     modifier = Modifier.weight(1f),
                     enabled = formState.amount > 0 && formState.selectedCategory != null
                 ) {
-                    Text("Update Budget")
+                    Text(stringResource(R.string.budget_update))
                 }
             }
         }

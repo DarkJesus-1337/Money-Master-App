@@ -16,9 +16,12 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.ui.components.statistics.CategoriesTab
 import com.pixelpioneer.moneymaster.ui.components.statistics.OverviewTab
 import com.pixelpioneer.moneymaster.ui.components.statistics.TrendsTab
@@ -37,7 +40,12 @@ fun StatisticsScreen(
     val monthlyTrendsState = statisticsViewModel.monthlyTrendsState.collectAsState().value
 
     var selectedTabIndex by remember { mutableIntStateOf(0) }
-    val tabs = listOf("Übersicht", "Kategorien", "Trends", "Crypto")
+    val tabs = listOf(
+        stringResource(R.string.statistics_tab_overview),
+        stringResource(R.string.statistics_tab_categories),
+        stringResource(R.string.statistics_tab_trends),
+        stringResource(R.string.statistics_tab_crypto)
+    )
 
     Scaffold(
         bottomBar = { MoneyMasterBottomNavigation(navController) }
@@ -48,7 +56,7 @@ fun StatisticsScreen(
                 .padding(paddingValues)
         ) {
             Text(
-                text = "Statistiken",
+                text = stringResource(R.string.screen_title_statistics),
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(16.dp)

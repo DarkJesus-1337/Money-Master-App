@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -75,10 +76,10 @@ fun BudgetDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(budget?.category?.name ?: "Budget Details") },
+                title = { Text(budget?.category?.name ?: stringResource(R.string.budget_details)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(painterResource(R.drawable.arrow_back), contentDescription = "Back")
+                        Icon(painterResource(R.drawable.arrow_back), contentDescription = stringResource(R.string.back))
                     }
                 },
                 actions = {
@@ -88,7 +89,7 @@ fun BudgetDetailScreen(
                         }) {
                             Icon(
                                 painterResource(R.drawable.ic_edit),
-                                contentDescription = "Edit Budget"
+                                contentDescription = stringResource(R.string.budget_edit)
                             )
                         }
                     }
@@ -123,7 +124,7 @@ fun BudgetDetailScreen(
 
                         item {
                             Text(
-                                text = "Transactions in this category",
+                                text = stringResource(R.string.transactions_in_this_category),
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold
                             )
@@ -147,7 +148,7 @@ fun BudgetDetailScreen(
                                 if (categoryTransactions.isEmpty()) {
                                     item {
                                         Text(
-                                            text = "No transactions in this category yet",
+                                            text = stringResource(R.string.empty_transaction_category),
                                             style = MaterialTheme.typography.bodyMedium,
                                             color = MaterialTheme.colorScheme.onSurfaceVariant
                                         )
@@ -178,7 +179,7 @@ fun BudgetDetailScreen(
                             is UiState.Empty -> {
                                 item {
                                     Text(
-                                        text = "No transactions found",
+                                        text = stringResource(R.string.no_transactions_found),
                                         style = MaterialTheme.typography.bodyMedium,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -194,7 +195,7 @@ fun BudgetDetailScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Budget not found",
+                            text = stringResource(R.string.no_budgets_found),
                             style = MaterialTheme.typography.titleLarge
                         )
                     }
@@ -223,7 +224,7 @@ fun BudgetDetailScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "No budgets found",
+                        text = stringResource(R.string.no_budgets_found),
                         style = MaterialTheme.typography.titleLarge
                     )
                 }
@@ -296,7 +297,7 @@ fun BudgetDetailCard(budget: com.pixelpioneer.moneymaster.data.model.Budget) {
             ) {
                 Column {
                     Text(
-                        text = "Budget Amount",
+                        text = stringResource(R.string.budget_amount),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -309,7 +310,7 @@ fun BudgetDetailCard(budget: com.pixelpioneer.moneymaster.data.model.Budget) {
 
                 Column(horizontalAlignment = Alignment.End) {
                     Text(
-                        text = "Spent",
+                        text = stringResource(R.string.budget_spent),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -330,7 +331,7 @@ fun BudgetDetailCard(budget: com.pixelpioneer.moneymaster.data.model.Budget) {
             ) {
                 Column {
                     Text(
-                        text = "Remaining",
+                        text = stringResource(R.string.budget_amount),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -343,7 +344,7 @@ fun BudgetDetailCard(budget: com.pixelpioneer.moneymaster.data.model.Budget) {
 
                 Column(horizontalAlignment = Alignment.End) {
                     Text(
-                        text = "Progress",
+                        text = stringResource(R.string.budget_progress),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

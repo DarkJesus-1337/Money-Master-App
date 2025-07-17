@@ -22,9 +22,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.components.ViewAllTransactionsButton
 import com.pixelpioneer.moneymaster.ui.components.dashboard.BudgetOverview
@@ -54,10 +56,10 @@ fun DashboardScreen(
         contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         topBar = {
             TopAppBar(
-                title = { Text("Dashboard") },
+                title = { Text(stringResource(R.string.dashboard_title)) },
                 actions = {
                     IconButton(onClick = { navController.navigate(Screen.AddTransaction.route) }) {
-                        Icon(Icons.Filled.Add, contentDescription = "Add Transaction")
+                        Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add_transaction))
                     }
                 }
             )
@@ -105,7 +107,7 @@ fun DashboardScreen(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 Text(
-                    text = "Budget Overview",
+                    text = stringResource(R.string.budget_overview),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
@@ -152,7 +154,7 @@ fun DashboardScreen(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 Text(
-                    text = "Recent Transactions",
+                    text = stringResource(R.string.recent_transactions),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )

@@ -50,6 +50,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -88,10 +89,10 @@ fun AddTransactionScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Add Transaction") },
+                title = { Text(stringResource(R.string.transaction_add)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(painterResource(R.drawable.arrow_back), contentDescription = "Back")
+                        Icon(painterResource(R.drawable.arrow_back), contentDescription = stringResource(R.string.back))
                     }
                 }
             )
@@ -106,7 +107,7 @@ fun AddTransactionScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
-                text = "Transaction Type",
+                text = stringResource(R.string.transaction_type),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -119,19 +120,19 @@ fun AddTransactionScreen(
                     onClick = { transactionViewModel.updateIsExpense(false) },
                     shape = SegmentedButtonDefaults.itemShape(index = 0, count = 2)
                 ) {
-                    Text("Income")
+                    Text(stringResource(R.string.transaction_income))
                 }
                 SegmentedButton(
                     selected = formState.isExpense,
                     onClick = { transactionViewModel.updateIsExpense(true) },
                     shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2)
                 ) {
-                    Text("Expense")
+                    Text(stringResource(R.string.transaction_expense))
                 }
             }
 
             Text(
-                text = "Amount",
+                text = stringResource(R.string.transaction_amount),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -155,7 +156,7 @@ fun AddTransactionScreen(
                         transactionViewModel.updateAmount(amount)
                     }
                 },
-                label = { Text("Amount") },
+                label = { Text(stringResource(R.string.transaction_amount)) },
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 isError = formState.amountError != null && amountInput.isNotEmpty() && !amountInput.endsWith(".") && !amountInput.endsWith(","),
@@ -167,7 +168,7 @@ fun AddTransactionScreen(
             )
 
             Text(
-                text = "Title",
+                text = stringResource(R.string.transaction_title),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -175,7 +176,7 @@ fun AddTransactionScreen(
             OutlinedTextField(
                 value = formState.title,
                 onValueChange = { transactionViewModel.updateTitle(it) },
-                label = { Text("Title") },
+                label = { Text(stringResource(R.string.transaction_title)) },
                 modifier = Modifier.fillMaxWidth(),
                 isError = formState.titleError != null,
                 supportingText = {
@@ -186,7 +187,7 @@ fun AddTransactionScreen(
             )
 
             Text(
-                text = "Description (Optional)",
+                text = stringResource(R.string.transaction_description_optional),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -194,12 +195,12 @@ fun AddTransactionScreen(
             OutlinedTextField(
                 value = formState.description,
                 onValueChange = { transactionViewModel.updateDescription(it) },
-                label = { Text("Description") },
+                label = { Text(stringResource(R.string.transaction_description)) },
                 modifier = Modifier.fillMaxWidth()
             )
 
             Text(
-                text = "Category",
+                text = stringResource(R.string.transaction_category),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -278,14 +279,14 @@ fun AddTransactionScreen(
 
                 is UiState.Empty -> {
                     Text(
-                        text = "No categories available. Please create categories first.",
+                        text = stringResource(R.string.empty_categories_please_create),
                         color = MaterialTheme.colorScheme.error
                     )
                 }
             }
 
             Text(
-                text = "Date",
+                text = stringResource(R.string.transaction_date),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -297,10 +298,10 @@ fun AddTransactionScreen(
                 value = formattedDate,
                 onValueChange = {},
                 readOnly = true,
-                label = { Text("Date") },
+                label = { Text(stringResource(R.string.transaction_date)) },
                 trailingIcon = {
                     IconButton(onClick = { showDatePicker = true }) {
-                        Icon(Icons.Default.DateRange, contentDescription = "Select Date")
+                        Icon(Icons.Default.DateRange, contentDescription = stringResource(R.string.select_date))
                     }
                 },
                 modifier = Modifier.fillMaxWidth()
@@ -318,12 +319,12 @@ fun AddTransactionScreen(
                                 showDatePicker = false
                             }
                         ) {
-                            Text("Confirm")
+                            Text(stringResource(R.string.action_confirm))
                         }
                     },
                     dismissButton = {
                         TextButton(onClick = { showDatePicker = false }) {
-                            Text("Cancel")
+                            Text(stringResource(R.string.action_cancel))
                         }
                     }
                 ) {
@@ -340,7 +341,7 @@ fun AddTransactionScreen(
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Save Transaction")
+                Text(stringResource(R.string.transaction_save))
             }
 
             Button(
@@ -349,7 +350,7 @@ fun AddTransactionScreen(
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Kassenzettel scannen")
+                Text(stringResource(R.string.scan_receipt))
             }
         }
     }

@@ -38,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -64,17 +65,23 @@ fun TransactionDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Transaction Details") },
+                title = { Text(stringResource(R.string.screen_title_transaction_details)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(painterResource(R.drawable.arrow_back), contentDescription = "Back")
+                        Icon(
+                            painterResource(R.drawable.arrow_back),
+                            contentDescription = stringResource(R.string.back)
+                        )
                     }
                 },
                 actions = {
                     IconButton(onClick = {
                         navController.navigate(Screen.EditTransaction.createRoute(transactionId.toString()))
                     }) {
-                        Icon(painterResource(R.drawable.ic_edit), contentDescription = "Edit")
+                        Icon(
+                            painterResource(R.drawable.ic_edit),
+                            contentDescription = stringResource(R.string.edit)
+                        )
                     }
                 }
             )
@@ -87,7 +94,10 @@ fun TransactionDetailScreen(
                         navController.navigate(Screen.AddTransaction.route)
                     }
                 ) {
-                    Icon(Icons.Default.Edit, contentDescription = "Edit Transaction")
+                    Icon(
+                        Icons.Default.Edit,
+                        contentDescription = stringResource(R.string.transaction_edit)
+                    )
                 }
             }
         }
@@ -145,7 +155,9 @@ fun TransactionDetailScreen(
                                     Spacer(modifier = Modifier.height(8.dp))
 
                                     Text(
-                                        text = if (transaction.isExpense) "Expense" else "Income",
+                                        text = if (transaction.isExpense) stringResource(R.string.transaction_expense) else stringResource(
+                                            R.string.transaction_income
+                                        ),
                                         style = MaterialTheme.typography.titleMedium,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -167,7 +179,7 @@ fun TransactionDetailScreen(
                                         .padding(16.dp)
                                 ) {
                                     Text(
-                                        text = "Title",
+                                        text = stringResource(R.string.transaction_title),
                                         style = MaterialTheme.typography.labelLarge,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -181,7 +193,7 @@ fun TransactionDetailScreen(
                                     Spacer(modifier = Modifier.height(16.dp))
 
                                     Text(
-                                        text = "Category",
+                                        text = stringResource(R.string.transaction_category),
                                         style = MaterialTheme.typography.labelLarge,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -207,7 +219,7 @@ fun TransactionDetailScreen(
                                     Spacer(modifier = Modifier.height(16.dp))
 
                                     Text(
-                                        text = "Date",
+                                        text = stringResource(R.string.transaction_date),
                                         style = MaterialTheme.typography.labelLarge,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -221,7 +233,7 @@ fun TransactionDetailScreen(
                                         Spacer(modifier = Modifier.height(16.dp))
 
                                         Text(
-                                            text = "Description",
+                                            text = stringResource(R.string.transaction_description),
                                             style = MaterialTheme.typography.labelLarge,
                                             color = MaterialTheme.colorScheme.onSurfaceVariant
                                         )
@@ -241,13 +253,13 @@ fun TransactionDetailScreen(
                             onDismissRequest = { showDeleteDialog = false },
                             title = {
                                 Text(
-                                    "Delete Transaction",
+                                    stringResource(R.string.transaction_delete),
                                     style = MaterialTheme.typography.titleMedium
                                 )
                             },
                             text = {
                                 Text(
-                                    "Are you sure you want to delete this transaction? This action cannot be undone.",
+                                    stringResource(R.string.dialog_transaction_delete_message),
                                     style = MaterialTheme.typography.bodyMedium
                                 )
                             },
@@ -259,14 +271,14 @@ fun TransactionDetailScreen(
                                         navController.popBackStack()
                                     }
                                 ) {
-                                    Text("Delete", style = MaterialTheme.typography.labelLarge)
+                                    Text(stringResource(R.string.action_delete), style = MaterialTheme.typography.labelLarge)
                                 }
                             },
                             dismissButton = {
                                 TextButton(
                                     onClick = { showDeleteDialog = false }
                                 ) {
-                                    Text("Cancel", style = MaterialTheme.typography.labelLarge)
+                                    Text(stringResource(R.string.action_cancel), style = MaterialTheme.typography.labelLarge)
                                 }
                             }
                         )
@@ -286,7 +298,7 @@ fun TransactionDetailScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Transaction not found",
+                            text = stringResource(R.string.transaction_not_found),
                             style = MaterialTheme.typography.headlineSmall
                         )
                     }

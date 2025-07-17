@@ -45,6 +45,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -74,10 +75,10 @@ fun AddBudgetScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Add Budget") },
+                title = { Text(stringResource(R.string.budget_add)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(painterResource(R.drawable.arrow_back), contentDescription = "Back")
+                        Icon(painterResource(R.drawable.arrow_back), contentDescription = stringResource(R.string.back))
                     }
                 }
             )
@@ -97,7 +98,7 @@ fun AddBudgetScreen(
                     val amount = newValue.toDoubleOrNull() ?: 0.0
                     budgetViewModel.updateAmount(amount)
                 },
-                label = { Text("Budget Amount") },
+                label = { Text(stringResource(R.string.budget_amount)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.fillMaxWidth(),
                 isError = formState.amountError != null,
@@ -136,14 +137,14 @@ fun AddBudgetScreen(
                         )
                     } else {
                         Text(
-                            text = "Select Category",
+                            text = stringResource(R.string.select_category),
                             modifier = Modifier.weight(1f),
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                     Icon(
                         Icons.Default.ArrowDropDown,
-                        contentDescription = "Select Category"
+                        contentDescription = stringResource(R.string.select_category)
                     )
                 }
             }
@@ -174,7 +175,7 @@ fun AddBudgetScreen(
                         )
                         Icon(
                             Icons.Default.ArrowDropDown,
-                            contentDescription = "Select Period"
+                            contentDescription = stringResource(R.string.select_period)
                         )
                     }
                 }
@@ -194,7 +195,7 @@ fun AddBudgetScreen(
                                 if (formState.period == period) {
                                     Icon(
                                         Icons.Default.Check,
-                                        contentDescription = "Selected"
+                                        contentDescription = stringResource(R.string.select_selected)
                                     )
                                 }
                             }
@@ -213,7 +214,7 @@ fun AddBudgetScreen(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = formState.amount > 0 && formState.selectedCategory != null
             ) {
-                Text("Create Budget")
+                Text(stringResource(R.string.budget_create))
             }
         }
     }
@@ -251,7 +252,7 @@ fun CategorySelectorDialog(
                     .padding(16.dp)
             ) {
                 Text(
-                    text = "Select Category",
+                    text = stringResource(R.string.select_category),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
@@ -290,7 +291,7 @@ fun CategorySelectorDialog(
 
                     is UiState.Empty -> {
                         Text(
-                            text = "No categories available",
+                            text = stringResource(R.string.empty_categories),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

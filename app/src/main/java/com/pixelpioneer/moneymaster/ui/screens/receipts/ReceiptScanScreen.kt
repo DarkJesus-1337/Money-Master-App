@@ -25,11 +25,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.navigation.NavController
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.ui.components.receipt.AddAllTransactionsButton
 import com.pixelpioneer.moneymaster.ui.components.receipt.CategorySelectionCard
@@ -69,7 +71,6 @@ fun ReceiptScanScreen(
     var selectedCategory by remember { mutableStateOf<TransactionCategory?>(null) }
     var scanTriggered by remember { mutableStateOf(false) }
 
-    // Erstelle temporäre Datei für Kamera-Aufnahme
     val tempImageFile = remember {
         File(context.cacheDir, "temp_receipt_${System.currentTimeMillis()}.jpg")
     }
@@ -114,7 +115,7 @@ fun ReceiptScanScreen(
         bottomBar = { MoneyMasterBottomNavigation(navController) },
         topBar = {
             TopAppBar(
-                title = { Text("Beleg scannen") }
+                title = { Text(stringResource(R.string.screen_title_receipt_scanner)) }
             )
         }
     ) { paddingValues ->
@@ -166,14 +167,14 @@ fun ReceiptScanScreen(
                                         val file = uriToFile(uri, context)
                                         Log.d(
                                             "ReceiptScan",
-                                            "Starte Scan für Datei: ${file.absolutePath}"
+                                            "Start scanning for file: ${file.absolutePath}"
                                         )
                                         receiptScanViewModel.scanReceipt(file, category)
                                         scanTriggered = true
                                     } catch (e: Exception) {
                                         Log.e(
                                             "ReceiptScan",
-                                            "Fehler beim Laden der Datei: ${e.message}"
+                                            "Error to load: ${e.message}"
                                         )
                                     }
                                 }
@@ -191,14 +192,14 @@ fun ReceiptScanScreen(
 
             if (scanTriggered && !isLoading && scannedItems.isEmpty() && error == null) {
                 item {
-                    InfoCard(message = "Keine Artikel auf dem Beleg erkannt. Versuchen Sie es mit einem anderen Bild.")
+                    InfoCard(message = stringResource(R.string.no_items_found_on_receipt))
                 }
             }
 
             if (editableItems.isNotEmpty()) {
                 item {
                     Text(
-                        text = "Gefundene Artikel (${editableItems.size})",
+                        text = stringResource(R.string.found_items_count) + " (${editableItems.size})",
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold
                     )

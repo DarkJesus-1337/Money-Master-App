@@ -31,9 +31,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.components.transactions.EmptyTransactionsView
@@ -57,10 +59,15 @@ fun TransactionsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Transactions", style = MaterialTheme.typography.headlineMedium) },
+                title = {
+                    Text(
+                        stringResource(R.string.screen_title_transactions),
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+                },
                 actions = {
                     IconButton(onClick = { navController.navigate(Screen.AddTransaction.route) }) {
-                        Icon(Icons.Filled.Add, contentDescription = "Add Transaction")
+                        Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.transaction_add))
                     }
                 }
             )
@@ -81,11 +88,11 @@ fun TransactionsScreen(
                     .padding(vertical = 8.dp),
                 placeholder = {
                     Text(
-                        "Search transactions",
+                        stringResource(R.string.transaction_search),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 },
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search") },
+                leadingIcon = { Icon(Icons.Default.Search, contentDescription = stringResource(R.string.action_search)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(

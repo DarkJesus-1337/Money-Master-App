@@ -19,7 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.util.FormatUtils
 
 /**
@@ -89,7 +91,7 @@ fun BudgetOverviewItem(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "${FormatUtils.formatCurrency(budget.spent)} of ${
+                text = "${FormatUtils.formatCurrency(budget.spent)} ${stringResource(R.string.of)} ${
                     FormatUtils.formatCurrency(
                         budget.amount
                     )
@@ -99,7 +101,7 @@ fun BudgetOverviewItem(
             )
 
             Text(
-                text = "Remaining: ${FormatUtils.formatCurrency(budget.amount - budget.spent)}",
+                text = "${stringResource(R.string.budget_remaining)}: ${FormatUtils.formatCurrency(budget.amount - budget.spent)}",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
