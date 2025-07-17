@@ -4,12 +4,6 @@
 Eine moderne Android-Anwendung zur Verwaltung persönlicher Finanzen, entwickelt mit Kotlin und
 Jetpack Compose.
 
-## 📱 Jetzt ausprobieren!
-
-Die aktuelle Version der App steht als **APK-Datei**  
-im [Release-Bereich](https://github.com/DarkJesus-1337/Money-Master/releases) zum Download bereit.  
-> Einfach herunterladen und auf deinem Android-Gerät installieren!
-
 ### 🔄 In-App-Updates verfügbar!
 
 Ab sofort bietet die App **In-App-Updates** über **Firebase App Distribution** an.  
