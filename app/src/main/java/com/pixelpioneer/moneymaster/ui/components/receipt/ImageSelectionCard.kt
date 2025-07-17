@@ -29,10 +29,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
+import com.pixelpioneer.moneymaster.R
 
 @Composable
 fun ImageSelectionCard(
@@ -51,7 +53,7 @@ fun ImageSelectionCard(
             if (selectedImageUri != null) {
                 AsyncImage(
                     model = selectedImageUri,
-                    contentDescription = "Selected Receipt",
+                    contentDescription = stringResource(R.string.image_selection_selected_receipt) ,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(200.dp),
@@ -70,7 +72,7 @@ fun ImageSelectionCard(
                 ) {
                     Icon(Icons.Default.CameraAlt, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Kamera")
+                    Text(stringResource(R.string.image_selection_camera))
                 }
 
                 Button(
@@ -79,7 +81,7 @@ fun ImageSelectionCard(
                 ) {
                     Icon(Icons.Default.PhotoLibrary, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Galerie")
+                    Text(stringResource(R.string.image_selection_gallery))
                 }
             }
         }

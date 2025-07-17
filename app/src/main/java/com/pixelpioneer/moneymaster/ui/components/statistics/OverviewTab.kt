@@ -24,8 +24,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsOverview
 import com.pixelpioneer.moneymaster.util.FormatUtils
@@ -67,7 +69,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                             modifier = Modifier.padding(16.dp)
                         ) {
                             Text(
-                                text = "Diesen Monat",
+                                text = stringResource(R.string.statistics_this_month),
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold
                             )
@@ -82,12 +84,12 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
                                         Icon(
                                             Icons.Default.ArrowUpward,
-                                            contentDescription = "Einnahmen",
+                                            contentDescription = stringResource(R.string.statistics_income),
                                             tint = Color.Green,
                                             modifier = Modifier.size(16.dp)
                                         )
                                         Text(
-                                            text = " Einnahmen",
+                                            text = stringResource(R.string.statistics_income),
                                             style = MaterialTheme.typography.bodyMedium
                                         )
                                     }
@@ -103,12 +105,12 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
                                         Icon(
                                             Icons.Default.ArrowDownward,
-                                            contentDescription = "Ausgaben",
+                                            contentDescription = stringResource(R.string.statistics_expenses),
                                             tint = Color.Red,
                                             modifier = Modifier.size(16.dp)
                                         )
                                         Text(
-                                            text = " Ausgaben",
+                                            text = stringResource(R.string.statistics_expenses),
                                             style = MaterialTheme.typography.bodyMedium
                                         )
                                     }
@@ -124,7 +126,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                             Spacer(modifier = Modifier.height(8.dp))
 
                             Text(
-                                text = "Saldo: ${FormatUtils.formatCurrency(stats.monthlyBalance)}",
+                                text = stringResource(R.string.statistics_balance, FormatUtils.formatCurrency(stats.monthlyBalance)),
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold,
                                 color = if (stats.monthlyBalance >= 0) Color.Green else Color.Red
@@ -139,7 +141,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                             modifier = Modifier.padding(16.dp)
                         ) {
                             Text(
-                                text = "Durchschnittliche Ausgaben",
+                                text = stringResource(R.string.statistics_avg_expense),
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold
                             )
@@ -152,7 +154,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                             ) {
                                 Column {
                                     Text(
-                                        text = "Täglich",
+                                        text = stringResource(R.string.statistics_daily),
                                         style = MaterialTheme.typography.bodyMedium,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -165,7 +167,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
 
                                 Column {
                                     Text(
-                                        text = "Wöchentlich",
+                                        text = stringResource(R.string.statistics_weekly),
                                         style = MaterialTheme.typography.bodyMedium,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -186,7 +188,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                             modifier = Modifier.padding(16.dp)
                         ) {
                             Text(
-                                text = "Transaktionen",
+                                text = stringResource(R.string.statistics_transactions),
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold
                             )
@@ -199,7 +201,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                             ) {
                                 Column {
                                     Text(
-                                        text = "Gesamt",
+                                        text = stringResource(R.string.statistics_total),
                                         style = MaterialTheme.typography.bodyMedium,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -212,7 +214,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
 
                                 Column {
                                     Text(
-                                        text = "Diesen Monat",
+                                        text = stringResource(R.string.statistics_this_month),
                                         style = MaterialTheme.typography.bodyMedium,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -242,7 +244,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Keine Statistiken verfügbar",
+                            text = stringResource(R.string.statistics_no_data),
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

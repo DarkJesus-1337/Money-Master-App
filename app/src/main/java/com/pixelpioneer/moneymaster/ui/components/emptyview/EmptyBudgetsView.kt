@@ -16,7 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 
 @Composable
 fun EmptyBudgetsView(onAddButtonClick: () -> Unit) {
@@ -29,14 +31,14 @@ fun EmptyBudgetsView(onAddButtonClick: () -> Unit) {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "No budgets yet",
+                text = stringResource(R.string.no_budgets_yet),
                 style = MaterialTheme.typography.titleLarge
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Create budgets to help manage your spending",
+                text = stringResource(R.string.empty_budgets_description),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -48,10 +50,10 @@ fun EmptyBudgetsView(onAddButtonClick: () -> Unit) {
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Add",
+                    contentDescription = stringResource(R.string.action_add),
                     modifier = Modifier.padding(end = 8.dp)
                 )
-                Text("Create Budget")
+                Text(stringResource(R.string.budget_create))
             }
         }
     }

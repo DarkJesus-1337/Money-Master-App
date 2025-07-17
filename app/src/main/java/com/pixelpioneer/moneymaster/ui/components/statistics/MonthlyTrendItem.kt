@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
@@ -46,7 +47,7 @@ fun MonthlyTrendItem(monthlyTrend: MonthlyTrend) {
                     )
 
                     Text(
-                        text = "${monthlyTrend.transactionCount} Transaktionen",
+                        text = stringResource(R.string.statistics_category_transactions, monthlyTrend.transactionCount),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -57,7 +58,7 @@ fun MonthlyTrendItem(monthlyTrend: MonthlyTrend) {
                 ) {
                     Icon(
                         painter = painterResource(if (isPositive) R.drawable.trending_up else R.drawable.trending_down),
-                        contentDescription = if (isPositive) "Positive" else "Negative",
+                        contentDescription = stringResource(if (isPositive) R.string.statistics_positive else R.string.statistics_negative),
                         tint = if (isPositive) Color.Green else Color.Red,
                         modifier = Modifier.size(20.dp)
                     )
@@ -80,7 +81,7 @@ fun MonthlyTrendItem(monthlyTrend: MonthlyTrend) {
             ) {
                 Column {
                     Text(
-                        text = "Einnahmen",
+                        text = stringResource(R.string.transaction_income),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -94,7 +95,7 @@ fun MonthlyTrendItem(monthlyTrend: MonthlyTrend) {
 
                 Column {
                     Text(
-                        text = "Ausgaben",
+                        text = stringResource(R.string.transaction_expense),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

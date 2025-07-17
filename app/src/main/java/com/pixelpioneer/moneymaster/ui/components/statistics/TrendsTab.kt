@@ -15,7 +15,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.viewmodel.MonthlyTrend
 import com.pixelpioneer.moneymaster.util.UiState
@@ -68,7 +70,7 @@ fun TrendsTab(monthlyTrendsState: UiState<List<MonthlyTrend>>) {
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Keine Trend-Daten verfügbar",
+                            text = stringResource(R.string.statistics_no_trend_data),
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

@@ -21,10 +21,12 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 
 @Composable
 fun EditableItemContent(
@@ -42,7 +44,7 @@ fun EditableItemContent(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(
-            text = "Artikel #$index bearbeiten",
+            text = stringResource(R.string.edit_item_title, index),
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
@@ -51,7 +53,7 @@ fun EditableItemContent(
         OutlinedTextField(
             value = title,
             onValueChange = onTitleChange,
-            label = { Text("Artikelname") },
+            label = { Text(stringResource(R.string.edit_item_name_label)) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
@@ -59,7 +61,7 @@ fun EditableItemContent(
         OutlinedTextField(
             value = amount,
             onValueChange = onAmountChange,
-            label = { Text("Betrag (€)") },
+            label = { Text(stringResource(R.string.edit_item_amount_label)) },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Decimal,
@@ -85,14 +87,14 @@ fun EditableItemContent(
                     modifier = Modifier.size(16.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text("Entfernen")
+                Text(stringResource(R.string.edit_item_remove))
             }
 
             OutlinedButton(
                 onClick = onCancel,
                 modifier = Modifier.weight(1f)
             ) {
-                Text("Abbrechen")
+                Text(stringResource(R.string.edit_item_cancel))
             }
 
             Button(
@@ -106,7 +108,7 @@ fun EditableItemContent(
                     modifier = Modifier.size(16.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text("Speichern")
+                Text(stringResource(R.string.edit_item_save))
             }
         }
     }

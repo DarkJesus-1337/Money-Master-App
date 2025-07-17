@@ -19,7 +19,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 
 @Composable
 fun ScanButton(
@@ -39,7 +41,7 @@ fun ScanButton(
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     CircularProgressIndicator()
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text("Beleg wird gescannt...")
+                    Text(stringResource(R.string.receipt_scanning_progress))
                 }
             } else {
                 Button(
@@ -53,7 +55,7 @@ fun ScanButton(
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Beleg scannen")
+                    Text(stringResource(R.string.receipt_scan_button))
                 }
             }
         }

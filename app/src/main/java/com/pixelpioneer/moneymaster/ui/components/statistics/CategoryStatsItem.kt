@@ -20,8 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryStats
 import com.pixelpioneer.moneymaster.util.FormatUtils
 
@@ -62,7 +64,9 @@ fun CategoryStatsItem(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "${categoryStats.transactionCount} Transaktionen",
+                            text = stringResource(
+                                R.string.statistics_category_transactions,
+                                categoryStats.transactionCount),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

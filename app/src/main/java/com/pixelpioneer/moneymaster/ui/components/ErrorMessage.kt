@@ -17,8 +17,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 
 /**
  * A reusable error message component
@@ -41,7 +43,7 @@ fun ErrorMessage(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Error",
+                text = stringResource(R.string.error),
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.error
             )
@@ -62,12 +64,12 @@ fun ErrorMessage(
             ) {
                 Icon(
                     imageVector = Icons.Default.Refresh,
-                    contentDescription = "Retry"
+                    contentDescription = stringResource(R.string.retry)
                 )
 
                 Spacer(modifier = Modifier.width(8.dp))
 
-                Text(text = "Retry", style = MaterialTheme.typography.labelLarge)
+                Text(text = stringResource(R.string.retry), style = MaterialTheme.typography.labelLarge)
             }
         }
     }

@@ -5,6 +5,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.pixelpioneer.moneymaster.R
 
 /**
  * A button to view all transactions
@@ -17,6 +19,6 @@ fun ViewAllTransactionsButton(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text(text = "View All Transactions")
+        Text(text = stringResource(R.string.transaction_view_all))
     }
 }

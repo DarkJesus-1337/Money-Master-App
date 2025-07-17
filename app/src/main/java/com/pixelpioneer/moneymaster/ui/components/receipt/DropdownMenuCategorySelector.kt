@@ -12,6 +12,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 
 @Composable
@@ -27,7 +29,7 @@ fun DropdownMenuCategorySelector(
             onClick = { expanded = true },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(selectedCategory?.name ?: "Kategorie wählen")
+            Text(selectedCategory?.name ?: stringResource(R.string.select_category))
         }
         DropdownMenu(
             expanded = expanded,

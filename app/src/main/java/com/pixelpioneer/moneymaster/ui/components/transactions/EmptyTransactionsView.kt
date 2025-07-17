@@ -16,7 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 
 @Composable
 fun EmptyTransactionsView(onAddButtonClick: () -> Unit) {
@@ -29,7 +31,7 @@ fun EmptyTransactionsView(onAddButtonClick: () -> Unit) {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "No transactions yet",
+                text = stringResource(R.string.empty_transactions_title),
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -37,7 +39,7 @@ fun EmptyTransactionsView(onAddButtonClick: () -> Unit) {
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Track your expenses by adding your first transaction",
+                text = stringResource(R.string.empty_transactions_description),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -49,10 +51,10 @@ fun EmptyTransactionsView(onAddButtonClick: () -> Unit) {
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Add",
+                    contentDescription = stringResource(R.string.action_add),
                     modifier = Modifier.padding(end = 8.dp)
                 )
-                Text("Add Transaction", style = MaterialTheme.typography.labelLarge)
+                Text(stringResource(R.string.add_transaction), style = MaterialTheme.typography.labelLarge)
             }
         }
     }

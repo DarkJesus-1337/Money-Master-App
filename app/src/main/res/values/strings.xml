@@ -93,11 +93,16 @@
     <string name="transaction_save">Save Transaction</string>
     <string name="transaction_not_found">Transaction not found</string>
     <string name="transaction_search">Search transactions</string>
+    <string name="transaction_no_description">No description</string>
+    <string name="transaction_view_all">View All Transactions</string>
 
     <!-- Error Messages -->
+    <string name="error">Error</string>
     <string name="error_generic">Something went wrong</string>
     <string name="error_network">Network error</string>
     <string name="error_loading_data">Failed to load data</string>
+    <string name="error_card_message">Error: %1$s</string>
+    <string name="retry">Retry</string>
 
     <!-- Empty States -->
     <string name="empty_transactions">No transactions yet</string>
@@ -108,6 +113,16 @@
     <string name="empty_transaction_category">No transactions in this category yet</string>
     <string name="no_transactions_found">No transactions found</string>
     <string name="no_budgets_found">No budgets found</string>
+    <string name="no_budgets_yet">No budgets yet</string>
+    <string name="empty_budgets_description">Create budgets to help manage your spending</string>
+    <string name="empty_financial_summary_title">No financial data yet</string>
+    <string name="empty_financial_summary_description">Add income and expenses to see your financial summary</string>
+    <string name="empty_transactions_title">No transactions yet</string>
+    <string name="empty_transactions_description">Start tracking your finances by adding your first transaction</string>
+    <string name="empty_receipts_title">No receipts scanned</string>
+    <string name="empty_receipts_description">Scan your receipts to keep track of your expenses</string>
+    <string name="empty_receipt_category">No category available</string>
+    <string name="empty_category_statistics">No category statistics available</string>
 
     <!-- Crypto Assets -->
     <string name="error_loading_assets">Error: %1$s</string>
@@ -143,15 +158,58 @@
     <string name="select_date">Select Date</string>
 
     <!-- Receipt Scanning -->
-    <string name="scan_receipt">Scan Receipt</string>
+    <string name="receipt_scan">Scan Receipt</string>
     <string name="receipt_scanned">Receipt Scanned</string>
-    <string name="no_items_found_on_receipt">No items detected on the receipt. Try another image.</string>
-    <string name="found_items_count">Found items</string>
+    <string name="receipt_no_items_found">No items detected on the receipt. Try another image.</string>
+    <string name="receipt_found_items_count">Found items</string>
+    <string name="receipt_total_amount">Total Amount</string>
+    <string name="receipt_add_all_transactions">Add all as transactions</string>
+    <string name="receipt_scan_button">Scan receipt</string>
+    <string name="receipt_scanning_progress">Scanning receipt...</string>
+
+    <!-- Receipt Item Editing -->
+    <string name="edit_item_title">Edit item #%1$d</string>
+    <string name="edit_item_name_label">Item name</string>
+    <string name="edit_item_amount_label">Amount (€)</string>
+    <string name="edit_item_remove">Remove</string>
+    <string name="edit_item_cancel">Cancel</string>
+    <string name="edit_item_save">Save</string>
 
     <!-- Statistics Screen -->
     <string name="statistics_tab_overview">Overview</string>
     <string name="statistics_tab_categories">Categories</string>
     <string name="statistics_tab_trends">Trends</string>
     <string name="statistics_tab_crypto">Crypto</string>
+    <string name="statistics_category_transactions">%1$d transactions</string>
+    <string name="statistics_positive">Positive</string>
+    <string name="statistics_negative">Negative</string>
+    <string name="statistics_this_month">This Month</string>
+    <string name="statistics_income">Income</string>
+    <string name="statistics_expenses">Expenses</string>
+    <string name="statistics_balance">Balance: %1$s</string>
+    <string name="statistics_avg_expense">Average expenses</string>
+    <string name="statistics_daily">Daily</string>
+    <string name="statistics_weekly">Weekly</string>
+    <string name="statistics_transactions">Transactions</string>
+    <string name="statistics_total">Total</string>
+    <string name="statistics_no_data">No statistics available</string>
+    <string name="statistics_no_trend_data">No trend data available</string>
+
+    <!-- Image Selection Card -->
+    <string name="image_selection_camera">Camera</string>
+    <string name="image_selection_gallery">Gallery</string>
+    <string name="image_selection_selected_receipt">Selected Receipt</string>
+
+    <!-- Read Only -->
+    <string name="readonly_item_title">#%1$d %2$s</string>
+    <string name="readonly_item_amount">Amount: %.2f €</string>
+    <string name="readonly_item_edit">Edit</string>
+
+    <!-- Update Dialog -->
+    <string name="update_checking">Checking for updates...</string>
+    <string name="update_downloading">Downloading update...</string>
+    <string name="update_error">Update error</string>
+    <string name="update_no_update">No updates available</string>
+    <string name="ok">OK</string>
 
 </resources>

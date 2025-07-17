@@ -350,7 +350,7 @@ fun AddTransactionScreen(
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(stringResource(R.string.scan_receipt))
+                Text(stringResource(R.string.receipt_scan))
             }
         }
     }

@@ -192,14 +192,14 @@ fun ReceiptScanScreen(
 
             if (scanTriggered && !isLoading && scannedItems.isEmpty() && error == null) {
                 item {
-                    InfoCard(message = stringResource(R.string.no_items_found_on_receipt))
+                    InfoCard(message = stringResource(R.string.receipt_no_items_found))
                 }
             }
 
             if (editableItems.isNotEmpty()) {
                 item {
                     Text(
-                        text = stringResource(R.string.found_items_count) + " (${editableItems.size})",
+                        text = stringResource(R.string.receipt_found_items_count) + " (${editableItems.size})",
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold
                     )

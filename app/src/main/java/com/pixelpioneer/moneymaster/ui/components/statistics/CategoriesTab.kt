@@ -15,7 +15,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryStats
 import com.pixelpioneer.moneymaster.util.UiState
@@ -73,7 +75,7 @@ fun CategoriesTab(categoryStatsState: UiState<List<CategoryStats>>) {
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Keine Kategorien-Statistiken verfügbar",
+                            text = stringResource(R.string.empty_category_statistics),
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

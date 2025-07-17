@@ -19,8 +19,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 
 @Composable
 fun AddAllTransactionsButton(
@@ -38,7 +40,7 @@ fun AddAllTransactionsButton(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Gesamtbetrag:",
+                    text = "${stringResource(R.string.receipt_total_amount)}:",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
@@ -61,7 +63,7 @@ fun AddAllTransactionsButton(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    "Alle als Transaktionen hinzufügen",
+                    stringResource(R.string.receipt_add_all_transactions),
                     style = MaterialTheme.typography.labelLarge
                 )
             }

@@ -6,8 +6,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.services.AppUpdateManager
 
 @Composable
@@ -27,7 +29,7 @@ fun UpdateDialog(
                     ) {
                         CircularProgressIndicator()
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text("Suche nach Updates...")
+                        Text(stringResource(R.string.update_checking))
                     }
                 }
             }
@@ -49,7 +51,7 @@ fun UpdateDialog(
                             modifier = Modifier.fillMaxWidth(),
                         )
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text("Update wird heruntergeladen...")
+                        Text(stringResource(R.string.update_downloading))
                         Text("${(progress * 100).toInt()}%")
                     }
                 }
@@ -60,12 +62,12 @@ fun UpdateDialog(
             Dialog(onDismissRequest = onDismiss) {
                 Card {
                     Column(modifier = Modifier.padding(16.dp)) {
-                        Text("Update Fehler")
+                        Text(stringResource(R.string.update_error))
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(updateState.message)
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(onClick = onDismiss) {
-                            Text("OK")
+                            Text(stringResource(R.string.ok))
                         }
                     }
                 }
@@ -76,10 +78,10 @@ fun UpdateDialog(
             Dialog(onDismissRequest = onDismiss) {
                 Card {
                     Column(modifier = Modifier.padding(16.dp)) {
-                        Text("Keine Updates verfügbar")
+                        Text(stringResource(R.string.update_no_update))
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(onClick = onDismiss) {
-                            Text("OK")
+                            Text(stringResource(R.string.ok))
                         }
                     }
                 }

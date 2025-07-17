@@ -11,8 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 
 /**
  * A component for displaying empty financial summary state
@@ -31,14 +33,14 @@ fun EmptyFinancialSummary() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "No financial data yet",
+                text = stringResource(R.string.empty_financial_summary_title),
                 style = MaterialTheme.typography.titleMedium
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Add income and expenses to see your financial summary",
+                text = stringResource(R.string.empty_financial_summary_description),
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center
             )

@@ -11,8 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 
 /**
  * A component for displaying empty transactions list
@@ -28,14 +30,14 @@ fun EmptyTransactionsList(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "No transactions yet",
+            text = stringResource(R.string.empty_transactions_title),
             style = MaterialTheme.typography.titleMedium
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "Start tracking your finances by adding your first transaction",
+            text = stringResource(R.string.empty_transactions_description),
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Center
         )
@@ -45,7 +47,7 @@ fun EmptyTransactionsList(
         Button(
             onClick = onAddTransaction
         ) {
-            Text(text = "Add Transaction")
+            Text(text = stringResource(R.string.transaction_add))
         }
     }
 }

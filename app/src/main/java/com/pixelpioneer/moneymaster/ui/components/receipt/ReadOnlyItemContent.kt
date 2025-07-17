@@ -16,8 +16,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 
 @Composable
 fun ReadOnlyItemContent(
@@ -28,13 +30,13 @@ fun ReadOnlyItemContent(
     ListItem(
         headlineContent = {
             Text(
-                text = "#$index ${item.title}",
+                text = stringResource(R.string.readonly_item_title, index, item.title),
                 fontWeight = FontWeight.Medium
             )
         },
         supportingContent = {
             Text(
-                text = "Betrag: %.2f €".format(item.amount),
+                text = stringResource(R.string.readonly_item_amount, item.amount).format(item.amount),
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold
             )
@@ -62,7 +64,7 @@ fun ReadOnlyItemContent(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Edit,
-                        contentDescription = "Bearbeiten",
+                        contentDescription = stringResource(R.string.readonly_item_edit),
                         modifier = Modifier.size(18.dp),
                         tint = MaterialTheme.colorScheme.onSurface
                     )

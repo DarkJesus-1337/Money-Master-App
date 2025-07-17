@@ -20,8 +20,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.util.FormatUtils
 import java.text.SimpleDateFormat
@@ -81,6 +83,13 @@ fun TransactionItem(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 2
                     )
+                } else {
+                    Text(
+                        text = stringResource(R.string.transaction_no_description),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 2
+                    )
                 }
             }
 
@@ -102,7 +111,7 @@ fun TransactionItem(
                 ) {
                     Icon(
                         imageVector = Icons.Default.DeleteOutline,
-                        contentDescription = "Delete",
+                        contentDescription = stringResource(R.string.action_delete),
                         tint = MaterialTheme.colorScheme.error
                     )
                 }
