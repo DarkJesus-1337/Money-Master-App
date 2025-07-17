@@ -1,5 +1,6 @@
 package com.pixelpioneer.moneymaster.ui.navigation
 
+import android.content.Context
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
@@ -8,33 +9,37 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.PieChart
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.annotation.StringRes
+import com.pixelpioneer.moneymaster.R
 
-sealed class Screen(val route: String, val title: String, val icon: ImageVector? = null) {
-    data object Dashboard : Screen("dashboard", "Home", Icons.Filled.Home)
-    data object Transactions : Screen("transactions", "History", Icons.AutoMirrored.Filled.List)
-    data object Budgets : Screen("budgets", "Budget", Icons.Filled.DateRange)
-    data object Statistics : Screen("statistics", "Stats", Icons.Filled.PieChart)
-    data object ReceiptScan : Screen("receipt_scan", "Scan", Icons.Filled.Camera)
+sealed class Screen(val route: String, @StringRes val titleRes: Int, val icon: ImageVector? = null) {
+    data object Dashboard : Screen("dashboard", R.string.nav_dashboard, Icons.Filled.Home)
+    data object Transactions : Screen("transactions", R.string.nav_transactions, Icons.AutoMirrored.Filled.List)
+    data object Budgets : Screen("budgets", R.string.nav_budgets, Icons.Filled.DateRange)
+    data object Statistics : Screen("statistics", R.string.nav_statistics, Icons.Filled.PieChart)
+    data object ReceiptScan : Screen("receipt_scan", R.string.nav_receipts, Icons.Filled.Camera)
 
-    data object AddBudget : Screen("add_budget", "Add Budget")
-    data object AddTransaction : Screen("add_transaction", "Add", Icons.Filled.Add)
+    data object AddBudget : Screen("add_budget", R.string.action_add)
+    data object AddTransaction : Screen("add_transaction", R.string.action_add, Icons.Filled.Add)
 
-    data object TransactionDetail : Screen("transaction_detail/{transactionId}", "Details") {
+    data object TransactionDetail : Screen("transaction_detail/{transactionId}", R.string.transaction_details) {
         fun createRoute(transactionId: Long) = "transaction_detail/$transactionId"
     }
 
-    data object BudgetDetail : Screen("budget_detail/{budgetId}", "Budget Details") {
+    data object BudgetDetail : Screen("budget_detail/{budgetId}", R.string.budget_details) {
         fun createRoute(budgetId: Long) = "budget_detail/$budgetId"
     }
 
-
-    data object EditBudget : Screen("edit_budget/{budgetId}", "Edit Budget") {
+    data object EditBudget : Screen("edit_budget/{budgetId}", R.string.action_edit) {
         fun createRoute(budgetId: Long) = "edit_budget/$budgetId"
     }
 
-    data object EditTransaction : Screen("edit_transaction/{transactionId}", "Edit Transaction") {
+    data object EditTransaction : Screen("edit_transaction/{transactionId}", R.string.action_edit) {
         fun createRoute(transactionId: String) = "edit_transaction/$transactionId"
     }
+
+    fun getTitle(context: Context): String = context.getString(titleRes)
+
 }
 
 val bottomNavItems = listOf(

@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
@@ -98,7 +99,7 @@ fun BudgetItem(
                     IconButton(onClick = { showContextMenu = true }) {
                         Icon(
                             painterResource(R.drawable.more_vert),
-                            contentDescription = "More options"
+                            contentDescription = stringResource(R.string.more_options)
                         )
                     }
 
@@ -107,14 +108,14 @@ fun BudgetItem(
                         onDismissRequest = { showContextMenu = false }
                     ) {
                         DropdownMenuItem(
-                            text = { Text("Edit") },
+                            text = { Text(stringResource(R.string.action_edit)) },
                             onClick = {
                                 onEdit()
                                 showContextMenu = false
                             }
                         )
                         DropdownMenuItem(
-                            text = { Text("Delete") },
+                            text = { Text(stringResource(R.string.action_delete)) },
                             onClick = {
                                 onDelete()
                                 showContextMenu = false
@@ -145,13 +146,13 @@ fun BudgetItem(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Warning,
-                        contentDescription = "Warning",
+                        contentDescription = stringResource(R.string.warning),
                         tint = MaterialTheme.colorScheme.error,
                         modifier = Modifier.size(20.dp)
                     )
 
                     Text(
-                        text = "Budget almost used up!",
+                        text = stringResource(R.string.budget_warning_almost_used),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.error,
                         modifier = Modifier.padding(start = 4.dp)
@@ -172,12 +173,12 @@ fun BudgetItem(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Spent: ${FormatUtils.formatCurrency(budget.spent)}",
+                    text = stringResource(R.string.budget_spent_format, FormatUtils.formatCurrency(budget.spent)),
                     style = MaterialTheme.typography.bodyMedium
                 )
 
                 Text(
-                    text = "Remaining: ${FormatUtils.formatCurrency(budget.amount - budget.spent)}",
+                    text = stringResource(R.string.budget_remaining_format, FormatUtils.formatCurrency(budget.amount - budget.spent)),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -185,7 +186,7 @@ fun BudgetItem(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "${(progress * 100).toInt()}% used",
+                text = stringResource(R.string.budget_used_percentage, (progress * 100).toInt()),
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Bold,
                 color = progressColor
@@ -193,4 +194,3 @@ fun BudgetItem(
         }
     }
 }
-

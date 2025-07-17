@@ -21,8 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
 import com.pixelpioneer.moneymaster.util.FormatUtils
@@ -69,13 +71,13 @@ fun CryptoAssetsScreenContent(
 
             is UiState.Error -> {
                 Text(
-                    text = "Fehler: ${assetsState.message}",
+                    text = stringResource(R.string.error_loading_assets, assetsState.message),
                     color = MaterialTheme.colorScheme.error
                 )
             }
 
             is UiState.Empty -> {
-                Text("Keine Krypto-Daten verfügbar")
+                Text(stringResource(R.string.empty_crypto_data))
             }
         }
 
@@ -164,7 +166,7 @@ fun CryptoAssetsScreenContent(
                                 contentAlignment = Alignment.Center
                             ) {
                                 Text(
-                                    text = "Fehler beim Laden der Grafik: ${historyState.message}",
+                                    text = stringResource(R.string.error_loading_chart, historyState.message),
                                     color = MaterialTheme.colorScheme.error
                                 )
                             }
@@ -177,7 +179,7 @@ fun CryptoAssetsScreenContent(
                                     .height(200.dp),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Text("Keine Daten verfügbar")
+                                Text(stringResource(R.string.empty_chart_data))
                             }
                         }
                     }
@@ -196,7 +198,7 @@ fun CryptoAssetsScreenContent(
                     modifier = Modifier.padding(16.dp)
                 ) {
                     Text(
-                        text = "Marktdaten",
+                        text = stringResource(R.string.market_data),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
@@ -204,17 +206,17 @@ fun CryptoAssetsScreenContent(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     InfoRow(
-                        "Marktkapitalisierung",
+                        stringResource(R.string.market_cap),
                         FormatUtils.formatCurrency(asset.marketCapUsd.toDoubleOrNull() ?: 0.0)
                     )
                     InfoRow(
-                        "Volumen (24h)",
+                        stringResource(R.string.volume_24h),
                         FormatUtils.formatCurrency(asset.volumeUsd24Hr.toDoubleOrNull() ?: 0.0)
                     )
-                    InfoRow("Rang", "#${asset.rank}")
+                    InfoRow(stringResource(R.string.rank), "#${asset.rank}")
                     asset.maxSupply?.let { maxSupply ->
                         InfoRow(
-                            "Max. Angebot",
+                            stringResource(R.string.max_supply),
                             FormatUtils.formatCurrency(maxSupply.toDoubleOrNull() ?: 0.0)
                         )
                     }

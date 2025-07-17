@@ -43,10 +43,10 @@ fun UpdateDialog(
                         val progress = if (updateState.total > 0) {
                             updateState.downloaded.toFloat() / updateState.total.toFloat()
                         } else 0f
-                        
+
                         LinearProgressIndicator(
-                            progress = progress,
-                            modifier = Modifier.fillMaxWidth()
+                            progress = { progress },
+                            modifier = Modifier.fillMaxWidth(),
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Text("Update wird heruntergeladen...")

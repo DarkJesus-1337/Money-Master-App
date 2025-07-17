@@ -17,9 +17,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
 import com.pixelpioneer.moneymaster.ui.viewmodel.FinancialSummary
 import com.pixelpioneer.moneymaster.util.FormatUtils
@@ -46,11 +48,11 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Default.Balance,
-                            contentDescription = "Balance",
+                            contentDescription = stringResource(R.string.current_balance),
                             tint = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                         Text(
-                            text = "Current Balance",
+                            text = stringResource(R.string.current_balance),
                             style = MaterialTheme.typography.titleLarge,
                             modifier = Modifier.padding(start = 8.dp),
                             color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -86,11 +88,11 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Default.ArrowUpward,
-                            contentDescription = "Income",
+                            contentDescription = stringResource(R.string.income),
                             tint = MaterialTheme.colorScheme.tertiary
                         )
                         Text(
-                            text = "Income",
+                            text = stringResource(R.string.income),
                             fontWeight = FontWeight.Bold,
                             style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier.padding(start = 8.dp),
@@ -122,11 +124,11 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Default.ArrowDownward,
-                            contentDescription = "Expenses",
+                            contentDescription = stringResource(R.string.expenses),
                             tint = MaterialTheme.colorScheme.error
                         )
                         Text(
-                            text = "Expenses",
+                            text = stringResource(R.string.expenses),
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(start = 8.dp),

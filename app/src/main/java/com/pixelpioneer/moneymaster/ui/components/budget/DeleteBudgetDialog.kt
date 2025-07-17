@@ -6,7 +6,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import com.pixelpioneer.moneymaster.R
 
 @Composable
 fun DeleteBudgetDialog(
@@ -18,13 +20,13 @@ fun DeleteBudgetDialog(
         onDismissRequest = onDismiss,
         title = {
             Text(
-                text = "Delete Budget",
+                text = stringResource(R.string.dialog_delete_budget_title),
                 fontWeight = FontWeight.Bold
             )
         },
         text = {
             Text(
-                text = "Are you sure you want to delete the budget for \"${budget.category.name}\"? This action cannot be undone."
+                text = stringResource(R.string.dialog_delete_budget_message, budget.category.name)
             )
         },
         confirmButton = {
@@ -34,12 +36,12 @@ fun DeleteBudgetDialog(
                     contentColor = MaterialTheme.colorScheme.error
                 )
             ) {
-                Text("Delete")
+                Text(stringResource(R.string.action_delete))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.action_cancel))
             }
         }
     )

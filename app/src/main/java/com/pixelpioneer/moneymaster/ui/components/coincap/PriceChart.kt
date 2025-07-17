@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -22,6 +23,8 @@ import com.pixelpioneer.moneymaster.util.FormatUtils
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import androidx.compose.ui.res.stringResource
+import com.pixelpioneer.moneymaster.R
 
 @Composable
 fun PriceChart(
@@ -30,6 +33,7 @@ fun PriceChart(
 ) {
     val context = LocalContext.current
     val materialTextColor = MaterialTheme.colorScheme.onSecondaryContainer.toArgb()
+    val priceLable = stringResource(R.string.price_label)
 
     AndroidView(
         factory = { context ->
@@ -77,7 +81,7 @@ fun PriceChart(
                     )
                 }
 
-                val dataSet = LineDataSet(entries, "Price").apply {
+                val dataSet = LineDataSet(entries, priceLable).apply {
                     color = Color(0xFFA921F3).toArgb()
                     setCircleColor(Color(color = 0xFFEEA73D).toArgb())
                     lineWidth = 2f

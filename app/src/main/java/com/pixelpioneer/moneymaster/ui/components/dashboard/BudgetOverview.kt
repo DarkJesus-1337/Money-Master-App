@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 
@@ -56,14 +57,14 @@ fun BudgetOverview(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "View All Budgets",
+                        text = stringResource(R.string.view_all_budgets),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.primary
                     )
 
                     Icon(
                         painter = painterResource(R.drawable.keyboard_arrow_right),
-                        contentDescription = "View All",
+                        contentDescription = stringResource(R.string.view_all),
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }
