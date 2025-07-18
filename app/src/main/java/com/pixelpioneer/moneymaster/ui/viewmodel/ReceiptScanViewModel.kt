@@ -88,14 +88,110 @@ class ReceiptScanViewModel(
     ): List<Transaction> {
         val regex = Regex("""(.+?)\s+(\d{1,3}[\.,]\d{2})""")
         val now = System.currentTimeMillis()
+
+        // Common terms that indicate non-item lines (expand this list as needed)
+        val excludeTerms = setOf(
+            "zu zahlen",
+            "summe",
+            "total",
+            "gesamt",
+            "kreditkarte",
+            "bargeld",
+            "cash",
+            "kartenzahlung",
+            "rückgeld",
+            "change",
+            "mwst",
+            "steuer",
+            "tax",
+            "rabatt",
+            "discount",
+            "gutschein",
+            "coupon",
+            "pfand",
+            "deposit",
+            "trinkgeld",
+            "tip",
+            "service",
+            "beleg",
+            "receipt",
+            "quittung",
+            "datum",
+            "date",
+            "zeit",
+            "time",
+            "uhrzeit",
+            "kassierer",
+            "cashier",
+            "kasse",
+            "register",
+            "filiale",
+            "branch",
+            "store",
+            "laden",
+            "geschäft",
+            "adresse",
+            "address",
+            "telefon",
+            "phone",
+            "tel",
+            "fax",
+            "email",
+            "website",
+            "www",
+            "http",
+            "danke",
+            "thank",
+            "vielen dank",
+            "thank you",
+            "auf wiedersehen",
+            "goodbye",
+            "tschüss",
+            "bis bald",
+            "preisvorteile",
+            "savings",
+            "ersparnis",
+            "mehrwertsteuer",
+            "ust-id",
+            "tax-id",
+            "steuernummer",
+            "hnr",
+            "str",
+            "plz",
+            "ort"
+        )
+
         return text.lines().mapNotNull { line ->
             val match = regex.find(line)
             match?.let {
                 val (title, amountStr) = it.destructured
+                val cleanTitle = title.trim().lowercase()
+
+                // Skip if the title contains any excluded terms
+                if (excludeTerms.any { excludeTerm -> cleanTitle.contains(excludeTerm) }) {
+                    return@let null
+                }
+
+                // Skip if the title is too short (likely not a product name)
+                if (cleanTitle.length < 3) {
+                    return@let null
+                }
+
+                // Skip if the title contains mostly numbers (likely a product code or similar)
+                if (cleanTitle.replace(Regex("[^a-zA-ZäöüßÄÖÜ]"), "").length < cleanTitle.length * 0.3) {
+                    return@let null
+                }
+
                 val amount = amountStr.replace(",", ".").toDoubleOrNull() ?: return@let null
+
+                // Skip very small amounts (might be taxes or fees)
+                if (amount < 0.10) {
+                    return@let null
+                }
+
                 Transaction(
                     amount = amount,
-                    title = title.trim(),
+                    title = title.trim(), // Use original title with proper casing
                     category = defaultCategory,
                     date = now,
                     isExpense = true
