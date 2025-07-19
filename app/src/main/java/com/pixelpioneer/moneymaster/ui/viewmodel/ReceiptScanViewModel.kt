@@ -23,7 +23,6 @@ import java.io.File
  */
 class ReceiptScanViewModel(
     private val receiptScanRepository: ReceiptScanRepository,
-    private val context: Context
 ) : ViewModel() {
 
     private val _scannedItems = MutableStateFlow<List<Transaction>>(emptyList())
@@ -35,7 +34,11 @@ class ReceiptScanViewModel(
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
 
-    fun scanReceipt(imageFile: File, defaultCategory: TransactionCategory) {
+    fun scanReceipt(
+        imageFile: File,
+        defaultCategory: TransactionCategory,
+        context: Context
+    ) {
         _isLoading.value = true
         _error.value = null
         viewModelScope.launch {
@@ -75,13 +78,6 @@ class ReceiptScanViewModel(
         }
     }
 
-    private fun anyToString(any: Any): String = when (any) {
-        is String -> any
-        is List<*> -> any.joinToString("; ") { it?.toString().orEmpty() }
-        is Array<*> -> any.joinToString("; ") { it?.toString().orEmpty() }
-        else -> any.toString()
-    }
-
     private fun parseItemsFromText(
         text: String,
         defaultCategory: TransactionCategory
@@ -89,7 +85,6 @@ class ReceiptScanViewModel(
         val regex = Regex("""(.+?)\s+(\d{1,3}[\.,]\d{2})""")
         val now = System.currentTimeMillis()
 
-        // Common terms that indicate non-item lines (expand this list as needed)
         val excludeTerms = setOf(
             "zu zahlen",
             "summe",
@@ -158,7 +153,8 @@ class ReceiptScanViewModel(
             "hnr",
             "str",
             "plz",
-            "ort"
+            "ort",
+            "bar"
         )
 
         return text.lines().mapNotNull { line ->

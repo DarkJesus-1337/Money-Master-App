@@ -59,7 +59,7 @@ class ViewModelFactory(
             }
 
             modelClass.isAssignableFrom(ReceiptScanViewModel::class.java) -> {
-                ReceiptScanViewModel(receiptScanRepository, context) as T
+                ReceiptScanViewModel(receiptScanRepository) as T
             }
 
             modelClass.isAssignableFrom(RemoteConfigViewModel::class.java) -> {

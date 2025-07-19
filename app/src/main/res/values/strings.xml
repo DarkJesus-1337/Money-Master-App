@@ -14,8 +14,12 @@
     <string name="nav_receipts">Receipts</string>
     <string name="nav_statistics">Statistics</string>
     <string name="nav_settings">Settings</string>
-    <string name="transaction_details">Transaction Details</string>
-    <string name="budget_details">Budget Details</string>
+    <string name="nav_transaction_details">Transaction Details</string>
+    <string name="nav_budget_details">Budget Details</string>
+    <string name="nav_add_budget">Add</string>
+    <string name="nav_add_transaction">Add Transaction</string>
+    <string name="nav_edit_budget">Edit Budget</string>
+    <string name="nav_edit_transaction">Edit Transaction</string>
 
     <!-- Screen Titles -->
     <string name="screen_title_dashboard">Dashboard</string>
@@ -209,7 +213,7 @@
 
     <!-- Statistics Screen -->
     <string name="statistics_tab_overview">Overview</string>
-    <string name="statistics_tab_categories">Categories</string>
+    <string name="statistics_tab_categories">Cat.</string>
     <string name="statistics_tab_trends">Trends</string>
     <string name="statistics_tab_crypto">Crypto</string>
     <string name="statistics_category_transactions">%1$d transactions</string>
@@ -307,5 +311,6 @@
     <string name="amount_euro">Amount (€)</string>
     <string name="remove">Remove</string>
     <string name="add_fixed_cost">Add Fixed Cost</string>
+
 
 </resources>

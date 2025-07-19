@@ -27,23 +27,23 @@ sealed class Screen(
     data object ReceiptScan : Screen("receipt_scan", R.string.nav_receipts, Icons.Filled.Camera)
     data object Settings : Screen("settings", R.string.nav_settings, Icons.Filled.Settings)
 
-    data object AddBudget : Screen("add_budget", R.string.action_add)
-    data object AddTransaction : Screen("add_transaction", R.string.action_add, Icons.Filled.Add)
+    data object AddBudget : Screen("add_budget", R.string.nav_add_budget)
+    data object AddTransaction : Screen("add_transaction", R.string.nav_add_transaction, Icons.Filled.Add)
 
     data object TransactionDetail :
-        Screen("transaction_detail/{transactionId}", R.string.transaction_details) {
+        Screen("transaction_detail/{transactionId}", R.string.nav_transaction_details) {
         fun createRoute(transactionId: Long) = "transaction_detail/$transactionId"
     }
 
-    data object BudgetDetail : Screen("budget_detail/{budgetId}", R.string.budget_details) {
+    data object BudgetDetail : Screen("budget_detail/{budgetId}", R.string.nav_budget_details) {
         fun createRoute(budgetId: Long) = "budget_detail/$budgetId"
     }
 
-    data object EditBudget : Screen("edit_budget/{budgetId}", R.string.action_edit) {
+    data object EditBudget : Screen("edit_budget/{budgetId}", R.string.nav_edit_budget) {
         fun createRoute(budgetId: Long) = "edit_budget/$budgetId"
     }
 
-    data object EditTransaction : Screen("edit_transaction/{transactionId}", R.string.action_edit) {
+    data object EditTransaction : Screen("edit_transaction/{transactionId}", R.string.nav_edit_transaction) {
         fun createRoute(transactionId: String) = "edit_transaction/$transactionId"
     }
 

@@ -76,7 +76,7 @@ fun BudgetDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(budget?.category?.name ?: stringResource(R.string.budget_details)) },
+                title = { Text(budget?.category?.name ?: stringResource(R.string.nav_budget_details)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(

@@ -32,6 +32,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.R
+import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.ui.components.receipt.AddAllTransactionsButton
 import com.pixelpioneer.moneymaster.ui.components.receipt.CategorySelectionCard
@@ -62,7 +63,7 @@ fun ReceiptScanScreen(
     val categories by categoryViewModel.categories.collectAsState(initial = emptyList())
 
     var editableItems by remember {
-        mutableStateOf<List<com.pixelpioneer.moneymaster.data.model.Transaction>>(
+        mutableStateOf<List<Transaction>>(
             emptyList()
         )
     }
@@ -170,7 +171,10 @@ fun ReceiptScanScreen(
                                             "ReceiptScan",
                                             "Start scanning for file: ${file.absolutePath}"
                                         )
-                                        receiptScanViewModel.scanReceipt(file, category)
+                                        receiptScanViewModel.scanReceipt(
+                                            file, category,
+                                            context = context
+                                        )
                                         scanTriggered = true
                                     } catch (e: Exception) {
                                         Log.e(
