@@ -45,15 +45,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.mlkit.common.sdkinternal.CommonUtils.getAppVersion
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.services.AppUpdateManager
 import com.pixelpioneer.moneymaster.ui.components.UpdateDialog
 import com.pixelpioneer.moneymaster.ui.viewmodel.SettingsViewModel
+import com.pixelpioneer.moneymaster.ui.components.getNewAppVersion
 
 enum class SettingsSubScreen {
     MAIN, PERSONAL
@@ -158,8 +161,10 @@ fun SettingsMainScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(stringResource(R.string.check_for_updates))
-                        Text("Version: ${state.appVersion}", modifier = Modifier.padding(start = 8.dp))
                     }
+                    val appVersion = getNewAppVersion()
+
+                    Text("Version: $appVersion", modifier = Modifier.padding(start = 8.dp))
                 }
             }
             if (showUpdateDialog && updateState != AppUpdateManager.UpdateState.Idle) {
