@@ -158,6 +158,7 @@ fun SettingsMainScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(stringResource(R.string.check_for_updates))
+                        Text("Version: ${state.appVersion}", modifier = Modifier.padding(start = 8.dp))
                     }
                 }
             }

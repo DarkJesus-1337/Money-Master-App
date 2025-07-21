@@ -14,4 +14,6 @@ data class SettingsState(
     val internet: String = "",
     val darkMode: Boolean = false,
     val additionalCosts: List<AdditionalCost> = emptyList()
-)
+) {
+    val appVersion: String = "1.7.3"
+}
