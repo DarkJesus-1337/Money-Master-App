@@ -38,7 +38,6 @@ fun MoneyMasterNavHost(
     cryptoViewModel: CryptoViewModel,
     receiptScanViewModel: ReceiptScanViewModel,
     settingsViewModel: SettingsViewModel,
-    appUpdateManager: AppUpdateManager,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -152,7 +151,6 @@ fun MoneyMasterNavHost(
         composable(Screen.Settings.route) {
             SettingsScreen(
                 settingsViewModel = settingsViewModel,
-                appUpdateManager = appUpdateManager
             )
         }
     }

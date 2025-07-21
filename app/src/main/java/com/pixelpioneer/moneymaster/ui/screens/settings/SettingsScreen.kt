@@ -62,10 +62,10 @@ enum class SettingsSubScreen {
 @Composable
 fun SettingsScreen(
     settingsViewModel: SettingsViewModel = viewModel(),
-    appUpdateManager: AppUpdateManager
 ) {
     var currentScreen by remember { mutableStateOf(SettingsSubScreen.MAIN) }
     val state by settingsViewModel.state.collectAsState()
+    val appUpdateManager = AppUpdateManager()
 
     when (currentScreen) {
         SettingsSubScreen.MAIN -> SettingsMainScreen(

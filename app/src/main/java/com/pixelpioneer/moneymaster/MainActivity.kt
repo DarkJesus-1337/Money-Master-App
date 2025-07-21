@@ -8,14 +8,8 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.pixelpioneer.moneymaster.data.services.AppUpdateManager
 import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterNavHost
 import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
@@ -56,8 +50,6 @@ class MainActivity : ComponentActivity() {
         (application as MoneyMasterApplication).viewModelFactory
     }
 
-    private val appUpdateManager = AppUpdateManager()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -71,25 +63,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    val updateState by appUpdateManager.updateState.collectAsState()
-                    var showUpdateDialog by remember { mutableStateOf(false) }
-
-                    /*
-                    LaunchedEffect(Unit) {
-                        appUpdateManager.checkForUpdates(this@MainActivity)
-                        showUpdateDialog = true
-                    }
-
-                    if (showUpdateDialog && updateState != AppUpdateManager.UpdateState.Idle && updateState != AppUpdateManager.UpdateState.Success) {
-                        UpdateDialog(
-                            updateState = updateState,
-                            onDismiss = {
-                                showUpdateDialog = false
-                            }
-                        )
-                    }
-
-                     */
 
                     MoneyMasterNavHost(
                         navController = navController,
@@ -100,7 +73,6 @@ class MainActivity : ComponentActivity() {
                         cryptoViewModel = cryptoViewModel,
                         receiptScanViewModel = receiptScanViewModel,
                         settingsViewModel = settingsViewModel,
-                        appUpdateManager = appUpdateManager // <--- NEU: weiterreichen
                     )
                 }
             }
