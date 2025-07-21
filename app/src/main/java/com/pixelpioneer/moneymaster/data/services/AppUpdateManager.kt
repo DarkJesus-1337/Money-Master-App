@@ -2,7 +2,6 @@ package com.pixelpioneer.moneymaster.data.services
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import androidx.core.content.FileProvider
@@ -80,11 +79,11 @@ class AppUpdateManager {
     }
 
     sealed class UpdateState {
-        object Idle : UpdateState()
-        object Checking : UpdateState()
+        data object Idle : UpdateState()
+        data object Checking : UpdateState()
         data class Downloading(val downloaded: Long, val total: Long) : UpdateState()
-        object Success : UpdateState()
-        object NoUpdate : UpdateState()
+        data object Success : UpdateState()
+        data object NoUpdate : UpdateState()
         data class Error(val message: String) : UpdateState()
     }
 }
