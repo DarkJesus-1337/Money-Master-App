@@ -41,7 +41,6 @@ class AppUpdateManager {
                     .getPackageInfo(activity.packageName, 0).versionName
 
                 if (latestVersion != currentVersion) {
-                    // Update verfügbar
                     _updateState.value = UpdateState.Downloading(0, 1)
                     val apkFile = downloadApk(apkUrl, activity)
                     _updateState.value = UpdateState.Success
