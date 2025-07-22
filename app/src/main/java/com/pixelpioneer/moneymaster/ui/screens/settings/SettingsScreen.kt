@@ -51,8 +51,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.mlkit.common.sdkinternal.CommonUtils.getAppVersion
 import com.pixelpioneer.moneymaster.R
+import com.pixelpioneer.moneymaster.data.model.SettingsState
 import com.pixelpioneer.moneymaster.data.services.AppUpdateManager
 import com.pixelpioneer.moneymaster.ui.components.UpdateDialog
 import com.pixelpioneer.moneymaster.ui.viewmodel.SettingsViewModel
@@ -88,7 +88,7 @@ fun SettingsScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsMainScreen(
-    state: com.pixelpioneer.moneymaster.data.model.SettingsState,
+    state: SettingsState,
     onPersonalClick: () -> Unit,
     onDarkModeChange: (Boolean) -> Unit,
     appUpdateManager: AppUpdateManager
@@ -96,7 +96,7 @@ fun SettingsMainScreen(
     val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val updateState by appUpdateManager.updateState.collectAsState()
     var showUpdateDialog by remember { mutableStateOf(false) }
-    val context = androidx.compose.ui.platform.LocalContext.current
+    val context = LocalContext.current
     val activity = context as? Activity
 
     Scaffold(
