@@ -24,7 +24,7 @@ Jetpack Compose.
 ### 🚀 Weitere Funktionen
 
 - **In-App-Update-System**  
-  Updates werden direkt in der App angeboten und über **GitHub Pages** sowie **GitHub Releases** bereitgestellt.
+  Updates werden direkt in der App angeboten und über **GitHub Releases** bereitgestellt.
 
 - **Download**  
   Die aktuelle APK kann [hier heruntergeladen werden](https://github.com/DarkJesus-1337/Money-Master-App/releases/download/Money_Master/app-release.apk).
