@@ -29,36 +29,6 @@ Jetpack Compose.
 - **Download**  
   Die aktuelle APK kann [hier heruntergeladen werden](https://github.com/DarkJesus-1337/Money-Master-App/releases/download/Money_Master/app-release.apk).
 
-## Technische Details
----
-### 🛠️ Tech Stack
-
-- **Kotlin** – Moderne Programmiersprache für Android
-- **Jetpack Compose** – UI-Framework für deklarative UI-Entwicklung
-- **Android Architecture Components**
-    - ViewModel
-    - StateFlow
-    - Coroutines
-- **Repository Pattern** für Datenverwaltung
-- **MVVM Architecture** für saubere Codearchitektur
-
-## 📄 Lizenz
-
-Dieses Projekt ist unter der MIT-Lizenz lizenziert –
-siehe [LICENSE](LICENSE.md) Datei für Details.
-- **Transaktionen bearbeiten** und löschen
-## 👥 Mitwirkende
-- **Datumsverwaltung** für präzise Aufzeichnungen
-- **DarkJesus-1337** – Hauptentwickler
-### 🏷️ Kategoriensystem
-## ❓ Unterstützung
-- **Vordefinierte Kategorien** für verschiedene Ausgabentypen
-Bei Fragen oder Problemen erstelle bitte ein Issue im GitHub-Repository.
-
-### 🚀 Weitere Funktionen
-
-**Entwickelt mit ❤️ für bessere Finanzverwaltung**
-
 
 ## Technische Details
 
