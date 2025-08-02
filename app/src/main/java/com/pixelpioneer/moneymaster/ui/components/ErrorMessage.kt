@@ -43,7 +43,7 @@ fun ErrorMessage(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = stringResource(R.string.error),
+                text = stringResource(R.string.error_generic),
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.error
             )
@@ -64,13 +64,13 @@ fun ErrorMessage(
             ) {
                 Icon(
                     imageVector = Icons.Default.Refresh,
-                    contentDescription = stringResource(R.string.retry)
+                    contentDescription = stringResource(R.string.action_retry)
                 )
 
                 Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
-                    text = stringResource(R.string.retry),
+                    text = stringResource(R.string.action_retry),
                     style = MaterialTheme.typography.labelLarge
                 )
             }

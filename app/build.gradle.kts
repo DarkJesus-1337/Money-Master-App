@@ -95,8 +95,6 @@ dependencies {
     // Room für Datenbank
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    implementation(libs.ads.mobile.sdk)
-    implementation(libs.androidx.media3.effect)
     implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.firebase.crashlytics)
     ksp(libs.androidx.room.compiler)

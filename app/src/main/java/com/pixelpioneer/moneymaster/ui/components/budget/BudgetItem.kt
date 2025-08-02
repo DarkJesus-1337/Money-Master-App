@@ -99,7 +99,7 @@ fun BudgetItem(
                     IconButton(onClick = { showContextMenu = true }) {
                         Icon(
                             painterResource(R.drawable.more_vert),
-                            contentDescription = stringResource(R.string.more_options)
+                            contentDescription = stringResource(R.string.budgets_more_options)
                         )
                     }
 
@@ -146,13 +146,13 @@ fun BudgetItem(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Warning,
-                        contentDescription = stringResource(R.string.warning),
+                        contentDescription = stringResource(R.string.label_warning),
                         tint = MaterialTheme.colorScheme.error,
                         modifier = Modifier.size(20.dp)
                     )
 
                     Text(
-                        text = stringResource(R.string.budget_warning_almost_used),
+                        text = stringResource(R.string.budgets_warning_almost_used),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.error,
                         modifier = Modifier.padding(start = 4.dp)
@@ -174,7 +174,7 @@ fun BudgetItem(
             ) {
                 Text(
                     text = stringResource(
-                        R.string.budget_spent_format,
+                        R.string.budgets_spent_format,
                         FormatUtils.formatCurrency(budget.spent)
                     ),
                     style = MaterialTheme.typography.bodyMedium
@@ -182,7 +182,7 @@ fun BudgetItem(
 
                 Text(
                     text = stringResource(
-                        R.string.budget_remaining_format,
+                        R.string.budgets_remaining_format,
                         FormatUtils.formatCurrency(budget.amount - budget.spent)
                     ),
                     style = MaterialTheme.typography.bodyMedium
@@ -192,7 +192,7 @@ fun BudgetItem(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = stringResource(R.string.budget_used_percentage, (progress * 100).toInt()),
+                text = stringResource(R.string.format_percentage_used, (progress * 100).toInt()),
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Bold,
                 color = progressColor

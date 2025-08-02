@@ -123,7 +123,7 @@ fun RecentTransactionItem(
                 if (onEdit != null) {
                     Icon(
                         painter = painterResource(R.drawable.ic_edit),
-                        contentDescription = stringResource(R.string.edit),
+                        contentDescription = stringResource(R.string.action_edit),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier
                             .size(20.dp)
@@ -135,7 +135,7 @@ fun RecentTransactionItem(
 
                 Icon(
                     painter = painterResource(R.drawable.keyboard_arrow_right),
-                    contentDescription = stringResource(R.string.details),
+                    contentDescription = stringResource(R.string.label_details),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }

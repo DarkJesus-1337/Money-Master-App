@@ -127,7 +127,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
 
                             Text(
                                 text = stringResource(
-                                    R.string.statistics_balance,
+                                    R.string.format_balance,
                                     FormatUtils.formatCurrency(stats.monthlyBalance)
                                 ),
                                 style = MaterialTheme.typography.titleLarge,

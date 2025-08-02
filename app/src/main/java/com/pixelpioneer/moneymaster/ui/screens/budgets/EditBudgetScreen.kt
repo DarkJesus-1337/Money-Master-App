@@ -87,12 +87,12 @@ fun EditBudgetScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.screen_title_edit_budgets)) },
+                title = { Text(stringResource(R.string.budgets_edit)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             painterResource(R.drawable.arrow_back),
-                            contentDescription = stringResource(R.string.back)
+                            contentDescription = stringResource(R.string.action_back)
                         )
                     }
                 },
@@ -100,7 +100,7 @@ fun EditBudgetScreen(
                     IconButton(onClick = { showDeleteDialog = true }) {
                         Icon(
                             Icons.Default.Delete,
-                            contentDescription = stringResource(R.string.budget_delete),
+                            contentDescription = stringResource(R.string.budgets_delete),
                             tint = MaterialTheme.colorScheme.error
                         )
                     }
@@ -122,7 +122,7 @@ fun EditBudgetScreen(
                     val amount = newValue.toDoubleOrNull() ?: 0.0
                     budgetViewModel.updateAmount(amount)
                 },
-                label = { Text(stringResource(R.string.budget_amount)) },
+                label = { Text(stringResource(R.string.budgets_amount)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.fillMaxWidth(),
                 isError = formState.amountError != null,
@@ -219,7 +219,7 @@ fun EditBudgetScreen(
                                 if (formState.period == period) {
                                     Icon(
                                         Icons.Default.Check,
-                                        contentDescription = stringResource(R.string.select_selected)
+                                        contentDescription = stringResource(R.string.label_selected)
                                     )
                                 }
                             }
@@ -252,7 +252,7 @@ fun EditBudgetScreen(
                     modifier = Modifier.weight(1f),
                     enabled = formState.amount > 0 && formState.selectedCategory != null
                 ) {
-                    Text(stringResource(R.string.budget_update))
+                    Text(stringResource(R.string.budgets_update))
                 }
             }
         }

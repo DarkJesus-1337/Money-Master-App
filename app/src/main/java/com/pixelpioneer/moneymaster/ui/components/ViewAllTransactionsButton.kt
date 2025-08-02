@@ -19,6 +19,6 @@ fun ViewAllTransactionsButton(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text(text = stringResource(R.string.transaction_view_all))
+        Text(text = stringResource(R.string.transactions_view_all))
     }
 }

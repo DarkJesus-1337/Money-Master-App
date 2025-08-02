@@ -41,7 +41,7 @@ fun ScanButton(
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     CircularProgressIndicator()
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text(stringResource(R.string.receipt_scanning_progress))
+                    Text(stringResource(R.string.receipts_scanning_progress))
                 }
             } else {
                 Button(
@@ -55,7 +55,7 @@ fun ScanButton(
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(stringResource(R.string.receipt_scan_button))
+                    Text(stringResource(R.string.receipts_scan_button))
                 }
             }
         }

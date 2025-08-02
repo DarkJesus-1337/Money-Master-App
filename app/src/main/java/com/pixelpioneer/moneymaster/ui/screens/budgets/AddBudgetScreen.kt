@@ -75,12 +75,12 @@ fun AddBudgetScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.budget_add)) },
+                title = { Text(stringResource(R.string.budgets_add)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             painterResource(R.drawable.arrow_back),
-                            contentDescription = stringResource(R.string.back)
+                            contentDescription = stringResource(R.string.action_back)
                         )
                     }
                 }
@@ -101,7 +101,7 @@ fun AddBudgetScreen(
                     val amount = newValue.toDoubleOrNull() ?: 0.0
                     budgetViewModel.updateAmount(amount)
                 },
-                label = { Text(stringResource(R.string.budget_amount)) },
+                label = { Text(stringResource(R.string.budgets_amount)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.fillMaxWidth(),
                 isError = formState.amountError != null,
@@ -198,7 +198,7 @@ fun AddBudgetScreen(
                                 if (formState.period == period) {
                                     Icon(
                                         Icons.Default.Check,
-                                        contentDescription = stringResource(R.string.select_selected)
+                                        contentDescription = stringResource(R.string.label_selected)
                                     )
                                 }
                             }
@@ -217,7 +217,7 @@ fun AddBudgetScreen(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = formState.amount > 0 && formState.selectedCategory != null
             ) {
-                Text(stringResource(R.string.budget_create))
+                Text(stringResource(R.string.budgets_create))
             }
         }
     }

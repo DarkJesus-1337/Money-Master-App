@@ -32,7 +32,7 @@ fun PriceChart(
 ) {
     val context = LocalContext.current
     val materialTextColor = MaterialTheme.colorScheme.onSecondaryContainer.toArgb()
-    val priceLable = stringResource(R.string.price_label)
+    val priceLable = stringResource(R.string.crypto_price_label)
 
     AndroidView(
         factory = { context ->

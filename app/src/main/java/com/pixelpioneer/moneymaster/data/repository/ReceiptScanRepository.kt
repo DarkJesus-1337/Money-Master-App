@@ -143,10 +143,10 @@ class ReceiptScanRepository(
                 throw IOException(context.getString(R.string.error_http_error, response.code()))
             }
         } catch (e: Exception) {
-            Log.e(TAG, context.getString(R.string.error_network_error), e)
+            Log.e(TAG, context.getString(R.string.error_network), e)
             throw IOException(
                 context.getString(
-                    R.string.error_network_error_with_message,
+                    R.string.error_network,
                     e.message
                 ), e
             )

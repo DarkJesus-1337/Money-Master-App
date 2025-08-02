@@ -89,12 +89,12 @@ fun AddTransactionScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.transaction_add)) },
+                title = { Text(stringResource(R.string.transactions_add)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             painterResource(R.drawable.arrow_back),
-                            contentDescription = stringResource(R.string.back)
+                            contentDescription = stringResource(R.string.action_back)
                         )
                     }
                 }
@@ -353,7 +353,7 @@ fun AddTransactionScreen(
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(stringResource(R.string.transaction_save))
+                Text(stringResource(R.string.action_save))
             }
 
             Button(
@@ -362,7 +362,7 @@ fun AddTransactionScreen(
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(stringResource(R.string.receipt_scan))
+                Text(stringResource(R.string.receipts_scan))
             }
         }
     }

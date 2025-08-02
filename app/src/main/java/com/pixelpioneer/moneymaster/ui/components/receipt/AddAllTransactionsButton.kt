@@ -40,7 +40,7 @@ fun AddAllTransactionsButton(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "${stringResource(R.string.receipt_total_amount)}:",
+                    text = "${stringResource(R.string.receipts_total_amount)}:",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
@@ -63,7 +63,7 @@ fun AddAllTransactionsButton(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    stringResource(R.string.receipt_add_all_transactions),
+                    stringResource(R.string.receipts_add_all_transactions),
                     style = MaterialTheme.typography.labelLarge
                 )
             }

@@ -1,39 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- ==========================================
+         APP BASIC
+         ========================================== -->
     <string name="app_name">MoneyMaster</string>
-    <string name="store_name_unknown">Unbekannt</string>
-    <string name="date_today">Heute</string>
-    <string name="total_amount_format">Gesamt: %.2f €</string>
-    <string name="item_price_format">%.2f €</string>
-    <string name="of">von</string>
-    <string name="back">Zurück</string>
 
-    <!-- Navigation -->
+    <!-- ==========================================
+         NAVIGATION
+         ========================================== -->
     <string name="nav_dashboard">Übersicht</string>
     <string name="nav_transactions">Transaktionen</string>
     <string name="nav_budgets">Budgets</string>
-    <string name="nav_receipts">Belege</string>
     <string name="nav_statistics">Statistiken</string>
+    <string name="nav_receipts">Belege</string>
     <string name="nav_settings">Einstellungen</string>
     <string name="nav_transaction_details">Transaktionsdetails</string>
     <string name="nav_budget_details">Budgetdetails</string>
-    <string name="nav_add_budget">Hinzufügen</string>
+    <string name="nav_add_budget">Budget hinzufügen</string>
     <string name="nav_add_transaction">Transaktion hinzufügen</string>
     <string name="nav_edit_budget">Budget bearbeiten</string>
     <string name="nav_edit_transaction">Transaktion bearbeiten</string>
 
-    <!-- Screen Titles -->
-    <string name="screen_title_dashboard">Übersicht</string>
-    <string name="screen_title_transactions">Transaktionen</string>
-    <string name="screen_title_transaction_details">Transaktionsdetails</string>
-    <string name="screen_title_edit_transaction">Transaktion bearbeiten</string>
-    <string name="screen_title_budgets">Budgets</string>
-    <string name="screen_title_receipts">Belege</string>
-    <string name="screen_title_statistics">Statistiken</string>
-    <string name="screen_title_edit_budgets">Budgets bearbeiten</string>
-    <string name="screen_title_receipt_scanner">Belegscanner</string>
-
-    <!-- Common Actions -->
+    <!-- ==========================================
+         COMMON ACTIONS
+         ========================================== -->
     <string name="action_add">Hinzufügen</string>
     <string name="action_edit">Bearbeiten</string>
     <string name="action_delete">Löschen</string>
@@ -42,178 +32,145 @@
     <string name="action_confirm">Bestätigen</string>
     <string name="action_view_all">Alle anzeigen</string>
     <string name="action_search">Suchen</string>
-    <string name="action_settings">Einstellungen</string>
+    <string name="action_retry">Wiederholen</string>
+    <string name="action_back">Zurück</string>
+    <string name="action_ok">OK</string>
+    <string name="action_remove">Entfernen</string>
 
-    <!-- Dialog Actions -->
-    <string name="dialog_delete_title">Element löschen</string>
-    <string name="dialog_delete_message">Möchten Sie dieses Element wirklich löschen?</string>
-    <string name="dialog_update_title">Update verfügbar</string>
+    <!-- ==========================================
+         COMMON LABELS
+         ========================================== -->
+    <string name="label_details">Details</string>
+    <string name="label_selected">Ausgewählt</string>
+    <string name="label_warning">Warnung</string>
+    <string name="label_name">Name</string>
+    <string name="label_age">Alter</string>
+    <string name="label_amount">Betrag (€)</string>
+    <string name="label_date">Datum</string>
+    <string name="label_category">Kategorie</string>
+    <string name="label_description">Beschreibung</string>
+    <string name="label_title">Titel</string>
 
-    <!-- Budget -->
-    <string name="budget_period_daily">Täglich</string>
-    <string name="budget_period_weekly">Wöchentlich</string>
-    <string name="budget_period_monthly">Monatlich</string>
-    <string name="budget_period_yearly">Jährlich</string>
-    <string name="budget_remaining">Verbleibend</string>
-    <string name="budget_spent">Ausgegeben</string>
-    <string name="budget_add">Budget hinzufügen</string>
-    <string name="budget_amount">Budgetbetrag</string>
-    <string name="budget_create">Budget erstellen</string>
-    <string name="budget_update">Budget aktualisieren</string>
-    <string name="budget_edit">Budget bearbeiten</string>
-    <string name="budget_delete">Budget löschen</string>
-    <string name="budget_progress">Fortschritt</string>
-
-    <!-- Budget Dialog -->
-    <string name="dialog_delete_budget_title">Budget löschen</string>
-    <string name="dialog_delete_budget_message">Möchten Sie das Budget für „%1$s“ wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.</string>
-    <string name="dialog_transaction_delete_message">Möchten Sie diese Transaktion wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.</string>
-    <string name="budget_period_daily_budget">Tagesbudget</string>
-    <string name="budget_period_weekly_budget">Wochenbudget</string>
-    <string name="budget_period_monthly_budget">Monatsbudget</string>
-    <string name="budget_period_yearly_budget">Jahresbudget</string>
-
-    <!-- Budget Item -->
-    <string name="more_options">Weitere Optionen</string>
-    <string name="warning">Warnung</string>
-    <string name="budget_warning_almost_used">Budget fast aufgebraucht!</string>
-    <string name="budget_spent_format">Ausgegeben: %1$s</string>
-    <string name="budget_remaining_format">Verbleibend: %1$s</string>
-    <string name="budget_used_percentage">%1$d%% verwendet</string>
-
-    <!-- Transactions -->
-    <string name="transaction_income">Einnahme</string>
-    <string name="transaction_expense">Ausgabe</string>
-    <string name="transaction_category">Kategorie</string>
-    <string name="transaction_amount">Betrag</string>
-    <string name="transaction_date">Datum</string>
-    <string name="transaction_add">Transaktion hinzufügen</string>
-    <string name="transaction_edit">Transaktion bearbeiten</string>
-    <string name="transaction_delete">Transaktion löschen</string>
-    <string name="transaction_update">Transaktion aktualisieren</string>
-    <string name="transaction_type">Transaktionstyp</string>
-    <string name="transaction_description">Beschreibung</string>
-    <string name="transaction_description_optional">Beschreibung (optional)</string>
-    <string name="transactions_in_this_category">Transaktionen in dieser Kategorie</string>
-    <string name="transaction_title">Titel</string>
-    <string name="transaction_save">Transaktion speichern</string>
-    <string name="transaction_not_found">Transaktion nicht gefunden</string>
-    <string name="transaction_search">Transaktionen suchen</string>
-    <string name="transaction_no_description">Keine Beschreibung</string>
-    <string name="transaction_view_all">Alle Transaktionen anzeigen</string>
-
-    <!-- Error Messages -->
-    <string name="error">Fehler</string>
-    <string name="error_generic">Etwas ist schiefgelaufen</string>
-    <string name="error_network">Netzwerkfehler</string>
-    <string name="error_loading_data">Daten konnten nicht geladen werden</string>
-    <string name="error_card_message">Fehler: %1$s</string>
-    <string name="retry">Erneut versuchen</string>
-    <string name="error_loading_budgets">Fehler beim Laden der Budgets</string>
-    <string name="error_unknown">Unbekannter Fehler</string>
-    <string name="error_amount_greater_zero">Betrag muss größer als Null sein</string>
-    <string name="error_select_category">Bitte wählen Sie eine Kategorie</string>
-    <string name="error_category_null">Kategorie darf nicht leer sein</string>
-    <string name="error_name_empty">Name darf nicht leer sein</string>
-    <string name="error_loading_crypto">Fehler beim Laden der Krypto-Daten</string>
-    <string name="error_loading_history">Fehler beim Laden des Verlaufs</string>
-    <string name="error_transaction_add">Transaktion konnte nicht hinzugefügt werden: %1$s</string>
-    <string name="error_transaction_update">Transaktion konnte nicht aktualisiert werden: %1$s</string>
-    <string name="error_transaction_delete">Transaktion konnte nicht gelöscht werden: %1$s</string>
-    <string name="error_category_add">Kategorie konnte nicht hinzugefügt werden: %1$s</string>
-    <string name="error_category_update">Kategorie konnte nicht aktualisiert werden: %1$s</string>
-    <string name="error_category_delete">Kategorie konnte nicht gelöscht werden: %1$s</string>
-    <string name="error_budget_add">Budget konnte nicht hinzugefügt werden: %1$s</string>
-    <string name="error_budget_update">Budget konnte nicht aktualisiert werden: %1$s</string>
-    <string name="error_budget_delete">Budget konnte nicht gelöscht werden: %1$s</string>
-    <string name="error_assets_load">Assets konnten nicht geladen werden: %1$s</string>
-    <string name="error_unexpected">Unerwarteter Fehler: %1$s</string>
-    <string name="error_history_load">Verlauf konnte nicht geladen werden: %1$s</string>
-    <string name="error_receipt_scan">Beleg konnte nicht gescannt werden: %1$s</string>
-    <string name="error_scanner">Scanner-Fehler: %1$s</string>
-    <string name="error_no_text_recognized">Kein Text erkannt.</string>
-    <string name="error_no_item_recognized">Kein Element erkannt. OCR-Text: %1$s</string>
-    <string name="error_loading_statistics">Fehler beim Laden der Statistiken</string>
-    <string name="error_loading_category_statistics">Fehler beim Laden der Kategoriestatistiken</string>
-    <string name="error_loading_trend_data">Fehler beim Laden der Trenddaten</string>
-    <string name="error_title_empty">Titel darf nicht leer sein</string>
-    <string name="transaction_from_receipt">Vom Beleg: %1$s</string>
-    <string name="category_default_shopping">Einkaufen</string>
-
-    <!-- Empty States -->
-    <string name="empty_transactions">Noch keine Transaktionen</string>
-    <string name="empty_budgets">Noch keine Budgets erstellt</string>
-    <string name="empty_receipts">Noch keine Belege gescannt</string>
-    <string name="empty_categories">Keine Kategorien verfügbar</string>
-    <string name="empty_categories_please_create">Keine Kategorien verfügbar. Bitte zuerst Kategorien erstellen.</string>
-    <string name="empty_transaction_category">Noch keine Transaktionen in dieser Kategorie</string>
-    <string name="no_transactions_found">Keine Transaktionen gefunden</string>
-    <string name="no_budgets_found">Keine Budgets gefunden</string>
-    <string name="no_budgets_yet">Noch keine Budgets</string>
-    <string name="empty_budgets_description">Erstellen Sie Budgets, um Ihre Ausgaben zu verwalten</string>
-    <string name="empty_financial_summary_title">Noch keine Finanzdaten</string>
-    <string name="empty_financial_summary_description">Fügen Sie Einnahmen und Ausgaben hinzu, um Ihre Finanzübersicht zu sehen</string>
-    <string name="empty_transactions_title">Noch keine Transaktionen</string>
-    <string name="empty_transactions_description">Beginnen Sie mit dem Hinzufügen Ihrer ersten Transaktion</string>
-    <string name="empty_receipts_title">Noch keine Belege gescannt</string>
-    <string name="empty_receipts_description">Scannen Sie Ihre Belege, um Ihre Ausgaben zu verfolgen</string>
-    <string name="empty_receipt_category">Keine Kategorie verfügbar</string>
-    <string name="empty_category_statistics">Keine Kategoriestatistiken verfügbar</string>
-
-    <!-- Crypto Assets -->
-    <string name="error_loading_assets">Fehler: %1$s</string>
-    <string name="empty_crypto_data">Keine Krypto-Daten verfügbar</string>
-    <string name="error_loading_chart">Fehler beim Laden des Diagramms: %1$s</string>
-    <string name="empty_chart_data">Keine Daten verfügbar</string>
-    <string name="market_data">Marktdaten</string>
-    <string name="market_cap">Marktkapitalisierung</string>
-    <string name="volume_24h">Volumen (24h)</string>
-    <string name="rank">Rang</string>
-    <string name="max_supply">Maximale Menge</string>
-    <string name="price_label">Preis</string>
-
-    <!-- Dashboard -->
-    <string name="dashboard_title">Übersicht</string>
-    <string name="add_transaction">Transaktion hinzufügen</string>
-    <string name="budget_overview">Budgetübersicht</string>
-    <string name="view_all_budgets">Alle Budgets anzeigen</string>
-    <string name="view_all">Alle anzeigen</string>
-    <string name="recent_transactions">Letzte Transaktionen</string>
-    <string name="current_balance">Aktueller Kontostand</string>
-    <string name="income">Einnahmen</string>
-    <string name="expenses">Ausgaben</string>
-    <string name="remaining_format">Verbleibend: %1$s</string>
-    <string name="spent_of_format">%1$s von %2$s</string>
-    <string name="details">Details</string>
-    <string name="edit">Bearbeiten</string>
-
-    <!-- Selection -->
-    <string name="select_selected">Ausgewählt</string>
+    <!-- ==========================================
+         SELECTION
+         ========================================== -->
     <string name="select_category">Kategorie auswählen</string>
     <string name="select_period">Zeitraum auswählen</string>
     <string name="select_date">Datum auswählen</string>
 
-    <!-- Receipt Scanning -->
-    <string name="receipt_scan">Beleg scannen</string>
-    <string name="receipt_scanned">Beleg gescannt</string>
-    <string name="receipt_no_items_found">Keine Elemente auf dem Beleg erkannt. Versuchen Sie ein anderes Bild.</string>
-    <string name="receipt_found_items_count">Gefundene Elemente</string>
-    <string name="receipt_total_amount">Gesamtbetrag</string>
-    <string name="receipt_add_all_transactions">Alle als Transaktionen hinzufügen</string>
-    <string name="receipt_scan_button">Beleg scannen</string>
-    <string name="receipt_scanning_progress">Beleg wird gescannt...</string>
+    <!-- ==========================================
+         FORMATS & DISPLAY
+         ========================================== -->
+    <string name="format_currency">%.2f €</string>
+    <string name="format_total">Gesamt: %.2f €</string>
+    <string name="format_remaining">Verbleibend: %1$s</string>
+    <string name="format_spent_of">%1$s von %2$s</string>
+    <string name="format_balance">Saldo: %1$s</string>
+    <string name="format_percentage_used">%1$d%% verwendet</string>
+    <string name="date_today">Heute</string>
+    <string name="common_of">von</string>
+    <string name="common_unknown">Unbekannt</string>
+
+    <!-- ==========================================
+         DASHBOARD
+         ========================================== -->
+    <string name="dashboard_title">Übersicht</string>
+    <string name="dashboard_current_balance">Aktueller Saldo</string>
+    <string name="dashboard_income">Einnahmen</string>
+    <string name="dashboard_expenses">Ausgaben</string>
+    <string name="dashboard_recent_transactions">Letzte Transaktionen</string>
+    <string name="dashboard_budget_overview">Budgetübersicht</string>
+    <string name="dashboard_add_transaction">Transaktion hinzufügen</string>
+    <string name="dashboard_view_all_budgets">Alle Budgets anzeigen</string>
+
+    <!-- ==========================================
+         TRANSACTIONS
+         ========================================== -->
+    <string name="transactions_title">Transaktionen</string>
+    <string name="transactions_add">Transaktion hinzufügen</string>
+    <string name="transactions_edit">Transaktion bearbeiten</string>
+    <string name="transactions_save">Transaktion speichern</string>
+    <string name="transactions_update">Transaktion aktualisieren</string>
+    <string name="transactions_delete">Transaktion löschen</string>
+    <string name="transactions_view_all">Alle Transaktionen anzeigen</string>
+    <string name="transactions_search">Transaktionen durchsuchen</string>
+    <string name="transactions_in_category">Transaktionen in dieser Kategorie</string>
+    <string name="transactions_from_receipt">Vom Beleg: %1$s</string>
+
+    <!-- Transaction Types & Properties -->
+    <string name="transaction_income">Einnahme</string>
+    <string name="transaction_expense">Ausgabe</string>
+    <string name="transaction_type">Transaktionstyp</string>
+    <string name="transaction_amount">Betrag</string>
+    <string name="transaction_date">Datum</string>
+    <string name="transaction_category">Kategorie</string>
+    <string name="transaction_description">Beschreibung</string>
+    <string name="transaction_description_optional">Beschreibung (Optional)</string>
+    <string name="transaction_title">Titel</string>
+    <string name="transaction_no_description">Keine Beschreibung</string>
+    <string name="transaction_not_found">Transaktion nicht gefunden</string>
+
+    <!-- ==========================================
+         BUDGETS
+         ========================================== -->
+    <string name="budgets_title">Budgets</string>
+    <string name="budgets_add">Budget hinzufügen</string>
+    <string name="budgets_create">Budget erstellen</string>
+    <string name="budgets_edit">Budget bearbeiten</string>
+    <string name="budgets_update">Budget aktualisieren</string>
+    <string name="budgets_delete">Budget löschen</string>
+    <string name="budgets_amount">Budgetbetrag</string>
+    <string name="budgets_progress">Fortschritt</string>
+    <string name="budgets_remaining">Verbleibend</string>
+    <string name="budgets_spent">Ausgegeben</string>
+    <string name="budgets_spent_format">Ausgegeben: %1$s</string>
+    <string name="budgets_remaining_format">Verbleibend: %1$s</string>
+    <string name="budgets_warning_almost_used">Budget fast aufgebraucht!</string>
+    <string name="budgets_more_options">Weitere Optionen</string>
+
+    <!-- Budget Periods -->
+    <string name="budget_period_daily">Täglich</string>
+    <string name="budget_period_weekly">Wöchentlich</string>
+    <string name="budget_period_monthly">Monatlich</string>
+    <string name="budget_period_yearly">Jährlich</string>
+    <string name="budget_period_daily_full">Tagesbudget</string>
+    <string name="budget_period_weekly_full">Wochenbudget</string>
+    <string name="budget_period_monthly_full">Monatsbudget</string>
+    <string name="budget_period_yearly_full">Jahresbudget</string>
+
+    <!-- ==========================================
+         RECEIPTS & SCANNING
+         ========================================== -->
+    <string name="receipts_title">Belege</string>
+    <string name="receipts_scan">Beleg scannen</string>
+    <string name="receipts_scanned">Beleg gescannt</string>
+    <string name="receipts_scan_button">Beleg scannen</string>
+    <string name="receipts_scanning_progress">Beleg wird gescannt...</string>
+    <string name="receipts_no_items_found">Keine Artikel auf dem Beleg erkannt. Versuchen Sie ein anderes Bild.</string>
+    <string name="receipts_found_items_count">Gefundene Artikel</string>
+    <string name="receipts_total_amount">Gesamtbetrag</string>
+    <string name="receipts_add_all_transactions">Alle als Transaktionen hinzufügen</string>
+
+    <!-- Image Selection -->
+    <string name="image_selection_camera">Kamera</string>
+    <string name="image_selection_gallery">Galerie</string>
+    <string name="image_selection_selected_receipt">Ausgewählter Beleg</string>
 
     <!-- Receipt Item Editing -->
-    <string name="edit_item_title">Element #%1$d bearbeiten</string>
-    <string name="edit_item_name_label">Elementname</string>
-    <string name="edit_item_amount_label">Betrag (€)</string>
-    <string name="edit_item_remove">Entfernen</string>
-    <string name="edit_item_cancel">Abbrechen</string>
-    <string name="edit_item_save">Speichern</string>
+    <string name="receipt_edit_item_title">Artikel #%1$d bearbeiten</string>
+    <string name="receipt_edit_item_name">Artikelname</string>
+    <string name="receipt_edit_item_amount">Betrag (€)</string>
+    <string name="receipt_edit_item_remove">Entfernen</string>
+    <string name="receipt_readonly_title">#%1$d %2$s</string>
+    <string name="receipt_readonly_amount">Betrag: %.2f €</string>
+    <string name="receipt_readonly_edit">Bearbeiten</string>
 
-    <!-- Statistics Screen -->
+    <!-- ==========================================
+         STATISTICS
+         ========================================== -->
+    <string name="statistics_title">Statistiken</string>
     <string name="statistics_tab_overview">Übersicht</string>
-    <string name="statistics_tab_categories">Kateg.</string>
+    <string name="statistics_tab_categories">Kat.</string>
     <string name="statistics_tab_trends">Trends</string>
     <string name="statistics_tab_crypto">Krypto</string>
     <string name="statistics_category_transactions">%1$d Transaktionen</string>
@@ -222,33 +179,43 @@
     <string name="statistics_this_month">Diesen Monat</string>
     <string name="statistics_income">Einnahmen</string>
     <string name="statistics_expenses">Ausgaben</string>
-    <string name="statistics_balance">Kontostand: %1$s</string>
     <string name="statistics_avg_expense">Durchschnittliche Ausgaben</string>
     <string name="statistics_daily">Täglich</string>
     <string name="statistics_weekly">Wöchentlich</string>
     <string name="statistics_transactions">Transaktionen</string>
     <string name="statistics_total">Gesamt</string>
-    <string name="statistics_no_data">Keine Statistiken verfügbar</string>
-    <string name="statistics_no_trend_data">Keine Trenddaten verfügbar</string>
 
-    <!-- Image Selection Card -->
-    <string name="image_selection_camera">Kamera</string>
-    <string name="image_selection_gallery">Galerie</string>
-    <string name="image_selection_selected_receipt">Ausgewählter Beleg</string>
+    <!-- ==========================================
+         CRYPTO ASSETS
+         ========================================== -->
+    <string name="crypto_market_data">Marktdaten</string>
+    <string name="crypto_market_cap">Marktkapitalisierung</string>
+    <string name="crypto_volume_24h">Volumen (24h)</string>
+    <string name="crypto_rank">Rang</string>
+    <string name="crypto_max_supply">Maximale Menge</string>
+    <string name="crypto_price_label">Preis</string>
 
-    <!-- Read Only -->
-    <string name="readonly_item_title">#%1$d %2$s</string>
-    <string name="readonly_item_amount">Betrag: %.2f €</string>
-    <string name="readonly_item_edit">Bearbeiten</string>
+    <!-- ==========================================
+         SETTINGS
+         ========================================== -->
+    <string name="settings_title">Einstellungen</string>
+    <string name="settings_personal">Persönliche Einstellungen</string>
+    <string name="settings_app">App-Einstellungen</string>
+    <string name="settings_dark_mode">Dunkler Modus</string>
+    <string name="settings_check_updates">Nach Updates suchen</string>
+    <string name="settings_personal_data">Persönliche Daten</string>
+    <string name="settings_income">Einkommen (€)</string>
+    <string name="settings_fixed_costs">Fixkosten</string>
+    <string name="settings_rent">Miete (€)</string>
+    <string name="settings_electricity">Strom (€)</string>
+    <string name="settings_gas">Gas (€)</string>
+    <string name="settings_internet">Internet (€)</string>
+    <string name="settings_additional_costs">Weitere Fixkosten</string>
+    <string name="settings_add_fixed_cost">Fixkosten hinzufügen</string>
 
-    <!-- Update Dialog -->
-    <string name="update_checking">Suche nach Updates...</string>
-    <string name="update_downloading">Update wird heruntergeladen...</string>
-    <string name="update_error">Update-Fehler</string>
-    <string name="update_no_update">Keine Updates verfügbar</string>
-    <string name="ok">OK</string>
-
-    <!-- Category names -->
+    <!-- ==========================================
+         CATEGORIES
+         ========================================== -->
     <string name="category_groceries">Lebensmittel</string>
     <string name="category_housing">Wohnen</string>
     <string name="category_transport">Transport</string>
@@ -260,56 +227,129 @@
     <string name="category_gifts">Geschenke</string>
     <string name="category_other">Sonstiges</string>
 
-    <!-- CoinCapRepository logs -->
+    <!-- ==========================================
+         DIALOGS
+         ========================================== -->
+    <string name="dialog_delete_title">Element löschen</string>
+    <string name="dialog_delete_message">Sind Sie sicher, dass Sie dieses Element löschen möchten?</string>
+    <string name="dialog_delete_budget_title">Budget löschen</string>
+    <string name="dialog_delete_budget_message">Sind Sie sicher, dass Sie das Budget für \"%1$s\" löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.</string>
+    <string name="dialog_delete_transaction_message">Sind Sie sicher, dass Sie diese Transaktion löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.</string>
+    <string name="dialog_update_title">Update verfügbar</string>
+    <string name="dialog_unsaved_changes">Ungespeicherte Änderungen</string>
+    <string name="dialog_unsaved_message">Möchten Sie Ihre Änderungen speichern?</string>
+
+    <!-- ==========================================
+         UPDATE SYSTEM
+         ========================================== -->
+    <string name="update_checking">Suche nach Updates...</string>
+    <string name="update_downloading">Update wird heruntergeladen...</string>
+    <string name="update_error">Update-Fehler</string>
+    <string name="update_no_update">Keine Updates verfügbar</string>
+
+    <!-- ==========================================
+         ERROR MESSAGES
+         ========================================== -->
+    <string name="error_generic">Etwas ist schief gelaufen</string>
+    <string name="error_network">Netzwerkfehler: %1$s</string>
+    <string name="error_loading_data">Fehler beim Laden der Daten</string>
+    <string name="error_unknown">Unbekannter Fehler</string>
+    <string name="error_card_message">Fehler: %1$s</string>
+
+    <!-- Validation Errors -->
+    <string name="error_amount_greater_zero">Betrag muss größer als Null sein</string>
+    <string name="error_select_category">Bitte wählen Sie eine Kategorie aus</string>
+    <string name="error_category_null">Kategorie darf nicht leer sein</string>
+    <string name="error_name_empty">Name darf nicht leer sein</string>
+    <string name="error_title_empty">Titel darf nicht leer sein</string>
+
+    <!-- Feature-specific Errors -->
+    <string name="error_loading_budgets">Fehler beim Laden der Budgets</string>
+    <string name="error_loading_crypto">Fehler beim Laden der Krypto-Daten</string>
+    <string name="error_loading_history">Fehler beim Laden des Verlaufs</string>
+    <string name="error_loading_statistics">Fehler beim Laden der Statistiken</string>
+    <string name="error_loading_category_statistics">Fehler beim Laden der Kategoriestatistiken</string>
+    <string name="error_loading_trend_data">Fehler beim Laden der Trenddaten</string>
+    <string name="error_loading_chart">Fehler beim Laden des Diagramms: %1$s</string>
+    <string name="error_loading_assets">Fehler: %1$s</string>
+
+    <!-- Operation Errors -->
+    <string name="error_transaction_add">Transaktion konnte nicht hinzugefügt werden: %1$s</string>
+    <string name="error_transaction_update">Transaktion konnte nicht aktualisiert werden: %1$s</string>
+    <string name="error_transaction_delete">Transaktion konnte nicht gelöscht werden: %1$s</string>
+    <string name="error_category_add">Kategorie konnte nicht hinzugefügt werden: %1$s</string>
+    <string name="error_category_update">Kategorie konnte nicht aktualisiert werden: %1$s</string>
+    <string name="error_category_delete">Kategorie konnte nicht gelöscht werden: %1$s</string>
+    <string name="error_budget_add">Budget konnte nicht hinzugefügt werden: %1$s</string>
+    <string name="error_budget_update">Budget konnte nicht aktualisiert werden: %1$s</string>
+    <string name="error_budget_delete">Budget konnte nicht gelöscht werden: %1$s</string>
+    <string name="error_assets_load">Assets konnten nicht geladen werden: %1$s</string>
+    <string name="error_history_load">Verlaufsdaten konnten nicht geladen werden: %1$s</string>
+    <string name="error_unexpected">Unerwarteter Fehler: %1$s</string>
+
+    <!-- Scanner/OCR Errors -->
+    <string name="error_receipt_scan">Beleg konnte nicht gescannt werden: %1$s</string>
+    <string name="error_scanner">Scanner-Fehler: %1$s</string>
+    <string name="error_no_text_recognized">Kein Text erkannt.</string>
+    <string name="error_no_item_recognized">Kein Artikel erkannt. OCR-Text: %1$s</string>
+    <string name="error_ocr_processing">OCR-Verarbeitung fehlgeschlagen: %1$s</string>
+    <string name="error_ocr_exit_code">OCR fehlgeschlagen mit Exit-Code: %1$d</string>
+    <string name="error_ocr_api_key_missing">OCR Space API-Schlüssel nicht verfügbar</string>
+    <string name="error_empty_response_body">Leerer Antwortinhalt</string>
+    <string name="error_http_error">HTTP-Fehler: %1$d</string>
+    <string name="error_coincap_api_not_initialized">CoinCap API-Service nicht initialisiert</string>
+    <string name="error_fetching_crypto_assets">Fehler beim Abrufen der Krypto-Assets: %1$s</string>
+
+    <!-- ==========================================
+         SUCCESS MESSAGES
+         ========================================== -->
+    <string name="success_saved">Erfolgreich gespeichert</string>
+    <string name="success_deleted">Erfolgreich gelöscht</string>
+    <string name="success_updated">Erfolgreich aktualisiert</string>
+
+    <!-- ==========================================
+         EMPTY STATES
+         ========================================== -->
+    <string name="empty_transactions_title">Noch keine Transaktionen</string>
+    <string name="empty_transactions_description">Beginnen Sie mit der Verfolgung Ihrer Finanzen, indem Sie Ihre erste Transaktion hinzufügen</string>
+    <string name="empty_budgets_title">Noch keine Budgets erstellt</string>
+    <string name="empty_budgets_description">Erstellen Sie Budgets, um Ihre Ausgaben zu verwalten</string>
+    <string name="empty_receipts_title">Noch keine Belege gescannt</string>
+    <string name="empty_receipts_description">Scannen Sie Ihre Belege, um Ihre Ausgaben zu verfolgen</string>
+    <string name="empty_categories">Keine Kategorien verfügbar</string>
+    <string name="empty_categories_please_create">Keine Kategorien verfügbar. Bitte erstellen Sie zuerst Kategorien.</string>
+    <string name="empty_transaction_category">Noch keine Transaktionen in dieser Kategorie</string>
+    <string name="empty_financial_summary_title">Noch keine Finanzdaten</string>
+    <string name="empty_financial_summary_description">Fügen Sie Einnahmen und Ausgaben hinzu, um Ihre Finanzübersicht zu sehen</string>
+    <string name="empty_receipt_category">Keine Kategorie verfügbar</string>
+    <string name="empty_category_statistics">Keine Kategoriestatistiken verfügbar</string>
+    <string name="empty_crypto_data">Keine Krypto-Daten verfügbar</string>
+    <string name="empty_chart_data">Keine Daten verfügbar</string>
+    <string name="statistics_no_data">Keine Statistiken verfügbar</string>
+    <string name="statistics_no_trend_data">Keine Trenddaten verfügbar</string>
+
+    <!-- Quick Access -->
+    <string name="no_transactions_found">Keine Transaktionen gefunden</string>
+    <string name="no_budgets_found">Keine Budgets gefunden</string>
+    <string name="no_budgets_yet">Noch keine Budgets</string>
+
+    <!-- ==========================================
+         LOG MESSAGES (DEVELOPMENT)
+         ========================================== -->
     <string name="log_api_call_started">API-Aufruf gestartet</string>
     <string name="log_api_response">Antwort: %1$s</string>
-    <string name="error_loading_assets_log">Fehler beim Laden der Daten</string>
     <string name="log_history_for_asset">Verlauf für %1$s: %2$d Datenpunkte</string>
-    <string name="error_loading_history_log">Fehler beim Laden des Verlaufs für %1$s</string>
-
-    <!-- ReceiptScanRepository logs and errors -->
     <string name="log_ocr_scan_starting">OCR-Scan wird gestartet mit API-Schlüssel: %1$s...</string>
     <string name="log_original_file_size">Originaldateigröße: %1$d Bytes</string>
     <string name="log_compressed_file_size">Komprimierte Dateigröße: %1$d Bytes</string>
-    <string name="error_ocr_api_key_missing">OCR Space API-Schlüssel nicht verfügbar</string>
     <string name="log_making_ocr_api_request">OCR-API-Anfrage wird gesendet</string>
     <string name="log_response_code">Antwortcode: %1$d</string>
-    <string name="error_ocr_processing">OCR-Verarbeitung fehlgeschlagen: %1$s</string>
-    <string name="error_ocr_exit_code">OCR fehlgeschlagen mit Exit-Code: %1$d</string>
     <string name="log_ocr_scan_successful">OCR-Scan erfolgreich</string>
-    <string name="error_empty_response_body">Leerer Antwortinhalt</string>
-    <string name="error_http_error">HTTP-Fehler: %1$d</string>
-    <string name="error_network_error">Netzwerkfehler</string>
-    <string name="error_network_error_with_message">Netzwerkfehler: %1$s</string>
     <string name="log_image_size_ok">Bildgröße OK, keine Komprimierung nötig</string>
     <string name="log_image_too_large">Bild zu groß, wird komprimiert...</string>
     <string name="log_compression_complete">Komprimierung abgeschlossen. Neue Größe: %1$d Bytes</string>
     <string name="log_could_not_correct_orientation">Bildausrichtung konnte nicht korrigiert werden</string>
     <string name="log_api_key_available">API-Schlüssel verfügbar: %1$s</string>
-
-    <!-- TransactionRepository errors -->
-    <string name="error_coincap_api_not_initialized">CoinCap API-Service nicht initialisiert</string>
-    <string name="error_fetching_crypto_assets">Fehler beim Abrufen der Krypto-Assets: %1$s</string>
-
-    <!-- Settings -->
-    <string name="settings_title">Einstellungen</string>
-    <string name="personal_settings">Persönliche Einstellungen</string>
-    <string name="app_settings">App-Einstellungen</string>
-    <string name="dark_mode">Dunkler Modus</string>
-    <string name="check_for_updates">Nach Updates suchen</string>
-    <string name="personal_data">Persönliche Daten</string>
-    <string name="name">Name</string>
-    <string name="age">Alter</string>
-    <string name="income_euro">Einnahmen (€)</string>
-    <string name="fixed_costs">Fixkosten</string>
-    <string name="rent_euro">Miete (€)</string>
-    <string name="electricity_euro">Strom (€)</string>
-    <string name="gas_euro">Gas (€)</string>
-    <string name="internet_euro">Internet (€)</string>
-    <string name="additional_fixed_costs">Weitere Fixkosten</string>
-    <string name="label">Bezeichnung</string>
-    <string name="amount_euro">Betrag (€)</string>
-    <string name="remove">Entfernen</string>
-    <string name="add_fixed_cost">Fixkosten hinzufügen</string>
-
+    <string name="error_loading_assets_log">Fehler beim Laden der Daten</string>
+    <string name="error_loading_history_log">Fehler beim Laden des Verlaufs für %1$s</string>
 </resources>

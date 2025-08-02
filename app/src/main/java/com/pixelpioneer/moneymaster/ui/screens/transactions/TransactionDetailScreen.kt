@@ -65,12 +65,12 @@ fun TransactionDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.screen_title_transaction_details)) },
+                title = { Text(stringResource(R.string.nav_transaction_details)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             painterResource(R.drawable.arrow_back),
-                            contentDescription = stringResource(R.string.back)
+                            contentDescription = stringResource(R.string.action_back)
                         )
                     }
                 },
@@ -80,7 +80,7 @@ fun TransactionDetailScreen(
                     }) {
                         Icon(
                             painterResource(R.drawable.ic_edit),
-                            contentDescription = stringResource(R.string.edit)
+                            contentDescription = stringResource(R.string.action_edit)
                         )
                     }
                 }
@@ -96,7 +96,7 @@ fun TransactionDetailScreen(
                 ) {
                     Icon(
                         Icons.Default.Edit,
-                        contentDescription = stringResource(R.string.transaction_edit)
+                        contentDescription = stringResource(R.string.transactions_edit)
                     )
                 }
             }
@@ -253,13 +253,13 @@ fun TransactionDetailScreen(
                             onDismissRequest = { showDeleteDialog = false },
                             title = {
                                 Text(
-                                    stringResource(R.string.transaction_delete),
+                                    stringResource(R.string.transactions_delete),
                                     style = MaterialTheme.typography.titleMedium
                                 )
                             },
                             text = {
                                 Text(
-                                    stringResource(R.string.dialog_transaction_delete_message),
+                                    stringResource(R.string.dialog_delete_transaction_message),
                                     style = MaterialTheme.typography.bodyMedium
                                 )
                             },

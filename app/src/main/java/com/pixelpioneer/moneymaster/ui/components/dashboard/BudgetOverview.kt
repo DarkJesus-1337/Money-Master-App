@@ -57,14 +57,14 @@ fun BudgetOverview(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = stringResource(R.string.view_all_budgets),
+                        text = stringResource(R.string.dashboard_view_all_budgets),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.primary
                     )
 
                     Icon(
                         painter = painterResource(R.drawable.keyboard_arrow_right),
-                        contentDescription = stringResource(R.string.view_all),
+                        contentDescription = stringResource(R.string.action_view_all),
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }

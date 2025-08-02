@@ -91,7 +91,7 @@ fun BudgetOverviewItem(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "${FormatUtils.formatCurrency(budget.spent)} ${stringResource(R.string.of)} ${
+                text = "${FormatUtils.formatCurrency(budget.spent)} ${stringResource(R.string.common_of)} ${
                     FormatUtils.formatCurrency(
                         budget.amount
                     )
@@ -101,7 +101,7 @@ fun BudgetOverviewItem(
             )
 
             Text(
-                text = "${stringResource(R.string.budget_remaining)}: ${
+                text = "${stringResource(R.string.budgets_remaining)}: ${
                     FormatUtils.formatCurrency(
                         budget.amount - budget.spent
                     )

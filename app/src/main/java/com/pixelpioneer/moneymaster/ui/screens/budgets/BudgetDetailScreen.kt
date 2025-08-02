@@ -76,12 +76,16 @@ fun BudgetDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(budget?.category?.name ?: stringResource(R.string.nav_budget_details)) },
+                title = {
+                    Text(
+                        budget?.category?.name ?: stringResource(R.string.nav_budget_details)
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             painterResource(R.drawable.arrow_back),
-                            contentDescription = stringResource(R.string.back)
+                            contentDescription = stringResource(R.string.action_back)
                         )
                     }
                 },
@@ -92,7 +96,7 @@ fun BudgetDetailScreen(
                         }) {
                             Icon(
                                 painterResource(R.drawable.ic_edit),
-                                contentDescription = stringResource(R.string.budget_edit)
+                                contentDescription = stringResource(R.string.budgets_edit)
                             )
                         }
                     }
@@ -127,7 +131,7 @@ fun BudgetDetailScreen(
 
                         item {
                             Text(
-                                text = stringResource(R.string.transactions_in_this_category),
+                                text = stringResource(R.string.transactions_in_category),
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold
                             )
@@ -300,7 +304,7 @@ fun BudgetDetailCard(budget: com.pixelpioneer.moneymaster.data.model.Budget) {
             ) {
                 Column {
                     Text(
-                        text = stringResource(R.string.budget_amount),
+                        text = stringResource(R.string.budgets_amount),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -313,7 +317,7 @@ fun BudgetDetailCard(budget: com.pixelpioneer.moneymaster.data.model.Budget) {
 
                 Column(horizontalAlignment = Alignment.End) {
                     Text(
-                        text = stringResource(R.string.budget_spent),
+                        text = stringResource(R.string.budgets_spent),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -334,7 +338,7 @@ fun BudgetDetailCard(budget: com.pixelpioneer.moneymaster.data.model.Budget) {
             ) {
                 Column {
                     Text(
-                        text = stringResource(R.string.budget_amount),
+                        text = stringResource(R.string.budgets_amount),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -347,7 +351,7 @@ fun BudgetDetailCard(budget: com.pixelpioneer.moneymaster.data.model.Budget) {
 
                 Column(horizontalAlignment = Alignment.End) {
                     Text(
-                        text = stringResource(R.string.budget_progress),
+                        text = stringResource(R.string.budgets_progress),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

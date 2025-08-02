@@ -53,7 +53,7 @@ fun EmptyBudgetsView(onAddButtonClick: () -> Unit) {
                     contentDescription = stringResource(R.string.action_add),
                     modifier = Modifier.padding(end = 8.dp)
                 )
-                Text(stringResource(R.string.budget_create))
+                Text(stringResource(R.string.budgets_create))
             }
         }
     }

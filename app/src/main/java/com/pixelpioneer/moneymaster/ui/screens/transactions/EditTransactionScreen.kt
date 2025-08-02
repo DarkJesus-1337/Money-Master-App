@@ -104,12 +104,12 @@ fun EditTransactionScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.screen_title_edit_transaction)) },
+                title = { Text(stringResource(R.string.transactions_edit)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             painterResource(R.drawable.arrow_back),
-                            contentDescription = stringResource(R.string.back)
+                            contentDescription = stringResource(R.string.action_back)
                         )
                     }
                 }
@@ -353,7 +353,7 @@ fun EditTransactionScreen(
                         },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(stringResource(R.string.transaction_update))
+                        Text(stringResource(R.string.transactions_update))
                     }
                 }
             }

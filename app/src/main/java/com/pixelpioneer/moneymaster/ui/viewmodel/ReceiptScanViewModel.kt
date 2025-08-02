@@ -174,7 +174,11 @@ class ReceiptScanViewModel(
                 }
 
                 // Skip if the title contains mostly numbers (likely a product code or similar)
-                if (cleanTitle.replace(Regex("[^a-zA-ZäöüßÄÖÜ]"), "").length < cleanTitle.length * 0.3) {
+                if (cleanTitle.replace(
+                        Regex("[^a-zA-ZäöüßÄÖÜ]"),
+                        ""
+                    ).length < cleanTitle.length * 0.3
+                ) {
                     return@let null
                 }
 

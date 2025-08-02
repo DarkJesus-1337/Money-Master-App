@@ -44,7 +44,7 @@ fun EditableItemContent(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(
-            text = stringResource(R.string.edit_item_title, index),
+            text = stringResource(R.string.receipt_edit_item_title, index),
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
@@ -53,7 +53,7 @@ fun EditableItemContent(
         OutlinedTextField(
             value = title,
             onValueChange = onTitleChange,
-            label = { Text(stringResource(R.string.edit_item_name_label)) },
+            label = { Text(stringResource(R.string.receipt_edit_item_name)) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
         )
@@ -61,7 +61,7 @@ fun EditableItemContent(
         OutlinedTextField(
             value = amount,
             onValueChange = onAmountChange,
-            label = { Text(stringResource(R.string.edit_item_amount_label)) },
+            label = { Text(stringResource(R.string.receipt_edit_item_amount)) },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Decimal,
@@ -87,14 +87,14 @@ fun EditableItemContent(
                     modifier = Modifier.size(16.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(stringResource(R.string.edit_item_remove))
+                Text(stringResource(R.string.receipt_edit_item_remove))
             }
 
             OutlinedButton(
                 onClick = onCancel,
                 modifier = Modifier.weight(1f)
             ) {
-                Text(stringResource(R.string.edit_item_cancel))
+                Text(stringResource(R.string.action_cancel))
             }
 
             Button(
@@ -108,7 +108,7 @@ fun EditableItemContent(
                     modifier = Modifier.size(16.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(stringResource(R.string.edit_item_save))
+                Text(stringResource(R.string.action_save))
             }
         }
     }

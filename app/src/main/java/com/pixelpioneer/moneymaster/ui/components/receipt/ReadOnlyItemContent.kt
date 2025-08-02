@@ -30,14 +30,14 @@ fun ReadOnlyItemContent(
     ListItem(
         headlineContent = {
             Text(
-                text = stringResource(R.string.readonly_item_title, index, item.title),
+                text = stringResource(R.string.receipt_readonly_title, index, item.title),
                 fontWeight = FontWeight.Medium
             )
         },
         supportingContent = {
             Text(
                 text = stringResource(
-                    R.string.readonly_item_amount,
+                    R.string.receipt_readonly_amount,
                     item.amount
                 ).format(item.amount),
                 color = MaterialTheme.colorScheme.primary,
@@ -67,7 +67,7 @@ fun ReadOnlyItemContent(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Edit,
-                        contentDescription = stringResource(R.string.readonly_item_edit),
+                        contentDescription = stringResource(R.string.receipt_readonly_edit),
                         modifier = Modifier.size(18.dp),
                         tint = MaterialTheme.colorScheme.onSurface
                     )

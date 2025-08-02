@@ -28,7 +28,8 @@ sealed class Screen(
     data object Settings : Screen("settings", R.string.nav_settings, Icons.Filled.Settings)
 
     data object AddBudget : Screen("add_budget", R.string.nav_add_budget)
-    data object AddTransaction : Screen("add_transaction", R.string.nav_add_transaction, Icons.Filled.Add)
+    data object AddTransaction :
+        Screen("add_transaction", R.string.nav_add_transaction, Icons.Filled.Add)
 
     data object TransactionDetail :
         Screen("transaction_detail/{transactionId}", R.string.nav_transaction_details) {
@@ -43,7 +44,8 @@ sealed class Screen(
         fun createRoute(budgetId: Long) = "edit_budget/$budgetId"
     }
 
-    data object EditTransaction : Screen("edit_transaction/{transactionId}", R.string.nav_edit_transaction) {
+    data object EditTransaction :
+        Screen("edit_transaction/{transactionId}", R.string.nav_edit_transaction) {
         fun createRoute(transactionId: String) = "edit_transaction/$transactionId"
     }
 

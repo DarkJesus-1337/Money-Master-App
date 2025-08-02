@@ -310,8 +310,8 @@ class TransactionViewModel(
                         amount = item.price,
                         title = item.name,
                         description = context.getString(
-                            R.string.transaction_from_receipt,
-                            receipt.storeName ?: context.getString(R.string.store_name_unknown)
+                            R.string.transactions_from_receipt,
+                            receipt.storeName ?: context.getString(R.string.common_unknown)
                         ),
                         category = defaultCategory,
                         date = System.currentTimeMillis(),
@@ -334,14 +334,14 @@ class TransactionViewModel(
             categories.firstOrNull()
                 ?: TransactionCategory(
                     id = 1,
-                    name = context.getString(R.string.category_default_shopping),
+                    name = context.getString(R.string.category_shopping),
                     color = 0xFF4CAF50.toInt(),
                     icon = 0
                 )
         } catch (e: Exception) {
             TransactionCategory(
                 id = 1,
-                name = context.getString(R.string.category_default_shopping),
+                name = context.getString(R.string.category_shopping),
                 color = 0xFF4CAF50.toInt(),
                 icon = 0
             )

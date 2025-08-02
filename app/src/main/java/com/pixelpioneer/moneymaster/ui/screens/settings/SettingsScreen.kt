@@ -55,8 +55,8 @@ import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.SettingsState
 import com.pixelpioneer.moneymaster.data.services.AppUpdateManager
 import com.pixelpioneer.moneymaster.ui.components.UpdateDialog
-import com.pixelpioneer.moneymaster.ui.viewmodel.SettingsViewModel
 import com.pixelpioneer.moneymaster.ui.components.getNewAppVersion
+import com.pixelpioneer.moneymaster.ui.viewmodel.SettingsViewModel
 
 enum class SettingsSubScreen {
     MAIN, PERSONAL
@@ -107,7 +107,7 @@ fun SettingsMainScreen(
                     IconButton(onClick = { backDispatcher?.onBackPressed() }) {
                         Icon(
                             painterResource(R.drawable.arrow_back),
-                            contentDescription = stringResource(R.string.back)
+                            contentDescription = stringResource(R.string.action_back)
                         )
                     }
                 }
@@ -122,12 +122,15 @@ fun SettingsMainScreen(
             verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.Top),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Personal Settings Button
             Button(
                 onClick = onPersonalClick,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(stringResource(R.string.personal_settings))
+                Text(stringResource(R.string.settings_personal))
             }
+
+            // App Settings Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(4.dp)
@@ -137,20 +140,28 @@ fun SettingsMainScreen(
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
-                        stringResource(R.string.app_settings),
+                        stringResource(R.string.settings_app),
                         style = MaterialTheme.typography.titleMedium
                     )
+
+                    // Dark Mode Toggle
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(stringResource(R.string.dark_mode), modifier = Modifier.weight(1f))
+                        Text(
+                            stringResource(R.string.settings_dark_mode),
+                            modifier = Modifier.weight(1f)
+                        )
                         Switch(
                             checked = state.darkMode,
                             onCheckedChange = onDarkModeChange
                         )
                     }
+
                     Spacer(Modifier.height(16.dp))
+
+                    // Update Check Button
                     Button(
                         onClick = {
                             if (activity != null) {
@@ -160,13 +171,20 @@ fun SettingsMainScreen(
                         },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(stringResource(R.string.check_for_updates))
+                        Text(stringResource(R.string.settings_check_updates))
                     }
-                    val appVersion = getNewAppVersion()
 
-                    Text("Version: $appVersion", modifier = Modifier.padding(start = 8.dp))
+                    // App Version Display
+                    val appVersion = getNewAppVersion()
+                    Text(
+                        "Version: $appVersion",
+                        modifier = Modifier.padding(start = 8.dp),
+                        style = MaterialTheme.typography.bodySmall
+                    )
                 }
             }
+
+            // Update Dialog
             if (showUpdateDialog && updateState != AppUpdateManager.UpdateState.Idle) {
                 UpdateDialog(
                     updateState = updateState,
@@ -184,15 +202,16 @@ fun PersonalSettingsScreen(
     onBack: () -> Unit
 ) {
     val state by settingsViewModel.state.collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.personal_settings)) },
+                title = { Text(stringResource(R.string.settings_personal)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(
                             painterResource(R.drawable.arrow_back),
-                            contentDescription = stringResource(R.string.back)
+                            contentDescription = stringResource(R.string.action_back)
                         )
                     }
                 }
@@ -207,6 +226,7 @@ fun PersonalSettingsScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
+            // Personal Data Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(4.dp)
@@ -215,36 +235,37 @@ fun PersonalSettingsScreen(
                     modifier = Modifier.padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-
                     Text(
-                        stringResource(R.string.personal_data),
+                        stringResource(R.string.settings_personal_data),
                         style = MaterialTheme.typography.titleMedium
                     )
 
+                    // Name Field
                     OutlinedTextField(
                         value = state.name,
                         onValueChange = { settingsViewModel.updateName(it) },
-                        label = { Text(stringResource(R.string.name)) },
-                        leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
+                        label = { Text(stringResource(R.string.label_name)) },
+                        leadingIcon = {
+                            Icon(Icons.Default.Person, contentDescription = null)
+                        },
                         modifier = Modifier.fillMaxWidth()
                     )
 
+                    // Income Field
                     OutlinedTextField(
                         value = state.income,
                         onValueChange = { settingsViewModel.updateIncome(it) },
-                        label = { Text(stringResource(R.string.income_euro)) },
+                        label = { Text(stringResource(R.string.settings_income)) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         leadingIcon = {
-                            Icon(
-                                Icons.Default.AttachMoney,
-                                contentDescription = null
-                            )
+                            Icon(Icons.Default.AttachMoney, contentDescription = null)
                         },
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
             }
 
+            // Fixed Costs Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(4.dp)
@@ -253,55 +274,62 @@ fun PersonalSettingsScreen(
                     modifier = Modifier.padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-
                     Text(
-                        stringResource(R.string.fixed_costs),
+                        stringResource(R.string.settings_fixed_costs),
                         style = MaterialTheme.typography.titleMedium
                     )
 
+                    // Rent Field
                     OutlinedTextField(
                         value = state.rent,
                         onValueChange = { settingsViewModel.updateRent(it) },
-                        label = { Text(stringResource(R.string.rent_euro)) },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        leadingIcon = { Icon(Icons.Default.Home, contentDescription = null) },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    OutlinedTextField(
-                        value = state.electricity,
-                        onValueChange = { settingsViewModel.updateElectricity(it) },
-                        label = { Text(stringResource(R.string.electricity_euro)) },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        leadingIcon = { Icon(Icons.Default.FlashOn, contentDescription = null) },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    OutlinedTextField(
-                        value = state.gas,
-                        onValueChange = { settingsViewModel.updateGas(it) },
-                        label = { Text(stringResource(R.string.gas_euro)) },
+                        label = { Text(stringResource(R.string.settings_rent)) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         leadingIcon = {
-                            Icon(
-                                Icons.Default.LocalGasStation,
-                                contentDescription = null
-                            )
+                            Icon(Icons.Default.Home, contentDescription = null)
                         },
                         modifier = Modifier.fillMaxWidth()
                     )
 
+                    // Electricity Field
+                    OutlinedTextField(
+                        value = state.electricity,
+                        onValueChange = { settingsViewModel.updateElectricity(it) },
+                        label = { Text(stringResource(R.string.settings_electricity)) },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        leadingIcon = {
+                            Icon(Icons.Default.FlashOn, contentDescription = null)
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    // Gas Field
+                    OutlinedTextField(
+                        value = state.gas,
+                        onValueChange = { settingsViewModel.updateGas(it) },
+                        label = { Text(stringResource(R.string.settings_gas)) },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        leadingIcon = {
+                            Icon(Icons.Default.LocalGasStation, contentDescription = null)
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    // Internet Field
                     OutlinedTextField(
                         value = state.internet,
                         onValueChange = { settingsViewModel.updateInternet(it) },
-                        label = { Text(stringResource(R.string.internet_euro)) },
+                        label = { Text(stringResource(R.string.settings_internet)) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        leadingIcon = { Icon(Icons.Default.Wifi, contentDescription = null) },
+                        leadingIcon = {
+                            Icon(Icons.Default.Wifi, contentDescription = null)
+                        },
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
             }
 
+            // Additional Fixed Costs Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(4.dp)
@@ -311,9 +339,11 @@ fun PersonalSettingsScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     Text(
-                        stringResource(R.string.additional_fixed_costs),
+                        stringResource(R.string.settings_additional_costs),
                         style = MaterialTheme.typography.titleMedium
                     )
+
+                    // Dynamic Additional Costs
                     for ((idx, cost) in state.additionalCosts.withIndex()) {
                         Column(
                             modifier = Modifier
@@ -321,50 +351,53 @@ fun PersonalSettingsScreen(
                                 .padding(bottom = 8.dp),
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
+                            // Cost Label Field
                             OutlinedTextField(
                                 value = cost.label,
                                 onValueChange = {
-                                    settingsViewModel.updateAdditionalCost(
-                                        idx,
-                                        label = it
-                                    )
+                                    settingsViewModel.updateAdditionalCost(idx, label = it)
                                 },
-                                label = { Text(stringResource(R.string.label)) },
+                                label = { Text(stringResource(R.string.label_name)) },
                                 modifier = Modifier.fillMaxWidth()
                             )
+
+                            // Cost Amount Field
                             OutlinedTextField(
                                 value = cost.value,
                                 onValueChange = {
-                                    settingsViewModel.updateAdditionalCost(
-                                        idx,
-                                        value = it
-                                    )
+                                    settingsViewModel.updateAdditionalCost(idx, value = it)
                                 },
-                                label = { Text(stringResource(R.string.amount_euro)) },
+                                label = { Text(stringResource(R.string.label_amount)) },
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                 modifier = Modifier.fillMaxWidth()
                             )
+
+                            // Remove Button
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.End
                             ) {
-                                IconButton(onClick = { settingsViewModel.removeAdditionalCost(idx) }) {
+                                IconButton(
+                                    onClick = { settingsViewModel.removeAdditionalCost(idx) }
+                                ) {
                                     Icon(
                                         Icons.Default.Delete,
-                                        contentDescription = stringResource(R.string.remove)
+                                        contentDescription = stringResource(R.string.action_remove)
                                     )
                                 }
                             }
                         }
                         HorizontalDivider()
                     }
+
+                    // Add Fixed Cost Button
                     OutlinedButton(
                         onClick = { settingsViewModel.addAdditionalCost() },
                         modifier = Modifier.align(Alignment.End)
                     ) {
                         Icon(Icons.Default.Add, contentDescription = null)
                         Spacer(Modifier.width(4.dp))
-                        Text(stringResource(R.string.add_fixed_cost))
+                        Text(stringResource(R.string.settings_add_fixed_cost))
                     }
                 }
             }

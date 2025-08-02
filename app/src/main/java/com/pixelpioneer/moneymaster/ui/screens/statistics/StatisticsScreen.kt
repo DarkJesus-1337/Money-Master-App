@@ -55,7 +55,7 @@ fun StatisticsScreen(
                 .padding(paddingValues)
         ) {
             Text(
-                text = stringResource(R.string.screen_title_statistics),
+                text = stringResource(R.string.statistics_title),
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(16.dp)

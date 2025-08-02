@@ -48,12 +48,12 @@ fun BudgetsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.screen_title_budgets)) },
+                title = { Text(stringResource(R.string.budgets_title)) },
                 actions = {
                     IconButton(onClick = { navController.navigate(Screen.AddBudget.route) }) {
                         Icon(
                             Icons.Filled.Add,
-                            contentDescription = stringResource(R.string.budget_add)
+                            contentDescription = stringResource(R.string.budgets_add)
                         )
                     }
                 }

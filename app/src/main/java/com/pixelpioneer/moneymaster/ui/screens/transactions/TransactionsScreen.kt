@@ -61,7 +61,7 @@ fun TransactionsScreen(
             TopAppBar(
                 title = {
                     Text(
-                        stringResource(R.string.screen_title_transactions),
+                        stringResource(R.string.transactions_title),
                         style = MaterialTheme.typography.headlineMedium
                     )
                 },
@@ -69,7 +69,7 @@ fun TransactionsScreen(
                     IconButton(onClick = { navController.navigate(Screen.AddTransaction.route) }) {
                         Icon(
                             Icons.Filled.Add,
-                            contentDescription = stringResource(R.string.transaction_add)
+                            contentDescription = stringResource(R.string.transactions_add)
                         )
                     }
                 }
@@ -91,7 +91,7 @@ fun TransactionsScreen(
                     .padding(vertical = 8.dp),
                 placeholder = {
                     Text(
-                        stringResource(R.string.transaction_search),
+                        stringResource(R.string.transactions_search),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 },

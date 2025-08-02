@@ -62,13 +62,13 @@ fun DashboardScreen(
                     IconButton(onClick = { navController.navigate(Screen.AddTransaction.route) }) {
                         Icon(
                             Icons.Filled.Add,
-                            contentDescription = stringResource(R.string.add_transaction)
+                            contentDescription = stringResource(R.string.dashboard_add_transaction)
                         )
                     }
                     IconButton(onClick = { navController.navigate(Screen.Settings.route) }) {
                         Icon(
                             Icons.Filled.Settings,
-                            contentDescription = stringResource(R.string.action_settings)
+                            contentDescription = stringResource(R.string.settings_title)
                         )
                     }
                 }
@@ -116,7 +116,7 @@ fun DashboardScreen(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 Text(
-                    text = stringResource(R.string.budget_overview),
+                    text = stringResource(R.string.dashboard_budget_overview),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
@@ -163,7 +163,7 @@ fun DashboardScreen(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 Text(
-                    text = stringResource(R.string.recent_transactions),
+                    text = stringResource(R.string.dashboard_recent_transactions),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )

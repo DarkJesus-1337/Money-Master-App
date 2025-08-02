@@ -55,7 +55,7 @@ fun EmptyTransactionsView(onAddButtonClick: () -> Unit) {
                     modifier = Modifier.padding(end = 8.dp)
                 )
                 Text(
-                    stringResource(R.string.add_transaction),
+                    stringResource(R.string.transactions_add),
                     style = MaterialTheme.typography.labelLarge
                 )
             }

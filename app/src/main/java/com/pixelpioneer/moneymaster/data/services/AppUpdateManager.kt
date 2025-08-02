@@ -20,7 +20,8 @@ class AppUpdateManager {
     private val _updateState = MutableStateFlow<UpdateState>(UpdateState.Idle)
     val updateState: StateFlow<UpdateState> = _updateState
 
-    private val updateJsonUrl = "https://darkjesus-1337.github.io/Money-Master-App/assets/update.json"
+    private val updateJsonUrl =
+        "https://darkjesus-1337.github.io/Money-Master-App/assets/update.json"
 
     fun checkForUpdates(activity: Activity) {
         _updateState.value = UpdateState.Checking

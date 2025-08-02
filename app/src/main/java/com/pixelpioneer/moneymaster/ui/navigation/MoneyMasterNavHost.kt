@@ -7,7 +7,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.pixelpioneer.moneymaster.data.services.AppUpdateManager
 import com.pixelpioneer.moneymaster.ui.screens.budgets.AddBudgetScreen
 import com.pixelpioneer.moneymaster.ui.screens.budgets.BudgetDetailScreen
 import com.pixelpioneer.moneymaster.ui.screens.budgets.BudgetsScreen

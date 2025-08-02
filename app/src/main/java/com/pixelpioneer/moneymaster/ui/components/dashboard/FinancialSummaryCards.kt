@@ -48,11 +48,11 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Default.Balance,
-                            contentDescription = stringResource(R.string.current_balance),
+                            contentDescription = stringResource(R.string.dashboard_current_balance),
                             tint = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                         Text(
-                            text = stringResource(R.string.current_balance),
+                            text = stringResource(R.string.dashboard_current_balance),
                             style = MaterialTheme.typography.titleLarge,
                             modifier = Modifier.padding(start = 8.dp),
                             color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -88,11 +88,11 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Default.ArrowUpward,
-                            contentDescription = stringResource(R.string.income),
+                            contentDescription = stringResource(R.string.dashboard_income),
                             tint = MaterialTheme.colorScheme.tertiary
                         )
                         Text(
-                            text = stringResource(R.string.income),
+                            text = stringResource(R.string.dashboard_income),
                             fontWeight = FontWeight.Bold,
                             style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier.padding(start = 8.dp),
@@ -124,11 +124,11 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Default.ArrowDownward,
-                            contentDescription = stringResource(R.string.expenses),
+                            contentDescription = stringResource(R.string.dashboard_expenses),
                             tint = MaterialTheme.colorScheme.error
                         )
                         Text(
-                            text = stringResource(R.string.expenses),
+                            text = stringResource(R.string.dashboard_expenses),
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(start = 8.dp),

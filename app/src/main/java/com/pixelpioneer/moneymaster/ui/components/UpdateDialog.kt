@@ -75,7 +75,7 @@ fun UpdateDialog(
                         Text(updateState.message)
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(onClick = onDismiss) {
-                            Text(stringResource(R.string.ok))
+                            Text(stringResource(R.string.action_ok))
                         }
                     }
                 }
@@ -89,7 +89,7 @@ fun UpdateDialog(
                         Text(stringResource(R.string.update_no_update))
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(onClick = onDismiss) {
-                            Text(stringResource(R.string.ok))
+                            Text(stringResource(R.string.action_ok))
                         }
                     }
                 }

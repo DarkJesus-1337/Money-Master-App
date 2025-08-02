@@ -201,7 +201,7 @@ fun CryptoAssetsScreenContent(
                     modifier = Modifier.padding(16.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.market_data),
+                        text = stringResource(R.string.crypto_market_data),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
@@ -209,17 +209,17 @@ fun CryptoAssetsScreenContent(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     InfoRow(
-                        stringResource(R.string.market_cap),
+                        stringResource(R.string.crypto_market_cap),
                         FormatUtils.formatCurrency(asset.marketCapUsd.toDoubleOrNull() ?: 0.0)
                     )
                     InfoRow(
-                        stringResource(R.string.volume_24h),
+                        stringResource(R.string.crypto_volume_24h),
                         FormatUtils.formatCurrency(asset.volumeUsd24Hr.toDoubleOrNull() ?: 0.0)
                     )
-                    InfoRow(stringResource(R.string.rank), "#${asset.rank}")
+                    InfoRow(stringResource(R.string.crypto_rank), "#${asset.rank}")
                     asset.maxSupply?.let { maxSupply ->
                         InfoRow(
-                            stringResource(R.string.max_supply),
+                            stringResource(R.string.crypto_max_supply),
                             FormatUtils.formatCurrency(maxSupply.toDoubleOrNull() ?: 0.0)
                         )
                     }

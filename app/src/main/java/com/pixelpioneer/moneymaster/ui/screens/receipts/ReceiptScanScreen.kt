@@ -116,7 +116,7 @@ fun ReceiptScanScreen(
         bottomBar = { MoneyMasterBottomNavigation(navController) },
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.screen_title_receipt_scanner)) }
+                title = { Text(stringResource(R.string.receipts_title)) }
             )
         }
     ) { paddingValues ->
@@ -197,14 +197,14 @@ fun ReceiptScanScreen(
 
             if (scanTriggered && !isLoading && scannedItems.isEmpty() && error == null) {
                 item {
-                    InfoCard(message = stringResource(R.string.receipt_no_items_found))
+                    InfoCard(message = stringResource(R.string.receipts_no_items_found))
                 }
             }
 
             if (editableItems.isNotEmpty()) {
                 item {
                     Text(
-                        text = stringResource(R.string.receipt_found_items_count) + " (${editableItems.size})",
+                        text = stringResource(R.string.receipts_found_items_count) + " (${editableItems.size})",
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold
                     )

@@ -47,7 +47,7 @@ fun EmptyTransactionsList(
         Button(
             onClick = onAddTransaction
         ) {
-            Text(text = stringResource(R.string.transaction_add))
+            Text(text = stringResource(R.string.transactions_add))
         }
     }
 }

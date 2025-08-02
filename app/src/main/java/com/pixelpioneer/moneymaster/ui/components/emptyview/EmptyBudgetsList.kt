@@ -47,7 +47,7 @@ fun EmptyBudgetsList(
         Button(
             onClick = onAddBudget
         ) {
-            Text(text = stringResource(R.string.budget_create))
+            Text(text = stringResource(R.string.budgets_create))
         }
     }
 }
