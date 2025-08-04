@@ -8,6 +8,8 @@ import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
 import com.pixelpioneer.moneymaster.data.repository.TransactionRepository
 import com.pixelpioneer.moneymaster.util.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -16,6 +18,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import javax.inject.Inject
 
 /**
  * ViewModel for managing and calculating statistics related to transactions and categories.
@@ -26,10 +29,11 @@ import java.util.Locale
  * @property transactionRepository Repository for transaction data access.
  * @property categoryRepository Repository for category data access.
  */
-class StatisticsViewModel(
+@HiltViewModel
+class StatisticsViewModel @Inject constructor(
     private val transactionRepository: TransactionRepository,
     private val categoryRepository: CategoryRepository,
-    private val context: Context
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     private val _statisticsState = MutableStateFlow<UiState<StatisticsOverview>>(UiState.Loading)

@@ -10,12 +10,15 @@ import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
 import com.pixelpioneer.moneymaster.data.repository.TransactionRepository
 import com.pixelpioneer.moneymaster.util.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.Calendar
+import javax.inject.Inject
 
 /**
  * ViewModel for managing transactions and related financial data.
@@ -27,12 +30,12 @@ import java.util.Calendar
  * @property transactionRepository Repository for transaction data access.
  * @property categoryRepository Repository for category data access.
  */
-class TransactionViewModel(
+@HiltViewModel
+class TransactionViewModel @Inject constructor(
     private val transactionRepository: TransactionRepository,
     private val categoryRepository: CategoryRepository,
-    private val context: Context
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
-
     private val _transactionsState = MutableStateFlow<UiState<List<Transaction>>>(UiState.Loading)
     val transactionsState: StateFlow<UiState<List<Transaction>>> = _transactionsState
 

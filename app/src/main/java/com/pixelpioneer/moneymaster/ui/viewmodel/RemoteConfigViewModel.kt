@@ -5,8 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.services.RemoteConfigManager
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 data class RemoteConfigState(
     val isLoading: Boolean = false,
@@ -15,20 +20,14 @@ data class RemoteConfigState(
     val debugInfo: Map<String, Any> = emptyMap()
 )
 
-/**
- * ViewModel for managing remote configuration settings.
- *
- * Handles loading and updating remote config values,
- * and provides UI state for loading, success, and error states.
- *
- * @property remoteConfigManager Manager for remote config operations.
- */
-class RemoteConfigViewModel(
+@HiltViewModel
+class RemoteConfigViewModel @Inject constructor(
     private val remoteConfigManager: RemoteConfigManager,
-    private val context: Context
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RemoteConfigState())
+    val uiState: StateFlow<RemoteConfigState> = _uiState.asStateFlow()
 
     init {
         loadRemoteConfig()
@@ -53,5 +52,9 @@ class RemoteConfigViewModel(
                 )
             }
         }
+    }
+
+    fun refreshRemoteConfig() {
+        loadRemoteConfig()
     }
 }

@@ -8,9 +8,12 @@ import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
 import com.pixelpioneer.moneymaster.data.repository.CoinCapRepository
 import com.pixelpioneer.moneymaster.util.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * ViewModel for managing cryptocurrency assets and their historical data.
@@ -20,9 +23,10 @@ import kotlinx.coroutines.launch
  *
  * @property repository Repository for accessing CoinCap API data.
  */
-class CryptoViewModel(
-    private val repository: CoinCapRepository,
-    private val context: Context
+@HiltViewModel
+class CryptoViewModel @Inject constructor(
+    private val coinCapRepository: CoinCapRepository,
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     private val _cryptoAssetsState = MutableStateFlow<UiState<List<Asset>>>(UiState.Loading)
@@ -39,7 +43,7 @@ class CryptoViewModel(
         viewModelScope.launch {
             try {
                 _cryptoAssetsState.value = UiState.Loading
-                val assets = repository.getAssets(limit)
+                val assets = coinCapRepository.getAssets(limit)
 
                 if (assets.isEmpty()) {
                     _cryptoAssetsState.value = UiState.Empty
@@ -65,7 +69,7 @@ class CryptoViewModel(
         viewModelScope.launch {
             try {
                 _cryptoHistoryState.value = UiState.Loading
-                val historyData = repository.getAssetHistory(
+                val historyData = coinCapRepository.getAssetHistory(
                     assetId = assetId,
                     interval = interval,
                     daysBack = daysBack

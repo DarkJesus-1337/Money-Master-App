@@ -2,7 +2,7 @@ package com.pixelpioneer.moneymaster.data.repository
 
 import android.content.Context
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.data.db.TransactionDao
+import com.pixelpioneer.moneymaster.data.db.dao.TransactionDao
 import com.pixelpioneer.moneymaster.data.mapper.TransactionMapper
 import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.Transaction

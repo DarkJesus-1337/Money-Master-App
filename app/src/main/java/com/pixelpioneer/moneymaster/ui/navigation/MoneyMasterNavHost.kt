@@ -2,6 +2,7 @@ package com.pixelpioneer.moneymaster.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -30,13 +31,6 @@ import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 @Composable
 fun MoneyMasterNavHost(
     navController: NavHostController,
-    transactionViewModel: TransactionViewModel,
-    categoryViewModel: CategoryViewModel,
-    budgetViewModel: BudgetViewModel,
-    statisticsViewModel: StatisticsViewModel,
-    cryptoViewModel: CryptoViewModel,
-    receiptScanViewModel: ReceiptScanViewModel,
-    settingsViewModel: SettingsViewModel,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -45,14 +39,20 @@ fun MoneyMasterNavHost(
         modifier = modifier
     ) {
         composable(Screen.Dashboard.route) {
+            // 🚀 ViewModels werden automatisch von Hilt injiziert!
+            val transactionViewModel: TransactionViewModel = hiltViewModel()
+            val budgetViewModel: BudgetViewModel = hiltViewModel()
+
             DashboardScreen(
                 navController = navController,
                 transactionViewModel = transactionViewModel,
-                budgetViewModel = budgetViewModel,
+                budgetViewModel = budgetViewModel
             )
         }
 
         composable(Screen.Transactions.route) {
+            val transactionViewModel: TransactionViewModel = hiltViewModel()
+
             TransactionsScreen(
                 navController = navController,
                 transactionViewModel = transactionViewModel
@@ -60,9 +60,11 @@ fun MoneyMasterNavHost(
         }
 
         composable(Screen.AddTransaction.route) {
+            val transactionViewModel: TransactionViewModel = hiltViewModel()
+
             AddTransactionScreen(
                 navController = navController,
-                transactionViewModel = transactionViewModel,
+                transactionViewModel = transactionViewModel
             )
         }
 
@@ -71,6 +73,8 @@ fun MoneyMasterNavHost(
             arguments = listOf(navArgument("transactionId") { type = NavType.LongType })
         ) { backStackEntry ->
             val transactionId = backStackEntry.arguments?.getLong("transactionId") ?: 0L
+            val transactionViewModel: TransactionViewModel = hiltViewModel()
+
             TransactionDetailScreen(
                 navController = navController,
                 transactionId = transactionId,
@@ -79,6 +83,8 @@ fun MoneyMasterNavHost(
         }
 
         composable(Screen.Budgets.route) {
+            val budgetViewModel: BudgetViewModel = hiltViewModel()
+
             BudgetsScreen(
                 navController = navController,
                 budgetViewModel = budgetViewModel
@@ -86,6 +92,8 @@ fun MoneyMasterNavHost(
         }
 
         composable(Screen.AddBudget.route) {
+            val budgetViewModel: BudgetViewModel = hiltViewModel()
+
             AddBudgetScreen(
                 navController = navController,
                 budgetViewModel = budgetViewModel
@@ -97,6 +105,9 @@ fun MoneyMasterNavHost(
             arguments = listOf(navArgument("budgetId") { type = NavType.LongType })
         ) { backStackEntry ->
             val budgetId = backStackEntry.arguments?.getLong("budgetId") ?: 0L
+            val budgetViewModel: BudgetViewModel = hiltViewModel()
+            val transactionViewModel: TransactionViewModel = hiltViewModel()
+
             BudgetDetailScreen(
                 navController = navController,
                 budgetId = budgetId,
@@ -110,6 +121,8 @@ fun MoneyMasterNavHost(
             arguments = listOf(navArgument("budgetId") { type = NavType.LongType })
         ) { backStackEntry ->
             val budgetId = backStackEntry.arguments?.getLong("budgetId") ?: 0L
+            val budgetViewModel: BudgetViewModel = hiltViewModel()
+
             EditBudgetScreen(
                 navController = navController,
                 budgetId = budgetId,
@@ -118,6 +131,9 @@ fun MoneyMasterNavHost(
         }
 
         composable(Screen.Statistics.route) {
+            val statisticsViewModel: StatisticsViewModel = hiltViewModel()
+            val cryptoViewModel: CryptoViewModel = hiltViewModel()
+
             StatisticsScreen(
                 navController = navController,
                 statisticsViewModel = statisticsViewModel,
@@ -126,11 +142,15 @@ fun MoneyMasterNavHost(
         }
 
         composable(Screen.ReceiptScan.route) {
+            val receiptScanViewModel: ReceiptScanViewModel = hiltViewModel()
+            val transactionViewModel: TransactionViewModel = hiltViewModel()
+            val categoryViewModel: CategoryViewModel = hiltViewModel()
+
             ReceiptScanScreen(
                 navController = navController,
                 receiptScanViewModel = receiptScanViewModel,
                 transactionViewModel = transactionViewModel,
-                categoryViewModel = categoryViewModel,
+                categoryViewModel = categoryViewModel
             )
         }
 
@@ -139,6 +159,9 @@ fun MoneyMasterNavHost(
             arguments = listOf(navArgument("transactionId") { type = NavType.StringType })
         ) { backStackEntry ->
             val transactionId = backStackEntry.arguments?.getString("transactionId") ?: "0"
+            val transactionViewModel: TransactionViewModel = hiltViewModel()
+            val categoryViewModel: CategoryViewModel = hiltViewModel()
+
             EditTransactionScreen(
                 navController = navController,
                 transactionId = transactionId,
@@ -148,8 +171,10 @@ fun MoneyMasterNavHost(
         }
 
         composable(Screen.Settings.route) {
+            val settingsViewModel: SettingsViewModel = hiltViewModel()
+
             SettingsScreen(
-                settingsViewModel = settingsViewModel,
+                settingsViewModel = settingsViewModel
             )
         }
     }

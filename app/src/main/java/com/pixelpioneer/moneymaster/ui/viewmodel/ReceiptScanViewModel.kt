@@ -8,10 +8,12 @@ import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.data.repository.ReceiptScanRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.File
+import javax.inject.Inject
 
 /**
  * ViewModel for scanning receipts and extracting transaction items.
@@ -21,8 +23,9 @@ import java.io.File
  *
  * @property receiptScanRepository Repository for receipt scanning operations.
  */
-class ReceiptScanViewModel(
-    private val receiptScanRepository: ReceiptScanRepository,
+@HiltViewModel
+class ReceiptScanViewModel @Inject constructor(
+    private val receiptScanRepository: ReceiptScanRepository
 ) : ViewModel() {
 
     private val _scannedItems = MutableStateFlow<List<Transaction>>(emptyList())

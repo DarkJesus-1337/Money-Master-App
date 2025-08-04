@@ -8,6 +8,7 @@ plugins {
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
     alias(libs.plugins.google.firebase.crashlytics)
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -156,6 +157,14 @@ dependencies {
 
     // exifinterface für EXIF-Daten
     implementation(libs.androidx.exifinterface)
+
+    // Hilt Dependencies (mit KSP)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    // Hilt Navigation Compose
+    implementation(libs.androidx.hilt.navigation.compose)
+    ksp(libs.androidx.hilt.compiler)
 
     // Tests
     testImplementation(libs.junit)

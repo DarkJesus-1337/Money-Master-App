@@ -1,7 +1,7 @@
 package com.pixelpioneer.moneymaster.data.repository
 
-import com.pixelpioneer.moneymaster.data.db.BudgetDao
-import com.pixelpioneer.moneymaster.data.db.TransactionDao
+import com.pixelpioneer.moneymaster.data.db.dao.BudgetDao
+import com.pixelpioneer.moneymaster.data.db.dao.TransactionDao
 import com.pixelpioneer.moneymaster.data.entity.BudgetEntity
 import com.pixelpioneer.moneymaster.data.enums.BudgetPeriod
 import com.pixelpioneer.moneymaster.data.model.Budget

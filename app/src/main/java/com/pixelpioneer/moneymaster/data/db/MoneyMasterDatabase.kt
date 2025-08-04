@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.pixelpioneer.moneymaster.data.db.dao.BudgetDao
+import com.pixelpioneer.moneymaster.data.db.dao.CategoryDao
+import com.pixelpioneer.moneymaster.data.db.dao.TransactionDao
 import com.pixelpioneer.moneymaster.data.entity.BudgetEntity
 import com.pixelpioneer.moneymaster.data.entity.CategoryEntity
 import com.pixelpioneer.moneymaster.data.entity.TransactionEntity

@@ -2,7 +2,7 @@ package com.pixelpioneer.moneymaster.data.repository
 
 import android.content.Context
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.data.db.CategoryDao
+import com.pixelpioneer.moneymaster.data.db.dao.CategoryDao
 import com.pixelpioneer.moneymaster.data.entity.CategoryEntity
 import com.pixelpioneer.moneymaster.data.mapper.CategoryMapper
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory

@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -12,49 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterNavHost
 import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
-import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
-import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryViewModel
-import com.pixelpioneer.moneymaster.ui.viewmodel.CryptoViewModel
-import com.pixelpioneer.moneymaster.ui.viewmodel.ReceiptScanViewModel
-import com.pixelpioneer.moneymaster.ui.viewmodel.SettingsViewModel
-import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsViewModel
-import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    private val transactionViewModel: TransactionViewModel by viewModels {
-        (application as MoneyMasterApplication).viewModelFactory
-    }
-
-    private val categoryViewModel: CategoryViewModel by viewModels {
-        (application as MoneyMasterApplication).viewModelFactory
-    }
-
-    private val budgetViewModel: BudgetViewModel by viewModels {
-        (application as MoneyMasterApplication).viewModelFactory
-    }
-
-    private val statisticsViewModel: StatisticsViewModel by viewModels {
-        (application as MoneyMasterApplication).viewModelFactory
-    }
-
-    private val cryptoViewModel: CryptoViewModel by viewModels {
-        (application as MoneyMasterApplication).viewModelFactory
-    }
-
-    private val receiptScanViewModel: ReceiptScanViewModel by viewModels {
-        (application as MoneyMasterApplication).viewModelFactory
-    }
-
-    private val settingsViewModel: SettingsViewModel by viewModels {
-        (application as MoneyMasterApplication).viewModelFactory
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
-        categoryViewModel.createDefaultCategoriesIfNeeded()
 
         setContent {
             MoneyMasterTheme {
@@ -63,17 +27,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-
-                    MoneyMasterNavHost(
-                        navController = navController,
-                        transactionViewModel = transactionViewModel,
-                        categoryViewModel = categoryViewModel,
-                        statisticsViewModel = statisticsViewModel,
-                        budgetViewModel = budgetViewModel,
-                        cryptoViewModel = cryptoViewModel,
-                        receiptScanViewModel = receiptScanViewModel,
-                        settingsViewModel = settingsViewModel,
-                    )
+                    // 🎉 Keine ViewModels mehr - alles wird von Hilt automatisch injiziert!
+                    MoneyMasterNavHost(navController = navController)
                 }
             }
         }

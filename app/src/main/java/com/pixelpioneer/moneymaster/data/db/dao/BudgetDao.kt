@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.data.db
+package com.pixelpioneer.moneymaster.data.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
