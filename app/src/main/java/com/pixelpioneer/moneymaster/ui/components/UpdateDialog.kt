@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.data.services.AppUpdateManager
+import com.pixelpioneer.moneymaster.core.network.AppUpdateManager
 
 @Composable
 fun UpdateDialog(

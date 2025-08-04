@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.data.db.dao
+package com.pixelpioneer.moneymaster.data.local.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -8,8 +8,8 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import com.pixelpioneer.moneymaster.data.entity.BudgetEntity
-import com.pixelpioneer.moneymaster.data.relation.BudgetWithCategory
+import com.pixelpioneer.moneymaster.data.local.entity.BudgetEntity
+import com.pixelpioneer.moneymaster.data.local.relation.BudgetWithCategory
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -5,7 +5,7 @@ import android.util.Log
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
-import com.pixelpioneer.moneymaster.data.services.CoinCapApiService
+import com.pixelpioneer.moneymaster.data.remote.api.CoinCapApiService
 import java.util.Calendar
 
 /**

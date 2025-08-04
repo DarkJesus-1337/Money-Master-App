@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
 import com.pixelpioneer.moneymaster.ui.viewmodel.FinancialSummary
-import com.pixelpioneer.moneymaster.util.FormatUtils
+import com.pixelpioneer.moneymaster.core.util.FormatUtils
 
 @Composable
 fun FinancialSummaryCards(summary: FinancialSummary) {

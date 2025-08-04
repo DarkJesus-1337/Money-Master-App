@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.util
+package com.pixelpioneer.moneymaster.core.util
 
 import java.text.NumberFormat
 import java.text.SimpleDateFormat

@@ -1,17 +1,17 @@
 package com.pixelpioneer.moneymaster.core.di
 
 import android.content.Context
-import com.pixelpioneer.moneymaster.data.db.dao.BudgetDao
-import com.pixelpioneer.moneymaster.data.db.dao.CategoryDao
-import com.pixelpioneer.moneymaster.data.db.dao.TransactionDao
+import com.pixelpioneer.moneymaster.data.local.db.dao.BudgetDao
+import com.pixelpioneer.moneymaster.data.local.db.dao.CategoryDao
+import com.pixelpioneer.moneymaster.data.local.db.dao.TransactionDao
 import com.pixelpioneer.moneymaster.data.repository.BudgetRepository
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
 import com.pixelpioneer.moneymaster.data.repository.CoinCapRepository
 import com.pixelpioneer.moneymaster.data.repository.ReceiptScanRepository
 import com.pixelpioneer.moneymaster.data.repository.SettingsRepository
 import com.pixelpioneer.moneymaster.data.repository.TransactionRepository
-import com.pixelpioneer.moneymaster.data.services.CoinCapApiService
-import com.pixelpioneer.moneymaster.data.services.RemoteConfigManager
+import com.pixelpioneer.moneymaster.data.remote.api.CoinCapApiService
+import com.pixelpioneer.moneymaster.core.network.RemoteConfigManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

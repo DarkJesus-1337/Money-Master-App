@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    // 🎉 Keine ViewModels mehr - alles wird von Hilt automatisch injiziert!
                     MoneyMasterNavHost(navController = navController)
                 }
             }

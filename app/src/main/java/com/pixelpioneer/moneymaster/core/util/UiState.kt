@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.util
+package com.pixelpioneer.moneymaster.core.util
 
 /**
  * Generic UI state holder for different states of the UI

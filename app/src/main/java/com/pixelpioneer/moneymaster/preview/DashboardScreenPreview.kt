@@ -22,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.pixelpioneer.moneymaster.data.sample.SampleData
 import com.pixelpioneer.moneymaster.ui.components.ViewAllTransactionsButton
 import com.pixelpioneer.moneymaster.ui.components.dashboard.BudgetOverview
 import com.pixelpioneer.moneymaster.ui.components.dashboard.FinancialSummaryCards
@@ -40,8 +39,8 @@ import com.pixelpioneer.moneymaster.ui.viewmodel.FinancialSummary
     )
 fun DashboardScreenPreview() {
     MoneyMasterTheme(
-        darkTheme = true, // Set to true for dark theme preview
-        dynamicColor = false // Disable dynamic color for consistent preview
+        darkTheme = true,
+        dynamicColor = false
     ) {
 
         val navController = rememberNavController()

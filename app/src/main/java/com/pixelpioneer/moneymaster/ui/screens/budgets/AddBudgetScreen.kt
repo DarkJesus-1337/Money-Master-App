@@ -57,7 +57,7 @@ import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.components.budget.getBudgetPeriodText
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
-import com.pixelpioneer.moneymaster.util.UiState
+import com.pixelpioneer.moneymaster.core.util.UiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

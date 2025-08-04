@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.data.sample
+package com.pixelpioneer.moneymaster.preview
 
 import android.graphics.Color
 import androidx.core.graphics.toColorInt

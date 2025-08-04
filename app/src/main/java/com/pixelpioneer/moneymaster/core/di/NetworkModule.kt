@@ -1,9 +1,9 @@
 package com.pixelpioneer.moneymaster.core.di
 
 import android.content.Context
-import com.pixelpioneer.moneymaster.data.services.CoinCapApiClient
-import com.pixelpioneer.moneymaster.data.services.CoinCapApiService
-import com.pixelpioneer.moneymaster.data.services.RemoteConfigManager
+import com.pixelpioneer.moneymaster.core.network.CoinCapApiClient
+import com.pixelpioneer.moneymaster.data.remote.api.CoinCapApiService
+import com.pixelpioneer.moneymaster.core.network.RemoteConfigManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

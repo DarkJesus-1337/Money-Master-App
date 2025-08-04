@@ -10,7 +10,7 @@ import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
 import com.pixelpioneer.moneymaster.ui.components.coincap.CryptoAssetsScreenContent
 import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
 import com.pixelpioneer.moneymaster.ui.viewmodel.CryptoViewModel
-import com.pixelpioneer.moneymaster.util.UiState
+import com.pixelpioneer.moneymaster.core.util.UiState
 
 @Composable
 fun CryptoAssetsScreen(viewModel: CryptoViewModel) {

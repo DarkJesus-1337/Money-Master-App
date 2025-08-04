@@ -35,7 +35,7 @@ import com.pixelpioneer.moneymaster.ui.components.emptyview.EmptyBudgetsView
 import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterBottomNavigation
 import com.pixelpioneer.moneymaster.ui.navigation.Screen
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
-import com.pixelpioneer.moneymaster.util.UiState
+import com.pixelpioneer.moneymaster.core.util.UiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,4 +1,3 @@
-// Datei: SettingsRepository.kt
 package com.pixelpioneer.moneymaster.data.repository
 
 import android.content.Context

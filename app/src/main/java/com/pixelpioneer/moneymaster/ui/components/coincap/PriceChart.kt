@@ -20,7 +20,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
-import com.pixelpioneer.moneymaster.util.FormatUtils
+import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -108,27 +108,27 @@ private fun PriceChartPreview() {
     val sampleHistoryData = listOf(
         HistoryDataPoint(
             priceUsd = "50000.123",
-            time = System.currentTimeMillis() - 24 * 60 * 60 * 1000, // vor 24h
+            time = System.currentTimeMillis() - 24 * 60 * 60 * 1000,
             date = ""
         ),
         HistoryDataPoint(
             priceUsd = "51500.456",
-            time = System.currentTimeMillis() - 18 * 60 * 60 * 1000, // vor 18h
+            time = System.currentTimeMillis() - 18 * 60 * 60 * 1000,
             date = ""
         ),
         HistoryDataPoint(
             priceUsd = "49800.789",
-            time = System.currentTimeMillis() - 12 * 60 * 60 * 1000, // vor 12h
+            time = System.currentTimeMillis() - 12 * 60 * 60 * 1000,
             date = ""
         ),
         HistoryDataPoint(
             priceUsd = "52200.012",
-            time = System.currentTimeMillis() - 6 * 60 * 60 * 1000, // vor 6h
+            time = System.currentTimeMillis() - 6 * 60 * 60 * 1000,
             date = ""
         ),
         HistoryDataPoint(
             priceUsd = "53100.345",
-            time = System.currentTimeMillis(), // jetzt
+            time = System.currentTimeMillis(),
             date = ""
         )
     )

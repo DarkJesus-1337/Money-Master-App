@@ -1,5 +1,6 @@
-package com.pixelpioneer.moneymaster.data.services
+package com.pixelpioneer.moneymaster.core.network
 
+import com.pixelpioneer.moneymaster.data.remote.dto.OcrSpaceApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

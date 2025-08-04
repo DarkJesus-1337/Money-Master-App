@@ -59,7 +59,7 @@ import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.navigation.Screen
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
-import com.pixelpioneer.moneymaster.util.UiState
+import com.pixelpioneer.moneymaster.core.util.UiState
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

@@ -53,7 +53,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.SettingsState
-import com.pixelpioneer.moneymaster.data.services.AppUpdateManager
+import com.pixelpioneer.moneymaster.core.network.AppUpdateManager
 import com.pixelpioneer.moneymaster.ui.components.UpdateDialog
 import com.pixelpioneer.moneymaster.ui.components.getNewAppVersion
 import com.pixelpioneer.moneymaster.ui.viewmodel.SettingsViewModel
@@ -122,7 +122,6 @@ fun SettingsMainScreen(
             verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.Top),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Personal Settings Button
             Button(
                 onClick = onPersonalClick,
                 modifier = Modifier.fillMaxWidth()
@@ -130,7 +129,6 @@ fun SettingsMainScreen(
                 Text(stringResource(R.string.settings_personal))
             }
 
-            // App Settings Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(4.dp)
@@ -144,7 +142,6 @@ fun SettingsMainScreen(
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Dark Mode Toggle
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.fillMaxWidth()
@@ -161,7 +158,6 @@ fun SettingsMainScreen(
 
                     Spacer(Modifier.height(16.dp))
 
-                    // Update Check Button
                     Button(
                         onClick = {
                             if (activity != null) {
@@ -174,7 +170,6 @@ fun SettingsMainScreen(
                         Text(stringResource(R.string.settings_check_updates))
                     }
 
-                    // App Version Display
                     val appVersion = getNewAppVersion()
                     Text(
                         "Version: $appVersion",
@@ -184,7 +179,6 @@ fun SettingsMainScreen(
                 }
             }
 
-            // Update Dialog
             if (showUpdateDialog && updateState != AppUpdateManager.UpdateState.Idle) {
                 UpdateDialog(
                     updateState = updateState,
@@ -226,7 +220,6 @@ fun PersonalSettingsScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            // Personal Data Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(4.dp)
@@ -240,7 +233,6 @@ fun PersonalSettingsScreen(
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Name Field
                     OutlinedTextField(
                         value = state.name,
                         onValueChange = { settingsViewModel.updateName(it) },
@@ -251,7 +243,6 @@ fun PersonalSettingsScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    // Income Field
                     OutlinedTextField(
                         value = state.income,
                         onValueChange = { settingsViewModel.updateIncome(it) },
@@ -265,7 +256,6 @@ fun PersonalSettingsScreen(
                 }
             }
 
-            // Fixed Costs Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(4.dp)
@@ -279,7 +269,6 @@ fun PersonalSettingsScreen(
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Rent Field
                     OutlinedTextField(
                         value = state.rent,
                         onValueChange = { settingsViewModel.updateRent(it) },
@@ -291,7 +280,6 @@ fun PersonalSettingsScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    // Electricity Field
                     OutlinedTextField(
                         value = state.electricity,
                         onValueChange = { settingsViewModel.updateElectricity(it) },
@@ -303,7 +291,6 @@ fun PersonalSettingsScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    // Gas Field
                     OutlinedTextField(
                         value = state.gas,
                         onValueChange = { settingsViewModel.updateGas(it) },
@@ -315,7 +302,6 @@ fun PersonalSettingsScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    // Internet Field
                     OutlinedTextField(
                         value = state.internet,
                         onValueChange = { settingsViewModel.updateInternet(it) },
@@ -329,7 +315,6 @@ fun PersonalSettingsScreen(
                 }
             }
 
-            // Additional Fixed Costs Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(4.dp)
@@ -343,7 +328,6 @@ fun PersonalSettingsScreen(
                         style = MaterialTheme.typography.titleMedium
                     )
 
-                    // Dynamic Additional Costs
                     for ((idx, cost) in state.additionalCosts.withIndex()) {
                         Column(
                             modifier = Modifier
@@ -351,7 +335,6 @@ fun PersonalSettingsScreen(
                                 .padding(bottom = 8.dp),
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            // Cost Label Field
                             OutlinedTextField(
                                 value = cost.label,
                                 onValueChange = {
@@ -361,7 +344,6 @@ fun PersonalSettingsScreen(
                                 modifier = Modifier.fillMaxWidth()
                             )
 
-                            // Cost Amount Field
                             OutlinedTextField(
                                 value = cost.value,
                                 onValueChange = {
@@ -372,7 +354,6 @@ fun PersonalSettingsScreen(
                                 modifier = Modifier.fillMaxWidth()
                             )
 
-                            // Remove Button
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.End
@@ -390,7 +371,6 @@ fun PersonalSettingsScreen(
                         HorizontalDivider()
                     }
 
-                    // Add Fixed Cost Button
                     OutlinedButton(
                         onClick = { settingsViewModel.addAdditionalCost() },
                         modifier = Modifier.align(Alignment.End)

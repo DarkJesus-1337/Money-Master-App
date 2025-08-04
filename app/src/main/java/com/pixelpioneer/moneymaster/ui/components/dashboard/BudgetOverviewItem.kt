@@ -22,7 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.util.FormatUtils
+import com.pixelpioneer.moneymaster.core.util.FormatUtils
 
 /**
  * A component for displaying a single budget item in the budget overview

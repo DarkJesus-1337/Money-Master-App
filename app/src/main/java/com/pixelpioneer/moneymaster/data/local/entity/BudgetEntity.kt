@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.data.entity
+package com.pixelpioneer.moneymaster.data.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

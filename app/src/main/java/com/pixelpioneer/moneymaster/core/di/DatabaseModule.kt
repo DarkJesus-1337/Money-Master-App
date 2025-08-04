@@ -2,10 +2,10 @@ package com.pixelpioneer.moneymaster.core.di
 
 import android.content.Context
 import androidx.room.Room
-import com.pixelpioneer.moneymaster.data.db.MoneyMasterDatabase
-import com.pixelpioneer.moneymaster.data.db.dao.BudgetDao
-import com.pixelpioneer.moneymaster.data.db.dao.CategoryDao
-import com.pixelpioneer.moneymaster.data.db.dao.TransactionDao
+import com.pixelpioneer.moneymaster.data.local.db.MoneyMasterDatabase
+import com.pixelpioneer.moneymaster.data.local.db.dao.BudgetDao
+import com.pixelpioneer.moneymaster.data.local.db.dao.CategoryDao
+import com.pixelpioneer.moneymaster.data.local.db.dao.TransactionDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

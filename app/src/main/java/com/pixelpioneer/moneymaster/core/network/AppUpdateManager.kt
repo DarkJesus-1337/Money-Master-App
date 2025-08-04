@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.data.services
+package com.pixelpioneer.moneymaster.core.network
 
 import android.app.Activity
 import android.content.Intent

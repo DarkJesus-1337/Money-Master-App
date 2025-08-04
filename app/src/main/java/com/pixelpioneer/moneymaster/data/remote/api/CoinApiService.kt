@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.data.services
+package com.pixelpioneer.moneymaster.data.remote.api
 
 import com.pixelpioneer.moneymaster.data.model.AssetsResponse
 import com.pixelpioneer.moneymaster.data.model.HistoryResponse

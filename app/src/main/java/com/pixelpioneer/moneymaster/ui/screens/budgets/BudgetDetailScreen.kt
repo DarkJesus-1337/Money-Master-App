@@ -43,8 +43,8 @@ import com.pixelpioneer.moneymaster.ui.components.dashboard.RecentTransactionIte
 import com.pixelpioneer.moneymaster.ui.navigation.Screen
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
-import com.pixelpioneer.moneymaster.util.FormatUtils
-import com.pixelpioneer.moneymaster.util.UiState
+import com.pixelpioneer.moneymaster.core.util.FormatUtils
+import com.pixelpioneer.moneymaster.core.util.UiState
 import kotlin.math.min
 
 @OptIn(ExperimentalMaterial3Api::class)

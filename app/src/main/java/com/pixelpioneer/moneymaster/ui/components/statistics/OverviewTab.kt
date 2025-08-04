@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsOverview
-import com.pixelpioneer.moneymaster.util.FormatUtils
-import com.pixelpioneer.moneymaster.util.UiState
+import com.pixelpioneer.moneymaster.core.util.FormatUtils
+import com.pixelpioneer.moneymaster.core.util.UiState
 
 @Composable
 fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {

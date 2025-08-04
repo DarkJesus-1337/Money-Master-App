@@ -166,17 +166,14 @@ class ReceiptScanViewModel @Inject constructor(
                 val (title, amountStr) = it.destructured
                 val cleanTitle = title.trim().lowercase()
 
-                // Skip if the title contains any excluded terms
                 if (excludeTerms.any { excludeTerm -> cleanTitle.contains(excludeTerm) }) {
                     return@let null
                 }
 
-                // Skip if the title is too short (likely not a product name)
                 if (cleanTitle.length < 3) {
                     return@let null
                 }
 
-                // Skip if the title contains mostly numbers (likely a product code or similar)
                 if (cleanTitle.replace(
                         Regex("[^a-zA-ZäöüßÄÖÜ]"),
                         ""
@@ -187,14 +184,13 @@ class ReceiptScanViewModel @Inject constructor(
 
                 val amount = amountStr.replace(",", ".").toDoubleOrNull() ?: return@let null
 
-                // Skip very small amounts (might be taxes or fees)
                 if (amount < 0.10) {
                     return@let null
                 }
 
                 Transaction(
                     amount = amount,
-                    title = title.trim(), // Use original title with proper casing
+                    title = title.trim(),
                     category = defaultCategory,
                     date = now,
                     isExpense = true

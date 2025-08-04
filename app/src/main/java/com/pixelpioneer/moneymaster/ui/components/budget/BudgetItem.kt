@@ -37,7 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Budget
-import com.pixelpioneer.moneymaster.util.FormatUtils
+import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import kotlin.math.min
 
 @Composable

@@ -1,9 +1,9 @@
-package com.pixelpioneer.moneymaster.data.relation
+package com.pixelpioneer.moneymaster.data.local.relation
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.pixelpioneer.moneymaster.data.entity.CategoryEntity
-import com.pixelpioneer.moneymaster.data.entity.TransactionEntity
+import com.pixelpioneer.moneymaster.data.local.entity.CategoryEntity
+import com.pixelpioneer.moneymaster.data.local.entity.TransactionEntity
 
 data class TransactionWithCategory(
     @Embedded val transaction: TransactionEntity,

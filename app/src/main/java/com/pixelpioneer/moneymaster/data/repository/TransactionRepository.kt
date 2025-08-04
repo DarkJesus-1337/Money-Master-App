@@ -2,12 +2,12 @@ package com.pixelpioneer.moneymaster.data.repository
 
 import android.content.Context
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.data.db.dao.TransactionDao
+import com.pixelpioneer.moneymaster.data.local.db.dao.TransactionDao
 import com.pixelpioneer.moneymaster.data.mapper.TransactionMapper
 import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.Transaction
-import com.pixelpioneer.moneymaster.data.relation.TransactionWithCategory
-import com.pixelpioneer.moneymaster.data.services.CoinCapApiService
+import com.pixelpioneer.moneymaster.data.local.relation.TransactionWithCategory
+import com.pixelpioneer.moneymaster.data.remote.api.CoinCapApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.Calendar

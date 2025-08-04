@@ -153,7 +153,7 @@ dependencies {
     implementation(libs.firebase.appdistribution)
     implementation(libs.firebase.crashlytics)
 
-    // Hilt Dependencies (KORRIGIERT - nur einmal androidx.hilt.compiler)
+    // Hilt Dependencies
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)

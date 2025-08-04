@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.data.services
+package com.pixelpioneer.moneymaster.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 import okhttp3.MultipartBody

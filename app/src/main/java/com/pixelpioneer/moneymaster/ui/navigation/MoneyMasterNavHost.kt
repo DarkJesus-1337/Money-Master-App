@@ -39,7 +39,6 @@ fun MoneyMasterNavHost(
         modifier = modifier
     ) {
         composable(Screen.Dashboard.route) {
-            // 🚀 ViewModels werden automatisch von Hilt injiziert!
             val transactionViewModel: TransactionViewModel = hiltViewModel()
             val budgetViewModel: BudgetViewModel = hiltViewModel()
 

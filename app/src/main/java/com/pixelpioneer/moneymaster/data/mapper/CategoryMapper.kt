@@ -1,6 +1,6 @@
 package com.pixelpioneer.moneymaster.data.mapper
 
-import com.pixelpioneer.moneymaster.data.entity.CategoryEntity
+import com.pixelpioneer.moneymaster.data.local.entity.CategoryEntity
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 
 object CategoryMapper {

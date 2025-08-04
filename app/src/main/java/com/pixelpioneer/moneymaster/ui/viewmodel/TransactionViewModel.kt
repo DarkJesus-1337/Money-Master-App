@@ -9,7 +9,7 @@ import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
 import com.pixelpioneer.moneymaster.data.repository.TransactionRepository
-import com.pixelpioneer.moneymaster.util.UiState
+import com.pixelpioneer.moneymaster.core.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -356,7 +356,7 @@ class TransactionViewModel @Inject constructor(
             try {
                 loadFinancialSummary()
             } catch (e: Exception) {
-                // Handle error if needed
+                // Handle error
             }
         }
     }

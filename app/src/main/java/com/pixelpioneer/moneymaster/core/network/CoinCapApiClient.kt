@@ -1,5 +1,6 @@
-package com.pixelpioneer.moneymaster.data.services
+package com.pixelpioneer.moneymaster.core.network
 
+import com.pixelpioneer.moneymaster.data.remote.api.CoinCapApiService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request

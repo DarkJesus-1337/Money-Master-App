@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.data.sample
+package com.pixelpioneer.moneymaster.data.repository
 
 import com.pixelpioneer.moneymaster.data.enums.BudgetPeriod
 import com.pixelpioneer.moneymaster.data.model.AssetsResponse
@@ -7,6 +7,7 @@ import com.pixelpioneer.moneymaster.data.model.HistoryResponse
 import com.pixelpioneer.moneymaster.data.model.Receipt
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
+import com.pixelpioneer.moneymaster.preview.SampleData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,11 +15,10 @@ import kotlin.random.Random
 
 class MockRepository {
 
-    // Mock Transaction Repository
     private val _transactions = SampleData.sampleTransactions.toMutableList()
 
     fun getAllTransactions(): Flow<List<Transaction>> = flow {
-        delay(500) // Simulate network delay
+        delay(500)
         emit(_transactions.toList())
     }
 
@@ -48,7 +48,6 @@ class MockRepository {
         emit(_transactions.filter { it.category.id == categoryId })
     }
 
-    // Mock Category Repository
     private val _categories = SampleData.sampleCategories.toMutableList()
 
     fun getAllCategories(): Flow<List<TransactionCategory>> = flow {
@@ -111,9 +110,8 @@ class MockRepository {
         emit(_budgets.filter { it.period == period })
     }
 
-    // Mock CoinCap Repository
     suspend fun getAssets(): Result<AssetsResponse> {
-        delay(1000) // Simulate API call
+        delay(1000)
         return if (Random.nextBoolean()) {
             Result.success(SampleData.sampleAssetsResponse)
         } else {
@@ -130,9 +128,8 @@ class MockRepository {
         }
     }
 
-    // Mock Receipt Scan Repository
     suspend fun scanReceipt(imageData: ByteArray): Result<Receipt> {
-        delay(2000) // Simulate OCR processing
+        delay(2000)
         return if (Random.nextBoolean()) {
             Result.success(SampleData.sampleReceipt)
         } else {
@@ -140,7 +137,6 @@ class MockRepository {
         }
     }
 
-    // Statistics helpers
     fun getTransactionsByDateRange(startDate: Long, endDate: Long): Flow<List<Transaction>> = flow {
         delay(400)
         emit(_transactions.filter { it.date in startDate..endDate })
@@ -156,7 +152,6 @@ class MockRepository {
 
     fun getMonthlyTotals(): Flow<Map<String, Double>> = flow {
         delay(600)
-        // Simplified monthly totals simulation
         val monthlyData = mapOf(
             "Januar" to 1250.50,
             "Februar" to 1180.25,

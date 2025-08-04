@@ -1,15 +1,15 @@
-package com.pixelpioneer.moneymaster.data.db
+package com.pixelpioneer.moneymaster.data.local.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.pixelpioneer.moneymaster.data.db.dao.BudgetDao
-import com.pixelpioneer.moneymaster.data.db.dao.CategoryDao
-import com.pixelpioneer.moneymaster.data.db.dao.TransactionDao
-import com.pixelpioneer.moneymaster.data.entity.BudgetEntity
-import com.pixelpioneer.moneymaster.data.entity.CategoryEntity
-import com.pixelpioneer.moneymaster.data.entity.TransactionEntity
+import com.pixelpioneer.moneymaster.data.local.db.dao.BudgetDao
+import com.pixelpioneer.moneymaster.data.local.db.dao.CategoryDao
+import com.pixelpioneer.moneymaster.data.local.db.dao.TransactionDao
+import com.pixelpioneer.moneymaster.data.local.entity.BudgetEntity
+import com.pixelpioneer.moneymaster.data.local.entity.CategoryEntity
+import com.pixelpioneer.moneymaster.data.local.entity.TransactionEntity
 
 @Database(
     entities = [

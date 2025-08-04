@@ -45,7 +45,7 @@ import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterBottomNavigation
 import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.ReceiptScanViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
-import com.pixelpioneer.moneymaster.util.uriToFile
+import com.pixelpioneer.moneymaster.core.util.uriToFile
 import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)

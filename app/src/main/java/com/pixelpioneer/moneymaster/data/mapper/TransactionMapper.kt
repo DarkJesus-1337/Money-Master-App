@@ -1,9 +1,9 @@
 package com.pixelpioneer.moneymaster.data.mapper
 
-import com.pixelpioneer.moneymaster.data.entity.TransactionEntity
+import com.pixelpioneer.moneymaster.data.local.entity.TransactionEntity
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
-import com.pixelpioneer.moneymaster.data.relation.TransactionWithCategory
+import com.pixelpioneer.moneymaster.data.local.relation.TransactionWithCategory
 
 object TransactionMapper {
     fun toEntity(transaction: Transaction): TransactionEntity {

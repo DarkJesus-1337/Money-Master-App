@@ -1,10 +1,10 @@
 package com.pixelpioneer.moneymaster.data.mapper
 
-import com.pixelpioneer.moneymaster.data.entity.BudgetEntity
+import com.pixelpioneer.moneymaster.data.local.entity.BudgetEntity
 import com.pixelpioneer.moneymaster.data.enums.BudgetPeriod
 import com.pixelpioneer.moneymaster.data.model.Budget
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
-import com.pixelpioneer.moneymaster.data.relation.BudgetWithCategory
+import com.pixelpioneer.moneymaster.data.local.relation.BudgetWithCategory
 
 object BudgetMapper {
     fun toEntity(budget: Budget): BudgetEntity {
