@@ -96,8 +96,6 @@ dependencies {
     // Room für Datenbank
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    implementation(libs.androidx.ui.text.google.fonts)
-    implementation(libs.firebase.crashlytics)
     ksp(libs.androidx.room.compiler)
 
     // ViewModel und LiveData
@@ -106,29 +104,26 @@ dependencies {
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
-
-    // Coroutines für async/await
     implementation(libs.kotlinx.coroutines.play.services)
 
-    // Coil für Bild-Handling
+    // UI & Graphics
     implementation(libs.coil.compose)
-
-    // Material Icons Extended (für mehr Icons)
     implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.ui.text.google.fonts)
 
-    // Für Datums- und Zeitformatierung
+    // Utils
     implementation(libs.kotlinx.datetime)
 
-    // Retrofit für Netzwerkaufrufe
+    // Networking
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.okhttp)
 
+    // Charts
     implementation(libs.mpandroidchart)
 
     // ML Kit Text Recognition
     implementation(libs.play.services.mlkit.text.recognition)
-
-    // ML Kit Text Recognition
     implementation(libs.text.recognition)
 
     // Camera
@@ -136,14 +131,10 @@ dependencies {
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.view)
 
-    // Permissions
-    implementation(libs.androidx.activity.compose)
-
-    // RecyclerView hinzufügen
+    // Other Android Components
     implementation(libs.androidx.recyclerview)
-
-    // HTTP Client für Multipart Uploads
-    implementation(libs.okhttp)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.exifinterface)
 
     // Firebase
     implementation(platform(libs.firebase.bom))
@@ -151,18 +142,11 @@ dependencies {
     implementation(libs.firebase.config.ktx)
     implementation(libs.firebase.config)
     implementation(libs.firebase.appdistribution)
+    implementation(libs.firebase.crashlytics)
 
-    // AppCompat für Firebase App Distribution
-    implementation(libs.androidx.appcompat)
-
-    // exifinterface für EXIF-Daten
-    implementation(libs.androidx.exifinterface)
-
-    // Hilt Dependencies (mit KSP)
+    // Hilt Dependencies (KORRIGIERT - nur einmal androidx.hilt.compiler)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-
-    // Hilt Navigation Compose
     implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.androidx.hilt.compiler)
 
