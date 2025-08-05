@@ -60,6 +60,31 @@ interface TransactionDao {
         endDate: Long
     ): Double?
 
+    @Query("SELECT COUNT(*) FROM transactions")
+    suspend fun getTransactionCountSync(): Int
+
+    // ==========================================
+    // SYNC METHODS (FEHLENDE METHODEN HINZUGEFÜGT)
+    // ==========================================
+
+    /**
+     * Synchrone Berechnung der Gesamteinnahmen.
+     * Diese Methode wird von TransactionRepository.getTotalIncomeSync() verwendet.
+     */
+    @Query("SELECT SUM(amount) FROM transactions WHERE isExpense = 0")
+    suspend fun getTotalIncomeSync(): Double
+
+    /**
+     * Synchrone Berechnung der Gesamtausgaben.
+     * Diese Methode wird von TransactionRepository.getTotalExpensesSync() verwendet.
+     */
+    @Query("SELECT SUM(amount) FROM transactions WHERE isExpense = 1")
+    suspend fun getTotalExpensesSync(): Double
+
+    // ==========================================
+    // CRUD OPERATIONS
+    // ==========================================
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransaction(transaction: TransactionEntity): Long
 
@@ -69,12 +94,40 @@ interface TransactionDao {
     @Delete
     suspend fun deleteTransaction(transaction: TransactionEntity)
 
-    @Query("SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE isExpense = 0")
-    suspend fun getTotalIncomeSync(): Double
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(transactions: List<TransactionEntity>)
 
-    @Query("SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE isExpense = 1")
-    suspend fun getTotalExpensesSync(): Double
+    // ==========================================
+    // DATABASE REPAIR METHODS
+    // ==========================================
 
-    @Query("SELECT COUNT(*) FROM transactions")
-    suspend fun getTransactionCountSync(): Int
+    /**
+     * Findet alle Transaktionen mit ungültigen Kategorie-Referenzen.
+     * Diese Transaktionen verweisen auf Kategorien, die nicht existieren.
+     */
+    @Query("""
+        SELECT * FROM transactions 
+        WHERE categoryId NOT IN (SELECT id FROM categories)
+    """)
+    suspend fun getTransactionsWithInvalidCategories(): List<TransactionEntity>
+
+    /**
+     * Aktualisiert alle Transaktionen mit ungültigen categoryId
+     * und weist ihnen eine gültige Standard-Kategorie zu.
+     */
+    @Query("""
+        UPDATE transactions 
+        SET categoryId = :defaultCategoryId 
+        WHERE categoryId NOT IN (SELECT id FROM categories)
+    """)
+    suspend fun updateCategoryIdForOrphanedTransactions(defaultCategoryId: Long)
+
+    /**
+     * Prüft ob Transaktionen mit ungültigen Kategorie-Referenzen existieren.
+     */
+    @Query("""
+        SELECT COUNT(*) FROM transactions 
+        WHERE categoryId NOT IN (SELECT id FROM categories)
+    """)
+    suspend fun countTransactionsWithInvalidCategories(): Int
 }

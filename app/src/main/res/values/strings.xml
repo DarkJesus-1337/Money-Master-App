@@ -317,7 +317,7 @@
     <string name="empty_receipts_title">No receipts scanned</string>
     <string name="empty_receipts_description">Scan your receipts to keep track of your expenses</string>
     <string name="empty_categories">No categories available</string>
-    <string name="empty_categories_please_create">No categories available. Please create categories first.</string>
+    <string name="empty_categories_please_create">No categories available. Categories are being loaded...</string>
     <string name="empty_transaction_category">No transactions in this category yet</string>
     <string name="empty_financial_summary_title">No financial data yet</string>
     <string name="empty_financial_summary_description">Add income and expenses to see your financial summary</string>
@@ -332,6 +332,14 @@
     <string name="no_transactions_found">No transactions found</string>
     <string name="no_budgets_found">No budgets found</string>
     <string name="no_budgets_yet">No budgets yet</string>
+
+    <!-- ==========================================
+         CATEGORY MANAGEMENT (NEW)
+         ========================================== -->
+    <string name="categories_available">categories available</string>
+    <string name="predefined_categories_loaded">Predefined categories loaded</string>
+    <string name="categories_initialized">Categories have been initialized</string>
+    <string name="empty_categories_description">Standard categories are being loaded...</string>
 
     <!-- ==========================================
          LOG MESSAGES (DEVELOPMENT)

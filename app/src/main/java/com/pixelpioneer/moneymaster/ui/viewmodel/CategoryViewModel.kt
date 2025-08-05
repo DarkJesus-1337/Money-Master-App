@@ -17,11 +17,7 @@ import javax.inject.Inject
 
 /**
  * ViewModel for managing transaction categories.
- *
- * Handles loading, creating, updating, and deleting categories,
- * as well as managing the category form state and providing UI state flows.
- *
- * @property categoryRepository Repository for category data access.
+ * Initialisiert automatisch vordefinierte Kategorien und repariert die Datenbank.
  */
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
@@ -31,38 +27,86 @@ class CategoryViewModel @Inject constructor(
 
     private val _categoriesState =
         MutableStateFlow<UiState<List<TransactionCategory>>>(UiState.Loading)
+    val categoriesState: StateFlow<UiState<List<TransactionCategory>>> = _categoriesState
 
     private val _categories = MutableStateFlow<List<TransactionCategory>>(emptyList())
     val categories: StateFlow<List<TransactionCategory>> = _categories
 
+    private val _isInitializing = MutableStateFlow(false)
+    val isInitializing: StateFlow<Boolean> = _isInitializing
+
     init {
-        loadCategories()
+        initializeAndLoadCategories()
+    }
+
+    /**
+     * Initialisiert die Kategorien und repariert die Datenbank bei der ersten Nutzung.
+     */
+    private fun initializeAndLoadCategories() {
+        viewModelScope.launch {
+            try {
+                _isInitializing.value = true
+                _categoriesState.value = UiState.Loading
+
+                // Initialisiere Standard-Kategorien und repariere die Datenbank
+                categoryRepository.initializeDefaultCategoriesAndRepairDatabase()
+
+                // Lade die Kategorien nach der Initialisierung
+                loadCategories()
+
+            } catch (e: Exception) {
+                // Bei Fehlern: Vordefinierte Kategorien als Fallback verwenden
+                val predefinedCategories = categoryRepository.getPredefinedCategories()
+                _categoriesState.value = UiState.Success(predefinedCategories)
+                _categories.value = predefinedCategories
+            } finally {
+                _isInitializing.value = false
+            }
+        }
     }
 
     private fun loadCategories() {
         viewModelScope.launch {
             try {
-                _categoriesState.value = UiState.Loading
                 categoryRepository.allCategories
                     .catch { e ->
-                        _categoriesState.value =
-                            UiState.Error(e.message ?: context.getString(R.string.error_unknown))
-                        _categories.value = emptyList()
+                        // Bei DB-Fehlern: Vordefinierte Kategorien als Fallback verwenden
+                        val predefinedCategories = categoryRepository.getPredefinedCategories()
+                        _categoriesState.value = UiState.Success(predefinedCategories)
+                        _categories.value = predefinedCategories
                     }
                     .collect { categories ->
                         if (categories.isEmpty()) {
-                            _categoriesState.value = UiState.Empty
+                            // Sollte normalerweise nicht auftreten, da wir Fallback haben
+                            val predefinedCategories = categoryRepository.getPredefinedCategories()
+                            _categoriesState.value = UiState.Success(predefinedCategories)
+                            _categories.value = predefinedCategories
                         } else {
                             _categoriesState.value = UiState.Success(categories)
+                            _categories.value = categories
                         }
-                        _categories.value = categories
                     }
             } catch (e: Exception) {
-                _categoriesState.value =
-                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
-                _categories.value = emptyList()
+                // Als letzter Fallback: Vordefinierte Kategorien verwenden
+                val predefinedCategories = categoryRepository.getPredefinedCategories()
+                _categoriesState.value = UiState.Success(predefinedCategories)
+                _categories.value = predefinedCategories
             }
         }
+    }
+
+    /**
+     * Erneuert die Kategorien-Liste
+     */
+    fun refreshCategories() {
+        loadCategories()
+    }
+
+    /**
+     * Erzwingt eine Neuinitialisierung der Datenbank (für Debug-Zwecke)
+     */
+    fun forceReinitialize() {
+        initializeAndLoadCategories()
     }
 }
 

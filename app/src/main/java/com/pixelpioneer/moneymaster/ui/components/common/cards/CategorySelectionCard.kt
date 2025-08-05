@@ -22,31 +22,37 @@ import com.pixelpioneer.moneymaster.ui.components.utils.DropdownMenuCategorySele
 fun CategorySelectionCard(
     categories: List<TransactionCategory>,
     selectedCategory: TransactionCategory?,
-    onCategorySelected: (TransactionCategory) -> Unit
+    onCategorySelected: (TransactionCategory) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = stringResource(R.string.select_category),
+                text = stringResource(R.string.label_category),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
             )
             Spacer(modifier = Modifier.height(8.dp))
+
+            // Die Kategorien sollten immer verfügbar sein
+            // durch die vordefinierte Liste
+            DropdownMenuCategorySelector(
+                categories = categories,
+                selectedCategory = selectedCategory,
+                onCategorySelected = onCategorySelected
+            )
+
+            // Info-Text für Benutzer
             if (categories.isNotEmpty()) {
-                DropdownMenuCategorySelector(
-                    categories = categories,
-                    selectedCategory = selectedCategory,
-                    onCategorySelected = onCategorySelected
-                )
-            } else {
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = stringResource(R.string.empty_receipt_category),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.error
+                    text = "${categories.size} ${stringResource(R.string.categories_available)}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }

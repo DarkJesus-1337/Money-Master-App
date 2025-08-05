@@ -317,7 +317,7 @@
     <string name="empty_receipts_title">Noch keine Belege gescannt</string>
     <string name="empty_receipts_description">Scannen Sie Ihre Belege, um Ihre Ausgaben zu verfolgen</string>
     <string name="empty_categories">Keine Kategorien verfügbar</string>
-    <string name="empty_categories_please_create">Keine Kategorien verfügbar. Bitte erstellen Sie zuerst Kategorien.</string>
+    <string name="empty_categories_please_create">Keine Kategorien verfügbar. Standard-Kategorien werden geladen...</string>
     <string name="empty_transaction_category">Noch keine Transaktionen in dieser Kategorie</string>
     <string name="empty_financial_summary_title">Noch keine Finanzdaten</string>
     <string name="empty_financial_summary_description">Fügen Sie Einnahmen und Ausgaben hinzu, um Ihre Finanzübersicht zu sehen</string>
@@ -332,6 +332,14 @@
     <string name="no_transactions_found">Keine Transaktionen gefunden</string>
     <string name="no_budgets_found">Keine Budgets gefunden</string>
     <string name="no_budgets_yet">Noch keine Budgets</string>
+
+    <!-- ==========================================
+         CATEGORY MANAGEMENT (NEW)
+         ========================================== -->
+    <string name="categories_available">Kategorien verfügbar</string>
+    <string name="predefined_categories_loaded">Vordefinierte Kategorien geladen</string>
+    <string name="categories_initialized">Kategorien wurden initialisiert</string>
+    <string name="empty_categories_description">Standard-Kategorien werden geladen...</string>
 
     <!-- ==========================================
          LOG MESSAGES (DEVELOPMENT)

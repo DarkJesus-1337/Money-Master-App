@@ -13,6 +13,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Hilt Module für Database und DAOs.
+ * Dieses Modul ist nur für die Bereitstellung der Datenbank und der DAOs zuständig.
+ * Die Repositories werden im RepositoryModule bereitgestellt.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {

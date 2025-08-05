@@ -19,6 +19,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Hilt Module für Repository-Bereitstellung.
+ * Dieses Modul ist nur für die Bereitstellung der Repositories zuständig.
+ * Database und DAOs werden im DatabaseModule bereitgestellt.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
@@ -40,9 +45,11 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideCategoryRepository(
-        categoryDao: CategoryDao
+        categoryDao: CategoryDao,
+        transactionDao: TransactionDao,
+        @ApplicationContext context: Context
     ): CategoryRepository {
-        return CategoryRepository(categoryDao)
+        return CategoryRepository(categoryDao, transactionDao, context)
     }
 
     @Provides
