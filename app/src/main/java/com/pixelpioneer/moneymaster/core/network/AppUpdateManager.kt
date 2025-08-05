@@ -117,7 +117,7 @@ class AppUpdateManager {
     private fun installApk(file: File, activity: Activity) {
         val uri = FileProvider.getUriForFile(
             activity,
-            "${activity.packageName}.provider",
+            "com.pixelpioneer.moneymaster.fileprovider",
             file
         )
         val intent = Intent(Intent.ACTION_VIEW).apply {
