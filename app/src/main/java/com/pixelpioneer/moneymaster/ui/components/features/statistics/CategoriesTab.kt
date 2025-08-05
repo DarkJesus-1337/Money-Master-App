@@ -18,11 +18,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
-import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryStats
 import com.pixelpioneer.moneymaster.core.util.UiState
+import com.pixelpioneer.moneymaster.data.model.CategoryStats
+import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.components.common.items.CategoryStatsItem
 
+/**
+ * Tab for displaying statistics grouped by transaction category.
+ *
+ * Shows a list of categories with their statistics, or loading/error/empty states.
+ *
+ * @param categoryStatsState The UI state containing the list of category statistics.
+ */
 @Composable
 fun CategoriesTab(categoryStatsState: UiState<List<CategoryStats>>) {
     LazyColumn(
@@ -88,4 +95,3 @@ fun CategoriesTab(categoryStatsState: UiState<List<CategoryStats>>) {
         item { Spacer(modifier = Modifier.height(16.dp)) }
     }
 }
-

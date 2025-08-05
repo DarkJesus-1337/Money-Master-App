@@ -22,6 +22,15 @@ import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Transaction
 
+/**
+ * A component for displaying a scanned receipt item in read-only mode.
+ *
+ * Shows the item title and amount, and provides an edit button.
+ *
+ * @param item The transaction item to display.
+ * @param index The index of the item in the list.
+ * @param onEdit Callback when the edit button is clicked.
+ */
 @Composable
 fun ReadOnlyItemContent(
     item: Transaction,

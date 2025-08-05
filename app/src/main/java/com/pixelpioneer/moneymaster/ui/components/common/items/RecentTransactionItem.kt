@@ -29,10 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import com.pixelpioneer.moneymaster.R
+import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
-import com.pixelpioneer.moneymaster.core.util.FormatUtils
 
 /**
  * A component for displaying a single transaction in the recent transactions list
@@ -210,5 +210,3 @@ fun RecentTransactionItemDarkPreview() {
         )
     }
 }
-
-

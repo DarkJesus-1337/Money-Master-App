@@ -8,8 +8,8 @@ import android.util.Log
 import androidx.exifinterface.media.ExifInterface
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.network.OcrSpaceApiClient
-import com.pixelpioneer.moneymaster.data.remote.dto.OcrSpaceResponse
 import com.pixelpioneer.moneymaster.core.network.RemoteConfigManager
+import com.pixelpioneer.moneymaster.data.remote.dto.OcrSpaceResponse
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody

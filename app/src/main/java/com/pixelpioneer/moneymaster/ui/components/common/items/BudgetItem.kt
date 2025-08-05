@@ -36,11 +36,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.data.model.Budget
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
+import com.pixelpioneer.moneymaster.data.model.Budget
 import com.pixelpioneer.moneymaster.ui.components.utils.getBudgetPeriodText
 import kotlin.math.min
 
+/**
+ * A card component that displays a single budget with its progress and actions.
+ *
+ * Shows the budget's category, amount, spent amount, remaining amount, and a progress bar.
+ * Provides options to edit or delete the budget via a context menu.
+ *
+ * @param budget The budget to display.
+ * @param onClick Callback when the card is clicked.
+ * @param onEdit Callback when the edit action is selected.
+ * @param onDelete Callback when the delete action is selected.
+ */
 @Composable
 fun BudgetItem(
     budget: Budget,

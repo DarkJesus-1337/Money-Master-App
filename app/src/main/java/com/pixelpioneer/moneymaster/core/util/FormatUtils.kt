@@ -22,6 +22,14 @@ object FormatUtils {
         return numberFormat.format(amount)
     }
 
+    /**
+     * Format a double value as a currency string specifically for receipts
+     * with a fixed format of "0.00 €"
+     *
+     * @param amount The amount to format
+     * @param locale The locale to use for formatting (default is system locale)
+     * @return A formatted currency string with Euro symbol
+     */
     fun formatCurrencyReceipe(amount: Double, locale: Locale = Locale.getDefault()): String {
         return String.format(locale, "%.2f €", amount)
     }

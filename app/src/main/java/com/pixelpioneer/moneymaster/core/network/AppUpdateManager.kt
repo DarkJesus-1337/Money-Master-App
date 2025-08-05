@@ -16,6 +16,12 @@ import java.io.FileOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
+/**
+ * Manages the application update process.
+ *
+ * This class handles checking for updates, downloading APK files,
+ * and initiating the installation process.
+ */
 class AppUpdateManager {
     private val _updateState = MutableStateFlow<UpdateState>(UpdateState.Idle)
     val updateState: StateFlow<UpdateState> = _updateState
@@ -23,6 +29,12 @@ class AppUpdateManager {
     private val updateJsonUrl =
         "https://darkjesus-1337.github.io/Money-Master-App/assets/update.json"
 
+    /**
+     * Checks for app updates by comparing the current version with the latest available.
+     * If an update is available, automatically downloads and initiates installation.
+     *
+     * @param activity The activity context needed for installation.
+     */
     fun checkForUpdates(activity: Activity) {
         _updateState.value = UpdateState.Checking
 
@@ -55,6 +67,13 @@ class AppUpdateManager {
         }
     }
 
+    /**
+     * Downloads an APK file from the specified URL.
+     *
+     * @param apkUrl The URL to download the APK from.
+     * @param activity The activity context needed for file operations.
+     * @return The downloaded APK file.
+     */
     private fun downloadApk(apkUrl: String, activity: Activity): File {
         val url = URL(apkUrl)
         val connection = url.openConnection() as HttpURLConnection
@@ -66,6 +85,12 @@ class AppUpdateManager {
         return file
     }
 
+    /**
+     * Initiates the installation of the downloaded APK.
+     *
+     * @param file The APK file to install.
+     * @param activity The activity context needed for installation.
+     */
     private fun installApk(file: File, activity: Activity) {
         val uri = FileProvider.getUriForFile(
             activity,
@@ -79,6 +104,9 @@ class AppUpdateManager {
         activity.startActivity(intent)
     }
 
+    /**
+     * Represents the possible states of the update process.
+     */
     sealed class UpdateState {
         data object Idle : UpdateState()
         data object Checking : UpdateState()

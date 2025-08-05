@@ -17,7 +17,13 @@ import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 
 /**
- * A component for displaying empty budgets list
+ * A component for displaying an empty state when no budgets exist.
+ *
+ * This component shows a message indicating that no budgets have been created
+ * yet, along with a brief explanation and a button to create a new budget.
+ * It is typically used when the budgets list is empty.
+ *
+ * @param onAddBudget Callback invoked when the "Create Budget" button is clicked
  */
 @Composable
 fun EmptyBudgetsList(

@@ -22,27 +22,31 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.pixelpioneer.moneymaster.data.model.FinancialSummary
 import com.pixelpioneer.moneymaster.ui.components.common.buttons.ViewAllTransactionsButton
-import com.pixelpioneer.moneymaster.ui.components.features.dashboard.BudgetOverview
 import com.pixelpioneer.moneymaster.ui.components.common.cards.FinancialSummaryCards
-import com.pixelpioneer.moneymaster.ui.components.common.items.RecentTransactionItem
 import com.pixelpioneer.moneymaster.ui.components.common.empty.EmptyBudgetsList
 import com.pixelpioneer.moneymaster.ui.components.common.empty.EmptyTransactionsList
+import com.pixelpioneer.moneymaster.ui.components.common.items.RecentTransactionItem
+import com.pixelpioneer.moneymaster.ui.components.features.dashboard.BudgetOverview
 import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterBottomNavigation
 import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
-import com.pixelpioneer.moneymaster.ui.viewmodel.FinancialSummary
 
+/**
+ * Preview composable for the Dashboard screen.
+ *
+ * This composable demonstrates how the Dashboard screen appears
+ * in the Android Studio preview panel with mock data.
+ */
 @Composable
 @Preview(
     showBackground = true,
-
-    )
+)
 fun DashboardScreenPreview() {
     MoneyMasterTheme(
         darkTheme = true,
         dynamicColor = false
     ) {
-
         val navController = rememberNavController()
 
         DashboardScreenMock(
@@ -51,12 +55,20 @@ fun DashboardScreenPreview() {
     }
 }
 
+/**
+ * Mock implementation of the Dashboard screen for previews.
+ *
+ * This composable creates a static representation of the Dashboard
+ * using sample data for previewing purposes.
+ *
+ * @param navController Navigation controller for screen transitions
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DashboardScreenMock(
     navController: NavController
 ) {
-    // Statische Mock-Daten für Preview
+    // Static mock data for preview
     val mockTransactions = SampleData.sampleTransactions
     val mockBudgets = SampleData.sampleBudgets
 

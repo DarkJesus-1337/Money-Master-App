@@ -28,6 +28,20 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 
+/**
+ * A component for editing a scanned receipt item.
+ *
+ * Allows the user to edit the title and amount, save changes, cancel editing, or remove the item.
+ *
+ * @param index The index of the item in the list.
+ * @param title The current title of the item.
+ * @param amount The current amount as a string.
+ * @param onTitleChange Callback when the title is changed.
+ * @param onAmountChange Callback when the amount is changed.
+ * @param onSave Callback when the save button is clicked.
+ * @param onCancel Callback when the cancel button is clicked.
+ * @param onRemove Callback when the remove button is clicked.
+ */
 @Composable
 fun EditableItemContent(
     index: Int,

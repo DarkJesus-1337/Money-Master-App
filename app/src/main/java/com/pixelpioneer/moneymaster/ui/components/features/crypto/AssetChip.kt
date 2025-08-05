@@ -14,6 +14,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.data.model.Asset
 
+/**
+ * A chip component for displaying a cryptocurrency asset symbol.
+ *
+ * Highlights the chip if selected and allows the user to select an asset.
+ *
+ * @param asset The cryptocurrency asset to display.
+ * @param isSelected Whether this asset is currently selected.
+ * @param onClick Callback invoked when the chip is clicked.
+ */
 @Composable
 fun AssetChip(
     asset: Asset,

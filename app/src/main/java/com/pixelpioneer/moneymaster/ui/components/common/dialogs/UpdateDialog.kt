@@ -20,6 +20,16 @@ import androidx.compose.ui.window.Dialog
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.network.AppUpdateManager
 
+/**
+ * A dialog for handling the app update process.
+ *
+ * This component displays different dialogs based on the current update state,
+ * including checking for updates, downloading progress, errors, and when no
+ * update is available. The dialog adapts its content and behavior accordingly.
+ *
+ * @param updateState The current state of the update process
+ * @param onDismiss Callback invoked when the dialog is dismissed (where applicable)
+ */
 @Composable
 fun UpdateDialog(
     updateState: AppUpdateManager.UpdateState,

@@ -28,14 +28,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
-import com.pixelpioneer.moneymaster.ui.components.common.items.BudgetItem
+import com.pixelpioneer.moneymaster.core.util.UiState
 import com.pixelpioneer.moneymaster.ui.components.common.dialogs.DeleteBudgetDialog
 import com.pixelpioneer.moneymaster.ui.components.common.empty.EmptyBudgetsView
+import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
+import com.pixelpioneer.moneymaster.ui.components.common.items.BudgetItem
 import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterBottomNavigation
 import com.pixelpioneer.moneymaster.ui.navigation.Screen
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
-import com.pixelpioneer.moneymaster.core.util.UiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

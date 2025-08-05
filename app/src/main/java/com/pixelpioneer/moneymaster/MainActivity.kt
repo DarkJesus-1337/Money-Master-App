@@ -13,6 +13,11 @@ import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterNavHost
 import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * The main entry point of the MoneyMaster application.
+ *
+ * Sets up the Compose UI, applies the app theme, and initializes the navigation host.
+ */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 

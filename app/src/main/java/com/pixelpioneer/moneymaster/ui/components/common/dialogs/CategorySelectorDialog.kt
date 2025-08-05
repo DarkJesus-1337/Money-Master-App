@@ -28,6 +28,17 @@ import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.components.common.items.CategoryItem
 
+/**
+ * A dialog for selecting a transaction category.
+ *
+ * This component displays a modal dialog containing a list of available
+ * categories. It handles different states (loading, error, empty list)
+ * and allows the user to select a category from the list.
+ *
+ * @param categoriesState The current UI state of the categories list
+ * @param onCategorySelected Callback invoked when a category is selected
+ * @param onDismiss Callback invoked when the dialog is dismissed
+ */
 @Composable
 fun CategorySelectorDialog(
     categoriesState: UiState<List<TransactionCategory>>,

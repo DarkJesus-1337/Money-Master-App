@@ -28,11 +28,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
-import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsOverview
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import com.pixelpioneer.moneymaster.core.util.UiState
+import com.pixelpioneer.moneymaster.data.model.StatisticsOverview
+import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
 
+/**
+ * Tab for displaying an overview of financial statistics.
+ *
+ * Shows monthly summary, average expenses, and transaction counts, or loading/error/empty states.
+ *
+ * @param statisticsState The UI state containing the statistics overview.
+ */
 @Composable
 fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
     LazyColumn(

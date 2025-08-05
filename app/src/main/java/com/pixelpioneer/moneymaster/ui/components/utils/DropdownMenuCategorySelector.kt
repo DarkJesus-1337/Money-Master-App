@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -27,6 +26,17 @@ import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 
+/**
+ * A dropdown menu for selecting a transaction category.
+ *
+ * Displays a button with the currently selected category and opens a dropdown
+ * with all available categories for selection.
+ *
+ * @param categories List of available categories.
+ * @param selectedCategory The currently selected category, or null if none selected.
+ * @param onCategorySelected Callback invoked when a category is selected.
+ * @param modifier Optional modifier for customizing the component's layout.
+ */
 @Composable
 fun DropdownMenuCategorySelector(
     categories: List<TransactionCategory>,

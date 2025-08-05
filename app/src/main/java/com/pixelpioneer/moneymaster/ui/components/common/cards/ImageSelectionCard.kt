@@ -26,6 +26,17 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.pixelpioneer.moneymaster.R
 
+/**
+ * A card that allows users to select or capture an image.
+ *
+ * This component is used in the receipt scanning feature to let users
+ * select an image from the gallery or capture a new photo with the camera.
+ * If an image is already selected, it displays a preview of the image.
+ *
+ * @param selectedImageUri The URI of the currently selected image, or null if none selected
+ * @param onImageSelect Callback invoked when the user wants to select an image from gallery
+ * @param onCameraCapture Callback invoked when the user wants to capture a new photo
+ */
 @Composable
 fun ImageSelectionCard(
     selectedImageUri: Uri?,

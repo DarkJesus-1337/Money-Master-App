@@ -8,6 +8,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
+/**
+ * ViewModel for managing user settings and preferences.
+ *
+ * Handles loading, updating, and persisting user settings such as name, income,
+ * recurring costs, and appearance preferences. Provides a state flow for the current settings.
+ *
+ * @property settingsRepository Repository for accessing and saving settings.
+ */
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository

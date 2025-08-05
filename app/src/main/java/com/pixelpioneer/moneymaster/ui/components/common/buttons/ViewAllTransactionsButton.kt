@@ -9,7 +9,12 @@ import androidx.compose.ui.res.stringResource
 import com.pixelpioneer.moneymaster.R
 
 /**
- * A button to view all transactions
+ * A button that navigates the user to the full transactions list.
+ *
+ * This component is typically displayed at the bottom of a limited
+ * transactions list to provide access to the complete transaction history.
+ *
+ * @param onClick Callback invoked when the button is clicked
  */
 @Composable
 fun ViewAllTransactionsButton(

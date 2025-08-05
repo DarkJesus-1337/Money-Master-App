@@ -28,6 +28,14 @@ import com.pixelpioneer.moneymaster.ui.viewmodel.SettingsViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 
+/**
+ * Sets up the navigation host for the MoneyMaster app.
+ *
+ * Defines all navigation routes and their associated composable screens.
+ *
+ * @param navController The NavHostController for navigation.
+ * @param modifier Optional modifier for the NavHost.
+ */
 @Composable
 fun MoneyMasterNavHost(
     navController: NavHostController,

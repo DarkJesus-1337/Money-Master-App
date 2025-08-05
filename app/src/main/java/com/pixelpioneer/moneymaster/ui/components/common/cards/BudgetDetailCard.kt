@@ -29,6 +29,15 @@ import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import com.pixelpioneer.moneymaster.ui.components.utils.getBudgetPeriodText
 import kotlin.math.min
 
+/**
+ * A card that displays detailed information about a budget.
+ *
+ * This component shows budget details including the category,
+ * time period, allocated amount, spent amount, remaining amount,
+ * and a visual progress indicator showing budget consumption.
+ *
+ * @param budget The budget to display details for
+ */
 @Composable
 fun BudgetDetailCard(budget: com.pixelpioneer.moneymaster.data.model.Budget) {
     Card(

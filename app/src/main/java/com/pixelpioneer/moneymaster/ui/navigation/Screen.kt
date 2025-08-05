@@ -13,6 +13,11 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.pixelpioneer.moneymaster.R
 
+/**
+ * Represents a navigation destination (screen) in the MoneyMaster app.
+ *
+ * Each screen has a route, a string resource for its title, and optionally an icon.
+ */
 sealed class Screen(
     val route: String,
     @StringRes val titleRes: Int,
@@ -53,6 +58,9 @@ sealed class Screen(
 
 }
 
+/**
+ * List of screens to be shown in the bottom navigation bar.
+ */
 val bottomNavItems = listOf(
     Screen.Dashboard,
     Screen.Transactions,

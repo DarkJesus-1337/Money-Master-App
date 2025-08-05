@@ -23,6 +23,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 
+/**
+ * A button component for initiating the receipt scanning process.
+ *
+ * This component displays either a scan button or a loading indicator
+ * depending on the current scanning state. When pressed, it triggers
+ * the receipt scanning workflow.
+ *
+ * @param isEnabled Whether the scan button is enabled
+ * @param isLoading Whether the scanning process is currently running
+ * @param onScan Callback invoked when the scan button is pressed
+ */
 @Composable
 fun ScanButton(
     isEnabled: Boolean,

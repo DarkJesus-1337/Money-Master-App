@@ -20,6 +20,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 
+/**
+ * A full-screen component for displaying an empty state when no transactions exist.
+ *
+ * Shows a message and a button to add a new transaction.
+ *
+ * @param onAddButtonClick Callback invoked when the add transaction button is clicked.
+ */
 @Composable
 fun EmptyTransactionsView(onAddButtonClick: () -> Unit) {
     Box(

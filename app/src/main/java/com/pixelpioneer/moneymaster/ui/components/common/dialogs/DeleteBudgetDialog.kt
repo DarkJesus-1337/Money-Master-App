@@ -11,6 +11,17 @@ import androidx.compose.ui.text.font.FontWeight
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Budget
 
+/**
+ * A confirmation dialog for deleting a budget.
+ *
+ * This component displays an alert dialog asking the user to confirm
+ * that they want to delete a specific budget. It includes the name of
+ * the category associated with the budget in the confirmation message.
+ *
+ * @param budget The budget to be deleted
+ * @param onConfirm Callback invoked when the user confirms the deletion
+ * @param onDismiss Callback invoked when the user cancels or dismisses the dialog
+ */
 @Composable
 fun DeleteBudgetDialog(
     budget: Budget,

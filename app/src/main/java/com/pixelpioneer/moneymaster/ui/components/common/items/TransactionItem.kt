@@ -24,12 +24,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
+import com.pixelpioneer.moneymaster.data.model.Transaction
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+/**
+ * A card component for displaying a transaction with details and delete action.
+ *
+ * Shows the transaction's title, category, date, description, and amount.
+ * Provides a delete button for removing the transaction.
+ *
+ * @param transaction The transaction to display.
+ * @param onClick Callback when the card is clicked.
+ * @param onDeleteClick Callback when the delete button is clicked.
+ */
 @Composable
 fun TransactionItem(
     transaction: Transaction,

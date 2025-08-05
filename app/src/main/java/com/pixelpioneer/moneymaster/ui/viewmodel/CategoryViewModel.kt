@@ -3,10 +3,9 @@ package com.pixelpioneer.moneymaster.ui.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pixelpioneer.moneymaster.R
+import com.pixelpioneer.moneymaster.core.util.UiState
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
-import com.pixelpioneer.moneymaster.core.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +16,12 @@ import javax.inject.Inject
 
 /**
  * ViewModel for managing transaction categories.
- * Initialisiert automatisch vordefinierte Kategorien und repariert die Datenbank.
+ *
+ * Initializes predefined categories and repairs the database if needed.
+ * Provides UI state flows for categories and supports refreshing and reinitialization.
+ *
+ * @property categoryRepository Repository for category data access.
+ * @property context Application context for accessing resources.
  */
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
@@ -40,7 +44,7 @@ class CategoryViewModel @Inject constructor(
     }
 
     /**
-     * Initialisiert die Kategorien und repariert die Datenbank bei der ersten Nutzung.
+     * Initializes categories and repairs the database on first use.
      */
     private fun initializeAndLoadCategories() {
         viewModelScope.launch {
@@ -48,14 +52,10 @@ class CategoryViewModel @Inject constructor(
                 _isInitializing.value = true
                 _categoriesState.value = UiState.Loading
 
-                // Initialisiere Standard-Kategorien und repariere die Datenbank
                 categoryRepository.initializeDefaultCategoriesAndRepairDatabase()
-
-                // Lade die Kategorien nach der Initialisierung
                 loadCategories()
 
             } catch (e: Exception) {
-                // Bei Fehlern: Vordefinierte Kategorien als Fallback verwenden
                 val predefinedCategories = categoryRepository.getPredefinedCategories()
                 _categoriesState.value = UiState.Success(predefinedCategories)
                 _categories.value = predefinedCategories
@@ -70,14 +70,12 @@ class CategoryViewModel @Inject constructor(
             try {
                 categoryRepository.allCategories
                     .catch { e ->
-                        // Bei DB-Fehlern: Vordefinierte Kategorien als Fallback verwenden
                         val predefinedCategories = categoryRepository.getPredefinedCategories()
                         _categoriesState.value = UiState.Success(predefinedCategories)
                         _categories.value = predefinedCategories
                     }
                     .collect { categories ->
                         if (categories.isEmpty()) {
-                            // Sollte normalerweise nicht auftreten, da wir Fallback haben
                             val predefinedCategories = categoryRepository.getPredefinedCategories()
                             _categoriesState.value = UiState.Success(predefinedCategories)
                             _categories.value = predefinedCategories
@@ -87,7 +85,6 @@ class CategoryViewModel @Inject constructor(
                         }
                     }
             } catch (e: Exception) {
-                // Als letzter Fallback: Vordefinierte Kategorien verwenden
                 val predefinedCategories = categoryRepository.getPredefinedCategories()
                 _categoriesState.value = UiState.Success(predefinedCategories)
                 _categories.value = predefinedCategories
@@ -96,20 +93,28 @@ class CategoryViewModel @Inject constructor(
     }
 
     /**
-     * Erneuert die Kategorien-Liste
+     * Refreshes the categories list.
      */
     fun refreshCategories() {
         loadCategories()
     }
 
     /**
-     * Erzwingt eine Neuinitialisierung der Datenbank (für Debug-Zwecke)
+     * Forces reinitialization of the database (for debugging purposes).
      */
     fun forceReinitialize() {
         initializeAndLoadCategories()
     }
 }
 
+/**
+ * State holder for the category form.
+ *
+ * @property name The name of the category.
+ * @property color The color value for the category.
+ * @property iconResId The resource ID for the category icon.
+ * @property nameError Error message for the name field, if any.
+ */
 data class CategoryFormState(
     val name: String = "",
     val color: Int = 0xFF4CAF50.toInt(),

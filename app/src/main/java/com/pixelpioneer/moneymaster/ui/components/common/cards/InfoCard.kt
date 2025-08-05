@@ -11,6 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
+/**
+ * A card component for displaying informational messages.
+ *
+ * This component presents information to the user in a visually distinct card
+ * with a surface variant background to differentiate it from regular content.
+ *
+ * @param message The informational message to display in the card
+ */
 @Composable
 fun InfoCard(message: String) {
     Card(

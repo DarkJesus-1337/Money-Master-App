@@ -18,6 +18,17 @@ import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.ui.components.utils.DropdownMenuCategorySelector
 
+/**
+ * A card component for selecting a transaction category.
+ *
+ * This component displays a dropdown menu for selecting from available
+ * categories and shows information about how many categories are available.
+ *
+ * @param categories List of available categories to choose from
+ * @param selectedCategory The currently selected category, or null if none selected
+ * @param onCategorySelected Callback invoked when a category is selected
+ * @param modifier Optional modifier for customizing the component's layout
+ */
 @Composable
 fun CategorySelectionCard(
     categories: List<TransactionCategory>,
@@ -38,15 +49,12 @@ fun CategorySelectionCard(
             )
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Die Kategorien sollten immer verfügbar sein
-            // durch die vordefinierte Liste
             DropdownMenuCategorySelector(
                 categories = categories,
                 selectedCategory = selectedCategory,
                 onCategorySelected = onCategorySelected
             )
 
-            // Info-Text für Benutzer
             if (categories.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(

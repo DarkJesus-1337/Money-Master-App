@@ -11,6 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
+/**
+ * A row component for displaying a label and value pair.
+ *
+ * Used for showing market data fields in the crypto asset details.
+ *
+ * @param label The label to display on the left.
+ * @param value The value to display on the right.
+ */
 @Composable
 fun InfoRow(label: String, value: String) {
     Row(

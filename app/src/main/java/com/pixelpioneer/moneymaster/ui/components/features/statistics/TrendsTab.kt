@@ -18,11 +18,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
-import com.pixelpioneer.moneymaster.ui.viewmodel.MonthlyTrend
 import com.pixelpioneer.moneymaster.core.util.UiState
+import com.pixelpioneer.moneymaster.data.model.MonthlyTrend
+import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.components.common.items.MonthlyTrendItem
 
+/**
+ * Tab for displaying monthly financial trends.
+ *
+ * Shows a list of monthly trends, or loading/error/empty states.
+ *
+ * @param monthlyTrendsState The UI state containing the list of monthly trends.
+ */
 @Composable
 fun TrendsTab(monthlyTrendsState: UiState<List<MonthlyTrend>>) {
     LazyColumn(

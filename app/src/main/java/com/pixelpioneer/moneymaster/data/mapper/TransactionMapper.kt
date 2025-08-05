@@ -1,11 +1,23 @@
 package com.pixelpioneer.moneymaster.data.mapper
 
 import com.pixelpioneer.moneymaster.data.local.entity.TransactionEntity
+import com.pixelpioneer.moneymaster.data.local.relation.TransactionWithCategory
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
-import com.pixelpioneer.moneymaster.data.local.relation.TransactionWithCategory
 
+/**
+ * Mapper class for converting between Transaction domain models and database entities.
+ *
+ * This object provides utility methods to transform Transaction objects to
+ * TransactionEntity objects and vice versa.
+ */
 object TransactionMapper {
+    /**
+     * Converts a Transaction domain model to a TransactionEntity database entity.
+     *
+     * @param transaction The Transaction domain model to convert
+     * @return A TransactionEntity database entity
+     */
     fun toEntity(transaction: Transaction): TransactionEntity {
         return TransactionEntity(
             id = transaction.id,
@@ -18,6 +30,12 @@ object TransactionMapper {
         )
     }
 
+    /**
+     * Converts a TransactionWithCategory database relation to a Transaction domain model.
+     *
+     * @param entity The TransactionWithCategory database relation to convert
+     * @return A Transaction domain model
+     */
     fun fromEntity(entity: TransactionWithCategory): Transaction {
         return Transaction(
             id = entity.transaction.id,

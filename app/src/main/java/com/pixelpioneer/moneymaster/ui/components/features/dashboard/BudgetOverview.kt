@@ -22,7 +22,12 @@ import com.pixelpioneer.moneymaster.data.model.Budget
 import com.pixelpioneer.moneymaster.ui.components.common.items.BudgetOverviewItem
 
 /**
- * A component for displaying a compact version of recent transactions (for dashboard)
+ * A card component for displaying a compact overview of top budgets on the dashboard.
+ *
+ * Shows the two budgets with the highest usage and a link to view all budgets if more exist.
+ *
+ * @param budgets The list of budgets to display.
+ * @param onBudgetsClick Callback when the card or "view all" is clicked.
  */
 @Composable
 fun BudgetOverview(

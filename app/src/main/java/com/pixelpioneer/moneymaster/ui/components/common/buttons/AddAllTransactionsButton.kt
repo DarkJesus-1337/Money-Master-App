@@ -24,6 +24,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 
+/**
+ * A card button that displays the total amount of a receipt and allows
+ * the user to add all items from the receipt as transactions.
+ *
+ * This component is used in the receipt scanning workflow to create
+ * transactions from all scanned items at once.
+ *
+ * @param totalAmount The total amount of all items in the receipt
+ * @param onAddAll Callback invoked when the user clicks the "Add All" button
+ */
 @Composable
 fun AddAllTransactionsButton(
     totalAmount: Double,

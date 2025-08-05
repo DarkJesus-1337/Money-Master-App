@@ -32,6 +32,7 @@ roomRuntime = "2.7.2"
 textRecognition = "16.0.1"
 coil = "2.7.0"
 firebaseConfig = "22.1.2"
+timber = "5.0.1"
 uiTextGoogleFonts = "1.8.3"
 firebaseCrashlytics = "19.4.4"
 googleFirebaseCrashlytics = "3.0.4"
@@ -44,7 +45,6 @@ androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterface" }
 
-# Hilt Dependencies (korrigiert)
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
@@ -88,6 +88,7 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 firebase-config = { group = "com.google.firebase", name = "firebase-config", version.ref = "firebaseConfig" }
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

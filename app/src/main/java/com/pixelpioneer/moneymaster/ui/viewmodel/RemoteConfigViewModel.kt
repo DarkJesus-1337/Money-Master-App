@@ -13,6 +13,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * State holder for the remote config loading process.
+ *
+ * @property isLoading Whether the remote config is currently loading.
+ * @property isSuccess Whether the remote config was loaded successfully.
+ * @property errorMessage Error message if loading failed.
+ * @property debugInfo Additional debug information from remote config.
+ */
 data class RemoteConfigState(
     val isLoading: Boolean = false,
     val isSuccess: Boolean = false,
@@ -20,6 +28,14 @@ data class RemoteConfigState(
     val debugInfo: Map<String, Any> = emptyMap()
 )
 
+/**
+ * ViewModel for managing remote configuration loading and state.
+ *
+ * Handles fetching and activating remote config values and exposes loading, success, and error states.
+ *
+ * @property remoteConfigManager Manager for remote config operations.
+ * @property context Application context for accessing resources.
+ */
 @HiltViewModel
 class RemoteConfigViewModel @Inject constructor(
     private val remoteConfigManager: RemoteConfigManager,

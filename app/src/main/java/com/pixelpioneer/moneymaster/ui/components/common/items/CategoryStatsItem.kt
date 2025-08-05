@@ -24,9 +24,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryStats
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
+import com.pixelpioneer.moneymaster.data.model.CategoryStats
 
+/**
+ * A card component for displaying statistics of a transaction category.
+ *
+ * Shows the category's name, color, transaction count, total amount, percentage,
+ * and a progress bar representing the share of the total.
+ *
+ * @param categoryStats The statistics data for the category.
+ * @param totalAmount The total amount for all categories (used for percentage calculation).
+ */
 @Composable
 fun CategoryStatsItem(
     categoryStats: CategoryStats,

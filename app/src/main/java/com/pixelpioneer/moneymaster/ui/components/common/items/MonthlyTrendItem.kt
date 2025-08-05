@@ -21,9 +21,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.ui.viewmodel.MonthlyTrend
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
+import com.pixelpioneer.moneymaster.data.model.MonthlyTrend
 
+/**
+ * A card component for displaying monthly financial trends.
+ *
+ * Shows the month, transaction count, income, expenses, and balance with trend icon.
+ *
+ * @param monthlyTrend The monthly trend data to display.
+ */
 @Composable
 fun MonthlyTrendItem(monthlyTrend: MonthlyTrend) {
     val isPositive = monthlyTrend.balance >= 0

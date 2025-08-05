@@ -4,10 +4,12 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.data.model.TransactionCategory
+import com.pixelpioneer.moneymaster.core.util.UiState
+import com.pixelpioneer.moneymaster.data.model.CategoryStats
+import com.pixelpioneer.moneymaster.data.model.MonthlyTrend
+import com.pixelpioneer.moneymaster.data.model.StatisticsOverview
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
 import com.pixelpioneer.moneymaster.data.repository.TransactionRepository
-import com.pixelpioneer.moneymaster.core.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,6 +30,7 @@ import javax.inject.Inject
  *
  * @property transactionRepository Repository for transaction data access.
  * @property categoryRepository Repository for category data access.
+ * @property context Application context for accessing resources.
  */
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(
@@ -224,27 +227,3 @@ class StatisticsViewModel @Inject constructor(
         }
     }
 }
-
-data class StatisticsOverview(
-    val monthlyIncome: Double,
-    val monthlyExpenses: Double,
-    val monthlyBalance: Double,
-    val avgDailyExpenses: Double,
-    val avgWeeklyExpenses: Double,
-    val totalTransactions: Int,
-    val monthlyTransactions: Int
-)
-
-data class CategoryStats(
-    val category: TransactionCategory,
-    val amount: Double,
-    val transactionCount: Int
-)
-
-data class MonthlyTrend(
-    val monthYear: String,
-    val income: Double,
-    val expenses: Double,
-    val balance: Double,
-    val transactionCount: Int
-)

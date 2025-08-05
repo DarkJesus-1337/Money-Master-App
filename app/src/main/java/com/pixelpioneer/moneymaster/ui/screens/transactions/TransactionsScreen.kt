@@ -36,14 +36,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.R
+import com.pixelpioneer.moneymaster.core.util.UiState
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
-import com.pixelpioneer.moneymaster.ui.components.features.transactions.EmptyTransactionsView
 import com.pixelpioneer.moneymaster.ui.components.common.items.TransactionItem
+import com.pixelpioneer.moneymaster.ui.components.features.transactions.EmptyTransactionsView
 import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterBottomNavigation
 import com.pixelpioneer.moneymaster.ui.navigation.Screen
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
-import com.pixelpioneer.moneymaster.core.util.UiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -21,6 +21,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 
+/**
+ * A card component for displaying a transaction category.
+ *
+ * Shows the category's color and name. Can be clicked to select the category.
+ *
+ * @param category The transaction category to display.
+ * @param onClick Callback when the category is clicked.
+ */
 @Composable
 fun CategoryItem(
     category: TransactionCategory,

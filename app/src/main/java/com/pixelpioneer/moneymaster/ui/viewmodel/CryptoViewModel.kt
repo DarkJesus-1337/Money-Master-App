@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pixelpioneer.moneymaster.R
+import com.pixelpioneer.moneymaster.core.util.UiState
 import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
 import com.pixelpioneer.moneymaster.data.repository.CoinCapRepository
-import com.pixelpioneer.moneymaster.core.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +21,8 @@ import javax.inject.Inject
  * Handles loading crypto assets, selecting an asset, and loading its history.
  * Provides UI state flows for assets and history.
  *
- * @property repository Repository for accessing CoinCap API data.
+ * @property coinCapRepository Repository for accessing CoinCap API data.
+ * @property context Application context for accessing resources.
  */
 @HiltViewModel
 class CryptoViewModel @Inject constructor(

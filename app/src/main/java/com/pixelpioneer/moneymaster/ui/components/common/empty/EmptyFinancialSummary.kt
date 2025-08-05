@@ -17,7 +17,11 @@ import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 
 /**
- * A component for displaying empty financial summary state
+ * A card component for displaying an empty state when no financial data exists.
+ *
+ * This component shows a message indicating that no financial data is available
+ * yet, along with a brief explanation. It is displayed on the dashboard when
+ * there are no transactions to calculate financial summaries from.
  */
 @Composable
 fun EmptyFinancialSummary() {

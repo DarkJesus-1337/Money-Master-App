@@ -14,6 +14,18 @@ import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.ui.components.features.receipt.EditableItemContent
 import com.pixelpioneer.moneymaster.ui.components.features.receipt.ReadOnlyItemContent
 
+/**
+ * A card component for displaying and editing scanned receipt items.
+ *
+ * This component manages the state for viewing and editing a transaction item
+ * that was created from a scanned receipt. It allows users to edit the title
+ * and amount of the transaction and supports removal.
+ *
+ * @param item The transaction representing a scanned receipt item
+ * @param index The position index of this item in the list (for display purposes)
+ * @param onItemUpdated Callback invoked when the item is updated with new values
+ * @param onItemRemoved Callback invoked when the item is removed
+ */
 @Composable
 fun ScannedItemCard(
     item: Transaction,

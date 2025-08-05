@@ -12,7 +12,12 @@ import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.ui.components.common.items.RecentTransactionItem
 
 /**
- * A component for displaying a list of recent transactions
+ * A list component for displaying recent transactions on the dashboard.
+ *
+ * Renders each transaction using RecentTransactionItem and separates them with dividers.
+ *
+ * @param transactions The list of recent transactions to display.
+ * @param onTransactionClick Callback when a transaction is clicked.
  */
 @Composable
 fun RecentTransactionsList(

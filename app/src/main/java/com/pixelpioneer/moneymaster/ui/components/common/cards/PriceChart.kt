@@ -19,12 +19,22 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
+import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+/**
+ * A chart component for displaying cryptocurrency price history.
+ *
+ * This component uses the MPAndroidChart library to render a line chart
+ * showing historical price data points. The chart is styled according to
+ * the app's material theme colors and includes formatted time and price labels.
+ *
+ * @param historyData List of historical price data points to display in the chart
+ * @param modifier Optional modifier for customizing the component's layout
+ */
 @Composable
 fun PriceChart(
     historyData: List<HistoryDataPoint>,
@@ -100,6 +110,9 @@ fun PriceChart(
     )
 }
 
+/**
+ * Preview of the PriceChart component with sample data.
+ */
 @Preview(
     showBackground = true,
 )
@@ -140,4 +153,3 @@ private fun PriceChartPreview() {
             .height(200.dp)
     )
 }
-

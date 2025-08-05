@@ -12,6 +12,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 
+/**
+ * A card that displays an error message.
+ *
+ * This component is used to show error states throughout the application
+ * with a consistent style using the error color scheme.
+ *
+ * @param error The error message to display
+ */
 @Composable
 fun ErrorCard(error: String) {
     Card(

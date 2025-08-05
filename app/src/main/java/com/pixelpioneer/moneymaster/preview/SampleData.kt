@@ -14,9 +14,18 @@ import com.pixelpioneer.moneymaster.data.model.ReceiptItem
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 
+/**
+ * Sample data provider for preview and testing purposes.
+ *
+ * This object contains predefined sample data used throughout the application
+ * for UI previews, testing, and as placeholder data where needed.
+ */
 object SampleData {
 
-    // Sample Transaction Categories
+    /**
+     * Sample transaction categories representing different spending types.
+     * Each category includes a name, color, and icon resource.
+     */
     val sampleCategories = listOf(
         TransactionCategory(
             id = 1,
@@ -50,7 +59,10 @@ object SampleData {
         )
     )
 
-    // Sample Transactions
+    /**
+     * Sample transactions representing financial activities.
+     * Includes both expenses and income with varied timestamps.
+     */
     val sampleTransactions = listOf(
         Transaction(
             id = 1,
@@ -104,7 +116,10 @@ object SampleData {
         )
     )
 
-    // Sample Budgets
+    /**
+     * Sample budgets representing spending limits for different categories.
+     * Each budget includes a category, amount limit, period, and current spending.
+     */
     val sampleBudgets = listOf(
         Budget(
             id = 1,
@@ -129,7 +144,10 @@ object SampleData {
         )
     )
 
-    // Sample Assets (Crypto)
+    /**
+     * Sample cryptocurrency assets for use in the crypto tracking feature.
+     * Includes common cryptocurrencies with realistic market data.
+     */
     val sampleAssets = listOf(
         Asset(
             id = "bitcoin",
@@ -175,7 +193,10 @@ object SampleData {
         )
     )
 
-    // Sample History Data Points
+    /**
+     * Sample historical price data points for cryptocurrency price charts.
+     * Each data point includes a price, timestamp, and formatted date.
+     */
     val sampleHistoryDataPoints = listOf(
         HistoryDataPoint(
             priceUsd = "42000.1234567890123456789",
@@ -199,7 +220,10 @@ object SampleData {
         )
     )
 
-    // Sample Receipt Items
+    /**
+     * Sample receipt items for the receipt scanning feature.
+     * Each item includes a name and price.
+     */
     val sampleReceiptItems = listOf(
         ReceiptItem(name = "Milch 1L", price = 1.29),
         ReceiptItem(name = "Brot Vollkorn", price = 2.49),
@@ -208,20 +232,29 @@ object SampleData {
         ReceiptItem(name = "Käse Gouda", price = 3.99)
     )
 
-    // Sample Receipt
+    /**
+     * Sample receipt for the receipt scanning feature.
+     * Includes store name, date, and a list of purchased items.
+     */
     val sampleReceipt = Receipt(
         storeName = "REWE Supermarkt",
         date = "2024-01-15",
         items = sampleReceiptItems
     )
 
-    // Sample Assets Response
+    /**
+     * Sample response from the cryptocurrency API containing assets.
+     * Includes a list of assets and a timestamp.
+     */
     val sampleAssetsResponse = AssetsResponse(
         data = sampleAssets,
         timestamp = System.currentTimeMillis()
     )
 
-    // Sample History Response
+    /**
+     * Sample response for historical cryptocurrency price data.
+     * Includes a list of price data points and a timestamp.
+     */
     val sampleHistoryResponse = HistoryResponse(
         data = sampleHistoryDataPoints,
         timestamp = System.currentTimeMillis()

@@ -27,6 +27,10 @@ import com.pixelpioneer.moneymaster.data.model.Budget
 
 /**
  * A component for displaying a single budget item in the budget overview
+ *
+ * Shows the category, progress percentage, spent and remaining amounts, and a progress bar.
+ *
+ * @param budget The budget to display in the overview.
  */
 @Composable
 fun BudgetOverviewItem(

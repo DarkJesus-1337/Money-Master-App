@@ -22,10 +22,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
-import com.pixelpioneer.moneymaster.ui.viewmodel.FinancialSummary
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
+import com.pixelpioneer.moneymaster.data.model.FinancialSummary
+import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
 
+/**
+ * A component that displays financial summary information.
+ *
+ * This component shows the current balance, total income, and total expenses
+ * in a visually appealing card layout with appropriate icons and colors.
+ *
+ * @param summary The financial summary data to display
+ */
 @Composable
 fun FinancialSummaryCards(summary: FinancialSummary) {
     Column {
@@ -149,6 +157,9 @@ fun FinancialSummaryCards(summary: FinancialSummary) {
     }
 }
 
+/**
+ * Preview of the FinancialSummaryCards component in light theme.
+ */
 @Preview(showBackground = true)
 @Composable
 fun FinancialSummaryCardsDarkPreview() {
@@ -163,6 +174,9 @@ fun FinancialSummaryCardsDarkPreview() {
     }
 }
 
+/**
+ * Preview of the FinancialSummaryCards component in dark theme.
+ */
 @Preview()
 @Composable
 fun FinancialSummaryCardsDarkPreviewDark() {

@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pixelpioneer.moneymaster.R
+import com.pixelpioneer.moneymaster.core.util.UiState
 import com.pixelpioneer.moneymaster.data.enums.BudgetPeriod
 import com.pixelpioneer.moneymaster.data.model.Budget
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.data.repository.BudgetRepository
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
-import com.pixelpioneer.moneymaster.core.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +27,7 @@ import javax.inject.Inject
  *
  * @property budgetRepository Repository for budget data access.
  * @property categoryRepository Repository for category data access.
+ * @property context Application context for accessing resources.
  */
 @HiltViewModel
 class BudgetViewModel @Inject constructor(
@@ -229,6 +230,15 @@ class BudgetViewModel @Inject constructor(
     }
 }
 
+/**
+ * State holder for the budget form.
+ *
+ * @property amount The budget amount entered by the user.
+ * @property selectedCategory The selected category for the budget.
+ * @property period The selected period for the budget.
+ * @property amountError Error message for the amount field, if any.
+ * @property categoryError Error message for the category field, if any.
+ */
 data class BudgetFormState(
     val amount: Double = 0.0,
     val selectedCategory: TransactionCategory? = null,

@@ -23,7 +23,13 @@ import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 
 /**
- * A reusable error message component
+ * A reusable error message card component.
+ *
+ * Displays an error message with a retry button. This component is used to show
+ * error states in the UI and allows the user to retry the failed action.
+ *
+ * @param message The error message to display.
+ * @param onRetry Callback invoked when the retry button is clicked.
  */
 @Composable
 fun ErrorMessage(

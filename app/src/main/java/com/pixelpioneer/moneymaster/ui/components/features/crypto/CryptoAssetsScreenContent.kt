@@ -25,12 +25,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.data.model.Asset
-import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import com.pixelpioneer.moneymaster.core.util.UiState
+import com.pixelpioneer.moneymaster.data.model.Asset
+import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
 import com.pixelpioneer.moneymaster.ui.components.common.cards.PriceChart
 
+/**
+ * Main content composable for the crypto assets screen.
+ *
+ * Displays a row of asset chips, selected asset details, price chart, and market data.
+ *
+ * @param cryptoAssetsState The UI state containing the list of crypto assets.
+ * @param cryptoHistoryState The UI state containing the price history for the selected asset.
+ * @param selectedAsset The currently selected asset, or null if none is selected.
+ * @param onAssetSelected Callback invoked when an asset is selected.
+ */
 @Composable
 fun CryptoAssetsScreenContent(
     cryptoAssetsState: UiState<List<Asset>>,
@@ -229,4 +239,3 @@ fun CryptoAssetsScreenContent(
         }
     }
 }
-

@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pixelpioneer.moneymaster.R
+import com.pixelpioneer.moneymaster.core.util.UiState
+import com.pixelpioneer.moneymaster.data.model.FinancialSummary
 import com.pixelpioneer.moneymaster.data.model.Receipt
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
+import com.pixelpioneer.moneymaster.data.model.TransactionFormState
 import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
 import com.pixelpioneer.moneymaster.data.repository.TransactionRepository
-import com.pixelpioneer.moneymaster.core.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +19,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.util.Calendar
 import javax.inject.Inject
 
 /**
@@ -29,6 +30,7 @@ import javax.inject.Inject
  *
  * @property transactionRepository Repository for transaction data access.
  * @property categoryRepository Repository for category data access.
+ * @property context Application context for accessing resources.
  */
 @HiltViewModel
 class TransactionViewModel @Inject constructor(
@@ -380,22 +382,3 @@ class TransactionViewModel @Inject constructor(
         _transactionFormState.value = TransactionFormState()
     }
 }
-
-
-data class TransactionFormState(
-    val amount: Double = 0.0,
-    val title: String = "",
-    val description: String = "",
-    val selectedCategory: TransactionCategory? = null,
-    val date: Long = Calendar.getInstance().timeInMillis,
-    val isExpense: Boolean = true,
-    val amountError: String? = null,
-    val titleError: String? = null,
-    val categoryError: String? = null
-)
-
-data class FinancialSummary(
-    val totalIncome: Double = 0.0,
-    val totalExpenses: Double = 0.0,
-    val balance: Double = 0.0
-)

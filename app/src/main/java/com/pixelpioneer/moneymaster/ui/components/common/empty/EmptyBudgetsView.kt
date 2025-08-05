@@ -20,6 +20,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 
+/**
+ * A full-screen component for displaying an empty state when no budgets exist.
+ *
+ * This component fills the entire screen with a message indicating that no
+ * budgets have been created yet, along with a button to create a new budget.
+ * It's used to display an empty state on the budgets screen.
+ *
+ * @param onAddButtonClick Callback invoked when the add budget button is clicked
+ */
 @Composable
 fun EmptyBudgetsView(onAddButtonClick: () -> Unit) {
     Box(

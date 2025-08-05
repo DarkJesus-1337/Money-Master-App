@@ -9,13 +9,18 @@ import com.pixelpioneer.moneymaster.data.mapper.CategoryMapper
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.data.provider.PredefinedCategoriesProvider
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 
 /**
  * Repository for managing transaction categories.
- * Kombiniert Datenbank-Kategorien mit vordefinierten Kategorien und
- * repariert automatisch Datenbank-Inkonsistenzen.
+ *
+ * Combines database categories with predefined categories and
+ * automatically repairs database inconsistencies.
+ *
+ * @property categoryDao Data access object for category entities
+ * @property transactionDao Data access object for transaction entities
+ * @property context The application context for resources access
  */
 class CategoryRepository(
     private val categoryDao: CategoryDao,
@@ -24,51 +29,48 @@ class CategoryRepository(
 ) {
 
     /**
-     * Flow aller verfügbaren Kategorien.
-     * Wenn die Datenbank leer ist, werden vordefinierte Kategorien zurückgegeben.
+     * Flow of all available categories.
+     *
+     * If the database is empty, returns predefined categories.
      */
     val allCategories: Flow<List<TransactionCategory>> = categoryDao.getAllCategories()
         .map { dbCategories ->
             if (dbCategories.isEmpty()) {
-                // Wenn keine Kategorien in der DB sind, vordefinierte zurückgeben
                 PredefinedCategoriesProvider.getPredefinedCategories(context)
             } else {
-                // Ansonsten DB-Kategorien verwenden
                 dbCategories.map { CategoryMapper.fromEntity(it) }
             }
         }
 
     /**
-     * Initialisiert die Datenbank mit vordefinierten Kategorien und
-     * repariert alle bestehenden Transaktionen mit ungültigen Kategorie-Referenzen.
-     * Diese Methode sollte beim ersten App-Start aufgerufen werden.
+     * Initializes the database with predefined categories and
+     * repairs all existing transactions with invalid category references.
+     *
+     * This method should be called on first app startup.
      */
     suspend fun initializeDefaultCategoriesAndRepairDatabase() {
-        // 1. Prüfen ob Kategorien existieren
         val existingCategories = categoryDao.getAllCategories().first()
 
         if (existingCategories.isEmpty()) {
-            // 2. Standard-Kategorien einfügen
             val defaultCategories = getDefaultCategories()
             categoryDao.insertAll(defaultCategories)
         }
 
-        // 3. Alle Kategorien nach der Initialisierung laden
         val allCategories = categoryDao.getAllCategories().first()
         val defaultCategoryId = allCategories.firstOrNull()?.id ?: 1
 
-        // 4. Prüfen ob Transaktionen mit ungültigen categoryId existieren
         val orphanedCount = transactionDao.countTransactionsWithInvalidCategories()
 
         if (orphanedCount > 0) {
-            // Alle "verwaisten" Transaktionen zur ersten verfügbaren Kategorie zuweisen
             transactionDao.updateCategoryIdForOrphanedTransactions(defaultCategoryId)
         }
     }
 
     /**
-     * Gibt vordefinierte Kategorien als Fallback zurück.
-     * Diese werden verwendet, wenn die Datenbank leer ist.
+     * Returns predefined categories as a fallback.
+     * These are used when the database is empty.
+     *
+     * @return List of predefined transaction categories
      */
     fun getPredefinedCategories(): List<TransactionCategory> {
         return PredefinedCategoriesProvider.getPredefinedCategories(context)
@@ -76,6 +78,9 @@ class CategoryRepository(
 
     /**
      * Retrieves a specific category by its ID.
+     *
+     * @param id The ID of the category to retrieve
+     * @return Flow emitting the category with the specified ID
      */
     fun getCategoryById(id: Long): Flow<TransactionCategory> {
         return categoryDao.getCategoryById(id)
@@ -84,6 +89,9 @@ class CategoryRepository(
 
     /**
      * Inserts a new category into the database.
+     *
+     * @param category The category to insert
+     * @return The ID of the newly inserted category
      */
     suspend fun insertCategory(category: TransactionCategory): Long {
         val entity = CategoryMapper.toEntity(category)
@@ -92,6 +100,8 @@ class CategoryRepository(
 
     /**
      * Updates an existing category in the database.
+     *
+     * @param category The category with updated values
      */
     suspend fun updateCategory(category: TransactionCategory) {
         val entity = CategoryMapper.toEntity(category)
@@ -100,6 +110,8 @@ class CategoryRepository(
 
     /**
      * Deletes a category from the database.
+     *
+     * @param category The category to delete
      */
     suspend fun deleteCategory(category: TransactionCategory) {
         val entity = CategoryMapper.toEntity(category)
@@ -107,7 +119,9 @@ class CategoryRepository(
     }
 
     /**
-     * Erstellt die Standard CategoryEntity-Liste für die Datenbank.
+     * Creates the default CategoryEntity list for the database.
+     *
+     * @return List of default category entities
      */
     private fun getDefaultCategories(): List<CategoryEntity> {
         return listOf(

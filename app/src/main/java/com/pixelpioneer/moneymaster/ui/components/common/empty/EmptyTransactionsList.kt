@@ -17,7 +17,13 @@ import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 
 /**
- * A component for displaying empty transactions list
+ * A component for displaying an empty state when no transactions exist.
+ *
+ * This component shows a message indicating that no transactions have been
+ * created yet, along with a brief explanation and a button to add a new
+ * transaction. It is typically used when the transactions list is empty.
+ *
+ * @param onAddTransaction Callback invoked when the "Add Transaction" button is clicked
  */
 @Composable
 fun EmptyTransactionsList(
