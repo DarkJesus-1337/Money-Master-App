@@ -37,9 +37,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Transaction
-import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
-import com.pixelpioneer.moneymaster.ui.components.transactions.EmptyTransactionsView
-import com.pixelpioneer.moneymaster.ui.components.transactions.TransactionItem
+import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
+import com.pixelpioneer.moneymaster.ui.components.features.transactions.EmptyTransactionsView
+import com.pixelpioneer.moneymaster.ui.components.common.items.TransactionItem
 import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterBottomNavigation
 import com.pixelpioneer.moneymaster.ui.navigation.Screen
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel

@@ -53,8 +53,4 @@ class RemoteConfigViewModel @Inject constructor(
             }
         }
     }
-
-    fun refreshRemoteConfig() {
-        loadRemoteConfig()
-    }
 }

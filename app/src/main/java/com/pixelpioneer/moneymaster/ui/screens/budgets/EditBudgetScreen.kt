@@ -50,10 +50,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.enums.BudgetPeriod
-import com.pixelpioneer.moneymaster.ui.components.budget.DeleteBudgetDialog
-import com.pixelpioneer.moneymaster.ui.components.budget.getBudgetPeriodText
+import com.pixelpioneer.moneymaster.ui.components.common.dialogs.DeleteBudgetDialog
+import com.pixelpioneer.moneymaster.ui.components.utils.getBudgetPeriodText
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
 import com.pixelpioneer.moneymaster.core.util.UiState
+import com.pixelpioneer.moneymaster.ui.components.common.dialogs.CategorySelectorDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

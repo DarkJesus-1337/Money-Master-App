@@ -28,10 +28,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
-import com.pixelpioneer.moneymaster.ui.components.budget.BudgetItem
-import com.pixelpioneer.moneymaster.ui.components.budget.DeleteBudgetDialog
-import com.pixelpioneer.moneymaster.ui.components.emptyview.EmptyBudgetsView
+import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
+import com.pixelpioneer.moneymaster.ui.components.common.items.BudgetItem
+import com.pixelpioneer.moneymaster.ui.components.common.dialogs.DeleteBudgetDialog
+import com.pixelpioneer.moneymaster.ui.components.common.empty.EmptyBudgetsView
 import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterBottomNavigation
 import com.pixelpioneer.moneymaster.ui.navigation.Screen
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel

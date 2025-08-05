@@ -21,9 +21,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.R
-import com.pixelpioneer.moneymaster.ui.components.statistics.CategoriesTab
-import com.pixelpioneer.moneymaster.ui.components.statistics.OverviewTab
-import com.pixelpioneer.moneymaster.ui.components.statistics.TrendsTab
+import com.pixelpioneer.moneymaster.ui.components.features.statistics.CategoriesTab
+import com.pixelpioneer.moneymaster.ui.components.features.statistics.OverviewTab
+import com.pixelpioneer.moneymaster.ui.components.features.statistics.TrendsTab
 import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterBottomNavigation
 import com.pixelpioneer.moneymaster.ui.viewmodel.CryptoViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.StatisticsViewModel

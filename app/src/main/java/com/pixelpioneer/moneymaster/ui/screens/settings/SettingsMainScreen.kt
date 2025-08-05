@@ -1,0 +1,144 @@
+package com.pixelpioneer.moneymaster.ui.screens.settings
+
+import android.app.Activity
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
+import com.pixelpioneer.moneymaster.core.network.AppUpdateManager
+import com.pixelpioneer.moneymaster.data.model.SettingsState
+import com.pixelpioneer.moneymaster.ui.components.common.dialogs.UpdateDialog
+import com.pixelpioneer.moneymaster.ui.components.utils.getNewAppVersion
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SettingsMainScreen(
+    state: SettingsState,
+    onPersonalClick: () -> Unit,
+    onDarkModeChange: (Boolean) -> Unit,
+    appUpdateManager: AppUpdateManager
+) {
+    val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+    val updateState by appUpdateManager.updateState.collectAsState()
+    var showUpdateDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val activity = context as? Activity
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(R.string.settings_title)) },
+                navigationIcon = {
+                    IconButton(onClick = { backDispatcher?.onBackPressed() }) {
+                        Icon(
+                            painterResource(R.drawable.arrow_back),
+                            contentDescription = stringResource(R.string.action_back)
+                        )
+                    }
+                }
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(32.dp),
+            verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.Top),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Button(
+                onClick = onPersonalClick,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(stringResource(R.string.settings_personal))
+            }
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = CardDefaults.cardElevation(4.dp)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Text(
+                        stringResource(R.string.settings_app),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            stringResource(R.string.settings_dark_mode),
+                            modifier = Modifier.weight(1f)
+                        )
+                        Switch(
+                            checked = state.darkMode,
+                            onCheckedChange = onDarkModeChange
+                        )
+                    }
+
+                    Spacer(Modifier.height(16.dp))
+
+                    Button(
+                        onClick = {
+                            if (activity != null) {
+                                appUpdateManager.checkForUpdates(activity)
+                                showUpdateDialog = true
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(stringResource(R.string.settings_check_updates))
+                    }
+
+                    val appVersion = getNewAppVersion()
+                    Text(
+                        "Version: $appVersion",
+                        modifier = Modifier.padding(start = 8.dp),
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+            }
+
+            if (showUpdateDialog && updateState != AppUpdateManager.UpdateState.Idle) {
+                UpdateDialog(
+                    updateState = updateState,
+                    onDismiss = { showUpdateDialog = false }
+                )
+            }
+        }
+    }
+}

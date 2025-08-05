@@ -9,21 +9,16 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -46,18 +41,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.enums.BudgetPeriod
-import com.pixelpioneer.moneymaster.data.model.TransactionCategory
-import com.pixelpioneer.moneymaster.ui.components.ErrorMessage
-import com.pixelpioneer.moneymaster.ui.components.budget.getBudgetPeriodText
+import com.pixelpioneer.moneymaster.ui.components.common.dialogs.CategorySelectorDialog
+import com.pixelpioneer.moneymaster.ui.components.utils.getBudgetPeriodText
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
-import com.pixelpioneer.moneymaster.core.util.UiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -233,110 +224,3 @@ fun AddBudgetScreen(
         )
     }
 }
-
-@Composable
-fun CategorySelectorDialog(
-    categoriesState: UiState<List<TransactionCategory>>,
-    onCategorySelected: (TransactionCategory) -> Unit,
-    onDismiss: () -> Unit
-) {
-    Dialog(
-        onDismissRequest = onDismiss
-    ) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(400.dp),
-            shape = RoundedCornerShape(16.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.select_category),
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                when (categoriesState) {
-                    is UiState.Loading -> {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            CircularProgressIndicator()
-                        }
-                    }
-
-                    is UiState.Success -> {
-                        LazyColumn(
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            items(categoriesState.data) { category ->
-                                CategoryItem(
-                                    category = category,
-                                    onClick = { onCategorySelected(category) }
-                                )
-                            }
-                        }
-                    }
-
-                    is UiState.Error -> {
-                        ErrorMessage(
-                            message = categoriesState.message,
-                            onRetry = { /* Reload categories */ }
-                        )
-                    }
-
-                    is UiState.Empty -> {
-                        Text(
-                            text = stringResource(R.string.empty_categories),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun CategoryItem(
-    category: TransactionCategory,
-    onClick: () -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() }
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(24.dp)
-                    .clip(CircleShape)
-                    .background(Color(category.color))
-            )
-
-            Spacer(modifier = Modifier.width(12.dp))
-
-            Text(
-                text = category.name,
-                style = MaterialTheme.typography.bodyLarge
-            )
-        }
-    }
-}
-
-
-

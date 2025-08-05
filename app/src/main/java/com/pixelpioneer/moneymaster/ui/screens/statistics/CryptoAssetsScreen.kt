@@ -7,7 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
-import com.pixelpioneer.moneymaster.ui.components.coincap.CryptoAssetsScreenContent
+import com.pixelpioneer.moneymaster.ui.components.features.crypto.CryptoAssetsScreenContent
 import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
 import com.pixelpioneer.moneymaster.ui.viewmodel.CryptoViewModel
 import com.pixelpioneer.moneymaster.core.util.UiState
