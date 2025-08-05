@@ -360,4 +360,9 @@
     <string name="log_api_key_available">API key available: %1$s</string>
     <string name="error_loading_assets_log">Error loading data</string>
     <string name="error_loading_history_log">Error loading history for %1$s</string>
+    <string name="action_later">Later</string>
+    <string name="action_update">Update now</string>
+    <string name="update_available_title">Update available</string>
+    <string name="update_version">Version %1$s</string>
+    <string name="update_changelog_title">What\'s new:</string>
 </resources>

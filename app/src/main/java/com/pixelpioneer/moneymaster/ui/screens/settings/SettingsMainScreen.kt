@@ -136,7 +136,18 @@ fun SettingsMainScreen(
             if (showUpdateDialog && updateState != AppUpdateManager.UpdateState.Idle) {
                 UpdateDialog(
                     updateState = updateState,
-                    onDismiss = { showUpdateDialog = false }
+                    onStartUpdate = { updateAvailable ->
+                        if (activity != null) {
+                            appUpdateManager.startUpdate(updateAvailable, activity)
+                        }
+                    },
+                    onDismiss = {
+                        showUpdateDialog = false
+                        // Reset state nur wenn nicht downloading
+                        if (updateState !is AppUpdateManager.UpdateState.Downloading) {
+                            // Optional: Reset state to Idle
+                        }
+                    }
                 )
             }
         }

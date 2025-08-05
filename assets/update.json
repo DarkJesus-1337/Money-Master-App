@@ -1,5 +1,5 @@
 {
-  "version": "0.9.1",
-  "changelog": "New Updatesystem, new design, new features, bug fixes, and performance improvements.",
+  "version": "1.0.0",
+  "changelog": "Initial release of Money Master App\n\n• Expense and income tracking functionality\n• Budget management features\n• Monthly financial reports and statistics\n• Customizable categories for transactions\n• Dark and light theme support\n• Data backup and restore options\n• Multiple currency support\n• User-friendly dashboard with financial overview\n• PIN/biometric security for app access\n• Notification system for bill reminders",
   "apkUrl": "https://github.com/DarkJesus-1337/Money-Master-App/releases/download/Money_Master/app-release.apk"
 }

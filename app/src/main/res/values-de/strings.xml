@@ -36,6 +36,8 @@
     <string name="action_back">Zurück</string>
     <string name="action_ok">OK</string>
     <string name="action_remove">Entfernen</string>
+    <string name="action_later">Später</string>
+    <string name="action_update">Jetzt updaten</string>
 
     <!-- ==========================================
          COMMON LABELS
@@ -246,6 +248,9 @@
     <string name="update_downloading">Update wird heruntergeladen...</string>
     <string name="update_error">Update-Fehler</string>
     <string name="update_no_update">Keine Updates verfügbar</string>
+    <string name="update_available_title">Update verfügbar</string>
+    <string name="update_version">Version %1$s</string>
+    <string name="update_changelog_title">Was ist neu:</string>
 
     <!-- ==========================================
          ERROR MESSAGES

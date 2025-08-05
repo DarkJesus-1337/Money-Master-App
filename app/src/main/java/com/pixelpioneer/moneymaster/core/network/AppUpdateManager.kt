@@ -29,9 +29,10 @@ class AppUpdateManager {
     private val updateJsonUrl =
         "https://darkjesus-1337.github.io/Money-Master-App/assets/update.json"
 
+
     /**
      * Checks for app updates by comparing the current version with the latest available.
-     * If an update is available, automatically downloads and initiates installation.
+     * Shows update information with changelog before download.
      *
      * @param activity The activity context needed for installation.
      */
@@ -53,16 +54,38 @@ class AppUpdateManager {
                     .getPackageInfo(activity.packageName, 0).versionName
 
                 if (latestVersion != currentVersion) {
-                    _updateState.value = UpdateState.Downloading(0, 1)
-                    val apkFile = downloadApk(apkUrl, activity)
-                    _updateState.value = UpdateState.Success
-                    installApk(apkFile, activity)
+                    // Erst Update-Info mit Changelog anzeigen
+                    _updateState.value = UpdateState.UpdateAvailable(
+                        version = latestVersion,
+                        changelog = changelog,
+                        apkUrl = apkUrl
+                    )
                 } else {
                     _updateState.value = UpdateState.NoUpdate
                 }
             } catch (e: Exception) {
                 Log.e("AppUpdate", "Update fehlgeschlagen: ${e.message}")
                 _updateState.value = UpdateState.Error(e.message ?: "Unbekannter Fehler")
+            }
+        }
+    }
+
+    /**
+     * Starts the download and installation process for an available update.
+     *
+     * @param updateInfo The update information containing APK URL
+     * @param activity The activity context needed for installation.
+     */
+    fun startUpdate(updateInfo: UpdateState.UpdateAvailable, activity: Activity) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                _updateState.value = UpdateState.Downloading(0, 1)
+                val apkFile = downloadApk(updateInfo.apkUrl, activity)
+                _updateState.value = UpdateState.Success
+                installApk(apkFile, activity)
+            } catch (e: Exception) {
+                Log.e("AppUpdate", "Download fehlgeschlagen: ${e.message}")
+                _updateState.value = UpdateState.Error(e.message ?: "Download fehlgeschlagen")
             }
         }
     }
@@ -110,6 +133,11 @@ class AppUpdateManager {
     sealed class UpdateState {
         data object Idle : UpdateState()
         data object Checking : UpdateState()
+        data class UpdateAvailable(
+            val version: String,
+            val changelog: String,
+            val apkUrl: String
+        ) : UpdateState()
         data class Downloading(val downloaded: Long, val total: Long) : UpdateState()
         data object Success : UpdateState()
         data object NoUpdate : UpdateState()
