@@ -55,6 +55,10 @@ class StatisticsViewModel @Inject constructor(
         loadMonthlyTrends()
     }
 
+    /**
+     * Loads general statistics data including monthly income, expenses, and balance.
+     * Calculates daily and weekly expense averages.
+     */
     private fun loadStatistics() {
         viewModelScope.launch {
             try {
@@ -121,6 +125,9 @@ class StatisticsViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Loads statistics for each category, including total amount and transaction count.
+     */
     private fun loadCategoryStats() {
         viewModelScope.launch {
             try {
@@ -164,6 +171,9 @@ class StatisticsViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Loads monthly trends data showing income, expenses, and transaction count by month.
+     */
     private fun loadMonthlyTrends() {
         viewModelScope.launch {
             try {

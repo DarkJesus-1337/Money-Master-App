@@ -39,20 +39,55 @@ class TransactionViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository,
     @ApplicationContext private val context: Context
 ) : ViewModel() {
+    /**
+     * UI state for transaction list data.
+     */
     private val _transactionsState = MutableStateFlow<UiState<List<Transaction>>>(UiState.Loading)
+
+    /**
+     * Public UI state flow for transaction list data.
+     */
     val transactionsState: StateFlow<UiState<List<Transaction>>> = _transactionsState
 
+    /**
+     * UI state for category list data.
+     */
     private val _categoriesState =
         MutableStateFlow<UiState<List<TransactionCategory>>>(UiState.Loading)
+
+    /**
+     * Public UI state flow for category list data.
+     */
     val categoriesState: StateFlow<UiState<List<TransactionCategory>>> = _categoriesState
 
+    /**
+     * UI state for the currently selected transaction.
+     */
     private val _selectedTransaction = MutableStateFlow<UiState<Transaction>>(UiState.Loading)
+
+    /**
+     * Public UI state flow for the currently selected transaction.
+     */
     val selectedTransaction: StateFlow<UiState<Transaction>> = _selectedTransaction
 
+    /**
+     * Current state of the transaction form.
+     */
     private val _transactionFormState = MutableStateFlow(TransactionFormState())
+
+    /**
+     * Public state flow for the transaction form.
+     */
     val transactionFormState: StateFlow<TransactionFormState> = _transactionFormState
 
+    /**
+     * UI state for financial summary data.
+     */
     private val _financialSummary = MutableStateFlow<UiState<FinancialSummary>>(UiState.Loading)
+
+    /**
+     * Public UI state flow for financial summary data.
+     */
     val financialSummary: StateFlow<UiState<FinancialSummary>> = _financialSummary
 
     init {
@@ -61,6 +96,9 @@ class TransactionViewModel @Inject constructor(
         loadFinancialSummary()
     }
 
+    /**
+     * Loads all transactions with their associated categories.
+     */
     private fun loadTransactions() {
         viewModelScope.launch {
             try {
@@ -84,6 +122,11 @@ class TransactionViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Loads a specific transaction by its ID.
+     *
+     * @param id ID of the transaction to load
+     */
     fun loadTransactionById(id: Long) {
         viewModelScope.launch {
             try {
@@ -103,6 +146,9 @@ class TransactionViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Loads all available transaction categories.
+     */
     private fun loadCategories() {
         viewModelScope.launch {
             try {
@@ -126,6 +172,9 @@ class TransactionViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Loads financial summary data including total income, expenses, and balance.
+     */
     private fun loadFinancialSummary() {
         viewModelScope.launch {
             try {
@@ -156,7 +205,11 @@ class TransactionViewModel @Inject constructor(
         }
     }
 
-
+    /**
+     * Creates a new transaction using the current form state.
+     *
+     * @param onComplete Callback to execute after transaction creation
+     */
     fun createTransaction(onComplete: () -> Unit = {}) {
         viewModelScope.launch {
             val formState = _transactionFormState.value
@@ -190,6 +243,11 @@ class TransactionViewModel @Inject constructor(
     }
 
 
+    /**
+     * Updates an existing transaction with the current form state.
+     *
+     * @param id ID of the transaction to update
+     */
     fun updateTransaction(id: Long) {
         viewModelScope.launch {
             val formState = _transactionFormState.value
@@ -225,6 +283,11 @@ class TransactionViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Deletes a transaction.
+     *
+     * @param transaction The transaction to delete
+     */
     fun deleteTransaction(transaction: Transaction) {
         viewModelScope.launch {
             try {
@@ -236,6 +299,12 @@ class TransactionViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Updates the amount field in the transaction form.
+     * Sets error if amount is invalid.
+     *
+     * @param amount The new amount value
+     */
     fun updateAmount(amount: Double) {
         _transactionFormState.value = _transactionFormState.value.copy(
             amount = amount,
@@ -243,6 +312,12 @@ class TransactionViewModel @Inject constructor(
         )
     }
 
+    /**
+     * Updates the title field in the transaction form.
+     * Sets error if title is invalid.
+     *
+     * @param title The new title value
+     */
     fun updateTitle(title: String) {
         _transactionFormState.value = _transactionFormState.value.copy(
             title = title,
@@ -250,10 +325,20 @@ class TransactionViewModel @Inject constructor(
         )
     }
 
+    /**
+     * Updates the description field in the transaction form.
+     *
+     * @param description The new description value
+     */
     fun updateDescription(description: String) {
         _transactionFormState.value = _transactionFormState.value.copy(description = description)
     }
 
+    /**
+     * Updates the selected category in the transaction form.
+     *
+     * @param category The new selected category
+     */
     fun updateSelectedCategory(category: TransactionCategory) {
         _transactionFormState.value = _transactionFormState.value.copy(
             selectedCategory = category,
@@ -261,14 +346,29 @@ class TransactionViewModel @Inject constructor(
         )
     }
 
+    /**
+     * Updates the date field in the transaction form.
+     *
+     * @param date The new date value in milliseconds
+     */
     fun updateDate(date: Long) {
         _transactionFormState.value = _transactionFormState.value.copy(date = date)
     }
 
+    /**
+     * Updates whether the transaction is an expense or income.
+     *
+     * @param isExpense True if transaction is an expense, false if income
+     */
     fun updateIsExpense(isExpense: Boolean) {
         _transactionFormState.value = _transactionFormState.value.copy(isExpense = isExpense)
     }
 
+    /**
+     * Initializes the form with data from an existing transaction.
+     *
+     * @param transaction The transaction to load into the form
+     */
     fun initFormWithTransaction(transaction: Transaction) {
         _transactionFormState.value = TransactionFormState(
             amount = transaction.amount,
@@ -280,6 +380,12 @@ class TransactionViewModel @Inject constructor(
         )
     }
 
+    /**
+     * Validates the transaction form fields.
+     * Updates error messages if validation fails.
+     *
+     * @return True if form is valid, false otherwise
+     */
     private fun validateTransactionForm(): Boolean {
         val formState = _transactionFormState.value
         var isValid = true
@@ -312,6 +418,11 @@ class TransactionViewModel @Inject constructor(
         return isValid
     }
 
+    /**
+     * Converts a receipt into multiple transactions and saves them.
+     *
+     * @param receipt The receipt containing items to convert to transactions
+     */
     fun saveReceiptAsTransactions(receipt: Receipt) {
         viewModelScope.launch {
             try {
@@ -341,6 +452,11 @@ class TransactionViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Gets the default transaction category, creating one if necessary.
+     *
+     * @return A default TransactionCategory
+     */
     private suspend fun getDefaultCategory(): TransactionCategory {
         return try {
             val categories = categoryRepository.allCategories.first()
@@ -361,6 +477,9 @@ class TransactionViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Refreshes the financial summary data.
+     */
     fun refreshFinancialSummary() {
         viewModelScope.launch {
             try {
@@ -371,10 +490,18 @@ class TransactionViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Refreshes the transactions list.
+     */
     fun refreshTransactions() {
         loadTransactions()
     }
 
+    /**
+     * Directly adds a fully formed transaction.
+     *
+     * @param transaction The transaction to add
+     */
     fun addTransactionDirect(transaction: Transaction) {
         viewModelScope.launch {
             try {
@@ -386,7 +513,11 @@ class TransactionViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Resets the transaction form to its default state.
+     */
     fun resetFormState() {
         _transactionFormState.value = TransactionFormState()
     }
 }
+

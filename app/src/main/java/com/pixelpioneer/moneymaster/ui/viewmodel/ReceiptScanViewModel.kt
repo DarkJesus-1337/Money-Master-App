@@ -30,13 +30,18 @@ class ReceiptScanViewModel @Inject constructor(
 
     private val _scannedItems = MutableStateFlow<List<Transaction>>(emptyList())
     val scannedItems: StateFlow<List<Transaction>> = _scannedItems
-
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
-
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
 
+    /**
+     * Scans a receipt image and extracts transaction items.
+     *
+     * @param imageFile The receipt image file to scan
+     * @param defaultCategory Default category to assign to extracted items
+     * @param context Context for accessing string resources
+     */
     fun scanReceipt(
         imageFile: File,
         defaultCategory: TransactionCategory,
@@ -81,6 +86,16 @@ class ReceiptScanViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Parses OCR text to extract transaction items.
+     *
+     * Identifies item names and prices using regex pattern matching.
+     * Filters out common receipt terms that are not actual items.
+     *
+     * @param text The OCR-extracted text from receipt
+     * @param defaultCategory Default category to assign to extracted items
+     * @return List of Transaction objects representing items on the receipt
+     */
     private fun parseItemsFromText(
         text: String,
         defaultCategory: TransactionCategory
