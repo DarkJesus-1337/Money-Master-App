@@ -62,6 +62,11 @@ class RemoteConfigManager(private val context: Context) {
     suspend fun fetchAndActivate(): Boolean {
         return try {
             val fetchResult = remoteConfig.fetchAndActivate().await()
+
+            // DEBUG: Logge alle verfügbaren Keys
+            Log.d(TAG, "Available Remote Config keys: ${remoteConfig.all.keys}")
+            Log.d(TAG, "CoinCap key value: '${remoteConfig.getString(COINCAP_API_KEY)}'")
+
             Log.d(TAG, "Remote config fetch successful: $fetchResult")
             fetchResult
         } catch (e: Exception) {
@@ -86,8 +91,15 @@ class RemoteConfigManager(private val context: Context) {
      * @return The CoinCap API key as a [String].
      */
     fun getCoinCapApiKey(): String {
-        return remoteConfig.getString(COINCAP_API_KEY).takeIf { it.isNotEmpty() }
-            ?: BuildConfig.COINCAP_API_KEY
+        val remoteKey = remoteConfig.getString(COINCAP_API_KEY)
+        Log.d(TAG, "Retrieved remote key: '$remoteKey' (length: ${remoteKey.length})")
+
+        if (remoteKey.isNotEmpty() && remoteKey != "null") {
+            return remoteKey
+        }
+
+        Log.w(TAG, "No valid CoinCap API key found in Remote Config")
+        return ""
     }
 
     /**

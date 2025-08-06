@@ -27,13 +27,13 @@ android {
         buildConfigField(
             "String",
             "OCR_SPACE_API_KEY",
-            "\"${project.properties["OCR_SPACE_API_KEY"]}\""
+            "\"\""
         )
 
         buildConfigField(
             "String",
             "COINCAP_API_KEY",
-            "\"${project.properties["COINCAP_API_KEY"]}\""
+            "\"\""
         )
     }
 

@@ -197,11 +197,11 @@ class StatisticsViewModel @Inject constructor(
                                 val calendar = Calendar.getInstance()
                                 calendar.timeInMillis = monthTransactions.first().date
 
-                                val monthlyIncome = transactions
+                                val monthlyIncome = monthTransactions
                                     .filter { !it.isExpense }
                                     .sumOf { it.amount }
 
-                                val monthlyExpenses = transactions
+                                val monthlyExpenses = monthTransactions
                                     .filter { it.isExpense }
                                     .sumOf { it.amount }
 
@@ -222,7 +222,6 @@ class StatisticsViewModel @Inject constructor(
                                     Locale.GERMAN
                                 ).parse(trend.monthYear)?.time ?: 0
                             })
-                            .take(12)
 
                         if (monthlyTrends.isEmpty()) {
                             _monthlyTrendsState.value = UiState.Empty
@@ -231,8 +230,9 @@ class StatisticsViewModel @Inject constructor(
                         }
                     }
             } catch (e: Exception) {
-                _monthlyTrendsState.value =
-                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
+                _monthlyTrendsState.value = UiState.Error(
+                    e.message ?: context.getString(R.string.error_unknown)
+                )
             }
         }
     }

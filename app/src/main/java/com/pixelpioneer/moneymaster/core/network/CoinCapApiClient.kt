@@ -1,5 +1,6 @@
 package com.pixelpioneer.moneymaster.core.network
 
+import android.util.Log
 import com.pixelpioneer.moneymaster.data.remote.api.CoinCapApiService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -20,6 +21,12 @@ class CoinCapApiClient(private val remoteConfigManager: RemoteConfigManager) {
     private val authInterceptor = Interceptor { chain ->
         val original: Request = chain.request()
         val apiKey = remoteConfigManager.getCoinCapApiKey()
+
+        // DEBUG: Logge den tatsächlichen Key
+        Log.d("CoinCap", "Retrieved API Key: '${apiKey}'")
+        Log.d("CoinCap", "Key length: ${apiKey.length}")
+        Log.d("CoinCap", "Key is empty: ${apiKey.isEmpty()}")
+
         val request = original.newBuilder()
             .addHeader("Authorization", "Bearer $apiKey")
             .build()

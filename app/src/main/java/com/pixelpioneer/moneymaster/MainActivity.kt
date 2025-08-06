@@ -8,10 +8,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
+import com.pixelpioneer.moneymaster.core.network.RemoteConfigManager
 import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterNavHost
 import com.pixelpioneer.moneymaster.ui.theme.MoneyMasterTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * The main entry point of the MoneyMaster application.
@@ -21,12 +26,25 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    @Inject
+    lateinit var remoteConfigManager: RemoteConfigManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        // Remote Config sofort laden
+        lifecycleScope.launch {
+            val success = remoteConfigManager.fetchAndActivate()
+            Timber.tag("MainActivity").d("Remote Config loaded: $success")
+
+            // Debug Info loggen
+            val debugInfo = remoteConfigManager.getDebugInfo()
+            Timber.tag("MainActivity").d("Remote Config Debug: $debugInfo")
+        }
+
         setContent {
-            MoneyMasterTheme {
+        MoneyMasterTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
