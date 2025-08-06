@@ -7,7 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.pixelpioneer.moneymaster.ui.viewmodel.SettingsViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.pixelpioneer.moneymaster.core.network.RemoteConfigManager
@@ -42,13 +46,21 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-        MoneyMasterTheme {
+            val settingsViewModel: SettingsViewModel = hiltViewModel()
+            val settingsState by settingsViewModel.state.collectAsState()
+
+            MoneyMasterTheme(
+                darkTheme = settingsState.darkMode
+            ) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    MoneyMasterNavHost(navController = navController)
+                    MoneyMasterNavHost(
+                        navController = navController,
+                        settingsViewModel = settingsViewModel
+                    )
                 }
             }
         }
