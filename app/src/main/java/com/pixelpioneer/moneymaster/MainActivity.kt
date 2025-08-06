@@ -33,12 +33,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Remote Config sofort laden
         lifecycleScope.launch {
             val success = remoteConfigManager.fetchAndActivate()
             Timber.tag("MainActivity").d("Remote Config loaded: $success")
 
-            // Debug Info loggen
             val debugInfo = remoteConfigManager.getDebugInfo()
             Timber.tag("MainActivity").d("Remote Config Debug: $debugInfo")
         }
