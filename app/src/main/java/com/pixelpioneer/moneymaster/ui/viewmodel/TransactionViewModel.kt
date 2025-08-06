@@ -17,6 +17,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -130,27 +131,33 @@ class TransactionViewModel @Inject constructor(
             try {
                 _financialSummary.value = UiState.Loading
 
-                transactionRepository.getTotalExpensesByMonth().collect { expenses ->
-                    transactionRepository.getTotalIncomeByMonth().collect { income ->
-                        val balance = income - expenses
-
-                        _financialSummary.value = UiState.Success(
-                            FinancialSummary(
-                                totalIncome = income,
-                                totalExpenses = expenses,
-                                balance = balance
-                            )
-                        )
-                    }
+                combine(
+                    transactionRepository.getTotalIncomeByMonth(),
+                    transactionRepository.getTotalExpensesByMonth()
+                ) { income, expenses ->
+                    val balance = income - expenses
+                    FinancialSummary(
+                        totalIncome = income,
+                        totalExpenses = expenses,
+                        balance = balance
+                    )
+                }.catch { e ->
+                    _financialSummary.value = UiState.Error(
+                        e.message ?: context.getString(R.string.error_unknown)
+                    )
+                }.collect { summary ->
+                    _financialSummary.value = UiState.Success(summary)
                 }
             } catch (e: Exception) {
-                _financialSummary.value =
-                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
+                _financialSummary.value = UiState.Error(
+                    e.message ?: context.getString(R.string.error_unknown)
+                )
             }
         }
     }
 
-    fun createTransaction() {
+
+    fun createTransaction(onComplete: () -> Unit = {}) {
         viewModelScope.launch {
             val formState = _transactionFormState.value
 
@@ -172,15 +179,16 @@ class TransactionViewModel @Inject constructor(
                 )
 
                 transactionRepository.insertTransaction(transaction)
-
                 resetFormState()
-
                 loadTransactions()
                 loadFinancialSummary()
+                onComplete()
             } catch (e: Exception) {
+                // Error handling
             }
         }
     }
+
 
     fun updateTransaction(id: Long) {
         viewModelScope.launch {

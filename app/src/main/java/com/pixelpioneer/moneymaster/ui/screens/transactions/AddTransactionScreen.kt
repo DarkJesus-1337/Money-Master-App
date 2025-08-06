@@ -348,8 +348,9 @@ fun AddTransactionScreen(
 
             Button(
                 onClick = {
-                    transactionViewModel.createTransaction()
-                    navController.popBackStack()
+                    transactionViewModel.createTransaction {
+                        navController.popBackStack()
+                    }
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
