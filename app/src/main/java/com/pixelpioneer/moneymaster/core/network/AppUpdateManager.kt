@@ -138,6 +138,7 @@ class AppUpdateManager {
             val changelog: String,
             val apkUrl: String
         ) : UpdateState()
+
         data class Downloading(val downloaded: Long, val total: Long) : UpdateState()
         data object Success : UpdateState()
         data object NoUpdate : UpdateState()

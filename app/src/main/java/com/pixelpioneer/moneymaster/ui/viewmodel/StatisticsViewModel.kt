@@ -84,8 +84,8 @@ class StatisticsViewModel @Inject constructor(
                             )
                     }
                     .collect { transactions ->
-                        val totalIncome = transactionRepository.getTotalIncomeSync()
-                        val totalExpenses = transactionRepository.getTotalExpensesSync()
+                        transactionRepository.getTotalIncomeSync()
+                        transactionRepository.getTotalExpensesSync()
                         val totalTransactions = transactionRepository.getTransactionCountSync()
 
                         val monthlyIncome = transactions

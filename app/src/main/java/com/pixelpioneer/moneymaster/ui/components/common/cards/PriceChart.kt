@@ -40,7 +40,7 @@ fun PriceChart(
     historyData: List<HistoryDataPoint>,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
+    LocalContext.current
     val materialTextColor = MaterialTheme.colorScheme.onSecondaryContainer.toArgb()
     val priceLable = stringResource(R.string.crypto_price_label)
 

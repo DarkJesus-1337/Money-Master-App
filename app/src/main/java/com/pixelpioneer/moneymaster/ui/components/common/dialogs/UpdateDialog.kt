@@ -45,7 +45,7 @@ fun UpdateDialog(
     onStartUpdate: (AppUpdateManager.UpdateState.UpdateAvailable) -> Unit = {},
     onDismiss: () -> Unit
 ) {
-    val context = LocalContext.current
+    LocalContext.current
 
     when (updateState) {
         is AppUpdateManager.UpdateState.Checking -> {
@@ -129,7 +129,9 @@ fun UpdateDialog(
                         // Action Buttons
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp)
+                            horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(
+                                8.dp
+                            )
                         ) {
                             OutlinedButton(
                                 onClick = onDismiss,
