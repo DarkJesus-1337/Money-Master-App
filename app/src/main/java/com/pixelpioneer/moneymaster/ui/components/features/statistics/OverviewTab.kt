@@ -32,6 +32,8 @@ import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import com.pixelpioneer.moneymaster.core.util.UiState
 import com.pixelpioneer.moneymaster.data.model.StatisticsOverview
 import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
+import com.pixelpioneer.moneymaster.ui.theme.expenseColor
+import com.pixelpioneer.moneymaster.ui.theme.incomeColor
 
 /**
  * Tab for displaying an overview of financial statistics.
@@ -92,7 +94,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                                         Icon(
                                             Icons.Default.ArrowUpward,
                                             contentDescription = stringResource(R.string.statistics_income),
-                                            tint = Color.Green,
+                                            tint = incomeColor(),
                                             modifier = Modifier.size(16.dp)
                                         )
                                         Text(
@@ -104,7 +106,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                                         text = FormatUtils.formatCurrency(stats.monthlyIncome),
                                         style = MaterialTheme.typography.titleMedium,
                                         fontWeight = FontWeight.Bold,
-                                        color = Color.Green
+                                        color = incomeColor()
                                     )
                                 }
 
@@ -113,7 +115,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                                         Icon(
                                             Icons.Default.ArrowDownward,
                                             contentDescription = stringResource(R.string.statistics_expenses),
-                                            tint = Color.Red,
+                                            tint = expenseColor(),
                                             modifier = Modifier.size(16.dp)
                                         )
                                         Text(
@@ -125,7 +127,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                                         text = FormatUtils.formatCurrency(stats.monthlyExpenses),
                                         style = MaterialTheme.typography.titleMedium,
                                         fontWeight = FontWeight.Bold,
-                                        color = Color.Red
+                                        color = expenseColor()
                                     )
                                 }
                             }
@@ -139,7 +141,7 @@ fun OverviewTab(statisticsState: UiState<StatisticsOverview>) {
                                 ),
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold,
-                                color = if (stats.monthlyBalance >= 0) Color.Green else Color.Red
+                                color = if (stats.monthlyBalance >= 0) incomeColor() else expenseColor()
                             )
                         }
                     }

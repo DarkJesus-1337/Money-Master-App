@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import com.pixelpioneer.moneymaster.data.model.Transaction
+import com.pixelpioneer.moneymaster.ui.theme.expenseColor
+import com.pixelpioneer.moneymaster.ui.theme.incomeColor
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -50,7 +52,7 @@ fun TransactionItem(
     val date = Date(transaction.date)
     val formattedDate = dateFormat.format(date)
 
-    val amountColor = if (transaction.isExpense) Color.Red else Color.Green
+    val amountColor = if (transaction.isExpense) expenseColor() else incomeColor()
     val amountPrefix = if (transaction.isExpense) "-" else "+"
 
     Card(

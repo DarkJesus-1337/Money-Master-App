@@ -30,6 +30,8 @@ import com.pixelpioneer.moneymaster.core.util.UiState
 import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
 import com.pixelpioneer.moneymaster.ui.components.common.cards.PriceChart
+import com.pixelpioneer.moneymaster.ui.theme.expenseColor
+import com.pixelpioneer.moneymaster.ui.theme.incomeColor
 
 /**
  * Main content composable for the crypto assets screen.
@@ -140,7 +142,7 @@ fun CryptoAssetsScreenContent(
                                     )
                                 }",
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = if (changePercent >= 0) Color.Green else Color.Red,
+                                color = if (changePercent >= 0) incomeColor() else expenseColor(),
                                 fontWeight = FontWeight.Medium
                             )
                         }

@@ -15,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -23,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import com.pixelpioneer.moneymaster.data.model.MonthlyTrend
+import com.pixelpioneer.moneymaster.ui.theme.expenseColor
+import com.pixelpioneer.moneymaster.ui.theme.incomeColor
 
 /**
  * A card component for displaying monthly financial trends.
@@ -69,7 +70,7 @@ fun MonthlyTrendItem(monthlyTrend: MonthlyTrend) {
                     Icon(
                         painter = painterResource(if (isPositive) R.drawable.trending_up else R.drawable.trending_down),
                         contentDescription = stringResource(if (isPositive) R.string.statistics_positive else R.string.statistics_negative),
-                        tint = if (isPositive) Color.Green else Color.Red,
+                        tint = if (isPositive) incomeColor() else expenseColor(),
                         modifier = Modifier.size(20.dp)
                     )
 
@@ -77,7 +78,7 @@ fun MonthlyTrendItem(monthlyTrend: MonthlyTrend) {
                         text = FormatUtils.formatCurrency(monthlyTrend.balance),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = if (isPositive) Color.Green else Color.Red,
+                        color = if (isPositive) incomeColor() else expenseColor(),
                         modifier = Modifier.padding(start = 4.dp)
                     )
                 }
@@ -99,7 +100,7 @@ fun MonthlyTrendItem(monthlyTrend: MonthlyTrend) {
                         text = FormatUtils.formatCurrency(monthlyTrend.income),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium,
-                        color = Color.Green
+                        color = incomeColor()
                     )
                 }
 
@@ -113,7 +114,7 @@ fun MonthlyTrendItem(monthlyTrend: MonthlyTrend) {
                         text = FormatUtils.formatCurrency(monthlyTrend.expenses),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium,
-                        color = Color.Red
+                        color = expenseColor()
                     )
                 }
             }

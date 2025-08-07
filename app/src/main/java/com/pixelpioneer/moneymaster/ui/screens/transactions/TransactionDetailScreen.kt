@@ -47,6 +47,7 @@ import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import com.pixelpioneer.moneymaster.core.util.UiState
 import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.navigation.Screen
+import com.pixelpioneer.moneymaster.ui.theme.incomeColor
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -140,7 +141,7 @@ fun TransactionDetailScreen(
                                     val amountColor = if (transaction.isExpense) {
                                         MaterialTheme.colorScheme.error
                                     } else {
-                                        Color.Green
+                                        incomeColor()
                                     }
 
                                     val prefix = if (transaction.isExpense) "-" else "+"
