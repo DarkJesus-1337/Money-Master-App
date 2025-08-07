@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Splash Screen Theme speziell für Android 12+ -->
+    <style name="Theme.MoneyMaster.Splash" parent="Theme.SplashScreen">
+        <!-- Hintergrundfarbe des Splash Screens -->
+        <item name="windowSplashScreenBackground">@drawable/splash_background</item>
+
+        <!-- ANIMIERTES Icon das im Splash Screen angezeigt wird -->
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
+
+        <!-- Längere Dauer für die komplexe Animation -->
+        <item name="windowSplashScreenAnimationDuration">2000</item>
+
+        <!-- App-Farbe nach dem Splash Screen -->
+        <item name="postSplashScreenTheme">@style/Theme.MoneyMaster</item>
+
+        <!-- Status Bar transparent -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>

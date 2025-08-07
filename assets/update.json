@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
-  "changelog": "feat: improved color scheme with softer, theme-aware transaction colors - Better accessibility and reduced eye strain - Professional Material Design 3 compliant palette - Automatic color adaptation for dark/light themes",
+  "version": "1.0.3",
+  "changelog": "feat: New Spashscreen and minor UI improvements\nfix: Resolved issues with the app's performance on older devices\nfix: Corrected minor bugs related to transaction history display",
   "apkUrl": "https://github.com/DarkJesus-1337/Money-Master-App/releases/download/Money_Master/app-release.apk"
 }

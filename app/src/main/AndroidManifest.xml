@@ -2,14 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
+    <!-- Camera Feature -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-
 
     <application
         android:name=".MoneyMasterApplication"
@@ -23,7 +24,7 @@
         android:theme="@style/Theme.MoneyMaster"
         tools:targetApi="31">
 
-
+        <!-- FileProvider für Camera und Updates -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.pixelpioneer.moneymaster.fileprovider"
@@ -34,15 +35,25 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <!-- SplashActivity als Launcher Activity -->
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.MoneyMaster">
+            android:theme="@style/Theme.MoneyMaster.SplashLegacy">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- MainActivity ohne intent-filter, da sie nicht mehr der Launcher ist -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MoneyMaster"
+            />
+
     </application>
 
 </manifest>

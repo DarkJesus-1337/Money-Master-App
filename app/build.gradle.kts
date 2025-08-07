@@ -20,7 +20,7 @@ android {
         minSdk = 24
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0.2"
+        versionName = "1.0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -87,7 +87,6 @@ configurations.all {
     }
 }
 
-
 dependencies {
     // Basis-Abhängigkeiten
     implementation(libs.androidx.core.ktx)
@@ -106,6 +105,7 @@ dependencies {
     // Room für Datenbank
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(libs.androidx.constraintlayout)
     ksp(libs.androidx.room.compiler)
 
     // ViewModel und LiveData
@@ -159,6 +159,9 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.androidx.hilt.compiler)
+
+    // SPLASH SCREEN API FÜR ANDROID 12+
+    implementation(libs.androidx.core.splashscreen)
 
     // Tests
     testImplementation(libs.junit)
