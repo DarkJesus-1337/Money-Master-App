@@ -39,7 +39,8 @@ import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
 @Composable
 fun MoneyMasterNavHost(
     navController: NavHostController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    settingsViewModel: SettingsViewModel
 ) {
     NavHost(
         navController = navController,
@@ -178,8 +179,6 @@ fun MoneyMasterNavHost(
         }
 
         composable(Screen.Settings.route) {
-            val settingsViewModel: SettingsViewModel = hiltViewModel()
-
             SettingsScreen(
                 settingsViewModel = settingsViewModel
             )

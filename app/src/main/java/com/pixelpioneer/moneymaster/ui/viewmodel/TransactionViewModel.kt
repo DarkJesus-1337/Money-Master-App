@@ -204,7 +204,7 @@ class TransactionViewModel @Inject constructor(
             }
         }
     }
-
+    
     /**
      * Creates a new transaction using the current form state.
      *

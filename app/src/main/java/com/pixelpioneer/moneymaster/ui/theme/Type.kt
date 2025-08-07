@@ -14,18 +14,19 @@ val provider = GoogleFont.Provider(
 
 val bodyFontFamily = FontFamily(
     Font(
-        googleFont = GoogleFont("Inter"),
+        googleFont = GoogleFont("Inter Tight"),
         fontProvider = provider,
     )
 )
 
 val displayFontFamily = FontFamily(
     Font(
-        googleFont = GoogleFont("Poppins"),
+        googleFont = GoogleFont("Inter"),
         fontProvider = provider,
     )
 )
 
+// Default Material 3 typography values
 val baseline = Typography()
 
 val Typography = Typography(
