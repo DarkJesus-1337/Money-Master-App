@@ -89,24 +89,27 @@ configurations.all {
 
 val updateJsonTask by tasks.registering {
     val versionName = project.property("app.version.name").toString()
+    val changelog = project.property("app.version.changelog").toString()
+        .replace("\\", "\\\\")
+        .replace("\"", "\\\"")
+        .replace("\n", "\\n")
     val updateJsonFile = rootProject.file("assets/update.json")
 
     doLast {
         if (updateJsonFile.exists()) {
-            var content = updateJsonFile.readText()
+            try {
+                val jsonContent = """{
+  "version": "$versionName",
+  "changelog": "$changelog",
+  "apkUrl": "https://github.com/DarkJesus-1337/Money-Master-App/releases/download/v$versionName/app-release.apk"
+}"""
 
-            content = content.replace(
-                Regex("\"version\"\\s*:\\s*\"[^\"]*\""),
-                "\"version\": \"$versionName\""
-            )
+                updateJsonFile.writeText(jsonContent)
+                println("✅ update.json erfolgreich aktualisiert auf Version $versionName")
 
-            content = content.replace(
-                Regex("\"apkUrl\"\\s*:\\s*\"[^\"]*\""),
-                "\"apkUrl\": \"https://github.com/DarkJesus-1337/Money-Master-App/releases/download/v$versionName/app-release.apk\""
-            )
-
-            updateJsonFile.writeText(content)
-            println("✅ update.json erfolgreich aktualisiert auf Version $versionName")
+            } catch (e: Exception) {
+                println("❌ Fehler beim Aktualisieren der update.json: ${e.message}")
+            }
         } else {
             println("❌ update.json nicht gefunden am Pfad: ${updateJsonFile.absolutePath}")
         }
