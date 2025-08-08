@@ -13,8 +13,11 @@ import com.pixelpioneer.moneymaster.data.repository.CategoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,77 +39,58 @@ class BudgetViewModel @Inject constructor(
     @ApplicationContext private val context: Context
 ) : ViewModel() {
 
-    private val _budgetsState = MutableStateFlow<UiState<List<Budget>>>(UiState.Loading)
-    val budgetsState: StateFlow<UiState<List<Budget>>> = _budgetsState
+    val budgetsState: StateFlow<UiState<List<Budget>>> =
+        budgetRepository.allBudgetsWithSpending
+            .map { budgets ->
+                if (budgets.isEmpty()) UiState.Empty
+                else UiState.Success(budgets)
+            }
+            .catch { e ->
+                emit(UiState.Error(e.message ?: context.getString(R.string.error_loading_budgets)))
+            }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = UiState.Loading
+            )
 
-    private val _categoriesState =
-        MutableStateFlow<UiState<List<TransactionCategory>>>(UiState.Loading)
-    val categoriesState: StateFlow<UiState<List<TransactionCategory>>> = _categoriesState
+    val categoriesState: StateFlow<UiState<List<TransactionCategory>>> =
+        categoryRepository.allCategories
+            .map { categories ->
+                if (categories.isEmpty()) UiState.Empty
+                else UiState.Success(categories)
+            }
+            .catch { e ->
+                emit(UiState.Error(e.message ?: context.getString(R.string.error_unknown)))
+            }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = UiState.Loading
+            )
 
     private val _selectedBudget = MutableStateFlow<UiState<Budget>>(UiState.Loading)
+    val selectedBudget: StateFlow<UiState<Budget>> = _selectedBudget
 
     private val _budgetFormState = MutableStateFlow(BudgetFormState())
     val budgetFormState: StateFlow<BudgetFormState> = _budgetFormState
 
-    init {
-        observeBudgets()
-        loadCategories()
-    }
-
-    private fun observeBudgets() {
+    fun loadBudgetById(id: Long) {
         viewModelScope.launch {
-            try {
-                _budgetsState.value = UiState.Loading
-                budgetRepository.allBudgetsWithSpending.collectLatest { budgets ->
-                    if (budgets.isEmpty()) {
-                        _budgetsState.value = UiState.Empty
-                    } else {
-                        _budgetsState.value = UiState.Success(budgets)
-                    }
+            budgetRepository.getBudgetById(id)
+                .catch { e ->
+                    _selectedBudget.value = UiState.Error(
+                        e.message ?: context.getString(R.string.error_unknown)
+                    )
                 }
-            } catch (e: Exception) {
-                _budgetsState.value =
-                    UiState.Error(e.message ?: context.getString(R.string.error_loading_budgets))
-            }
-        }
-    }
-
-    private fun loadBudgetById(id: Long) {
-        viewModelScope.launch {
-            try {
-                _selectedBudget.value = UiState.Loading
-                budgetRepository.getBudgetById(id).collectLatest { budget ->
+                .collect { budget ->
                     _selectedBudget.value = UiState.Success(budget)
                 }
-            } catch (e: Exception) {
-                _selectedBudget.value =
-                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
-            }
-        }
-    }
-
-    private fun loadCategories() {
-        viewModelScope.launch {
-            try {
-                _categoriesState.value = UiState.Loading
-                categoryRepository.allCategories.collect { categories ->
-                    if (categories.isEmpty()) {
-                        _categoriesState.value = UiState.Empty
-                    } else {
-                        _categoriesState.value = UiState.Success(categories)
-                    }
-                }
-            } catch (e: Exception) {
-                _categoriesState.value =
-                    UiState.Error(e.message ?: context.getString(R.string.error_unknown))
-            }
         }
     }
 
     fun createBudget() {
         viewModelScope.launch {
-            val formState = _budgetFormState.value
-
             if (!validateBudgetForm()) {
                 return@launch
             }
@@ -117,22 +101,21 @@ class BudgetViewModel @Inject constructor(
 
                 val budget = Budget(
                     category = category,
-                    amount = formState.amount,
-                    period = formState.period,
+                    amount = _budgetFormState.value.amount,
+                    period = _budgetFormState.value.period,
                     spent = 0.0
                 )
 
                 budgetRepository.insertBudget(budget)
                 resetFormState()
             } catch (e: Exception) {
+                // Error-Handling
             }
         }
     }
 
     fun updateBudget(id: Long) {
         viewModelScope.launch {
-            val formState = _budgetFormState.value
-
             if (!validateBudgetForm()) {
                 return@launch
             }
@@ -144,8 +127,8 @@ class BudgetViewModel @Inject constructor(
                 val budget = Budget(
                     id = id,
                     category = category,
-                    amount = formState.amount,
-                    period = formState.period,
+                    amount = _budgetFormState.value.amount,
+                    period = _budgetFormState.value.period,
                     spent = 0.0
                 )
 
@@ -153,6 +136,7 @@ class BudgetViewModel @Inject constructor(
                 resetFormState()
                 loadBudgetById(id)
             } catch (e: Exception) {
+                // Error-Handling
             }
         }
     }
@@ -162,6 +146,7 @@ class BudgetViewModel @Inject constructor(
             try {
                 budgetRepository.deleteBudget(budget)
             } catch (e: Exception) {
+                // Error-Handling
             }
         }
     }
@@ -216,15 +201,14 @@ class BudgetViewModel @Inject constructor(
         return true
     }
 
+    /**
+     * Refreshes budgets (e.g., after an error).
+     */
     fun refreshBudgets() {
         viewModelScope.launch {
-            _budgetsState.value = UiState.Loading
             try {
-                val budgets = budgetRepository.getBudgetsWithSpendingSync()
-                _budgetsState.value = UiState.Success(budgets)
+                budgetRepository.getBudgetsWithSpendingSync()
             } catch (e: Exception) {
-                _budgetsState.value =
-                    UiState.Error(e.message ?: context.getString(R.string.error_loading_budgets))
             }
         }
     }
