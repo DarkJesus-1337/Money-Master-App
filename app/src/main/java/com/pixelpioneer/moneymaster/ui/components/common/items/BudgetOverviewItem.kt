@@ -24,6 +24,9 @@ import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import com.pixelpioneer.moneymaster.data.model.Budget
+import com.pixelpioneer.moneymaster.ui.theme.progressColorEnd
+import com.pixelpioneer.moneymaster.ui.theme.progressColorMid
+import com.pixelpioneer.moneymaster.ui.theme.progressColorStart
 
 /**
  * A component for displaying a single budget item in the budget overview
@@ -43,9 +46,9 @@ fun BudgetOverviewItem(
     }
 
     val progressColor = when {
-        progress >= 0.9 -> MaterialTheme.colorScheme.error
-        progress >= 0.7 -> MaterialTheme.colorScheme.errorContainer
-        else -> MaterialTheme.colorScheme.primary
+        progress >= 0.9 -> progressColorEnd
+        progress >= 0.7 -> progressColorMid
+        else -> progressColorStart
     }
 
     Column(

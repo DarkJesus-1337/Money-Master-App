@@ -88,7 +88,7 @@ configurations.all {
 }
 
 dependencies {
-    // Basis-Abhängigkeiten
+    // Basic-Dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -99,16 +99,16 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.timber)
 
-    // Navigation für Compose
+    // Navigation for Compose
     implementation(libs.androidx.navigation.compose)
 
-    // Room für Datenbank
+    // Room for Database
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     implementation(libs.androidx.constraintlayout)
     ksp(libs.androidx.room.compiler)
 
-    // ViewModel und LiveData
+    // ViewModel and LiveData
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
@@ -160,7 +160,7 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.androidx.hilt.compiler)
 
-    // SPLASH SCREEN API FÜR ANDROID 12+
+    // SPLASH SCREEN API FOR ANDROID 12+
     implementation(libs.androidx.core.splashscreen)
 
     // Tests

@@ -24,7 +24,7 @@ interface BudgetDao {
      * @return LiveData list of all budget entities
      */
     @Query("SELECT * FROM budgets")
-    fun getAllBudgets(): LiveData<List<BudgetEntity>>
+    fun getAllBudgets(): LiveData<List<BudgetEntity>>  // TODO: Change to Flow if needed
 
     /**
      * Gets a specific budget by its ID.

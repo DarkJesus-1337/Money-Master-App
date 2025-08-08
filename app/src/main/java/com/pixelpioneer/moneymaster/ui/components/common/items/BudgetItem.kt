@@ -39,6 +39,9 @@ import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import com.pixelpioneer.moneymaster.data.model.Budget
 import com.pixelpioneer.moneymaster.ui.components.utils.getBudgetPeriodText
+import com.pixelpioneer.moneymaster.ui.theme.progressColorEnd
+import com.pixelpioneer.moneymaster.ui.theme.progressColorMid
+import com.pixelpioneer.moneymaster.ui.theme.progressColorStart
 import kotlin.math.min
 
 /**
@@ -146,9 +149,9 @@ fun BudgetItem(
             }
 
             val progressColor = when {
-                progress >= 0.9 -> MaterialTheme.colorScheme.error
-                progress >= 0.7 -> MaterialTheme.colorScheme.errorContainer
-                else -> MaterialTheme.colorScheme.primary
+                progress >= 0.9 -> progressColorEnd
+                progress >= 0.7 -> progressColorMid
+                else -> progressColorStart
             }
 
             if (progress >= 0.9) {

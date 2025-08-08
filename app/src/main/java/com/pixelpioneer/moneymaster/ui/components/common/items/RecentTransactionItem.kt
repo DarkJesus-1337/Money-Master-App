@@ -1,5 +1,7 @@
 package com.pixelpioneer.moneymaster.ui.components.common.items
 
+import android.R.attr.fontWeight
+import android.R.attr.maxLines
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,7 +22,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -46,6 +51,15 @@ fun RecentTransactionItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .background(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(
+                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f),
+                        MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f)
+                    )
+                ),
+                shape = MaterialTheme.shapes.medium
+            )
             .clickable(onClick = onClick)
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -72,7 +86,8 @@ fun RecentTransactionItem(
         ) {
             Text(
                 text = transaction.title,
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
@@ -187,7 +202,7 @@ fun RecentTransactionItemPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = false)
 @Composable
 fun RecentTransactionItemDarkPreview() {
     MoneyMasterTheme(darkTheme = true) {

@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.json.JSONObject
+import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.net.HttpURLConnection
@@ -54,7 +55,6 @@ class AppUpdateManager {
                     .getPackageInfo(activity.packageName, 0).versionName
 
                 if (latestVersion != currentVersion) {
-                    // Erst Update-Info mit Changelog anzeigen
                     _updateState.value = UpdateState.UpdateAvailable(
                         version = latestVersion,
                         changelog = changelog,
@@ -64,7 +64,7 @@ class AppUpdateManager {
                     _updateState.value = UpdateState.NoUpdate
                 }
             } catch (e: Exception) {
-                Log.e("AppUpdate", "Update fehlgeschlagen: ${e.message}")
+                Timber.tag("AppUpdate").e("Update fehlgeschlagen: ${e.message}")
                 _updateState.value = UpdateState.Error(e.message ?: "Unbekannter Fehler")
             }
         }

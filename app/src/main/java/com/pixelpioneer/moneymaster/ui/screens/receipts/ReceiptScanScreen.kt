@@ -46,6 +46,7 @@ import com.pixelpioneer.moneymaster.ui.navigation.MoneyMasterBottomNavigation
 import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.ReceiptScanViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.TransactionViewModel
+import timber.log.Timber
 import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -167,20 +168,15 @@ fun ReceiptScanScreen(
                                 selectedCategory?.let { category ->
                                     try {
                                         val file = uriToFile(uri, context)
-                                        Log.d(
-                                            "ReceiptScan",
-                                            "Start scanning for file: ${file.absolutePath}"
-                                        )
+                                        Timber.tag("ReceiptScan")
+                                            .d("Start scanning for file: ${file.absolutePath}")
                                         receiptScanViewModel.scanReceipt(
                                             file, category,
                                             context = context
                                         )
                                         scanTriggered = true
                                     } catch (e: Exception) {
-                                        Log.e(
-                                            "ReceiptScan",
-                                            "Error to load: ${e.message}"
-                                        )
+                                        Timber.tag("ReceiptScan").e("Error to load: ${e.message}")
                                     }
                                 }
                             }

@@ -6,6 +6,7 @@ import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
 import com.pixelpioneer.moneymaster.data.remote.api.CoinCapApiService
+import timber.log.Timber
 import java.util.Calendar
 
 /**
@@ -27,16 +28,15 @@ class CoinCapRepository(
      * @return A list of [Asset] objects, or an empty list if the request fails.
      */
     suspend fun getAssets(limit: Int = 10): List<Asset> {
-        Log.d("CoinCapRepository", context.getString(R.string.log_api_call_started))
+        Timber.tag("CoinCapRepository").d(context.getString(R.string.log_api_call_started))
         return try {
             val response = api.getAssets(limit)
-            Log.d(
-                "CoinCapRepository",
-                context.getString(R.string.log_api_response, response.toString())
-            )
+            Timber.tag("CoinCapRepository")
+                .d(context.getString(R.string.log_api_response, response.toString()))
             response.body()?.data ?: emptyList()
         } catch (e: Exception) {
-            Log.e("CoinCapRepository", context.getString(R.string.error_loading_assets_log), e)
+            Timber.tag("CoinCapRepository")
+                .e(e, context.getString(R.string.error_loading_assets_log))
             emptyList()
         }
     }

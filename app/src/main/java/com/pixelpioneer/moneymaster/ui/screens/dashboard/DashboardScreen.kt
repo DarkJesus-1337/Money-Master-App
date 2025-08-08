@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -57,7 +58,11 @@ fun DashboardScreen(
         contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.dashboard_title)) },
+                title = { Text(
+                    text = stringResource(R.string.dashboard_title),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.Bold
+                    ) },
                 actions = {
                     IconButton(onClick = { navController.navigate(Screen.AddTransaction.route) }) {
                         Icon(
@@ -117,7 +122,8 @@ fun DashboardScreen(
 
                 Text(
                     text = stringResource(R.string.dashboard_budget_overview),
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold
                 )
 
@@ -164,7 +170,8 @@ fun DashboardScreen(
 
                 Text(
                     text = stringResource(R.string.dashboard_recent_transactions),
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold
                 )
 
@@ -204,6 +211,8 @@ fun DashboardScreen(
                                 )
                             }
                         )
+
+                        Spacer(modifier = Modifier.padding(2.dp))
                     }
 
                     if (transactionsState.data.size > 5) {

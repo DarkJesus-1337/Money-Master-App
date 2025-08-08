@@ -231,6 +231,10 @@ val ExpenseRedDark = Color(0xFFEF9A9A)
 val BalanceBlueLight = Color(0xFF1976D2)
 val BalanceBlueDark = Color(0xFF90CAF9)
 
+val progressColorStart = Color(0xFF3D9541)
+val progressColorMid = Color(0xFFDC8F0A)
+val progressColorEnd = Color(0xFFC63429)
+
 @Composable
 fun incomeColor(): Color = if (isSystemInDarkTheme()) IncomeGreenDark else IncomeGreenLight
 

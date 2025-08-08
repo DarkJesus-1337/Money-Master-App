@@ -16,6 +16,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -71,18 +72,34 @@ fun ImageSelectionCard(
                     onClick = onCameraCapture,
                     modifier = Modifier.weight(1f)
                 ) {
-                    Icon(Icons.Default.CameraAlt, contentDescription = null)
+                    Icon(
+                        Icons.Default.CameraAlt,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onTertiary
+                    )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(stringResource(R.string.image_selection_camera))
+                    Text(
+                        stringResource(R.string.image_selection_camera),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onTertiary
+                    )
                 }
 
                 Button(
                     onClick = onImageSelect,
                     modifier = Modifier.weight(1f)
                 ) {
-                    Icon(Icons.Default.PhotoLibrary, contentDescription = null)
+                    Icon(
+                        Icons.Default.PhotoLibrary,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onTertiary
+                        )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(stringResource(R.string.image_selection_gallery))
+                    Text(
+                        stringResource(R.string.image_selection_gallery),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onTertiary
+                        )
                 }
             }
         }
