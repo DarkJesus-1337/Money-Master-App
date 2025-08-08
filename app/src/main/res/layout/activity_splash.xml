@@ -72,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="Version 1.0.1"
+        android:text="Version ..."
         android:textColor="#81C784"
         android:textSize="12sp"
         android:alpha="0.7"

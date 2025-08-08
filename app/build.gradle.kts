@@ -19,8 +19,8 @@ android {
         applicationId = "com.pixelpioneer.moneymaster"
         minSdk = 24
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0.4"
+        versionCode = project.property("app.version.code").toString().toInt()
+        versionName = project.property("app.version.name").toString()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -85,6 +85,36 @@ configurations.all {
         force("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.20")
         force("org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.20")
     }
+}
+
+val updateJsonTask by tasks.registering {
+    val versionName = project.property("app.version.name").toString()
+    val updateJsonFile = rootProject.file("assets/update.json")
+
+    doLast {
+        if (updateJsonFile.exists()) {
+            var content = updateJsonFile.readText()
+
+            content = content.replace(
+                Regex("\"version\"\\s*:\\s*\"[^\"]*\""),
+                "\"version\": \"$versionName\""
+            )
+
+            content = content.replace(
+                Regex("\"apkUrl\"\\s*:\\s*\"[^\"]*\""),
+                "\"apkUrl\": \"https://github.com/DarkJesus-1337/Money-Master-App/releases/download/v$versionName/app-release.apk\""
+            )
+
+            updateJsonFile.writeText(content)
+            println("✅ update.json erfolgreich aktualisiert auf Version $versionName")
+        } else {
+            println("❌ update.json nicht gefunden am Pfad: ${updateJsonFile.absolutePath}")
+        }
+    }
+}
+
+tasks.named("preBuild") {
+    dependsOn(updateJsonTask)
 }
 
 dependencies {

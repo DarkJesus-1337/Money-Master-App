@@ -4,29 +4,35 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-/**
- * SplashActivity verwaltet den Startbildschirm der MoneyMaster App.
- *
- * Verwendet für alle Android-Versionen das manuelle Layout mit Gradient,
- * um ein konsistentes Erscheinungsbild sicherzustellen.
- */
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_splash)
+
+        setVersionText()
 
         lifecycleScope.launch {
             delay(2500)
             navigateToMainActivity()
         }
+    }
+
+    private fun setVersionText() {
+        val versionTextView = findViewById<TextView>(R.id.splash_version)
+        val versionName = try {
+            packageManager.getPackageInfo(packageName, 0).versionName
+        } catch (e: Exception) {
+            "?"
+        }
+        versionTextView.text = "Version $versionName"
     }
 
     private fun navigateToMainActivity() {
