@@ -1,5 +1,5 @@
 {
-  "version": "1.0.3",
-  "changelog": "feat: New Spashscreen and minor UI improvements\nfix: Resolved issues with the app's performance on older devices\nfix: Corrected minor bugs related to transaction history display",
-  "apkUrl": "https://github.com/DarkJesus-1337/Money-Master-App/releases/download/Money_Master/app-release.apk"
+  "version": "1.0.4",
+  "changelog": "refactor: Migrated budget data layer from LiveData to Flow/StateFlow for improved performance\nfeat: Enhanced reactive data updates - budgets now update automatically when transactions change\nperf: Optimized database queries with Flow operators for better resource management\nfix: Resolved state management issues in BudgetViewModel\nfix: Fixed budget refresh functionality for more reliable data synchronization\ntech: Improved testability with Kotlin Coroutines Flow\ntech: Reduced memory footprint by eliminating redundant state observers",
+  "apkUrl": "https://github.com/DarkJesus-1337/Money-Master-App/releases/download/v1.0.4/app-release.apk"
 }
