@@ -1,5 +1,5 @@
 {
-  "version": "1.0.5",
-  "changelog": "\"feat: Add automatic updates for the app\nfix: Fix issue with the app not starting on some devices\nchore: Update dependencies to latest versions\nchore: Update README with new features and fixes\"",
-  "apkUrl": "https://github.com/DarkJesus-1337/Money-Master-App/releases/download/v1.0.5/app-release.apk"
+  "version": "1.0.45",
+  "changelog": "\"feat: Implement centralized version management system\nfix: Resolve JSON escaping issues in automated build process\nperf: Add dynamic version display in splash screen for better UX\ntech: Fix Configuration Cache compatibility in Gradle tasks\nrefactor: Streamline release workflow with automated update.json generation\nchore: Improve build automation and developer experience\"",
+  "apkUrl": "https://github.com/DarkJesus-1337/Money-Master-App/releases/download/v1.0.45/app-release.apk"
 }
