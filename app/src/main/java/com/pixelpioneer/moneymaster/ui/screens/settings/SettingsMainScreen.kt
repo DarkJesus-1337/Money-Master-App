@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Category
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -44,6 +48,7 @@ import com.pixelpioneer.moneymaster.ui.components.utils.getNewAppVersion
 fun SettingsMainScreen(
     state: SettingsState,
     onPersonalClick: () -> Unit,
+    onCategoryManagementClick: () -> Unit,
     onDarkModeChange: (Boolean) -> Unit,
     appUpdateManager: AppUpdateManager
 ) {
@@ -81,6 +86,24 @@ fun SettingsMainScreen(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(stringResource(R.string.settings_personal))
+            }
+
+            Button(
+                onClick = onCategoryManagementClick,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        Icons.Default.Category,
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Kategorien verwalten")
+                }
             }
 
             Card(

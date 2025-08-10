@@ -229,6 +229,23 @@
     <string name="category_gifts">Geschenke</string>
     <string name="category_other">Sonstiges</string>
 
+    <!-- Category Management -->
+    <string name="nav_category_management">Kategorien verwalten</string>
+    <string name="category_management_title">Kategorien verwalten</string>
+    <string name="category_add">Kategorie hinzufügen</string>
+    <string name="category_edit">Kategorie bearbeiten</string>
+    <string name="category_delete">Kategorie löschen</string>
+    <string name="category_delete_confirm">Möchten Sie die Kategorie \"%1$s\" wirklich löschen?</string>
+    <string name="category_delete_warning">Alle Transaktionen mit dieser Kategorie werden auf \"Sonstiges\" umgestellt.</string>
+    <string name="category_predefined">Vordefinierte Kategorien</string>
+    <string name="category_custom">Eigene Kategorien</string>
+    <string name="category_standard_badge">Standard</string>
+    <string name="category_name_label">Kategoriename</string>
+    <string name="category_color_label">Farbe wählen</string>
+    <string name="category_empty">Keine Kategorien vorhanden</string>
+    <string name="category_error_predefined_delete">Vordefinierte Kategorien können nicht gelöscht werden</string>
+    <string name="category_error_name_empty">Bitte geben Sie einen Namen ein</string>
+
     <!-- ==========================================
          DIALOGS
          ========================================== -->

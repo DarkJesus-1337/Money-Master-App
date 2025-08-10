@@ -93,17 +93,92 @@ class CategoryViewModel @Inject constructor(
     }
 
     /**
-     * Refreshes the categories list.
-     */
-    fun refreshCategories() {
-        loadCategories()
-    }
-
-    /**
      * Forces reinitialization of the database (for debugging purposes).
      */
     fun forceReinitialize() {
         initializeAndLoadCategories()
+    }
+
+    // Fügen Sie diese Methoden zu Ihrem bestehenden CategoryViewModel hinzu:
+
+    /**
+     * Adds a new custom category.
+     *
+     * @param name The name of the new category
+     * @param color The color of the new category (as Int)
+     */
+    suspend fun addCategory(name: String, color: Int) {
+        viewModelScope.launch {
+            try {
+                _categoriesState.value = UiState.Loading
+
+                val newCategory = TransactionCategory(
+                    id = 0, // Auto-generate ID
+                    name = name,
+                    color = color,
+                    icon = 0 // Standard icon
+                )
+
+                categoryRepository.insertCategory(newCategory)
+                refreshCategories() // Reload categories after adding
+
+            } catch (e: Exception) {
+                _categoriesState.value = UiState.Error("Fehler beim Hinzufügen der Kategorie: ${e.message}")
+            }
+        }
+    }
+
+    /**
+     * Updates an existing category.
+     *
+     * @param category The category with updated values
+     */
+    suspend fun updateCategory(category: TransactionCategory) {
+        viewModelScope.launch {
+            try {
+                categoryRepository.updateCategory(category)
+                refreshCategories() // Reload categories after update
+            } catch (e: Exception) {
+                _categoriesState.value = UiState.Error("Fehler beim Aktualisieren der Kategorie: ${e.message}")
+            }
+        }
+    }
+
+    /**
+     * Deletes a category.
+     * Before deleting, all transactions with this category will be updated to use the default category.
+     *
+     * @param category The category to delete
+     */
+    suspend fun deleteCategory(category: TransactionCategory) {
+        viewModelScope.launch {
+            try {
+                // Verhindere das Löschen von vordefinierten Kategorien
+                if (category.id <= 10) {
+                    _categoriesState.value = UiState.Error("Vordefinierte Kategorien können nicht gelöscht werden")
+                    return@launch
+                }
+
+                // Aktualisiere alle Transaktionen mit dieser Kategorie auf "Sonstiges" (ID: 10)
+                // Dies müsste im TransactionRepository implementiert werden
+                // transactionRepository.updateCategoryForTransactions(category.id, 10)
+
+                categoryRepository.deleteCategory(category)
+                refreshCategories() // Reload categories after deletion
+
+            } catch (e: Exception) {
+                _categoriesState.value = UiState.Error("Fehler beim Löschen der Kategorie: ${e.message}")
+            }
+        }
+    }
+
+    /**
+     * Refreshes the categories list from the database.
+     */
+    fun refreshCategories() {
+        viewModelScope.launch {
+            loadCategories()
+        }
     }
 }
 

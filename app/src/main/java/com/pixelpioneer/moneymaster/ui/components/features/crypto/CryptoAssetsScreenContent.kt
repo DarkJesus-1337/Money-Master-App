@@ -52,7 +52,7 @@ fun CryptoAssetsScreenContent(
     onAssetSelected: (Asset) -> Unit
 ) {
     val scrollState = rememberScrollState()
-
+    
     Column(
         modifier = Modifier
             .fillMaxSize()
