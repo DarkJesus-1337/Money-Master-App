@@ -70,7 +70,6 @@ class BudgetViewModel @Inject constructor(
             )
 
     private val _selectedBudget = MutableStateFlow<UiState<Budget>>(UiState.Loading)
-    val selectedBudget: StateFlow<UiState<Budget>> = _selectedBudget
 
     private val _budgetFormState = MutableStateFlow(BudgetFormState())
     val budgetFormState: StateFlow<BudgetFormState> = _budgetFormState
@@ -108,7 +107,7 @@ class BudgetViewModel @Inject constructor(
 
                 budgetRepository.insertBudget(budget)
                 resetFormState()
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // Error-Handling
             }
         }
@@ -135,7 +134,7 @@ class BudgetViewModel @Inject constructor(
                 budgetRepository.updateBudget(budget)
                 resetFormState()
                 loadBudgetById(id)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // Error-Handling
             }
         }
@@ -145,7 +144,7 @@ class BudgetViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 budgetRepository.deleteBudget(budget)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // Error-Handling
             }
         }
@@ -208,7 +207,7 @@ class BudgetViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 budgetRepository.getBudgetsWithSpendingSync()
-            } catch (e: Exception) {
+            } catch (_: Exception) {
             }
         }
     }

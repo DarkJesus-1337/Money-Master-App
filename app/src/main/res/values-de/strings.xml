@@ -215,6 +215,21 @@
     <string name="settings_additional_costs">Weitere Fixkosten</string>
     <string name="settings_add_fixed_cost">Fixkosten hinzufügen</string>
 
+    <!-- Fixkosten-Feature -->
+    <string name="fixed_costs_already_added">Fixkosten wurden für diesen Monat bereits hinzugefügt</string>
+    <string name="no_fixed_costs_defined">Keine Fixkosten definiert. Bitte fügen Sie zuerst Fixkosten hinzu.</string>
+    <string name="monthly_fixed_cost_description">Monatliche Fixkosten</string>
+    <string name="fixed_costs_added_success">%1$d Fixkosten erfolgreich hinzugefügt</string>
+    <string name="add_fixed_costs_title">Fixkosten zu Transaktionen hinzufügen</string>
+    <string name="add_fixed_costs_description">Füge alle definierten Fixkosten automatisch als Ausgaben für diesen Monat hinzu.</string>
+    <string name="add_fixed_costs_button">Fixkosten für diesen Monat hinzufügen</string>
+    <string name="fixed_costs_total">Gesamt: €%.2f</string>
+    <string name="confirm_add_fixed_costs">Fixkosten hinzufügen?</string>
+    <string name="confirm_add_fixed_costs_message">Die folgenden Fixkosten werden als Transaktionen für diesen Monat hinzugefügt:</string>
+    <string name="total">Gesamt</string>
+    <string name="add">Hinzufügen</string>
+    <string name="cancel">Abbrechen</string>
+
     <!-- ==========================================
          CATEGORIES
          ========================================== -->

@@ -3,7 +3,6 @@ package com.pixelpioneer.moneymaster.core.network
 import android.app.Activity
 import android.content.Intent
 import android.os.Environment
-import android.util.Log
 import androidx.core.content.FileProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -84,7 +83,7 @@ class AppUpdateManager {
                 _updateState.value = UpdateState.Success
                 installApk(apkFile, activity)
             } catch (e: Exception) {
-                Log.e("AppUpdate", "Download fehlgeschlagen: ${e.message}")
+                Timber.tag("AppUpdate").e("Download fehlgeschlagen: ${e.message}")
                 _updateState.value = UpdateState.Error(e.message ?: "Download fehlgeschlagen")
             }
         }

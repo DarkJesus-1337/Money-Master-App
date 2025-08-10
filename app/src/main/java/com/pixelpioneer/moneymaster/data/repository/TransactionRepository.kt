@@ -1,11 +1,8 @@
 package com.pixelpioneer.moneymaster.data.repository
 
-import android.content.Context
-import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.local.db.dao.TransactionDao
 import com.pixelpioneer.moneymaster.data.local.relation.TransactionWithCategory
 import com.pixelpioneer.moneymaster.data.mapper.TransactionMapper
-import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.remote.api.CoinCapApiService
 import kotlinx.coroutines.flow.Flow
@@ -19,12 +16,9 @@ import java.util.Calendar
  * as well as calculate financial summaries and interact with cryptocurrency assets.
  *
  * @property transactionDao Data access object for transaction entities.
- * @property coinCapApiService Optional service for CoinCap API requests.
  */
 class TransactionRepository(
     private val transactionDao: TransactionDao,
-    private val coinCapApiService: CoinCapApiService? = null,
-    private val context: Context
 ) {
     /**
      * Flow of all transactions with their associated categories.
@@ -75,45 +69,6 @@ class TransactionRepository(
     }
 
     /**
-     * Retrieves transactions within a specific date range.
-     *
-     * @param startDate The start date in milliseconds.
-     * @param endDate The end date in milliseconds.
-     * @return A [Flow] containing a list of [Transaction] objects within the date range.
-     */
-    private fun getTransactionsByDateRange(
-        startDate: Long,
-        endDate: Long
-    ): Flow<List<Transaction>> {
-        return transactionDao.getTransactionsWithCategory()
-            .map { list ->
-                list.filter { it.transaction.date in startDate..endDate }
-                    .map { TransactionMapper.fromEntity(it) }
-            }
-    }
-
-    /**
-     * Retrieves all transactions for the current month.
-     *
-     * @return A [Flow] containing a list of [Transaction] objects for the current month.
-     */
-    fun getCurrentMonthTransactions(): Flow<List<Transaction>> {
-        val calendar = Calendar.getInstance()
-
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-        val startDate = calendar.timeInMillis
-
-        calendar.add(Calendar.MONTH, 1)
-        val endDate = calendar.timeInMillis
-
-        return getTransactionsByDateRange(startDate, endDate)
-    }
-
-    /**
      * Calculates the total expenses for the current month.
      *
      * @return A [Flow] containing the total expense amount as a [Double].
@@ -154,29 +109,6 @@ class TransactionRepository(
         val endDate = calendar.timeInMillis
 
         return transactionDao.getTotalIncomeByDateRange(startDate, endDate)
-            .map { it ?: 0.0 }
-    }
-
-    /**
-     * Calculates the total expenses for a specific category in the current month.
-     *
-     * @param categoryId The ID of the category to calculate expenses for.
-     * @return A [Flow] containing the total expense amount for the category as a [Double].
-     */
-    fun getTotalExpensesByCategoryForCurrentMonth(categoryId: Long): Flow<Double> {
-        val calendar = Calendar.getInstance()
-
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-        val startDate = calendar.timeInMillis
-
-        calendar.add(Calendar.MONTH, 1)
-        val endDate = calendar.timeInMillis
-
-        return transactionDao.getTotalExpensesByCategoryAndDateRange(categoryId, startDate, endDate)
             .map { it ?: 0.0 }
     }
 
@@ -230,29 +162,4 @@ class TransactionRepository(
         return transactionDao.getTransactionsWithCategoryByDateRange(startDate, endDate)
     }
 
-    /**
-     * Fetches cryptocurrency assets from the CoinCap API.
-     *
-     * @param limit The maximum number of assets to fetch. Default is 10.
-     * @return A list of [Asset] objects.
-     * @throws IllegalStateException If the CoinCap API service is not initialized.
-     * @throws Exception If there's an error fetching the assets.
-     */
-    suspend fun fetchCryptoAssets(limit: Int = 10): List<Asset> {
-        val apiService =
-            coinCapApiService
-                ?: throw IllegalStateException(context.getString(R.string.error_coincap_api_not_initialized))
-
-        val response = apiService.getAssets(limit)
-        if (response.isSuccessful) {
-            return response.body()?.data ?: emptyList()
-        } else {
-            throw Exception(
-                context.getString(
-                    R.string.error_fetching_crypto_assets,
-                    response.message()
-                )
-            )
-        }
-    }
 }

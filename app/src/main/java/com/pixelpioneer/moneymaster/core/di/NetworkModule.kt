@@ -30,7 +30,7 @@ object NetworkModule {
     fun provideRemoteConfigManager(
         @ApplicationContext context: Context
     ): RemoteConfigManager {
-        return RemoteConfigManager(context)
+        return RemoteConfigManager()
     }
 
     /**

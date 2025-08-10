@@ -77,17 +77,6 @@ class CategoryRepository(
     }
 
     /**
-     * Retrieves a specific category by its ID.
-     *
-     * @param id The ID of the category to retrieve
-     * @return Flow emitting the category with the specified ID
-     */
-    fun getCategoryById(id: Long): Flow<TransactionCategory> {
-        return categoryDao.getCategoryById(id)
-            .map { CategoryMapper.fromEntity(it) }
-    }
-
-    /**
      * Inserts a new category into the database.
      *
      * @param category The category to insert

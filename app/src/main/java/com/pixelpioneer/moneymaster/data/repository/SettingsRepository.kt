@@ -19,6 +19,12 @@ class SettingsRepository(context: Context) {
     private val prefs: SharedPreferences =
         context.getSharedPreferences("settings", Context.MODE_PRIVATE)
 
+    companion object {
+        // Keys for tracking fixed costs addition
+        private const val KEY_LAST_FIXED_COSTS_MONTH = "last_fixed_costs_month"
+        private const val KEY_LAST_FIXED_COSTS_YEAR = "last_fixed_costs_year"
+    }
+
     /**
      * Saves the user's name.
      *
@@ -161,4 +167,42 @@ class SettingsRepository(context: Context) {
         return result
     }
 
+    /**
+     * Gets the month when fixed costs were last added.
+     * @return The month (0-11) or -1 if never added
+     */
+    fun getLastFixedCostsMonth(): Int =
+        prefs.getInt(KEY_LAST_FIXED_COSTS_MONTH, -1)
+
+    /**
+     * Saves the month when fixed costs were added.
+     * @param month The month (0-11)
+     */
+    fun saveLastFixedCostsMonth(month: Int) =
+        prefs.edit().putInt(KEY_LAST_FIXED_COSTS_MONTH, month).apply()
+
+    /**
+     * Gets the year when fixed costs were last added.
+     * @return The year or -1 if never added
+     */
+    fun getLastFixedCostsYear(): Int =
+        prefs.getInt(KEY_LAST_FIXED_COSTS_YEAR, -1)
+
+    /**
+     * Saves the year when fixed costs were added.
+     * @param year The year
+     */
+    fun saveLastFixedCostsYear(year: Int) =
+        prefs.edit().putInt(KEY_LAST_FIXED_COSTS_YEAR, year).apply()
+
+    /**
+     * Clears the fixed costs tracking data.
+     * Useful for testing or when user wants to re-add fixed costs.
+     */
+    fun clearFixedCostsTracking() {
+        prefs.edit()
+            .remove(KEY_LAST_FIXED_COSTS_MONTH)
+            .remove(KEY_LAST_FIXED_COSTS_YEAR)
+            .apply()
+    }
 }

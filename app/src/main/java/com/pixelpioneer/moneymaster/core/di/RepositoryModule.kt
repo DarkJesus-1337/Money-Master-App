@@ -44,9 +44,7 @@ object RepositoryModule {
         @ApplicationContext context: Context
     ): TransactionRepository {
         return TransactionRepository(
-            transactionDao,
-            coinCapApiService,
-            context
+            transactionDao
         )
     }
 

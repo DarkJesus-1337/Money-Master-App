@@ -1,23 +1,20 @@
 package com.pixelpioneer.moneymaster.core.network
 
-import android.content.Context
-import android.util.Log
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.pixelpioneer.moneymaster.BuildConfig
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 
 /**
  * Manager for handling Firebase Remote Config operations.
  *
  * Initializes remote config settings, fetches and activates config values,
  * and provides access to API keys and debug information.
- *
- * @property context Application context for initialization.
  */
-class RemoteConfigManager(private val context: Context) {
+class RemoteConfigManager() {
 
     private val remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig
 
@@ -25,10 +22,8 @@ class RemoteConfigManager(private val context: Context) {
         private const val TAG = "RemoteConfigManager"
         private const val CACHE_EXPIRATION = 3600L
 
-        /** Remote Config key for OCR Space API key. */
         const val OCR_SPACE_API_KEY = "ocr_space_api_key"
 
-        /** Remote Config key for CoinCap API key. */
         const val COINCAP_API_KEY = "coincap_api_key"
     }
 
@@ -63,14 +58,13 @@ class RemoteConfigManager(private val context: Context) {
         return try {
             val fetchResult = remoteConfig.fetchAndActivate().await()
 
-            // DEBUG: Logge alle verfügbaren Keys
-            Log.d(TAG, "Available Remote Config keys: ${remoteConfig.all.keys}")
-            Log.d(TAG, "CoinCap key value: '${remoteConfig.getString(COINCAP_API_KEY)}'")
+            Timber.tag(TAG).d("Available Remote Config keys: ${remoteConfig.all.keys}")
+            Timber.tag(TAG).d("CoinCap key value: '${remoteConfig.getString(COINCAP_API_KEY)}'")
 
-            Log.d(TAG, "Remote config fetch successful: $fetchResult")
+            Timber.tag(TAG).d("Remote config fetch successful: $fetchResult")
             fetchResult
         } catch (e: Exception) {
-            Log.e(TAG, "Error fetching remote config", e)
+            Timber.tag(TAG).e(e, "Error fetching remote config")
             false
         }
     }
@@ -92,24 +86,14 @@ class RemoteConfigManager(private val context: Context) {
      */
     fun getCoinCapApiKey(): String {
         val remoteKey = remoteConfig.getString(COINCAP_API_KEY)
-        Log.d(TAG, "Retrieved remote key: '$remoteKey' (length: ${remoteKey.length})")
+        Timber.tag(TAG).d("Retrieved remote key: '$remoteKey' (length: ${remoteKey.length})")
 
         if (remoteKey.isNotEmpty() && remoteKey != "null") {
             return remoteKey
         }
 
-        Log.w(TAG, "No valid CoinCap API key found in Remote Config")
+        Timber.tag(TAG).w("No valid CoinCap API key found in Remote Config")
         return ""
-    }
-
-    /**
-     * Checks if a specific key is available in remote config.
-     *
-     * @param key The key to check.
-     * @return True if the key is available and not empty, false otherwise.
-     */
-    fun hasKey(key: String): Boolean {
-        return remoteConfig.getString(key).isNotEmpty()
     }
 
     /**

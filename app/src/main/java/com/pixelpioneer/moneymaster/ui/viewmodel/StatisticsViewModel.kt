@@ -145,7 +145,7 @@ class StatisticsViewModel @Inject constructor(
                         if (categoryTransactions.isNotEmpty()) {
                             CategoryStats(
                                 category = category,
-                                amount = categoryTransactions.sumOf { it.amount.toDouble() },
+                                amount = categoryTransactions.sumOf { it.amount },
                                 transactionCount = categoryTransactions.size
                             )
                         } else null
@@ -216,7 +216,7 @@ class StatisticsViewModel @Inject constructor(
                                     transactionCount = monthTransactions.size
                                 )
                             }
-                            .sortedWith(compareByDescending<MonthlyTrend> { trend ->
+                            .sortedWith(compareByDescending { trend ->
                                 SimpleDateFormat(
                                     "MMMM yyyy",
                                     Locale.GERMAN

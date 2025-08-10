@@ -37,7 +37,6 @@ class CategoryViewModel @Inject constructor(
     val categories: StateFlow<List<TransactionCategory>> = _categories
 
     private val _isInitializing = MutableStateFlow(false)
-    val isInitializing: StateFlow<Boolean> = _isInitializing
 
     init {
         initializeAndLoadCategories()
@@ -55,7 +54,7 @@ class CategoryViewModel @Inject constructor(
                 categoryRepository.initializeDefaultCategoriesAndRepairDatabase()
                 loadCategories()
 
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 val predefinedCategories = categoryRepository.getPredefinedCategories()
                 _categoriesState.value = UiState.Success(predefinedCategories)
                 _categories.value = predefinedCategories
@@ -84,19 +83,12 @@ class CategoryViewModel @Inject constructor(
                             _categories.value = categories
                         }
                     }
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 val predefinedCategories = categoryRepository.getPredefinedCategories()
                 _categoriesState.value = UiState.Success(predefinedCategories)
                 _categories.value = predefinedCategories
             }
         }
-    }
-
-    /**
-     * Forces reinitialization of the database (for debugging purposes).
-     */
-    fun forceReinitialize() {
-        initializeAndLoadCategories()
     }
 
     // Fügen Sie diese Methoden zu Ihrem bestehenden CategoryViewModel hinzu:
@@ -107,7 +99,7 @@ class CategoryViewModel @Inject constructor(
      * @param name The name of the new category
      * @param color The color of the new category (as Int)
      */
-    suspend fun addCategory(name: String, color: Int) {
+    fun addCategory(name: String, color: Int) {
         viewModelScope.launch {
             try {
                 _categoriesState.value = UiState.Loading
@@ -133,7 +125,7 @@ class CategoryViewModel @Inject constructor(
      *
      * @param category The category with updated values
      */
-    suspend fun updateCategory(category: TransactionCategory) {
+    fun updateCategory(category: TransactionCategory) {
         viewModelScope.launch {
             try {
                 categoryRepository.updateCategory(category)
@@ -150,7 +142,7 @@ class CategoryViewModel @Inject constructor(
      *
      * @param category The category to delete
      */
-    suspend fun deleteCategory(category: TransactionCategory) {
+    fun deleteCategory(category: TransactionCategory) {
         viewModelScope.launch {
             try {
                 // Verhindere das Löschen von vordefinierten Kategorien
@@ -182,17 +174,3 @@ class CategoryViewModel @Inject constructor(
     }
 }
 
-/**
- * State holder for the category form.
- *
- * @property name The name of the category.
- * @property color The color value for the category.
- * @property iconResId The resource ID for the category icon.
- * @property nameError Error message for the name field, if any.
- */
-data class CategoryFormState(
-    val name: String = "",
-    val color: Int = 0xFF4CAF50.toInt(),
-    val iconResId: Int = 0,
-    val nameError: String? = null
-)

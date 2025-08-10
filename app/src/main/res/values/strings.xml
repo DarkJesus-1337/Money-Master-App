@@ -213,6 +213,21 @@
     <string name="settings_additional_costs">Additional Fixed Costs</string>
     <string name="settings_add_fixed_cost">Add Fixed Cost</string>
 
+    <!-- Fixed Costs Feature -->
+    <string name="fixed_costs_already_added">Fixed costs have already been added for this month</string>
+    <string name="no_fixed_costs_defined">No fixed costs defined. Please add some fixed costs first.</string>
+    <string name="monthly_fixed_cost_description">Monthly fixed cost</string>
+    <string name="fixed_costs_added_success">%1$d fixed costs successfully added</string>
+    <string name="add_fixed_costs_title">Add Fixed Costs to Transactions</string>
+    <string name="add_fixed_costs_description">Add all defined fixed costs automatically as expenses for this month.</string>
+    <string name="add_fixed_costs_button">Add Fixed Costs for This Month</string>
+    <string name="fixed_costs_total">Total: €%.2f</string>
+    <string name="confirm_add_fixed_costs">Add Fixed Costs?</string>
+    <string name="confirm_add_fixed_costs_message">The following fixed costs will be added as transactions for this month:</string>
+    <string name="total">Total</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+
     <!-- ==========================================
          CATEGORIES
          ========================================== -->

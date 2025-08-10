@@ -1,7 +1,6 @@
 package com.pixelpioneer.moneymaster.data.repository
 
 import android.content.Context
-import android.util.Log
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.Asset
 import com.pixelpioneer.moneymaster.data.model.HistoryDataPoint
@@ -68,8 +67,7 @@ class CoinCapRepository(
                 end = endTime
             )
 
-            Log.d(
-                "CoinCapRepository",
+            Timber.tag("CoinCapRepository").d(
                 context.getString(
                     R.string.log_history_for_asset,
                     assetId,
@@ -78,11 +76,8 @@ class CoinCapRepository(
             )
             response.body()?.data ?: emptyList()
         } catch (e: Exception) {
-            Log.e(
-                "CoinCapRepository",
-                context.getString(R.string.error_loading_history_log, assetId),
-                e
-            )
+            Timber.tag("CoinCapRepository")
+                .e(e, context.getString(R.string.error_loading_history_log, assetId))
             emptyList()
         }
     }
