@@ -1,5 +1,6 @@
 package com.pixelpioneer.moneymaster.ui.screens.dashboard
 
+import android.net.http.SslCertificate.saveState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.util.UiState
 import com.pixelpioneer.moneymaster.ui.components.common.buttons.ViewAllTransactionsButton
@@ -144,7 +146,15 @@ fun DashboardScreen(
                     is UiState.Success -> {
                         BudgetOverview(
                             budgets = budgetsState.data,
-                            onBudgetsClick = { navController.navigate(Screen.Budgets.route) }
+                            onBudgetsClick = {
+                                navController.navigate(Screen.Budgets.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
                         )
                     }
 
@@ -219,7 +229,15 @@ fun DashboardScreen(
                         item {
                             Spacer(modifier = Modifier.height(8.dp))
                             ViewAllTransactionsButton(
-                                onClick = { navController.navigate(Screen.Transactions.route) }
+                                onClick = {
+                                    navController.navigate(Screen.Transactions.route) {
+                                        popUpTo(navController.graph.findStartDestination().id) {
+                                            saveState = true
+                                        }
+                                        launchSingleTop = true
+                                        restoreState = true
+                                    }
+                                }
                             )
                         }
                     }
