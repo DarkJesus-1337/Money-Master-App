@@ -6,6 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Camera
+import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.PieChart
@@ -53,6 +54,9 @@ sealed class Screen(
         Screen("edit_transaction/{transactionId}", R.string.nav_edit_transaction) {
         fun createRoute(transactionId: String) = "edit_transaction/$transactionId"
     }
+
+    data object CategoryManagement :
+        Screen("category_management", R.string.nav_category_management, Icons.Default.Category)
 
     fun getTitle(context: Context): String = context.getString(titleRes)
 

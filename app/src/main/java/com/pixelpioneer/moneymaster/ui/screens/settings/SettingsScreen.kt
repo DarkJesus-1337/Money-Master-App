@@ -7,12 +7,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.core.network.AppUpdateManager
 import com.pixelpioneer.moneymaster.data.enums.SettingsSubScreen
+import com.pixelpioneer.moneymaster.ui.navigation.Screen
 import com.pixelpioneer.moneymaster.ui.viewmodel.SettingsViewModel
 
 @Composable
 fun SettingsScreen(
+    navController: NavController,
     settingsViewModel: SettingsViewModel = viewModel(),
 ) {
     var currentScreen by remember { mutableStateOf(SettingsSubScreen.MAIN) }
@@ -23,6 +26,9 @@ fun SettingsScreen(
         SettingsSubScreen.MAIN -> SettingsMainScreen(
             state = state,
             onPersonalClick = { currentScreen = SettingsSubScreen.PERSONAL },
+            onCategoryManagementClick = {
+                navController.navigate(Screen.CategoryManagement.route)
+            },
             onDarkModeChange = { settingsViewModel.updateDarkMode(it) },
             appUpdateManager = appUpdateManager
         )
