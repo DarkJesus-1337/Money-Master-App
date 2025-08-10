@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
-import android.util.Log
+import androidx.core.graphics.scale
 import androidx.exifinterface.media.ExifInterface
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.network.OcrSpaceApiClient
@@ -14,6 +14,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -65,9 +66,10 @@ class ReceiptScanRepository(
 
         val apiKey = remoteConfigManager.getOcrSpaceApiKey()
 
-        Log.d(TAG, context.getString(R.string.log_ocr_scan_starting, apiKey.take(10)))
-        Log.d(TAG, context.getString(R.string.log_original_file_size, imageFile.length()))
-        Log.d(TAG, context.getString(R.string.log_compressed_file_size, compressedFile.length()))
+        Timber.tag(TAG).d(context.getString(R.string.log_ocr_scan_starting, apiKey.take(10)))
+        Timber.tag(TAG).d(context.getString(R.string.log_original_file_size, imageFile.length()))
+        Timber.tag(TAG)
+            .d(context.getString(R.string.log_compressed_file_size, compressedFile.length()))
 
         if (apiKey.isEmpty()) {
             throw IllegalStateException(context.getString(R.string.error_ocr_api_key_missing))
@@ -86,7 +88,7 @@ class ReceiptScanRepository(
             compressedFile.asRequestBody("image/*".toMediaType())
         )
 
-        Log.d(TAG, context.getString(R.string.log_making_ocr_api_request))
+        Timber.tag(TAG).d(context.getString(R.string.log_making_ocr_api_request))
 
         return try {
             val response = apiService.parseImage(
@@ -99,14 +101,13 @@ class ReceiptScanRepository(
                 image = imagePart
             )
 
-            Log.d(TAG, context.getString(R.string.log_response_code, response.code()))
+            Timber.tag(TAG).d(context.getString(R.string.log_response_code, response.code()))
 
             if (response.isSuccessful) {
                 val ocrResponse = response.body()
                 if (ocrResponse != null) {
                     if (ocrResponse.isErroredOnProcessing) {
-                        Log.e(
-                            TAG,
+                        Timber.tag(TAG).e(
                             context.getString(
                                 R.string.error_ocr_processing,
                                 ocrResponse.errorMessage
@@ -121,9 +122,11 @@ class ReceiptScanRepository(
                     }
 
                     if (ocrResponse.ocrExitCode != 1) {
-                        Log.e(
-                            TAG,
-                            context.getString(R.string.error_ocr_exit_code, ocrResponse.ocrExitCode)
+                        Timber.tag(TAG).e(
+                            context.getString(
+                                R.string.error_ocr_exit_code,
+                                ocrResponse.ocrExitCode
+                            )
                         )
                         throw IOException(
                             context.getString(
@@ -133,17 +136,17 @@ class ReceiptScanRepository(
                         )
                     }
 
-                    Log.d(TAG, context.getString(R.string.log_ocr_scan_successful))
+                    Timber.tag(TAG).d(context.getString(R.string.log_ocr_scan_successful))
                     ocrResponse
                 } else {
                     throw IOException(context.getString(R.string.error_empty_response_body))
                 }
             } else {
-                Log.e(TAG, context.getString(R.string.error_http_error, response.code()))
+                Timber.tag(TAG).e(context.getString(R.string.error_http_error, response.code()))
                 throw IOException(context.getString(R.string.error_http_error, response.code()))
             }
         } catch (e: Exception) {
-            Log.e(TAG, context.getString(R.string.error_network), e)
+            Timber.tag(TAG).e(e, context.getString(R.string.error_network))
             throw IOException(
                 context.getString(
                     R.string.error_network,
@@ -169,11 +172,11 @@ class ReceiptScanRepository(
      */
     private fun compressImageIfNeeded(originalFile: File): File {
         if (originalFile.length() <= MAX_IMAGE_SIZE) {
-            Log.d(TAG, context.getString(R.string.log_image_size_ok))
+            Timber.tag(TAG).d(context.getString(R.string.log_image_size_ok))
             return originalFile
         }
 
-        Log.d(TAG, context.getString(R.string.log_image_too_large))
+        Timber.tag(TAG).d(context.getString(R.string.log_image_too_large))
 
         val bitmap = BitmapFactory.decodeFile(originalFile.absolutePath)
             ?: throw IOException("Could not decode image file")
@@ -185,7 +188,7 @@ class ReceiptScanRepository(
             rotatedBitmap.height
         )
 
-        val scaledBitmap = Bitmap.createScaledBitmap(rotatedBitmap, newWidth, newHeight, true)
+        val scaledBitmap = rotatedBitmap.scale(newWidth, newHeight)
 
         val compressedFile =
             File.createTempFile("compressed_receipt", ".jpg", originalFile.parentFile)
@@ -202,7 +205,8 @@ class ReceiptScanRepository(
         bitmap.recycle()
         scaledBitmap.recycle()
 
-        Log.d(TAG, context.getString(R.string.log_compression_complete, compressedFile.length()))
+        Timber.tag(TAG)
+            .d(context.getString(R.string.log_compression_complete, compressedFile.length()))
         return compressedFile
     }
 
@@ -231,7 +235,7 @@ class ReceiptScanRepository(
 
             Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
         } catch (e: Exception) {
-            Log.w(TAG, context.getString(R.string.log_could_not_correct_orientation), e)
+            Timber.tag(TAG).w(e, context.getString(R.string.log_could_not_correct_orientation))
             bitmap
         }
     }
@@ -259,31 +263,5 @@ class ReceiptScanRepository(
             val newWidth = (newHeight * aspectRatio).toInt()
             Pair(newWidth, newHeight)
         }
-    }
-
-    /**
-     * Checks if the OCR Space API key is available.
-     *
-     * @return True if the API key is available and not empty, false otherwise.
-     */
-    fun isApiKeyAvailable(): Boolean {
-        val available = remoteConfigManager.getOcrSpaceApiKey().isNotEmpty()
-        Log.d(TAG, context.getString(R.string.log_api_key_available, available))
-        return available
-    }
-
-    /**
-     * Provides debug information about the OCR configuration.
-     *
-     * @return A map containing debug information such as API key length and availability.
-     */
-    fun getDebugInfo(): Map<String, String> {
-        val apiKey = remoteConfigManager.getOcrSpaceApiKey()
-        return mapOf(
-            "apiKeyLength" to apiKey.length.toString(),
-            "apiKeyPrefix" to apiKey.take(10),
-            "hasRemoteConfig" to remoteConfigManager.hasKey(RemoteConfigManager.OCR_SPACE_API_KEY)
-                .toString()
-        )
     }
 }

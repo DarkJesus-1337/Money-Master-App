@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.util.UiState
 import com.pixelpioneer.moneymaster.data.model.FinancialSummary
-import com.pixelpioneer.moneymaster.data.model.Receipt
 import com.pixelpioneer.moneymaster.data.model.Transaction
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.data.model.TransactionFormState
@@ -18,7 +17,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -236,7 +234,7 @@ class TransactionViewModel @Inject constructor(
                 loadTransactions()
                 loadFinancialSummary()
                 onComplete()
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // Error handling
             }
         }
@@ -278,7 +276,7 @@ class TransactionViewModel @Inject constructor(
                 loadFinancialSummary()
 
                 loadTransactionById(id)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
             }
         }
     }
@@ -294,7 +292,7 @@ class TransactionViewModel @Inject constructor(
                 transactionRepository.deleteTransaction(transaction)
                 loadTransactions()
                 loadFinancialSummary()
-            } catch (e: Exception) {
+            } catch (_: Exception) {
             }
         }
     }
@@ -419,72 +417,13 @@ class TransactionViewModel @Inject constructor(
     }
 
     /**
-     * Converts a receipt into multiple transactions and saves them.
-     *
-     * @param receipt The receipt containing items to convert to transactions
-     */
-    fun saveReceiptAsTransactions(receipt: Receipt) {
-        viewModelScope.launch {
-            try {
-                val defaultCategory = getDefaultCategory()
-
-                receipt.items.forEach { item ->
-                    val transaction = Transaction(
-                        id = 0,
-                        amount = item.price,
-                        title = item.name,
-                        description = context.getString(
-                            R.string.transactions_from_receipt,
-                            receipt.storeName ?: context.getString(R.string.common_unknown)
-                        ),
-                        category = defaultCategory,
-                        date = System.currentTimeMillis(),
-                        isExpense = true
-                    )
-                    transactionRepository.insertTransaction(transaction)
-                }
-
-                loadTransactions()
-                loadFinancialSummary()
-
-            } catch (e: Exception) {
-            }
-        }
-    }
-
-    /**
-     * Gets the default transaction category, creating one if necessary.
-     *
-     * @return A default TransactionCategory
-     */
-    private suspend fun getDefaultCategory(): TransactionCategory {
-        return try {
-            val categories = categoryRepository.allCategories.first()
-            categories.firstOrNull()
-                ?: TransactionCategory(
-                    id = 1,
-                    name = context.getString(R.string.category_shopping),
-                    color = 0xFF4CAF50.toInt(),
-                    icon = 0
-                )
-        } catch (e: Exception) {
-            TransactionCategory(
-                id = 1,
-                name = context.getString(R.string.category_shopping),
-                color = 0xFF4CAF50.toInt(),
-                icon = 0
-            )
-        }
-    }
-
-    /**
      * Refreshes the financial summary data.
      */
     fun refreshFinancialSummary() {
         viewModelScope.launch {
             try {
                 loadFinancialSummary()
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // Handle error
             }
         }
@@ -508,7 +447,7 @@ class TransactionViewModel @Inject constructor(
                 transactionRepository.insertTransaction(transaction)
                 loadTransactions()
                 loadFinancialSummary()
-            } catch (e: Exception) {
+            } catch (_: Exception) {
             }
         }
     }

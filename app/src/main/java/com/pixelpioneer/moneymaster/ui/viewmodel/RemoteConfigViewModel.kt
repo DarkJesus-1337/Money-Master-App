@@ -8,8 +8,6 @@ import com.pixelpioneer.moneymaster.core.network.RemoteConfigManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,7 +41,6 @@ class RemoteConfigViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RemoteConfigState())
-    val uiState: StateFlow<RemoteConfigState> = _uiState.asStateFlow()
 
     init {
         loadRemoteConfig()

@@ -1,7 +1,6 @@
 package com.pixelpioneer.moneymaster.ui.viewmodel
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pixelpioneer.moneymaster.R
@@ -12,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
@@ -52,11 +52,11 @@ class ReceiptScanViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = receiptScanRepository.scanReceipt(imageFile)
-                Log.d("ReceiptScanViewModel", "OCR Response: $response")
+                Timber.tag("ReceiptScanViewModel").d("OCR Response: $response")
 
                 val parsedText = response.parsedResults?.firstOrNull()?.parsedText.orEmpty()
 
-                Log.d("ReceiptScanViewModel", "OCR ParsedText: $parsedText")
+                Timber.tag("ReceiptScanViewModel").d("OCR ParsedText: $parsedText")
                 if (parsedText.isBlank()) {
                     _error.value = buildString {
                         append(context.getString(R.string.error_no_text_recognized))
@@ -79,7 +79,7 @@ class ReceiptScanViewModel @Inject constructor(
                 _scannedItems.value = items
             } catch (e: Exception) {
                 _error.value = e.message
-                Log.e("OCR_ERROR", "Error scanning receipt", e)
+                Timber.tag("OCR_ERROR").e(e, "Error scanning receipt")
             } finally {
                 _isLoading.value = false
             }
