@@ -1,6 +1,8 @@
 package com.pixelpioneer.moneymaster.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -8,6 +10,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.pixelpioneer.moneymaster.data.repository.AuthState
+import com.pixelpioneer.moneymaster.ui.screens.auth.ForgotPasswordScreen
+import com.pixelpioneer.moneymaster.ui.screens.auth.LoginScreen
+import com.pixelpioneer.moneymaster.ui.screens.auth.RegisterScreen
 import com.pixelpioneer.moneymaster.ui.screens.settings.CategoryManagementScreen
 import com.pixelpioneer.moneymaster.ui.screens.budgets.AddBudgetScreen
 import com.pixelpioneer.moneymaster.ui.screens.budgets.BudgetDetailScreen
@@ -21,6 +27,7 @@ import com.pixelpioneer.moneymaster.ui.screens.transactions.AddTransactionScreen
 import com.pixelpioneer.moneymaster.ui.screens.transactions.EditTransactionScreen
 import com.pixelpioneer.moneymaster.ui.screens.transactions.TransactionDetailScreen
 import com.pixelpioneer.moneymaster.ui.screens.transactions.TransactionsScreen
+import com.pixelpioneer.moneymaster.ui.viewmodel.AuthViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.CategoryViewModel
 import com.pixelpioneer.moneymaster.ui.viewmodel.CryptoViewModel
@@ -43,11 +50,34 @@ fun MoneyMasterNavHost(
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel
 ) {
+    val authViewModel: AuthViewModel = hiltViewModel()
+    val authState by authViewModel.authState.collectAsState(initial = AuthState.Loading)
+
+    val startDestination = when (authState) {
+        is AuthState.Authenticated -> Screen.Dashboard.route
+        is AuthState.Unauthenticated -> Screen.Login.route
+        is AuthState.Loading -> Screen.Login.route
+    }
+
     NavHost(
         navController = navController,
-        startDestination = Screen.Dashboard.route,
+        startDestination = startDestination,
         modifier = modifier
     ) {
+        // Auth Screens
+        composable(Screen.Login.route) {
+            LoginScreen(navController = navController)
+        }
+
+        composable(Screen.Register.route) {
+            RegisterScreen(navController = navController)
+        }
+
+        composable(Screen.ForgotPassword.route) {
+            ForgotPasswordScreen(navController = navController)
+        }
+
+        // Bestehende Screens...
         composable(Screen.Dashboard.route) {
             val transactionViewModel: TransactionViewModel = hiltViewModel()
             val budgetViewModel: BudgetViewModel = hiltViewModel()

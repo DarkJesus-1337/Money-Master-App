@@ -186,6 +186,10 @@ dependencies {
     implementation(libs.firebase.config)
     implementation(libs.firebase.appdistribution)
     implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
+
 
     // Hilt Dependencies
     implementation(libs.hilt.android)

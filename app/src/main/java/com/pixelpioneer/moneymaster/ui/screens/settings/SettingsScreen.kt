@@ -30,7 +30,8 @@ fun SettingsScreen(
                 navController.navigate(Screen.CategoryManagement.route)
             },
             onDarkModeChange = { settingsViewModel.updateDarkMode(it) },
-            appUpdateManager = appUpdateManager
+            appUpdateManager = appUpdateManager,
+            navController = navController
         )
 
         SettingsSubScreen.PERSONAL -> PersonalSettingsScreen(

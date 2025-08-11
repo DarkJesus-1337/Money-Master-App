@@ -13,17 +13,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Category
+import androidx.compose.material.icons.filled.Logout
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -37,11 +43,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.network.AppUpdateManager
 import com.pixelpioneer.moneymaster.data.model.SettingsState
 import com.pixelpioneer.moneymaster.ui.components.common.dialogs.UpdateDialog
 import com.pixelpioneer.moneymaster.ui.components.utils.getNewAppVersion
+import com.pixelpioneer.moneymaster.ui.viewmodel.AuthViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,13 +59,17 @@ fun SettingsMainScreen(
     onPersonalClick: () -> Unit,
     onCategoryManagementClick: () -> Unit,
     onDarkModeChange: (Boolean) -> Unit,
-    appUpdateManager: AppUpdateManager
+    appUpdateManager: AppUpdateManager,
+    navController: NavController
 ) {
     val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val updateState by appUpdateManager.updateState.collectAsState()
     var showUpdateDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
     val activity = context as? Activity
+    val authViewModel: AuthViewModel = hiltViewModel()
+    val authUiState by authViewModel.uiState.collectAsState()
+    var showLogoutDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -173,5 +186,91 @@ fun SettingsMainScreen(
                 )
             }
         }
+    }
+
+    if (authUiState.isAuthenticated) {
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            elevation = CardDefaults.cardElevation(4.dp)
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Text(
+                    "Konto",
+                    style = MaterialTheme.typography.titleMedium
+                )
+
+                // User Email
+                authUiState.currentUser?.email?.let { email ->
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(
+                            Icons.Default.AccountCircle,
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = email,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+
+                Spacer(Modifier.height(8.dp))
+
+                // Logout Button
+                OutlinedButton(
+                    onClick = { showLogoutDialog = true },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
+                    Icon(
+                        Icons.Default.Logout,
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Abmelden")
+                }
+            }
+        }
+    }
+
+// Logout Confirmation Dialog
+    if (showLogoutDialog) {
+        AlertDialog(
+            onDismissRequest = { showLogoutDialog = false },
+            title = { Text("Abmelden") },
+            text = { Text("Möchten Sie sich wirklich abmelden?") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        authViewModel.logout()
+                        showLogoutDialog = false
+                        // Navigate to Login Screen
+                        navController.navigate("login") {
+                            popUpTo(navController.graph.startDestinationId) {
+                                inclusive = true
+                            }
+                        }
+                    }
+                ) {
+                    Text("Abmelden", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showLogoutDialog = false }) {
+                    Text("Abbrechen")
+                }
+            }
+        )
     }
 }

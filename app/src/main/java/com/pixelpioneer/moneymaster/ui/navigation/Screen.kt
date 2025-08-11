@@ -24,6 +24,10 @@ sealed class Screen(
     @StringRes val titleRes: Int,
     val icon: ImageVector? = null
 ) {
+    data object Login : Screen("login", R.string.nav_login)
+    data object Register : Screen("register", R.string.nav_register)
+    data object ForgotPassword : Screen("forgot_password", R.string.nav_forgot_password)
+
     data object Dashboard : Screen("dashboard", R.string.nav_dashboard, Icons.Filled.Home)
     data object Transactions :
         Screen("transactions", R.string.nav_transactions, Icons.AutoMirrored.Filled.List)

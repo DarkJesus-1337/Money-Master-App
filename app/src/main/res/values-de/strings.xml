@@ -20,6 +20,9 @@
     <string name="nav_add_transaction">Transaktion hinzufügen</string>
     <string name="nav_edit_budget">Budget bearbeiten</string>
     <string name="nav_edit_transaction">Transaktion bearbeiten</string>
+    <string name="nav_login">Anmelden</string>
+    <string name="nav_register">Registrieren</string>
+    <string name="nav_forgot_password">Passwort vergessen</string>
 
     <!-- ==========================================
          COMMON ACTIONS
