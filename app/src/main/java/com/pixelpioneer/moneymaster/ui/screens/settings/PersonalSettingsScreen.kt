@@ -16,9 +16,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AttachMoney
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.FlashOn
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocalGasStation
@@ -49,7 +47,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,7 +58,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.ui.viewmodel.SettingsViewModel
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -72,10 +68,8 @@ fun PersonalSettingsScreen(
     val state by settingsViewModel.state.collectAsState()
     val fixedCostsOperationState by settingsViewModel.fixedCostsOperationState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
-    val coroutineScope = rememberCoroutineScope()
     var showConfirmDialog by remember { mutableStateOf(false) }
 
-    // Handle fixed costs operation state changes
     LaunchedEffect(fixedCostsOperationState) {
         when (val operationState = fixedCostsOperationState) {
             is SettingsViewModel.FixedCostsOperationState.Success -> {
@@ -114,7 +108,6 @@ fun PersonalSettingsScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            // Personal Data Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(4.dp)
@@ -151,7 +144,6 @@ fun PersonalSettingsScreen(
                 }
             }
 
-            // Fixed Costs Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(4.dp)
@@ -173,7 +165,7 @@ fun PersonalSettingsScreen(
                         val totalFixedCosts = settingsViewModel.calculateTotalFixedCosts()
                         if (totalFixedCosts > 0) {
                             Text(
-                                text = "Gesamt: €%.2f".format(totalFixedCosts),
+                                text = stringResource(R.string.fixed_costs_total).format(totalFixedCosts),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.primary
                             )
@@ -226,7 +218,6 @@ fun PersonalSettingsScreen(
                 }
             }
 
-            // Additional Costs Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(4.dp)
@@ -294,7 +285,6 @@ fun PersonalSettingsScreen(
                 }
             }
 
-            // Add Fixed Costs to Transactions Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(4.dp),
@@ -316,14 +306,14 @@ fun PersonalSettingsScreen(
                         )
                         Spacer(Modifier.width(8.dp))
                         Text(
-                            "Fixkosten zu Transaktionen hinzufügen",
+                            stringResource(R.string.add_fixed_costs_title),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
                         )
                     }
 
                     Text(
-                        "Füge alle oben definierten Fixkosten automatisch als Ausgaben für diesen Monat hinzu.",
+                        stringResource(R.string.add_fixed_costs_description),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
@@ -345,7 +335,7 @@ fun PersonalSettingsScreen(
                             ) {
                                 Icon(Icons.Default.Add, contentDescription = null)
                                 Spacer(Modifier.width(8.dp))
-                                Text("Fixkosten für diesen Monat hinzufügen")
+                                Text(stringResource(R.string.add_fixed_costs_button))
                             }
                         }
                     }
@@ -354,7 +344,6 @@ fun PersonalSettingsScreen(
         }
     }
 
-    // Confirmation Dialog
     if (showConfirmDialog) {
         AlertDialog(
             onDismissRequest = { showConfirmDialog = false },
@@ -367,7 +356,7 @@ fun PersonalSettingsScreen(
             },
             title = {
                 Text(
-                    "Fixkosten hinzufügen?",
+                    stringResource(R.string.confirm_add_fixed_costs),
                     textAlign = TextAlign.Center
                 )
             },
@@ -376,7 +365,7 @@ fun PersonalSettingsScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
-                        "Die folgenden Fixkosten werden als Transaktionen für diesen Monat hinzugefügt:",
+                        stringResource(R.string.confirm_add_fixed_costs_message),
                         style = MaterialTheme.typography.bodyMedium
                     )
 
@@ -407,7 +396,7 @@ fun PersonalSettingsScreen(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            "Gesamt:",
+                            stringResource(R.string.total),
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Bold
                         )
@@ -427,14 +416,14 @@ fun PersonalSettingsScreen(
                         showConfirmDialog = false
                     }
                 ) {
-                    Text("Hinzufügen")
+                    Text(stringResource(R.string.add))
                 }
             },
             dismissButton = {
                 TextButton(
                     onClick = { showConfirmDialog = false }
                 ) {
-                    Text("Abbrechen")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         )

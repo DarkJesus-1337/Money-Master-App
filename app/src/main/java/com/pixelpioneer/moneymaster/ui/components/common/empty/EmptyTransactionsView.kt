@@ -1,4 +1,4 @@
-package com.pixelpioneer.moneymaster.ui.components.features.transactions
+package com.pixelpioneer.moneymaster.ui.components.common.empty
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

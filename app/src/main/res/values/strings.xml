@@ -226,7 +226,6 @@
     <string name="confirm_add_fixed_costs_message">The following fixed costs will be added as transactions for this month:</string>
     <string name="total">Total</string>
     <string name="add">Add</string>
-    <string name="cancel">Cancel</string>
 
     <!-- ==========================================
          CATEGORIES
@@ -366,12 +365,13 @@
     <string name="no_budgets_yet">No budgets yet</string>
 
     <!-- ==========================================
-         CATEGORY MANAGEMENT (NEW)
+         CATEGORY MANAGEMENT
          ========================================== -->
     <string name="categories_available">categories available</string>
     <string name="predefined_categories_loaded">Predefined categories loaded</string>
     <string name="categories_initialized">Categories have been initialized</string>
     <string name="empty_categories_description">Standard categories are being loaded...</string>
+    <string name="new_category">New Category</string>
 
     <!-- ==========================================
          LOG MESSAGES (DEVELOPMENT)
@@ -397,4 +397,5 @@
     <string name="update_available_title">Update available</string>
     <string name="update_version">Version %1$s</string>
     <string name="update_changelog_title">What\'s new:</string>
+    <string name="error_try_again">Try again</string>
 </resources>

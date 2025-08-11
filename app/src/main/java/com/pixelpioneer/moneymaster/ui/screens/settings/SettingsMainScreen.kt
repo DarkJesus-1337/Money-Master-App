@@ -102,7 +102,7 @@ fun SettingsMainScreen(
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Kategorien verwalten")
+                    Text(stringResource(R.string.category_management_title))
                 }
             }
 
@@ -166,7 +166,6 @@ fun SettingsMainScreen(
                     },
                     onDismiss = {
                         showUpdateDialog = false
-                        // Reset state nur wenn nicht downloading
                         if (updateState !is AppUpdateManager.UpdateState.Downloading) {
                             // Optional: Reset state to Idle
                         }

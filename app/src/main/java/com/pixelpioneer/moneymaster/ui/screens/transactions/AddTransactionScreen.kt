@@ -171,7 +171,7 @@ fun AddTransactionScreen(
                             "."
                         ) && !amountInput.endsWith(",")
                     ) {
-                        Text(formState.amountError!!, color = MaterialTheme.colorScheme.error)
+                        Text(formState.amountError, color = MaterialTheme.colorScheme.error)
                     }
                 }
             )

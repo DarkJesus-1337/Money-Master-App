@@ -198,7 +198,7 @@ fun EditTransactionScreen(
                                 ) && !amountInput.endsWith(",")
                             ) {
                                 Text(
-                                    formState.amountError!!,
+                                    formState.amountError,
                                     color = MaterialTheme.colorScheme.error
                                 )
                             }

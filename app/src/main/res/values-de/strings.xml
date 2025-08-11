@@ -228,7 +228,6 @@
     <string name="confirm_add_fixed_costs_message">Die folgenden Fixkosten werden als Transaktionen für diesen Monat hinzugefügt:</string>
     <string name="total">Gesamt</string>
     <string name="add">Hinzufügen</string>
-    <string name="cancel">Abbrechen</string>
 
     <!-- ==========================================
          CATEGORIES
@@ -371,12 +370,13 @@
     <string name="no_budgets_yet">Noch keine Budgets</string>
 
     <!-- ==========================================
-         CATEGORY MANAGEMENT (NEW)
+         CATEGORY MANAGEMENT
          ========================================== -->
     <string name="categories_available">Kategorien verfügbar</string>
     <string name="predefined_categories_loaded">Vordefinierte Kategorien geladen</string>
     <string name="categories_initialized">Kategorien wurden initialisiert</string>
     <string name="empty_categories_description">Standard-Kategorien werden geladen...</string>
+    <string name="new_category">Neue Kategorie</string>
 
     <!-- ==========================================
          LOG MESSAGES (DEVELOPMENT)
@@ -397,4 +397,5 @@
     <string name="log_api_key_available">API-Schlüssel verfügbar: %1$s</string>
     <string name="error_loading_assets_log">Fehler beim Laden der Daten</string>
     <string name="error_loading_history_log">Fehler beim Laden des Verlaufs für %1$s</string>
+    <string name="error_try_again">Erneut versuchen</string>
 </resources>
