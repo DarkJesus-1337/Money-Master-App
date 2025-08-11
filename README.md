@@ -67,7 +67,7 @@ Eine moderne Android-Anwendung zur umfassenden Verwaltung persönlicher Finanzen
 
 ## 📱 Download
 
-Die aktuelle APK kann [hier heruntergeladen werden](https://github.com/DarkJesus-1337/Money-Master-App/releases/download/Money_Master/app-release.apk).
+Die aktuelle APK kann [hier heruntergeladen werden](https://github.com/DarkJesus-1337/Money-Master-App/releases).
 
 ## 🛠️ Technische Details
 
