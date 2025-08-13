@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Haupttheme für die App -->
+    <style name="Theme.MoneyMaster" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">#6200EE</item>
+        <item name="colorPrimaryDark">#3700B3</item>
+        <item name="colorAccent">#03DAC5</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
+    <!-- Splash Screen Theme speziell für Android 12+ -->
+    <style name="Theme.MoneyMaster.Splash" parent="Theme.SplashScreen">
+        <!-- Hintergrundfarbe des Splash Screens -->
+        <item name="windowSplashScreenBackground">@drawable/splash_background</item>
+
+        <!-- ANIMIERTES Icon das im Splash Screen angezeigt wird -->
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
+
+        <!-- Längere Dauer für die komplexe Animation -->
+        <item name="windowSplashScreenAnimationDuration">2000</item>
+
+        <!-- App-Farbe nach dem Splash Screen -->
+        <item name="postSplashScreenTheme">@style/Theme.MoneyMaster</item>
+
+        <!-- Status Bar transparent -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Legacy Splash Screen Theme für ältere Android Versionen -->
+    <style name="Theme.MoneyMaster.SplashLegacy" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+</resources>

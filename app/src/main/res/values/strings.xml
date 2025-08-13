@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ==========================================
+         APP BASIC
+         ========================================== -->
+    <string name="app_name">MoneyMaster</string>
+
+    <!-- ==========================================
+         NAVIGATION
+         ========================================== -->
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_transactions">History</string>
+    <string name="nav_budgets">Budgets</string>
+    <string name="nav_statistics">Statistics</string>
+    <string name="nav_receipts">Receipts</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_transaction_details">Transaction Details</string>
+    <string name="nav_budget_details">Budget Details</string>
+    <string name="nav_add_budget">Add Budget</string>
+    <string name="nav_add_transaction">Add Transaction</string>
+    <string name="nav_edit_budget">Edit Budget</string>
+    <string name="nav_edit_transaction">Edit Transaction</string>
+
+    <!-- ==========================================
+         COMMON ACTIONS
+         ========================================== -->
+    <string name="action_add">Add</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_confirm">Confirm</string>
+    <string name="action_view_all">View All</string>
+    <string name="action_search">Search</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_back">Back</string>
+    <string name="action_ok">OK</string>
+    <string name="action_remove">Remove</string>
+
+    <!-- ==========================================
+         COMMON LABELS
+         ========================================== -->
+    <string name="label_details">Details</string>
+    <string name="label_selected">Selected</string>
+    <string name="label_warning">Warning</string>
+    <string name="label_name">Name</string>
+    <string name="label_age">Age</string>
+    <string name="label_amount">Amount (€)</string>
+    <string name="label_date">Date</string>
+    <string name="label_category">Category</string>
+    <string name="label_description">Description</string>
+    <string name="label_title">Title</string>
+
+    <!-- ==========================================
+         SELECTION
+         ========================================== -->
+    <string name="select_category">Select Category</string>
+    <string name="select_period">Select Period</string>
+    <string name="select_date">Select Date</string>
+
+    <!-- ==========================================
+         FORMATS & DISPLAY
+         ========================================== -->
+    <string name="format_currency">%.2f €</string>
+    <string name="format_total">Total: %.2f €</string>
+    <string name="format_remaining">Remaining: %1$s</string>
+    <string name="format_spent_of">%1$s of %2$s</string>
+    <string name="format_balance">Balance: %1$s</string>
+    <string name="format_percentage_used">%1$d%% used</string>
+    <string name="date_today">Today</string>
+    <string name="common_of">of</string>
+    <string name="common_unknown">Unknown</string>
+
+    <!-- ==========================================
+         DASHBOARD
+         ========================================== -->
+    <string name="dashboard_title">Dashboard</string>
+    <string name="dashboard_current_balance">Current Balance</string>
+    <string name="dashboard_income">Income</string>
+    <string name="dashboard_expenses">Expenses</string>
+    <string name="dashboard_recent_transactions">Recent Transactions</string>
+    <string name="dashboard_budget_overview">Budget Overview</string>
+    <string name="dashboard_add_transaction">Add Transaction</string>
+    <string name="dashboard_view_all_budgets">View All Budgets</string>
+
+    <!-- ==========================================
+         TRANSACTIONS
+         ========================================== -->
+    <string name="transactions_title">Transactions</string>
+    <string name="transactions_add">Add Transaction</string>
+    <string name="transactions_edit">Edit Transaction</string>
+    <string name="transactions_save">Save Transaction</string>
+    <string name="transactions_update">Update Transaction</string>
+    <string name="transactions_delete">Delete Transaction</string>
+    <string name="transactions_view_all">View All Transactions</string>
+    <string name="transactions_search">Search transactions</string>
+    <string name="transactions_in_category">Transactions in this category</string>
+    <string name="transactions_from_receipt">From receipt: %1$s</string>
+
+    <!-- Transaction Types & Properties -->
+    <string name="transaction_income">Income</string>
+    <string name="transaction_expense">Expense</string>
+    <string name="transaction_type">Transaction Type</string>
+    <string name="transaction_amount">Amount</string>
+    <string name="transaction_date">Date</string>
+    <string name="transaction_category">Category</string>
+    <string name="transaction_description">Description</string>
+    <string name="transaction_description_optional">Description (Optional)</string>
+    <string name="transaction_title">Title</string>
+    <string name="transaction_no_description">No description</string>
+    <string name="transaction_not_found">Transaction not found</string>
+
+    <!-- ==========================================
+         BUDGETS
+         ========================================== -->
+    <string name="budgets_title">Budgets</string>
+    <string name="budgets_add">Add Budget</string>
+    <string name="budgets_create">Create Budget</string>
+    <string name="budgets_edit">Edit Budget</string>
+    <string name="budgets_update">Update Budget</string>
+    <string name="budgets_delete">Delete Budget</string>
+    <string name="budgets_amount">Budget Amount</string>
+    <string name="budgets_progress">Progress</string>
+    <string name="budgets_remaining">Remaining</string>
+    <string name="budgets_spent">Spent</string>
+    <string name="budgets_spent_format">Spent: %1$s</string>
+    <string name="budgets_remaining_format">Remaining: %1$s</string>
+    <string name="budgets_warning_almost_used">Budget almost used up!</string>
+    <string name="budgets_more_options">More options</string>
+
+    <!-- Budget Periods -->
+    <string name="budget_period_daily">Daily</string>
+    <string name="budget_period_weekly">Weekly</string>
+    <string name="budget_period_monthly">Monthly</string>
+    <string name="budget_period_yearly">Yearly</string>
+    <string name="budget_period_daily_full">Daily Budget</string>
+    <string name="budget_period_weekly_full">Weekly Budget</string>
+    <string name="budget_period_monthly_full">Monthly Budget</string>
+    <string name="budget_period_yearly_full">Yearly Budget</string>
+
+    <!-- ==========================================
+         RECEIPTS & SCANNING
+         ========================================== -->
+    <string name="receipts_title">Receipts</string>
+    <string name="receipts_scan">Scan Receipt</string>
+    <string name="receipts_scanned">Receipt Scanned</string>
+    <string name="receipts_scan_button">Scan receipt</string>
+    <string name="receipts_scanning_progress">Scanning receipt...</string>
+    <string name="receipts_no_items_found">No items detected on the receipt. Try another image.</string>
+    <string name="receipts_found_items_count">Found items</string>
+    <string name="receipts_total_amount">Total Amount</string>
+    <string name="receipts_add_all_transactions">Add all as transactions</string>
+
+    <!-- Image Selection -->
+    <string name="image_selection_camera">Camera</string>
+    <string name="image_selection_gallery">Gallery</string>
+    <string name="image_selection_selected_receipt">Selected Receipt</string>
+
+    <!-- Receipt Item Editing -->
+    <string name="receipt_edit_item_title">Edit item #%1$d</string>
+    <string name="receipt_edit_item_name">Item name</string>
+    <string name="receipt_edit_item_amount">Amount (€)</string>
+    <string name="receipt_edit_item_remove">Remove</string>
+    <string name="receipt_readonly_title">#%1$d %2$s</string>
+    <string name="receipt_readonly_amount">Amount: %.2f €</string>
+    <string name="receipt_readonly_edit">Edit</string>
+
+    <!-- ==========================================
+         STATISTICS
+         ========================================== -->
+    <string name="statistics_title">Statistics</string>
+    <string name="statistics_tab_overview">Overview</string>
+    <string name="statistics_tab_categories">Cat.</string>
+    <string name="statistics_tab_trends">Trends</string>
+    <string name="statistics_tab_crypto">Crypto</string>
+    <string name="statistics_category_transactions">%1$d transactions</string>
+    <string name="statistics_positive">Positive</string>
+    <string name="statistics_negative">Negative</string>
+    <string name="statistics_this_month">This Month</string>
+    <string name="statistics_income">Income</string>
+    <string name="statistics_expenses">Expenses</string>
+    <string name="statistics_avg_expense">Average expenses</string>
+    <string name="statistics_daily">Daily</string>
+    <string name="statistics_weekly">Weekly</string>
+    <string name="statistics_transactions">Transactions</string>
+    <string name="statistics_total">Total</string>
+
+    <!-- ==========================================
+         CRYPTO ASSETS
+         ========================================== -->
+    <string name="crypto_market_data">Market Data</string>
+    <string name="crypto_market_cap">Market Cap</string>
+    <string name="crypto_volume_24h">Volume (24h)</string>
+    <string name="crypto_rank">Rank</string>
+    <string name="crypto_max_supply">Max Supply</string>
+    <string name="crypto_price_label">Price</string>
+
+    <!-- ==========================================
+         SETTINGS
+         ========================================== -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_personal">Personal Settings</string>
+    <string name="settings_app">App Settings</string>
+    <string name="settings_dark_mode">Dark Mode</string>
+    <string name="settings_check_updates">Check for Updates</string>
+    <string name="settings_personal_data">Personal Data</string>
+    <string name="settings_income">Income (€)</string>
+    <string name="settings_fixed_costs">Fixed Costs</string>
+    <string name="settings_rent">Rent (€)</string>
+    <string name="settings_electricity">Electricity (€)</string>
+    <string name="settings_gas">Gas (€)</string>
+    <string name="settings_internet">Internet (€)</string>
+    <string name="settings_additional_costs">Additional Fixed Costs</string>
+    <string name="settings_add_fixed_cost">Add Fixed Cost</string>
+
+    <!-- Fixed Costs Feature -->
+    <string name="fixed_costs_already_added">Fixed costs have already been added for this month</string>
+    <string name="no_fixed_costs_defined">No fixed costs defined. Please add some fixed costs first.</string>
+    <string name="monthly_fixed_cost_description">Monthly fixed cost</string>
+    <string name="fixed_costs_added_success">%1$d fixed costs successfully added</string>
+    <string name="add_fixed_costs_title">Add Fixed Costs to Transactions</string>
+    <string name="add_fixed_costs_description">Add all defined fixed costs automatically as expenses for this month.</string>
+    <string name="add_fixed_costs_button">Add Fixed Costs for This Month</string>
+    <string name="fixed_costs_total">Total: €%.2f</string>
+    <string name="confirm_add_fixed_costs">Add Fixed Costs?</string>
+    <string name="confirm_add_fixed_costs_message">The following fixed costs will be added as transactions for this month:</string>
+    <string name="total">Total</string>
+    <string name="add">Add</string>
+
+    <!-- ==========================================
+         CATEGORIES
+         ========================================== -->
+    <string name="category_groceries">Groceries</string>
+    <string name="category_housing">Housing</string>
+    <string name="category_transport">Transport</string>
+    <string name="category_entertainment">Entertainment</string>
+    <string name="category_health">Health</string>
+    <string name="category_shopping">Shopping</string>
+    <string name="category_education">Education</string>
+    <string name="category_salary">Salary</string>
+    <string name="category_gifts">Gifts</string>
+    <string name="category_other">Other</string>
+
+    <!-- Category Management -->
+    <string name="nav_category_management">Manage Categories</string>
+    <string name="category_management_title">Manage Categories</string>
+    <string name="category_add">Add Category</string>
+    <string name="category_edit">Edit Category</string>
+    <string name="category_delete">Delete Category</string>
+    <string name="category_delete_confirm">Are you sure you want to delete the category \"%1$s\"?</string>
+    <string name="category_delete_warning">All transactions with this category will be changed to \"Other\".</string>
+    <string name="category_predefined">Predefined Categories</string>
+    <string name="category_custom">Custom Categories</string>
+    <string name="category_standard_badge">Standard</string>
+    <string name="category_name_label">Category Name</string>
+    <string name="category_color_label">Choose Color</string>
+    <string name="category_empty">No categories available</string>
+    <string name="category_error_predefined_delete">Predefined categories cannot be deleted</string>
+    <string name="category_error_name_empty">Please enter a name</string>
+
+    <!-- ==========================================
+         DIALOGS
+         ========================================== -->
+    <string name="dialog_delete_title">Delete Item</string>
+    <string name="dialog_delete_message">Are you sure you want to delete this item?</string>
+    <string name="dialog_delete_budget_title">Delete Budget</string>
+    <string name="dialog_delete_budget_message">Are you sure you want to delete the budget for \"%1$s\"? This action cannot be undone.</string>
+    <string name="dialog_delete_transaction_message">Are you sure you want to delete this transaction? This action cannot be undone.</string>
+    <string name="dialog_update_title">Update Available</string>
+    <string name="dialog_unsaved_changes">Unsaved Changes</string>
+    <string name="dialog_unsaved_message">Do you want to save your changes?</string>
+
+    <!-- ==========================================
+         UPDATE SYSTEM
+         ========================================== -->
+    <string name="update_checking">Checking for updates...</string>
+    <string name="update_downloading">Downloading update...</string>
+    <string name="update_error">Update error</string>
+    <string name="update_no_update">No updates available</string>
+
+    <!-- ==========================================
+         ERROR MESSAGES
+         ========================================== -->
+    <string name="error_generic">Something went wrong</string>
+    <string name="error_network">Network error: %1$s</string>
+    <string name="error_loading_data">Failed to load data</string>
+    <string name="error_unknown">Unknown error</string>
+    <string name="error_card_message">Error: %1$s</string>
+
+    <!-- Validation Errors -->
+    <string name="error_amount_greater_zero">Amount must be greater than zero</string>
+    <string name="error_select_category">Please select a category</string>
+    <string name="error_category_null">Category cannot be null</string>
+    <string name="error_name_empty">Name cannot be empty</string>
+    <string name="error_title_empty">Title cannot be empty</string>
+
+    <!-- Feature-specific Errors -->
+    <string name="error_loading_budgets">Error loading budgets</string>
+    <string name="error_loading_crypto">Error loading crypto data</string>
+    <string name="error_loading_history">Error loading history</string>
+    <string name="error_loading_statistics">Error loading statistics</string>
+    <string name="error_loading_category_statistics">Error loading category statistics</string>
+    <string name="error_loading_trend_data">Error loading trend data</string>
+    <string name="error_loading_chart">Error loading chart: %1$s</string>
+    <string name="error_loading_assets">Error: %1$s</string>
+
+    <!-- Operation Errors -->
+    <string name="error_transaction_add">Could not add transaction: %1$s</string>
+    <string name="error_transaction_update">Could not update transaction: %1$s</string>
+    <string name="error_transaction_delete">Could not delete transaction: %1$s</string>
+    <string name="error_category_add">Could not add category: %1$s</string>
+    <string name="error_category_update">Could not update category: %1$s</string>
+    <string name="error_category_delete">Could not delete category: %1$s</string>
+    <string name="error_budget_add">Could not add budget: %1$s</string>
+    <string name="error_budget_update">Could not update budget: %1$s</string>
+    <string name="error_budget_delete">Could not delete budget: %1$s</string>
+    <string name="error_assets_load">Could not load assets: %1$s</string>
+    <string name="error_history_load">Could not load historical data: %1$s</string>
+    <string name="error_unexpected">Unexpected error: %1$s</string>
+
+    <!-- Scanner/OCR Errors -->
+    <string name="error_receipt_scan">Could not scan receipt: %1$s</string>
+    <string name="error_scanner">Scanner error: %1$s</string>
+    <string name="error_no_text_recognized">No text recognized.</string>
+    <string name="error_no_item_recognized">No item recognized. OCR text: %1$s</string>
+    <string name="error_ocr_processing">OCR processing failed: %1$s</string>
+    <string name="error_ocr_exit_code">OCR failed with exit code: %1$d</string>
+    <string name="error_ocr_api_key_missing">OCR Space API Key not available</string>
+    <string name="error_empty_response_body">Empty response body</string>
+    <string name="error_http_error">HTTP error: %1$d</string>
+    <string name="error_coincap_api_not_initialized">CoinCap API Service not initialized</string>
+    <string name="error_fetching_crypto_assets">Error fetching crypto assets: %1$s</string>
+
+    <!-- ==========================================
+         SUCCESS MESSAGES
+         ========================================== -->
+    <string name="success_saved">Successfully saved</string>
+    <string name="success_deleted">Successfully deleted</string>
+    <string name="success_updated">Successfully updated</string>
+
+    <!-- ==========================================
+         EMPTY STATES
+         ========================================== -->
+    <string name="empty_transactions_title">No transactions yet</string>
+    <string name="empty_transactions_description">Start tracking your finances by adding your first transaction</string>
+    <string name="empty_budgets_title">No budgets created</string>
+    <string name="empty_budgets_description">Create budgets to help manage your spending</string>
+    <string name="empty_receipts_title">No receipts scanned</string>
+    <string name="empty_receipts_description">Scan your receipts to keep track of your expenses</string>
+    <string name="empty_categories">No categories available</string>
+    <string name="empty_categories_please_create">No categories available. Categories are being loaded...</string>
+    <string name="empty_transaction_category">No transactions in this category yet</string>
+    <string name="empty_financial_summary_title">No financial data yet</string>
+    <string name="empty_financial_summary_description">Add income and expenses to see your financial summary</string>
+    <string name="empty_receipt_category">No category available</string>
+    <string name="empty_category_statistics">No category statistics available</string>
+    <string name="empty_crypto_data">No crypto data available</string>
+    <string name="empty_chart_data">No data available</string>
+    <string name="statistics_no_data">No statistics available</string>
+    <string name="statistics_no_trend_data">No trend data available</string>
+
+    <!-- Quick Access -->
+    <string name="no_transactions_found">No transactions found</string>
+    <string name="no_budgets_found">No budgets found</string>
+    <string name="no_budgets_yet">No budgets yet</string>
+
+    <!-- ==========================================
+         CATEGORY MANAGEMENT
+         ========================================== -->
+    <string name="categories_available">categories available</string>
+    <string name="predefined_categories_loaded">Predefined categories loaded</string>
+    <string name="categories_initialized">Categories have been initialized</string>
+    <string name="empty_categories_description">Standard categories are being loaded...</string>
+    <string name="new_category">New Category</string>
+
+    <!-- ==========================================
+         LOG MESSAGES (DEVELOPMENT)
+         ========================================== -->
+    <string name="log_api_call_started">API call started</string>
+    <string name="log_api_response">Response: %1$s</string>
+    <string name="log_history_for_asset">History for %1$s: %2$d data points</string>
+    <string name="log_ocr_scan_starting">Starting OCR scan with API key: %1$s...</string>
+    <string name="log_original_file_size">Original file size: %1$d bytes</string>
+    <string name="log_compressed_file_size">Compressed file size: %1$d bytes</string>
+    <string name="log_making_ocr_api_request">Making OCR API request</string>
+    <string name="log_response_code">Response code: %1$d</string>
+    <string name="log_ocr_scan_successful">OCR scan successful</string>
+    <string name="log_image_size_ok">Image size OK, no compression needed</string>
+    <string name="log_image_too_large">Image too large, compressing...</string>
+    <string name="log_compression_complete">Compression complete. New size: %1$d bytes</string>
+    <string name="log_could_not_correct_orientation">Could not correct image orientation</string>
+    <string name="log_api_key_available">API key available: %1$s</string>
+    <string name="error_loading_assets_log">Error loading data</string>
+    <string name="error_loading_history_log">Error loading history for %1$s</string>
+    <string name="action_later">Later</string>
+    <string name="action_update">Update now</string>
+    <string name="update_available_title">Update available</string>
+    <string name="update_version">Version %1$s</string>
+    <string name="update_changelog_title">What\'s new:</string>
+    <string name="error_try_again">Try again</string>
+</resources>

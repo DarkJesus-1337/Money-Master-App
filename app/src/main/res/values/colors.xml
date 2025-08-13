@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bestehende Material Design Farben -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Verbesserte Farben für bessere Lesbarkeit und Ästhetik -->
+
+    <!-- Income/Positive Transaktionen - Sanftes, professionelles Grün -->
+    <color name="incomeGreen">#FF2E7D32</color>          <!-- Material Green 800 - weniger grell -->
+    <color name="incomeGreenLight">#FF4CAF50</color>      <!-- Für hellere UI Elemente -->
+    <color name="incomeGreenDark">#FF1B5E20</color>       <!-- Für Akzente -->
+
+    <!-- Expense/Negative Transaktionen - Warmes Rot -->
+    <color name="expenseRed">#FFD32F2F</color>            <!-- Material Red 700 -->
+    <color name="expenseRedLight">#FFF44336</color>       <!-- Für hellere UI Elemente -->
+    <color name="expenseRedDark">#FFC62828</color>        <!-- Für Akzente -->
+
+    <!-- Balance/Neutral - Elegantes Blau -->
+    <color name="balanceBlue">#FF1976D2</color>           <!-- Material Blue 700 -->
+    <color name="balanceBlueDark">#FF0D47A1</color>       <!-- Für Akzente -->
+
+    <!-- Kategorie-Farben - Sanfte, professionelle Palette -->
+    <color name="categoryGreen">#FF388E3C</color>         <!-- Lebensmittel - Material Green 600 -->
+    <color name="categoryBlue">#FF1976D2</color>          <!-- Transport - Material Blue 700 -->
+    <color name="categoryOrange">#FFF57C00</color>        <!-- Unterhaltung - Material Orange 800 -->
+    <color name="categoryPurple">#FF7B1FA2</color>        <!-- Shopping - Material Purple 700 -->
+    <color name="categoryTeal">#FF00695C</color>          <!-- Gesundheit - Material Teal 800 -->
+    <color name="categoryRed">#FFD32F2F</color>           <!-- Rechnungen - Material Red 700 -->
+    <color name="categoryIndigo">#FF303F9F</color>        <!-- Bildung - Material Indigo 700 -->
+    <color name="categoryBrown">#FF5D4037</color>         <!-- Reisen - Material Brown 700 -->
+    <color name="categoryGrey">#FF616161</color>          <!-- Sonstiges - Material Grey 700 -->
+    <color name="categoryPink">#FFC2185B</color>          <!-- Geschenke - Material Pink 700 -->
+
+    <!-- Chart und Diagramm Farben -->
+    <color name="chartPrimary">#FF1976D2</color>          <!-- Primäre Chart-Linie -->
+    <color name="chartSecondary">#FF388E3C</color>        <!-- Sekundäre Chart-Linie -->
+    <color name="chartTertiary">#FFF57C00</color>         <!-- Tertiäre Chart-Linie -->
+    <color name="chartBackground">#FFF5F5F5</color>       <!-- Chart Hintergrund -->
+    <color name="chartGrid">#FFE0E0E0</color>             <!-- Chart Gitter -->
+
+    <!-- Surface und Background Varianten -->
+    <color name="surfaceVariant">#FFF5F5F5</color>        <!-- Sanfte Oberfläche -->
+    <color name="onSurfaceVariant">#FF757575</color>      <!-- Text auf Oberfläche -->
+
+    <!-- Status Farben -->
+    <color name="successGreen">#FF2E7D32</color>          <!-- Erfolg -->
+    <color name="warningOrange">#FFF57C00</color>         <!-- Warnung -->
+    <color name="errorRed">#FFD32F2F</color>              <!-- Fehler -->
+    <color name="infoBlue">#FF1976D2</color>              <!-- Information -->
+
+    <!-- Crypto Portfolio Farben -->
+    <color name="cryptoPositive">#FF2E7D32</color>        <!-- Positive Performance -->
+    <color name="cryptoNegative">#FFD32F2F</color>        <!-- Negative Performance -->
+    <color name="cryptoNeutral">#FF616161</color>         <!-- Neutrale Performance -->
+</resources>

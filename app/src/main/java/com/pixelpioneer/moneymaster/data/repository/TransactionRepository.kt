@@ -1,0 +1,165 @@
+package com.pixelpioneer.moneymaster.data.repository
+
+import com.pixelpioneer.moneymaster.data.local.db.dao.TransactionDao
+import com.pixelpioneer.moneymaster.data.local.relation.TransactionWithCategory
+import com.pixelpioneer.moneymaster.data.mapper.TransactionMapper
+import com.pixelpioneer.moneymaster.data.model.Transaction
+import com.pixelpioneer.moneymaster.data.remote.api.CoinCapApiService
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import java.util.Calendar
+
+/**
+ * Repository for managing transactions and related financial data.
+ *
+ * Provides methods to retrieve, insert, update, and delete transactions,
+ * as well as calculate financial summaries and interact with cryptocurrency assets.
+ *
+ * @property transactionDao Data access object for transaction entities.
+ */
+class TransactionRepository(
+    private val transactionDao: TransactionDao,
+) {
+    /**
+     * Flow of all transactions with their associated categories.
+     */
+    val allTransactionsWithCategory = transactionDao.getTransactionsWithCategory()
+        .map { list -> list.map { TransactionMapper.fromEntity(it) } }
+
+    /**
+     * Retrieves a specific transaction by its ID.
+     *
+     * @param id The unique identifier of the transaction.
+     * @return A [Flow] containing the [Transaction] with category information.
+     */
+    fun getTransactionById(id: Long): Flow<Transaction> {
+        return transactionDao.getTransactionWithCategoryById(id)
+            .map { TransactionMapper.fromEntity(it) }
+    }
+
+    /**
+     * Inserts a new transaction into the database.
+     *
+     * @param transaction The transaction to insert.
+     * @return The ID of the newly inserted transaction.
+     */
+    suspend fun insertTransaction(transaction: Transaction): Long {
+        val entity = TransactionMapper.toEntity(transaction)
+        return transactionDao.insertTransaction(entity)
+    }
+
+    /**
+     * Updates an existing transaction in the database.
+     *
+     * @param transaction The transaction with updated information.
+     */
+    suspend fun updateTransaction(transaction: Transaction) {
+        val entity = TransactionMapper.toEntity(transaction)
+        transactionDao.updateTransaction(entity)
+    }
+
+    /**
+     * Deletes a transaction from the database.
+     *
+     * @param transaction The transaction to delete.
+     */
+    suspend fun deleteTransaction(transaction: Transaction) {
+        val entity = TransactionMapper.toEntity(transaction)
+        transactionDao.deleteTransaction(entity)
+    }
+
+    /**
+     * Calculates the total expenses for the current month.
+     *
+     * @return A [Flow] containing the total expense amount as a [Double].
+     */
+    fun getTotalExpensesByMonth(): Flow<Double> {
+        val calendar = Calendar.getInstance()
+
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        val startDate = calendar.timeInMillis
+
+        calendar.add(Calendar.MONTH, 1)
+        val endDate = calendar.timeInMillis
+
+        return transactionDao.getTotalExpensesByDateRange(startDate, endDate)
+            .map { it ?: 0.0 }
+    }
+
+    /**
+     * Calculates the total income for the current month.
+     *
+     * @return A [Flow] containing the total income amount as a [Double].
+     */
+    fun getTotalIncomeByMonth(): Flow<Double> {
+        val calendar = Calendar.getInstance()
+
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        val startDate = calendar.timeInMillis
+
+        calendar.add(Calendar.MONTH, 1)
+        val endDate = calendar.timeInMillis
+
+        return transactionDao.getTotalIncomeByDateRange(startDate, endDate)
+            .map { it ?: 0.0 }
+    }
+
+    /**
+     * Retrieves the total income synchronously.
+     *
+     * This method performs a synchronous database operation and should
+     * only be used when necessary (e.g., in background tasks).
+     *
+     * @return The total income amount as a [Double].
+     */
+    suspend fun getTotalIncomeSync(): Double {
+        return transactionDao.getTotalIncomeSync()
+    }
+
+    /**
+     * Retrieves the total expenses synchronously.
+     *
+     * This method performs a synchronous database operation and should
+     * only be used when necessary (e.g., in background tasks).
+     *
+     * @return The total expense amount as a [Double].
+     */
+    suspend fun getTotalExpensesSync(): Double {
+        return transactionDao.getTotalExpensesSync()
+    }
+
+    /**
+     * Retrieves the total number of transactions synchronously.
+     *
+     * This method performs a synchronous database operation and should
+     * only be used when necessary (e.g., in background tasks).
+     *
+     * @return The total number of transactions as an [Int].
+     */
+    suspend fun getTransactionCountSync(): Int {
+        return transactionDao.getTransactionCountSync()
+    }
+
+    /**
+     * Retrieves transactions with categories within a specific date range.
+     *
+     * @param startDate The start date in milliseconds.
+     * @param endDate The end date in milliseconds.
+     * @return A [Flow] containing a list of [TransactionWithCategory] objects.
+     */
+    fun getTransactionsWithCategoryByDateRange(
+        startDate: Long,
+        endDate: Long
+    ): Flow<List<TransactionWithCategory>> {
+        return transactionDao.getTransactionsWithCategoryByDateRange(startDate, endDate)
+    }
+
+}

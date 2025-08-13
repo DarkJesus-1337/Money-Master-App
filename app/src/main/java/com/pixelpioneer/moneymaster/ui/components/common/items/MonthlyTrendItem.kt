@@ -1,0 +1,123 @@
+package com.pixelpioneer.moneymaster.ui.components.common.items
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import com.pixelpioneer.moneymaster.R
+import com.pixelpioneer.moneymaster.core.util.FormatUtils
+import com.pixelpioneer.moneymaster.data.model.MonthlyTrend
+import com.pixelpioneer.moneymaster.ui.theme.expenseColor
+import com.pixelpioneer.moneymaster.ui.theme.incomeColor
+
+/**
+ * A card component for displaying monthly financial trends.
+ *
+ * Shows the month, transaction count, income, expenses, and balance with trend icon.
+ *
+ * @param monthlyTrend The monthly trend data to display.
+ */
+@Composable
+fun MonthlyTrendItem(monthlyTrend: MonthlyTrend) {
+    val isPositive = monthlyTrend.balance >= 0
+
+    Card(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column {
+                    Text(
+                        text = monthlyTrend.monthYear,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Text(
+                        text = stringResource(
+                            R.string.statistics_category_transactions,
+                            monthlyTrend.transactionCount
+                        ),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(if (isPositive) R.drawable.trending_up else R.drawable.trending_down),
+                        contentDescription = stringResource(if (isPositive) R.string.statistics_positive else R.string.statistics_negative),
+                        tint = if (isPositive) incomeColor() else expenseColor(),
+                        modifier = Modifier.size(20.dp)
+                    )
+
+                    Text(
+                        text = FormatUtils.formatCurrency(monthlyTrend.balance),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = if (isPositive) incomeColor() else expenseColor(),
+                        modifier = Modifier.padding(start = 4.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column {
+                    Text(
+                        text = stringResource(R.string.transaction_income),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Text(
+                        text = FormatUtils.formatCurrency(monthlyTrend.income),
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Medium,
+                        color = incomeColor()
+                    )
+                }
+
+                Column {
+                    Text(
+                        text = stringResource(R.string.transaction_expense),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Text(
+                        text = FormatUtils.formatCurrency(monthlyTrend.expenses),
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Medium,
+                        color = expenseColor()
+                    )
+                }
+            }
+        }
+    }
+}
