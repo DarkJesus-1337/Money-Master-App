@@ -69,6 +69,12 @@ Eine moderne Android-Anwendung zur umfassenden Verwaltung persönlicher Finanzen
 
 Die aktuelle APK kann [hier heruntergeladen werden](https://github.com/DarkJesus-1337/Money-Master-App/releases).
 
+## 🎯 Projektpräsentation
+
+**[📊 Abschlusspräsentation ansehen](https://darkjesus-1337.github.io/Money-Master-App/presentation/abschlussprasentation.html)**
+
+Eine interaktive HTML-Präsentation mit detaillierter Projektübersicht, technischen Details, Demo-Screenshots und Entwicklungsherausforderungen.
+
 ## 🛠️ Technische Details
 
 ### Tech Stack
