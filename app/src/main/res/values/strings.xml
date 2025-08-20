@@ -96,6 +96,8 @@
     <string name="transactions_search">Search transactions</string>
     <string name="transactions_in_category">Transactions in this category</string>
     <string name="transactions_from_receipt">From receipt: %1$s</string>
+    <string name="transaction_delete_confirmation_message">Do you really want to delete the transaction "%s"? This action cannot be undone.</string>
+    <string name="transaction_delete">Delete Transaction</string>
 
     <!-- Transaction Types & Properties -->
     <string name="transaction_income">Income</string>
@@ -127,6 +129,9 @@
     <string name="budgets_remaining_format">Remaining: %1$s</string>
     <string name="budgets_warning_almost_used">Budget almost used up!</string>
     <string name="budgets_more_options">More options</string>
+    <string name="budget_delete_confirmation_message">Do you really want to delete the budget for "%s"? This action cannot be undone.</string>
+    <string name="budget_delete">Delete Budget</string>
+
 
     <!-- Budget Periods -->
     <string name="budget_period_daily">Daily</string>
@@ -257,6 +262,7 @@
     <string name="category_empty">No categories available</string>
     <string name="category_error_predefined_delete">Predefined categories cannot be deleted</string>
     <string name="category_error_name_empty">Please enter a name</string>
+    <string name="category_delete_confirmation_message">Do you really want to delete the category "%s"? This action cannot be undone.</string>
 
     <!-- ==========================================
          DIALOGS

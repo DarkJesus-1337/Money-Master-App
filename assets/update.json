@@ -1,5 +1,5 @@
 {
-  "version": "1.1.2",
-  "changelog": "\"fix: Navigation zwischen Dashboard und anderen Tabs korrigiert - Tab-Wechsel funktioniert jetzt korrekt ohne gestapelte Screens\"",
-  "apkUrl": "https://github.com/DarkJesus-1337/Money-Master-App/releases/download/v1.1.2/app-release.apk"
+  "version": "1.1.3",
+  "changelog": "\"refactor: Einheitliche Lösch-Dialoge implementiert - Alle Lösch-Aktionen verwenden jetzt konsistente Bestätigungsdialoge mit Warnhinweisen für bessere Benutzerfreundlichkeit\"",
+  "apkUrl": "https://github.com/DarkJesus-1337/Money-Master-App/releases/download/v1.1.3/app-release.apk"
 }

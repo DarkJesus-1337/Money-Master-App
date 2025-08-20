@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -14,7 +13,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -33,6 +31,7 @@ import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.util.UiState
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
 import com.pixelpioneer.moneymaster.ui.components.common.dialogs.AddEditCategoryDialog
+import com.pixelpioneer.moneymaster.ui.components.common.dialogs.GenericDeleteDialog
 import com.pixelpioneer.moneymaster.ui.components.common.empty.EmptyState
 import com.pixelpioneer.moneymaster.ui.components.common.error.ErrorState
 import com.pixelpioneer.moneymaster.ui.components.common.lists.CategoryList
@@ -49,7 +48,7 @@ fun CategoryManagementScreen(
     val scope = rememberCoroutineScope()
     var showAddDialog by remember { mutableStateOf(false) }
     var categoryToEdit by remember { mutableStateOf<TransactionCategory?>(null) }
-    var showDeleteDialog by remember { mutableStateOf<TransactionCategory?>(null) }
+    var categoryToDelete by remember { mutableStateOf<TransactionCategory?>(null) }
 
     Scaffold(
         topBar = {
@@ -103,8 +102,8 @@ fun CategoryManagementScreen(
                             showAddDialog = true
                         },
                         onDeleteCategory = { category ->
-                            if (category.id <= 10) {
-                                showDeleteDialog = category
+                            if (category.id > 10) {
+                                categoryToDelete = category
                             }
                         }
                     )
@@ -152,30 +151,21 @@ fun CategoryManagementScreen(
         )
     }
 
-    showDeleteDialog?.let { category ->
-        AlertDialog(
-            onDismissRequest = { showDeleteDialog = null },
-            title = { Text(stringResource(R.string.category_delete)) },
-            text = {
-                Text(stringResource(R.string.category_delete_warning))
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        scope.launch {
-                            viewModel.deleteCategory(category)
-                            showDeleteDialog = null
-                        }
-                    }
-                ) {
-                    Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)
+    GenericDeleteDialog(
+        showDialog = categoryToDelete != null,
+        title = stringResource(R.string.category_delete),
+        message = stringResource(R.string.category_delete_confirmation_message),
+        itemName = categoryToDelete?.name,
+        onConfirm = {
+            scope.launch {
+                categoryToDelete?.let { category ->
+                    viewModel.deleteCategory(category)
                 }
-            },
-            dismissButton = {
-                TextButton(onClick = { showDeleteDialog = null }) {
-                    Text(stringResource(R.string.action_cancel))
-                }
+                categoryToDelete = null
             }
-        )
-    }
+        },
+        onDismiss = {
+            categoryToDelete = null
+        }
+    )
 }

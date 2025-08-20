@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import com.pixelpioneer.moneymaster.data.model.Budget
+import com.pixelpioneer.moneymaster.ui.components.common.dialogs.GenericDeleteDialog
 import com.pixelpioneer.moneymaster.ui.components.utils.getBudgetPeriodText
 import com.pixelpioneer.moneymaster.ui.theme.progressColorEnd
 import com.pixelpioneer.moneymaster.ui.theme.progressColorMid
@@ -63,6 +64,7 @@ fun BudgetItem(
     onDelete: () -> Unit = {}
 ) {
     var showContextMenu by remember { mutableStateOf(false) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
@@ -132,7 +134,7 @@ fun BudgetItem(
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.action_delete)) },
                             onClick = {
-                                onDelete()
+                                showDeleteDialog = true
                                 showContextMenu = false
                             }
                         )
@@ -214,4 +216,18 @@ fun BudgetItem(
             )
         }
     }
+
+    GenericDeleteDialog(
+        showDialog = showDeleteDialog,
+        title = stringResource(R.string.budget_delete),
+        message = stringResource(R.string.budget_delete_confirmation_message),
+        itemName = budget.category.name,
+        onConfirm = {
+            onDelete()
+            showDeleteDialog = false
+        },
+        onDismiss = {
+            showDeleteDialog = false
+        }
+    )
 }

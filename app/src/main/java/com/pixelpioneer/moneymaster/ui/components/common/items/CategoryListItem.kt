@@ -1,6 +1,5 @@
 package com.pixelpioneer.moneymaster.ui.components.common.items
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -23,6 +22,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,6 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.data.model.TransactionCategory
+import com.pixelpioneer.moneymaster.ui.components.common.dialogs.GenericDeleteDialog
 
 @Composable
 fun CategoryListItem(
@@ -39,6 +43,8 @@ fun CategoryListItem(
     onEdit: () -> Unit,
     onDelete: () -> Unit
 ) {
+    var showDeleteDialog by remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
@@ -94,7 +100,7 @@ fun CategoryListItem(
                 }
 
                 if (!isPredefined) {
-                    IconButton(onClick = onDelete) {
+                    IconButton(onClick = { showDeleteDialog = true }) {
                         Icon(
                             Icons.Default.Delete,
                             contentDescription = stringResource(R.string.action_delete),
@@ -105,5 +111,19 @@ fun CategoryListItem(
             }
         }
     }
-}
 
+    // Delete Category Dialog mit GenericDeleteDialog
+    GenericDeleteDialog(
+        showDialog = showDeleteDialog,
+        title = stringResource(R.string.category_delete),
+        message = stringResource(R.string.category_delete_confirmation_message),
+        itemName = category.name,
+        onConfirm = {
+            onDelete()
+            showDeleteDialog = false
+        },
+        onDismiss = {
+            showDeleteDialog = false
+        }
+    )
+}

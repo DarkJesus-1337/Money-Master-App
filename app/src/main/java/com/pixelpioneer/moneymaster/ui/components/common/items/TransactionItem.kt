@@ -17,6 +17,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import com.pixelpioneer.moneymaster.data.model.Transaction
+import com.pixelpioneer.moneymaster.ui.components.common.dialogs.GenericDeleteDialog
 import com.pixelpioneer.moneymaster.ui.theme.expenseColor
 import com.pixelpioneer.moneymaster.ui.theme.incomeColor
 import java.text.SimpleDateFormat
@@ -54,6 +59,8 @@ fun TransactionItem(
 
     val amountColor = if (transaction.isExpense) expenseColor() else incomeColor()
     val amountPrefix = if (transaction.isExpense) "-" else "+"
+
+    var showDeleteDialog by remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
@@ -118,7 +125,7 @@ fun TransactionItem(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 IconButton(
-                    onClick = onDeleteClick,
+                    onClick = { showDeleteDialog = true },
                     modifier = Modifier.size(24.dp)
                 ) {
                     Icon(
@@ -130,4 +137,18 @@ fun TransactionItem(
             }
         }
     }
+
+    GenericDeleteDialog(
+        showDialog = showDeleteDialog,
+        title = stringResource(R.string.transaction_delete),
+        message = stringResource(R.string.transaction_delete_confirmation_message),
+        itemName = transaction.title,
+        onConfirm = {
+            onDeleteClick()
+            showDeleteDialog = false
+        },
+        onDismiss = {
+            showDeleteDialog = false
+        }
+    )
 }

@@ -98,6 +98,9 @@
     <string name="transactions_search">Transaktionen durchsuchen</string>
     <string name="transactions_in_category">Transaktionen in dieser Kategorie</string>
     <string name="transactions_from_receipt">Vom Beleg: %1$s</string>
+    <string name="transaction_delete_confirmation_message">Möchten Sie die Transaktion "%s" wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.</string>
+    <string name="transaction_delete">Transaktion löschen</string>
+
 
     <!-- Transaction Types & Properties -->
     <string name="transaction_income">Einnahme</string>
@@ -129,6 +132,8 @@
     <string name="budgets_remaining_format">Verbleibend: %1$s</string>
     <string name="budgets_warning_almost_used">Budget fast aufgebraucht!</string>
     <string name="budgets_more_options">Weitere Optionen</string>
+    <string name="budget_delete_confirmation_message">Möchten Sie das Budget für "%s" wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.</string>
+    <string name="budget_delete">Budget löschen</string>
 
     <!-- Budget Periods -->
     <string name="budget_period_daily">Täglich</string>
@@ -379,6 +384,7 @@
     <string name="categories_initialized">Kategorien wurden initialisiert</string>
     <string name="empty_categories_description">Standard-Kategorien werden geladen...</string>
     <string name="new_category">Neue Kategorie</string>
+    <string name="category_delete_confirmation_message">Möchten Sie die Kategorie "%s" wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.</string>
 
     <!-- ==========================================
          LOG MESSAGES (DEVELOPMENT)
