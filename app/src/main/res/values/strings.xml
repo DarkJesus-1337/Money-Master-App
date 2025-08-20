@@ -269,6 +269,8 @@
     <string name="dialog_update_title">Update Available</string>
     <string name="dialog_unsaved_changes">Unsaved Changes</string>
     <string name="dialog_unsaved_message">Do you want to save your changes?</string>
+    <string name="dialog_delete_transaction_with_title">Do you really want to delete the transaction \\"%1$s\\"?</string>
+    <string name="dialog_delete_warning">This action cannot be undone.</string>
 
     <!-- ==========================================
          UPDATE SYSTEM

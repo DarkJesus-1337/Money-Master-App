@@ -14,8 +14,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,7 +23,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -45,6 +42,7 @@ import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.util.FormatUtils
 import com.pixelpioneer.moneymaster.core.util.UiState
+import com.pixelpioneer.moneymaster.ui.components.common.dialogs.GenericDeleteDialog
 import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.navigation.Screen
 import com.pixelpioneer.moneymaster.ui.theme.incomeColor
@@ -76,13 +74,24 @@ fun TransactionDetailScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = {
-                        navController.navigate(Screen.EditTransaction.createRoute(transactionId.toString()))
-                    }) {
-                        Icon(
-                            painterResource(R.drawable.ic_edit),
-                            contentDescription = stringResource(R.string.action_edit)
-                        )
+                    if (transactionState is UiState.Success) {
+                        IconButton(onClick = {
+                            navController.navigate(Screen.EditTransaction.createRoute(transactionId.toString()))
+                        }) {
+                            Icon(
+                                painterResource(R.drawable.ic_edit),
+                                contentDescription = stringResource(R.string.action_edit)
+                            )
+                        }
+
+                        IconButton(onClick = {
+                            showDeleteDialog = true
+                        }) {
+                            Icon(
+                                painterResource(R.drawable.ic_delete),
+                                contentDescription = stringResource(R.string.action_delete)
+                            )
+                        }
                     }
                 }
             )
@@ -249,47 +258,20 @@ fun TransactionDetailScreen(
                         }
                     }
 
-                    if (showDeleteDialog) {
-                        AlertDialog(
-                            onDismissRequest = { showDeleteDialog = false },
-                            title = {
-                                Text(
-                                    stringResource(R.string.transactions_delete),
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                            },
-                            text = {
-                                Text(
-                                    stringResource(R.string.dialog_delete_transaction_message),
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                            },
-                            confirmButton = {
-                                Button(
-                                    onClick = {
-                                        transactionViewModel.deleteTransaction(transaction)
-                                        showDeleteDialog = false
-                                        navController.popBackStack()
-                                    }
-                                ) {
-                                    Text(
-                                        stringResource(R.string.action_delete),
-                                        style = MaterialTheme.typography.labelLarge
-                                    )
-                                }
-                            },
-                            dismissButton = {
-                                TextButton(
-                                    onClick = { showDeleteDialog = false }
-                                ) {
-                                    Text(
-                                        stringResource(R.string.action_cancel),
-                                        style = MaterialTheme.typography.labelLarge
-                                    )
-                                }
-                            }
-                        )
-                    }
+                    GenericDeleteDialog(
+                        showDialog = showDeleteDialog,
+                        title = stringResource(R.string.transactions_delete),
+                        message = stringResource(R.string.dialog_delete_transaction_message),
+                        itemName = transaction.title,
+                        onConfirm = {
+                            transactionViewModel.deleteTransaction(transaction)
+                            showDeleteDialog = false
+                            navController.popBackStack()
+                        },
+                        onDismiss = {
+                            showDeleteDialog = false
+                        }
+                    )
                 }
 
                 is UiState.Error -> {

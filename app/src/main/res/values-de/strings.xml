@@ -271,6 +271,8 @@
     <string name="dialog_update_title">Update verfügbar</string>
     <string name="dialog_unsaved_changes">Ungespeicherte Änderungen</string>
     <string name="dialog_unsaved_message">Möchten Sie Ihre Änderungen speichern?</string>
+    <string name="dialog_delete_transaction_with_title">Möchten Sie die Transaktion \\"%1$s\\" wirklich löschen?</string>
+    <string name="dialog_delete_warning">Diese Aktion kann nicht rückgängig gemacht werden.</string>
 
     <!-- ==========================================
          UPDATE SYSTEM
