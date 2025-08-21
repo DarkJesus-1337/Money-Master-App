@@ -18,10 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -29,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.util.UiState
-import com.pixelpioneer.moneymaster.ui.components.common.dialogs.DeleteBudgetDialog
 import com.pixelpioneer.moneymaster.ui.components.common.empty.EmptyBudgetsView
 import com.pixelpioneer.moneymaster.ui.components.common.indicators.ErrorMessage
 import com.pixelpioneer.moneymaster.ui.components.common.items.BudgetItem
@@ -83,7 +78,6 @@ fun BudgetsScreen(
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         items(budgetsState.data) { budget ->
-                            var showDeleteDialog by remember { mutableStateOf(false) }
 
                             BudgetItem(
                                 budget = budget,
@@ -94,20 +88,9 @@ fun BudgetsScreen(
                                     navController.navigate(Screen.EditBudget.createRoute(budget.id))
                                 },
                                 onDelete = {
-                                    showDeleteDialog = true
+                                    budgetViewModel.deleteBudget(budget)
                                 }
                             )
-
-                            if (showDeleteDialog) {
-                                DeleteBudgetDialog(
-                                    budget = budget,
-                                    onConfirm = {
-                                        budgetViewModel.deleteBudget(budget)
-                                        showDeleteDialog = false
-                                    },
-                                    onDismiss = { showDeleteDialog = false }
-                                )
-                            }
                         }
                     }
                 }

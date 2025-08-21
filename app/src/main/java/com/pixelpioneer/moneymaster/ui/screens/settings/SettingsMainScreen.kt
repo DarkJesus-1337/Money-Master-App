@@ -167,7 +167,6 @@ fun SettingsMainScreen(
                     onDismiss = {
                         showUpdateDialog = false
                         if (updateState !is AppUpdateManager.UpdateState.Downloading) {
-                            // Optional: Reset state to Idle
                         }
                     }
                 )

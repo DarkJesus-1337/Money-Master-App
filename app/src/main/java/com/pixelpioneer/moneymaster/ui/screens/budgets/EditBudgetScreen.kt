@@ -52,7 +52,7 @@ import com.pixelpioneer.moneymaster.R
 import com.pixelpioneer.moneymaster.core.util.UiState
 import com.pixelpioneer.moneymaster.data.enums.BudgetPeriod
 import com.pixelpioneer.moneymaster.ui.components.common.dialogs.CategorySelectorDialog
-import com.pixelpioneer.moneymaster.ui.components.common.dialogs.DeleteBudgetDialog
+import com.pixelpioneer.moneymaster.ui.components.common.dialogs.GenericDeleteDialog
 import com.pixelpioneer.moneymaster.ui.components.utils.getBudgetPeriodText
 import com.pixelpioneer.moneymaster.ui.viewmodel.BudgetViewModel
 
@@ -271,14 +271,18 @@ fun EditBudgetScreen(
     }
 
     if (showDeleteDialog && budget != null) {
-        DeleteBudgetDialog(
-            budget = budget,
+        GenericDeleteDialog(
+            showDialog = showDeleteDialog,
+            title = "Delete Budget",
+            message = stringResource(R.string.dialog_delete_budget_message, budget.category.name),
+            itemName = budget.category.name,
             onConfirm = {
                 budgetViewModel.deleteBudget(budget)
-                showDeleteDialog = false
-                navController.popBackStack()
-            },
-            onDismiss = { showDeleteDialog = false }
-        )
+                    showDeleteDialog = false
+                    navController.popBackStack()
+            }
+        ) {
+            showDeleteDialog = false
+        }
     }
 }

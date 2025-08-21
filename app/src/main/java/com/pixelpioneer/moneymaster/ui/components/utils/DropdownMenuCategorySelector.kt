@@ -55,7 +55,6 @@ fun DropdownMenuCategorySelector(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                // Farbindikator für die ausgewählte Kategorie
                 selectedCategory?.let { category ->
                     Box(
                         modifier = Modifier
@@ -82,7 +81,6 @@ fun DropdownMenuCategorySelector(
                         Row(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            // Farbindikator für jede Kategorie
                             Box(
                                 modifier = Modifier
                                     .size(16.dp)

@@ -91,8 +91,6 @@ class CategoryViewModel @Inject constructor(
         }
     }
 
-    // Fügen Sie diese Methoden zu Ihrem bestehenden CategoryViewModel hinzu:
-
     /**
      * Adds a new custom category.
      *
@@ -105,14 +103,14 @@ class CategoryViewModel @Inject constructor(
                 _categoriesState.value = UiState.Loading
 
                 val newCategory = TransactionCategory(
-                    id = 0, // Auto-generate ID
+                    id = 0,
                     name = name,
                     color = color,
-                    icon = 0 // Standard icon
+                    icon = 0
                 )
 
                 categoryRepository.insertCategory(newCategory)
-                refreshCategories() // Reload categories after adding
+                refreshCategories()
 
             } catch (e: Exception) {
                 _categoriesState.value = UiState.Error("Fehler beim Hinzufügen der Kategorie: ${e.message}")
@@ -129,7 +127,7 @@ class CategoryViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 categoryRepository.updateCategory(category)
-                refreshCategories() // Reload categories after update
+                refreshCategories()
             } catch (e: Exception) {
                 _categoriesState.value = UiState.Error("Fehler beim Aktualisieren der Kategorie: ${e.message}")
             }
@@ -145,18 +143,13 @@ class CategoryViewModel @Inject constructor(
     fun deleteCategory(category: TransactionCategory) {
         viewModelScope.launch {
             try {
-                // Verhindere das Löschen von vordefinierten Kategorien
                 if (category.id <= 10) {
                     _categoriesState.value = UiState.Error("Vordefinierte Kategorien können nicht gelöscht werden")
                     return@launch
                 }
 
-                // Aktualisiere alle Transaktionen mit dieser Kategorie auf "Sonstiges" (ID: 10)
-                // Dies müsste im TransactionRepository implementiert werden
-                // transactionRepository.updateCategoryForTransactions(category.id, 10)
-
                 categoryRepository.deleteCategory(category)
-                refreshCategories() // Reload categories after deletion
+                refreshCategories()
 
             } catch (e: Exception) {
                 _categoriesState.value = UiState.Error("Fehler beim Löschen der Kategorie: ${e.message}")

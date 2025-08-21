@@ -20,7 +20,6 @@ class SettingsRepository(context: Context) {
         context.getSharedPreferences("settings", Context.MODE_PRIVATE)
 
     companion object {
-        // Keys for tracking fixed costs addition
         private const val KEY_LAST_FIXED_COSTS_MONTH = "last_fixed_costs_month"
         private const val KEY_LAST_FIXED_COSTS_YEAR = "last_fixed_costs_year"
     }

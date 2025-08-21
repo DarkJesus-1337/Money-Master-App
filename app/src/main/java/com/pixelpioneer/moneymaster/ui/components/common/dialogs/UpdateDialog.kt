@@ -77,7 +77,6 @@ fun UpdateDialog(
                             .padding(24.dp)
                             .fillMaxWidth()
                     ) {
-                        // Update Title
                         Text(
                             text = stringResource(R.string.update_available_title),
                             style = MaterialTheme.typography.headlineSmall,
@@ -87,7 +86,6 @@ fun UpdateDialog(
 
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        // Version Info
                         Text(
                             text = stringResource(R.string.update_version, updateState.version),
                             style = MaterialTheme.typography.bodyMedium,
@@ -96,7 +94,6 @@ fun UpdateDialog(
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        // Changelog Section
                         Text(
                             text = stringResource(R.string.update_changelog_title),
                             style = MaterialTheme.typography.titleMedium,
@@ -105,7 +102,6 @@ fun UpdateDialog(
 
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        // Scrollable Changelog Content
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -126,7 +122,6 @@ fun UpdateDialog(
 
                         Spacer(modifier = Modifier.height(24.dp))
 
-                        // Action Buttons
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(

@@ -40,7 +40,6 @@ class SettingsViewModel @Inject constructor(
     private val _state = MutableStateFlow(loadSettings())
     val state: StateFlow<SettingsState> = _state
 
-    // State for fixed costs operations
     private val _fixedCostsOperationState = MutableStateFlow<FixedCostsOperationState>(FixedCostsOperationState.Idle)
     val fixedCostsOperationState: StateFlow<FixedCostsOperationState> = _fixedCostsOperationState
 
@@ -191,7 +190,6 @@ class SettingsViewModel @Inject constructor(
             try {
                 _fixedCostsOperationState.value = FixedCostsOperationState.Loading
 
-                // Check if fixed costs for this month already exist
                 if (checkIfFixedCostsAlreadyAdded()) {
                     _fixedCostsOperationState.value = FixedCostsOperationState.Error(
                         context.getString(R.string.fixed_costs_already_added)
@@ -199,10 +197,8 @@ class SettingsViewModel @Inject constructor(
                     return@launch
                 }
 
-                // Get or create the Housing category
                 val housingCategory = getOrCreateHousingCategory()
 
-                // Collect all fixed costs
                 val fixedCosts = collectAllFixedCosts()
 
                 if (fixedCosts.isEmpty()) {
@@ -212,10 +208,9 @@ class SettingsViewModel @Inject constructor(
                     return@launch
                 }
 
-                // Create transactions for each fixed cost
                 var successCount = 0
                 val calendar = Calendar.getInstance()
-                calendar.set(Calendar.DAY_OF_MONTH, 1) // Set to first day of month
+                calendar.set(Calendar.DAY_OF_MONTH, 1)
                 calendar.set(Calendar.HOUR_OF_DAY, 12)
                 calendar.set(Calendar.MINUTE, 0)
                 calendar.set(Calendar.SECOND, 0)
@@ -235,7 +230,6 @@ class SettingsViewModel @Inject constructor(
                     successCount++
                 }
 
-                // Save marker that fixed costs have been added for this month
                 saveFixedCostsAddedMarker()
 
                 _fixedCostsOperationState.value = FixedCostsOperationState.Success(
@@ -258,7 +252,6 @@ class SettingsViewModel @Inject constructor(
     fun collectAllFixedCosts(): List<Pair<String, Double>> {
         val fixedCosts = mutableListOf<Pair<String, Double>>()
 
-        // Standard fixed costs
         _state.value.rent.toDoubleOrNull()?.let { amount ->
             if (amount > 0) {
                 fixedCosts.add(context.getString(R.string.settings_rent).removeSuffix(" (€)") to amount)
@@ -283,7 +276,6 @@ class SettingsViewModel @Inject constructor(
             }
         }
 
-        // Additional fixed costs
         _state.value.additionalCosts.forEach { cost ->
             cost.value.toDoubleOrNull()?.let { amount ->
                 if (amount > 0 && cost.label.isNotBlank()) {
@@ -303,7 +295,6 @@ class SettingsViewModel @Inject constructor(
     private suspend fun getOrCreateHousingCategory(): TransactionCategory {
         val categories = categoryRepository.allCategories.first()
 
-        // Try to find existing Housing category
         val housingCategory = categories.find { category ->
             category.name == context.getString(R.string.category_housing)
         }
@@ -312,7 +303,6 @@ class SettingsViewModel @Inject constructor(
             return housingCategory
         }
 
-        // Create new Housing category if it doesn't exist
         val newCategory = TransactionCategory(
             name = context.getString(R.string.category_housing),
             color = 0xFF2196F3.toInt(),

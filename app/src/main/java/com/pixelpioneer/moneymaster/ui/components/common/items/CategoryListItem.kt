@@ -112,7 +112,6 @@ fun CategoryListItem(
         }
     }
 
-    // Delete Category Dialog mit GenericDeleteDialog
     GenericDeleteDialog(
         showDialog = showDeleteDialog,
         title = stringResource(R.string.category_delete),
