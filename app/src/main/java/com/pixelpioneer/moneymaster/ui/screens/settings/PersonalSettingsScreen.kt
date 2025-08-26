@@ -200,7 +200,7 @@ fun PersonalSettingsScreen(
                         label = { Text(stringResource(R.string.settings_gas)) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         leadingIcon = {
-                            Icon(Icons.Default.LocalGasStation, contentDescription = null)
+                            Icon(painterResource(R.drawable.ic_fire_department), contentDescription = null)
                         },
                         modifier = Modifier.fillMaxWidth()
                     )

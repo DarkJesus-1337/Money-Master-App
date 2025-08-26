@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.AccountBalance
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material.icons.filled.Category
@@ -28,7 +29,7 @@ sealed class Screen(
     data object Transactions :
         Screen("transactions", R.string.nav_transactions, Icons.AutoMirrored.Filled.List)
 
-    data object Budgets : Screen("budgets", R.string.nav_budgets, Icons.Filled.DateRange)
+    data object Budgets : Screen("budgets", R.string.nav_budgets, Icons.Filled.AccountBalance)
     data object Statistics : Screen("statistics", R.string.nav_statistics, Icons.Filled.PieChart)
     data object ReceiptScan : Screen("receipt_scan", R.string.nav_receipts, Icons.Filled.Camera)
     data object Settings : Screen("settings", R.string.nav_settings, Icons.Filled.Settings)
