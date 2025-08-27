@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.pixelpioneer.moneymaster.R
@@ -37,7 +38,9 @@ fun EmptyTransactionsList(
     ) {
         Text(
             text = stringResource(R.string.empty_transactions_title),
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            fontWeight = Bold
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -45,6 +48,7 @@ fun EmptyTransactionsList(
         Text(
             text = stringResource(R.string.empty_transactions_description),
             style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center
         )
 
