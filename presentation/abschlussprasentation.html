@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MoneyMaster - Abschlusspräsentation</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,7 +14,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #2d1b69 0%, #11998e 100%);
+            background: linear-gradient(135deg, #1a1035 0%, #11998e 100%);
             color: white;
             height: 100vh;
             overflow: hidden;
@@ -48,18 +49,21 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.15);
         }
 
         .slide h2 {
             font-size: 3rem;
             margin-bottom: 2rem;
             color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .slide h3 {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
             color: #a5d6a7;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.15);
         }
 
         .subtitle {
@@ -78,8 +82,8 @@
         }
 
         .nav-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.25);
             color: white;
             padding: 12px 24px;
             border-radius: 25px;
@@ -87,26 +91,31 @@
             font-size: 16px;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
         }
 
         .nav-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         .slide-counter {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             padding: 8px 16px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .content-grid {
@@ -133,55 +142,28 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .content-list li::before {
-            content: "💡";
-            font-size: 1.5rem;
+            font-family: 'Material Icons';
+            font-size: 1.2rem;
+            color: #66bb6a;
         }
 
-        .feature-list li::before { content: "⭐"; }
-        .challenge-list li::before { content: "💪"; }
-        .achievement-list li::before { content: "🏆"; }
-        .outlook-list li::before { content: "🚀"; }
+        .feature-list li::before { content: "diamond"; }
+        .challenge-list li::before { content: "trending_flat"; color: #ff8a65; }
+        .achievement-list li::before { content: "check_circle"; color: #81c784; }
+        .outlook-list li::before { content: "arrow_forward"; color: #64b5f6; }
 
         .demo-section {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             padding: 2rem;
             border-radius: 15px;
             margin: 2rem 0;
             backdrop-filter: blur(10px);
-        }
-
-        .app-screenshots {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            margin: 2rem 0;
-        }
-
-        .screenshot {
-            width: 200px;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .screenshot-real {
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .screenshot-real img {
-            border: none;
-            display: block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .tech-stack {
@@ -192,16 +174,25 @@
         }
 
         .tech-item {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             padding: 1.5rem;
             border-radius: 10px;
             text-align: center;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .app-icon {
-            font-size: 3rem;
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .tech-icon {
             margin-bottom: 1rem;
+            color: #66bb6a;
+            font-size: 2.5rem;
         }
 
         .highlight {
@@ -221,291 +212,336 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .mobile-phones {
-            position: absolute;
-            right: -50px;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0.1;
-            font-size: 20rem;
+        .screenshot-real {
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .screenshot-real:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .screenshot-real img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .app-logo {
+            width: 250px;
+            height: auto;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+        }
+
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2d1b69 0%, #11998e 100%);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .large-icon {
+            font-size: 40px;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <div class="presentation-container">
+<div class="presentation-container">
 
-
-        <!-- Slide 1: Titel -->
-        <div class="slide active fade-in">
-            <div class="mobile-phones">📱</div>
-            <img src="money-master-logo.png" alt="MoneyMaster Logo" style="width: 500px; height: auto;">
-            <p style="font-size: 1.2rem; margin-top: 2rem;">Intelligente Finanzverwaltung für den Alltag</p>
+    <!-- Slide 1: Titel -->
+    <div class="slide active fade-in">
+        <div class="logo-container">
+            <img src="money-master-logo.png" alt="MoneyMaster Logo" class="app-logo">
+            <h1>MoneyMaster</h1>
+            <p style="font-size: 1.4rem; margin-top: 1rem;">Intelligente Finanzverwaltung für den Alltag</p>
             <p class="subtitle">Abschlusspräsentation - Mobile App Entwicklung</p>
-            <p style="font-size: 1.1rem; margin-top: 2rem; color: #0D1116;">
-                Entwickelt von<span class="highlight"> <strong>Sebastian Dendtler</strong> </span>
+            <p style="font-size: 1.2rem; margin-top: 2rem;">
+                Entwickelt von <span class="highlight"><strong>Sebastian Dendtler</strong></span>
             </p>
         </div>
+    </div>
 
+    <!-- Slide 2: App-Idee & Motivation -->
+    <div class="slide fade-in">
+        <h2>App-Konzept & Zielsetzung</h2>
+        <div class="content-grid">
+            <div class="content-left">
+                <h3>Das Projekt</h3>
+                <ul class="content-list">
+                    <li><strong>Name:</strong> <span class="highlight">MoneyMaster</span></li>
+                    <li><strong>Kategorie:</strong> Persönliche Finanzverwaltung</li>
+                    <li><strong>Zielgruppe:</strong> Nutzer aller Altersgruppen</li>
+                    <li><strong>Problemstellung:</strong> Komplexe Bedienung bestehender Apps</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <h3>Projektmotivation</h3>
+                <ul class="content-list">
+                    <li>Intuitive Benutzeroberfläche entwickeln</li>
+                    <li>Moderne Android-Technologien erlernen</li>
+                    <li>OCR-Integration für Automatisierung</li>
+                    <li>Praxisnahe Lösung für den Alltag schaffen</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-
-        <!-- Slide 2: App-Idee & Motivation -->
-        <div class="slide fade-in">
-            <h2>App-Idee & Motivation</h2>
-            <div class="content-grid">
-                <div class="content-left">
-                    <h3>💡 Die Idee</h3>
-                    <ul class="content-list">
-                        <li><strong>Name:</strong> <span class="highlight">MoneyMaster</span></li>
-                        <li><strong>Vision:</strong> Intelligente Finanzverwaltung</li>
-                        <li><strong>Zielgruppe:</strong> Jeden, der seine Finanzen besser verstehen will</li>
-                        <li><strong>Problem:</strong> Komplexe Finanz-Apps, die schwer zu bedienen sind</li>
-                    </ul>
+    <!-- Slide 3: Kern-Features -->
+    <div class="slide fade-in">
+        <h2>Hauptfunktionen</h2>
+        <div class="content-grid" style="margin: 2rem 0;">
+            <div class="content-left">
+                <div class="tech-item" style="margin-bottom: 1.5rem;">
+                    <div class="tech-icon"><i class="material-icons" style="font-size: 3rem;">dashboard</i></div>
+                    <h3>Finanzübersicht</h3>
+                    <p>Zentrale Übersicht mit Diagrammen und Trends</p>
                 </div>
-                <div class="content-right">
-                    <h3>🎯 Motivation</h3>
-                    <ul class="content-list">
-                        <li>Einfache, intuitive Bedienung</li>
-                        <li>Automatisierung durch OCR-Scanner</li>
-                        <li>Moderne Technologien lernen</li>
-                        <li>Echten Mehrwert für Nutzer schaffen</li>
-                    </ul>
+                <div class="tech-item">
+                    <div class="tech-icon"><i class="material-icons" style="font-size: 3rem;">document_scanner</i></div>
+                    <h3>Belegscanner</h3>
+                    <p>OCR-basierte Belegerkennung und Datenextraktion</p>
+                </div>
+            </div>
+            <div class="content-right">
+                <div class="tech-item" style="margin-bottom: 1.5rem;">
+                    <div class="tech-icon"><i class="material-icons" style="font-size: 3rem;">account_balance_wallet</i></div>
+                    <h3>Budgetplanung</h3>
+                    <p>Kategoriebasierte Budgetverwaltung</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon"><i class="material-icons" style="font-size: 3rem;">insights</i></div>
+                    <h3>Analysen</h3>
+                    <p>Detaillierte Statistiken und Ausgabentrends</p>
                 </div>
             </div>
         </div>
+        <p style="font-size: 1.2rem; text-align: center;">
+            <span class="highlight">Kernmerkmal:</span> Kombination aus OCR-Technologie und modernem UI-Design
+        </p>
+    </div>
 
-        <!-- Slide 3: Kern-Features -->
-        <div class="slide fade-in">
-            <h2>Kern-Features</h2>
-            <div class="content-grid" style="margin: 2rem 0;">
-                <div class="content-left">
-                    <div class="tech-item" style="margin-bottom: 1.5rem;">
-                        <div class="app-icon">📊</div>
-                        <h3>Dashboard</h3>
-                        <p>Übersichtliche Finanzdarstellung mit Charts und Trends</p>
-                    </div>
-                    <div class="tech-item">
-                        <div class="app-icon">🧾</div>
-                        <h3>OCR-Scanner</h3>
-                        <p>Automatische Belegerkennung und Transaktionserstellung</p>
-                    </div>
-                </div>
-                <div class="content-right">
-                    <div class="tech-item" style="margin-bottom: 1.5rem;">
-                        <div class="app-icon">💰</div>
-                        <h3>Budget-Management</h3>
-                        <p>Intelligente Budgetplanung mit Benachrichtigungen</p>
-                    </div>
-                    <div class="tech-item">
-                        <div class="app-icon">📈</div>
-                        <h3>Statistiken</h3>
-                        <p>Detaillierte Analysen und Trends der Ausgaben</p>
-                    </div>
-                </div>
+    <!-- Slide 4: Live Demo -->
+    <div class="slide fade-in">
+        <h2>Funktionsdemonstration</h2>
+        <div class="content-grid" style="align-items: center;">
+            <div class="content-left">
+                <h3>Demo-Ablauf</h3>
+                <ul class="content-list feature-list">
+                    <li>Dashboard-Navigation</li>
+                    <li>Transaktionsverwaltung</li>
+                    <li>OCR-Scanner-Funktionalität</li>
+                    <li>Budgeterstellung und -überwachung</li>
+                    <li>Statistik- und Analyse-Features</li>
+                </ul>
             </div>
-            <p style="font-size: 1.2rem; text-align: center;">
-                <span class="highlight">Alleinstellungsmerkmal:</span> Kombination aus OCR-Technologie und modernem UI-Design
-            </p>
-        </div>
-
-        <!-- Slide 4: Live Demo -->
-        <div class="slide fade-in">
-            <h2>Live Demo</h2>
-            <div class="content-grid" style="align-items: center;">
-                <div class="content-left">
-                    <h3>🎬 Demo-Ablauf</h3>
-                    <ul class="content-list feature-list">
-                        <li>Dashboard-Übersicht</li>
-                        <li>OCR-Scanner in Aktion</li>
-                        <li>Budget-Erstellung</li>
-                        <li>Statistik-Charts</li>
-                        <li>Navigation zwischen Screens</li>
-                    </ul>
-                </div>
-                <div class="content-right">
-                    <div class="demo-section" style="margin: 0;">
-                        <div style="display: flex; gap: 1rem; justify-content: center;">
-                            <div class="screenshot-real" style="width: 150px; height: 300px;">
-                                <img src="dashboard-screenshot.png" alt="Dashboard Screenshot" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;" />
-                                <p style="font-size: 0.9rem; text-align: center; margin-top: 0.5rem;">Dashboard</p>
-                            </div>
-                            <div class="screenshot-real" style="width: 150px; height: 300px;">
-                                <img src="receipts-screenshot.png" alt="Scanner Screenshot" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;" />
-                                <p style="font-size: 0.9rem; text-align: center; margin-top: 0.5rem;">OCR Scanner</p>
-                            </div>
+            <div class="content-right">
+                <div class="demo-section" style="margin: 0;">
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <div class="screenshot-real" style="width: 150px; height: 300px;">
+                            <img src="dashboard-screenshot.png" alt="Dashboard Screenshot">
                         </div>
-                        <p style="text-align: center; margin-top: 1rem; font-size: 1.1rem;">
-                            <span class="highlight">Live-Vorführung</span> der App-Features
-                        </p>
+                        <div class="screenshot-real" style="width: 150px; height: 300px;">
+                            <img src="receipts-screenshot.png" alt="Receipts Screenshot">
+                        </div>
                     </div>
+                    <p style="text-align: center; margin-top: 1rem; font-size: 1.1rem;">
+                        <span class="highlight">Live-Demonstration</span> der App-Features
+                    </p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Slide 5: Challenges & Achievements -->
-        <div class="slide fade-in">
-            <h2>Challenges & Achievements</h2>
-            <div class="content-grid">
-                <div class="content-left">
-                    <h3>💪 Herausforderungen</h3>
-                    <ul class="content-list challenge-list">
-                        <li>OCR-Integration und Bildverarbeitung</li>
-                        <li>Komplexe Navigation mit Jetpack Compose</li>
-                        <li>State Management bei mehreren Screens</li>
-                        <li>Performance-Optimierung bei Charts</li>
-                    </ul>
+    <!-- Slide 5: Challenges & Achievements -->
+    <div class="slide fade-in">
+        <h2>Herausforderungen & Erfolge</h2>
+        <div class="content-grid">
+            <div class="content-left">
+                <h3>Technische Herausforderungen</h3>
+                <ul class="content-list challenge-list">
+                    <li>OCR-Integration und Bildverarbeitung</li>
+                    <li>Komplexe Navigation mit Jetpack Compose</li>
+                    <li>State Management bei mehreren Screens</li>
+                    <li>Performance-Optimierung bei Diagrammen</li>
+                    <li>Asynchrone Datenverarbeitung mit Coroutines</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <h3>Erreichte Ziele</h3>
+                <ul class="content-list achievement-list">
+                    <li>Vollständige MVVM-Architektur implementiert</li>
+                    <li>Automatisches Update-System entwickelt</li>
+                    <li>Mehrsprachige Unterstützung (DE/EN)</li>
+                    <li>Dark Mode und responsive UI</li>
+                    <li>Offline-Funktionalität mit Room Database</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Technische Details -->
+    <div class="slide fade-in">
+        <h2>Technische Architektur</h2>
+        <div class="content-grid" style="margin: 1rem 0;">
+            <div class="content-left">
+                <div class="tech-item" style="margin-bottom: 1rem;">
+                    <div class="tech-icon"><i class="material-icons" style="font-size: 3rem;">code</i></div>
+                    <h3>Kotlin</h3>
+                    <p>Moderne Android-Entwicklung</p>
                 </div>
-                <div class="content-right">
-                    <h3>🏆 Achievements</h3>
-                    <ul class="content-list achievement-list">
-                        <li>Vollständige MVVM-Architektur implementiert</li>
-                        <li>Automatisches Update-System entwickelt</li>
-                        <li>Mehrsprachige App (DE/EN)</li>
-                        <li>Dark Mode und moderne UI</li>
-                    </ul>
+                <div class="tech-item" style="margin-bottom: 1rem;">
+                    <div class="tech-icon"><i class="material-icons" style="font-size: 3rem;">view_quilt</i></div>
+                    <h3>Jetpack Compose</h3>
+                    <p>Deklaratives UI-Framework</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon"><i class="material-icons" style="font-size: 3rem;">architecture</i></div>
+                    <h3>MVVM Pattern</h3>
+                    <p>Clean Architecture Prinzipien</p>
+                </div>
+            </div>
+            <div class="content-right">
+                <div class="tech-item" style="margin-bottom: 1rem;">
+                    <div class="tech-icon"><i class="material-icons" style="font-size: 3rem;">storage</i></div>
+                    <h3>Room Database</h3>
+                    <p>Lokale Datenpersistierung</p>
+                </div>
+                <div class="tech-item" style="margin-bottom: 1rem;">
+                    <div class="tech-icon"><i class="material-icons" style="font-size: 3rem;">sync</i></div>
+                    <h3>Coroutines</h3>
+                    <p>Asynchrone Programmierung</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon"><i class="material-icons" style="font-size: 3rem;">document_scanner</i></div>
+                    <h3>OCR-Integration</h3>
+                    <p>Automatische Texterkennung</p>
                 </div>
             </div>
         </div>
+        <p style="text-align: center; font-size: 1.1rem; margin-top: 1rem;">
+            <span class="highlight">Modern Android Development</span> mit bewährten Design Patterns
+        </p>
+    </div>
 
-        <!-- Slide 6: Technische Details -->
-        <div class="slide fade-in">
-            <h2>Tech Stack</h2>
-            <div class="content-grid" style="margin: 1rem 0;">
-                <div class="content-left">
-                    <div class="tech-item" style="margin-bottom: 1rem;">
-                        <div class="app-icon">⚡</div>
-                        <h3>Kotlin</h3>
-                        <p>Moderne Android-Entwicklung</p>
-                    </div>
-                    <div class="tech-item" style="margin-bottom: 1rem;">
-                        <div class="app-icon">🎨</div>
-                        <h3>Jetpack Compose</h3>
-                        <p>Deklaratives UI-Framework</p>
-                    </div>
-                    <div class="tech-item">
-                        <div class="app-icon">🏗️</div>
-                        <h3>MVVM + Repository</h3>
-                        <p>Saubere Architektur</p>
-                    </div>
-                </div>
-                <div class="content-right">
-                    <div class="tech-item" style="margin-bottom: 1rem;">
-                        <div class="app-icon">💾</div>
-                        <h3>Room Database</h3>
-                        <p>Lokale Datenspeicherung</p>
-                    </div>
-                    <div class="tech-item" style="margin-bottom: 1rem;">
-                        <div class="app-icon">🔄</div>
-                        <h3>Coroutines</h3>
-                        <p>Asynchrone Programmierung</p>
-                    </div>
-                    <div class="tech-item">
-                        <div class="app-icon">📸</div>
-                        <h3>OCR-Integration</h3>
-                        <p>Automatische Texterkennung</p>
-                    </div>
-                </div>
+    <!-- Slide 7: Ausblick -->
+    <div class="slide fade-in">
+        <h2>Weiterentwicklung</h2>
+        <div class="content-grid">
+            <div class="content-left">
+                <h3>Geplante Erweiterungen</h3>
+                <ul class="content-list outlook-list">
+                    <li>Cloud-Synchronisation implementieren</li>
+                    <li>Export-Funktionen (PDF, Excel)</li>
+                    <li>Erweiterte Kategorisierung</li>
+                    <li>Banking-API Integration</li>
+                    <li>Erweiterte Kryptowährungsfeatures</li>
+                </ul>
             </div>
-            <p style="text-align: center; font-size: 1.1rem; margin-top: 1rem;">
-                <span class="highlight">Modern Android Development</span> mit bewährten Patterns
-            </p>
-        </div>
-
-        <!-- Slide 7: Ausblick -->
-        <div class="slide fade-in">
-            <h2>Ausblick</h2>
-            <div class="content-grid">
-                <div class="content-left">
-                    <h3>🚀 Geplante Features</h3>
-                    <ul class="content-list outlook-list">
-                        <li>Cloud-Synchronisation</li>
-                        <li>Export-Funktionen (PDF, Excel)</li>
-                        <li>Erweiterte Kategorisierung</li>
-                        <li>Banking-API Integration</li>
-                        <li>Sparzielen und Challenges</li>
-                    </ul>
-                </div>
-                <div class="content-right">
-                    <h3>📈 Nächste Schritte</h3>
-                    <ul class="content-list outlook-list">
-                        <li>Play Store Veröffentlichung</li>
-                        <li>User Feedback sammeln</li>
-                        <li>Performance-Optimierungen</li>
-                        <li>Feature-Erweiterungen</li>
-                        <li>Möglicherweise iOS-Version</li>
-                    </ul>
-                </div>
+            <div class="content-right">
+                <h3>Nächste Entwicklungsschritte</h3>
+                <ul class="content-list outlook-list">
+                    <li>Play Store Veröffentlichung vorbereiten</li>
+                    <li>Benutzer-Feedback sammeln und auswerten</li>
+                    <li>Performance-Optimierungen durchführen</li>
+                    <li>Code-Refactoring und Tests erweitern</li>
+                    <li>Eventuelle iOS-Version evaluieren</li>
+                </ul>
             </div>
         </div>
+    </div>
 
-        <!-- Slide 8: Vielen Dank -->
-        <div class="slide fade-in">
-            <h1>Vielen Dank!</h1>
-            <div class="app-icon">🙏</div>
-            <p class="subtitle">Fragen & Diskussion</p>
-            <div style="margin-top: 3rem;">
-                <p style="font-size: 1.3rem;">
-                    GitHub:
-                    <a
+    <!-- Slide 8: Vielen Dank -->
+    <div class="slide fade-in">
+        <h1>Vielen Dank</h1>
+        <div class="icon-wrapper">
+            <i class="material-icons large-icon">thumb_up</i>
+        </div>
+        <div style="margin-top: 3rem;">
+            <p style="font-size: 1.3rem;">
+                <strong>GitHub Repository:</strong><br>
+                <a
                         href="https://github.com/DarkJesus-1337/Money-Master-App"
                         target="_blank"
                         class="highlight"
                         style="text-decoration: underline; color: inherit;"
-                    >
-                        DarkJesus-1337/MoneyMaster
-                    </a>
-                </p>
-                <p style="font-size: 1.2rem; margin-top: 1rem;">Download der APK über GitHub Releases verfügbar</p>
-            </div>
-        </div>
-
-        <div class="slide-counter">
-            <span id="currentSlide">1</span> / <span id="totalSlides">8</span>
-        </div>
-
-        <div class="navigation">
-            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Zurück</button>
-            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Weiter →</button>
+                >
+                    github.com/DarkJesus-1337/Money-Master-App
+                </a>
+            </p>
+            <p style="font-size: 1.2rem; margin-top: 1.5rem;">
+                APK-Download verfügbar über GitHub Releases
+            </p>
         </div>
     </div>
 
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
-        
-        document.getElementById('totalSlides').textContent = totalSlides;
+    <div class="slide-counter">
+        <span id="currentSlide">1</span> / <span id="totalSlides">8</span>
+    </div>
 
-        function showSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (n + totalSlides) % totalSlides;
-            slides[currentSlide].classList.add('active');
-            slides[currentSlide].classList.add('fade-in');
-            
-            document.getElementById('currentSlide').textContent = currentSlide + 1;
-            
-            document.getElementById('prevBtn').disabled = currentSlide === 0;
-            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Zurück</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Weiter →</button>
+    </div>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    document.getElementById('totalSlides').textContent = totalSlides;
+
+    function showSlide(n) {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (n + totalSlides) % totalSlides;
+        slides[currentSlide].classList.add('active');
+        slides[currentSlide].classList.add('fade-in');
+
+        document.getElementById('currentSlide').textContent = currentSlide + 1;
+
+        document.getElementById('prevBtn').disabled = currentSlide === 0;
+        document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+    }
+
+    function changeSlide(direction) {
+        if (direction === 1 && currentSlide < totalSlides - 1) {
+            showSlide(currentSlide + 1);
+        } else if (direction === -1 && currentSlide > 0) {
+            showSlide(currentSlide - 1);
         }
+    }
 
-        function changeSlide(direction) {
-            if (direction === 1 && currentSlide < totalSlides - 1) {
-                showSlide(currentSlide + 1);
-            } else if (direction === -1 && currentSlide > 0) {
-                showSlide(currentSlide - 1);
-            }
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'ArrowRight' || event.key === ' ') {
+            event.preventDefault();
+            changeSlide(1);
+        } else if (event.key === 'ArrowLeft') {
+            event.preventDefault();
+            changeSlide(-1);
         }
+    });
 
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'ArrowRight' || event.key === ' ') {
-                event.preventDefault();
-                changeSlide(1);
-            } else if (event.key === 'ArrowLeft') {
-                event.preventDefault();
-                changeSlide(-1);
-            }
-        });
-
-        showSlide(0);
-    </script>
+    showSlide(0);
+</script>
 </body>
 </html>
